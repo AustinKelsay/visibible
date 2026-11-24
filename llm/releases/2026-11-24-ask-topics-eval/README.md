@@ -43,7 +43,9 @@ Across all 45 cases the gate's bars hold: safety (no critical, no minor), absolu
 
   A test in `src/lib/__tests__/chat-evals.test.ts` fails when a kind Ask suggests has no case.
 - **Runs.**
-  - The runs used `npm run evals:chat` at `76eeaf8a`, with the candidate arm, two runs, one after the other. Each run gave 44 answers, every one with its Scripture included and finished by `stop`. The client system turn is refused by design. There were no errors or skips.
+  - The runs used `npm run evals:chat` at `76eeaf8a`, with the candidate arm, two runs, one after the other.
+  - Each run has 45 rows: 44 answers, every one with its Scripture included and finished by `stop`, and the client system turn, which is refused by design. There were no errors or skips.
+  - **Two runs, not three.** The release guide asks for three runs to judge a change to the rules or the model. Nothing in the chat changes here: the runs measure answers to new cases. For the same reason, the guide's PR artifacts (rollback plan and first-24-hour owner) do not apply.
 
   ```bash
   npm run evals:chat -- run --out llm/releases/2026-11-24-ask-topics-eval/luna-<i> --key-file <dev key> --arms candidate --model openai/gpt-6-luna --reasoning none --label luna --budget-usd 0.25
