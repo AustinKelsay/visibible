@@ -294,7 +294,7 @@ describe("a prose moment on the spread", () => {
     await settle();
 
     const area = container.querySelector('[aria-label="Picture"]')!;
-    expect(area.querySelector("img")?.getAttribute("src")).toBe("https://img.test/alice-1.webp");
+    expect(area.querySelector("canvas")?.getAttribute("data-glow")).toBe("https://img.test/alice-1.webp");
     expect(area.textContent).toContain("No picture for Down the Rabbit-Hole ¶5–6 yet");
     expect(area.textContent).toContain("Paint passages automatically as I read");
     expect(catalogRequests).toContain("/api/image-models?work=alice-in-wonderland");
