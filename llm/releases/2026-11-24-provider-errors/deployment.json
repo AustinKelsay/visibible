@@ -1,0 +1,33 @@
+{
+  "authorization": [
+    "After the 24 November image outage (OpenRouter 402 on the old production key's cap), follow-up 4 was offered: log OpenRouter's refusal reason and show readers \"images are temporarily unavailable\" instead of a 500. The owner said: \"Let's do two, three, and four as follow-ups now, end to end.\""
+  ],
+  "release": {
+    "pullRequests": [543],
+    "issue": 542,
+    "commit": "9cb39d3f (main)",
+    "summary": "When OpenRouter cannot take any request (401, 402, 408, 429, 5xx) the generic engine answers 503 \"Images are temporarily unavailable\" (retryable: false; the request id is spent) instead of a 500, and the log line carries the provider's status and reason (including metadata.raw, credentials masked, at most 300 characters). Other provider answers stay 500. The request record keeps only \"OpenRouter API error <status>\". seed:images holds the 503 at the ceiling.",
+    "leftOut": "Nothing: production was main 7b501d58, and main since then is only #541 (docs) and #543."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-24T21:12:00Z",
+        "commit": "9cb39d3f",
+        "vercel": "dpl_BV6NJVDFDc1KCSX3iMz2JFR6ogj5",
+        "convex": "Not pushed: no Convex change."
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com/john/1/7 answers 200; /api/image-models answers 200 with Classical, Watercolor, Fresco and Storybook available; the new deployment's logs show no errors in its first minutes. No picture was painted (that would spend OpenRouter credit), and the unavailable path cannot be exercised without breaking the production key; it is covered by credit-flow.test.ts.",
+    "beforeRelease": "lint (no new warnings), tsc, npm test 140 files / 1514 tests; CI quality-gates and CodeRabbit (no actionable comments) on 6c6aea19; sol-loop approved in 4 rounds."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_2TLot1u1wJvdiyxg12jNorZRwqkx (7b501d58, the previous production)."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}
