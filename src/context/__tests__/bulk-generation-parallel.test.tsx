@@ -1,0 +1,249 @@
+/* @vitest-environment jsdom */
+
+/**
+ * Painting four verses at once (#530): stopping, binding, credits, pause messages and the run lock with workers in
+ * flight. Each case drives the real coordinator with a stubbed image route and Convex.
+ */
+import { act, useEffect, useSyncExternalStore } from "react";
+import { createRoot } from "react-dom/client";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { BulkGenerationProvider, useBulkGeneration } from "@/context/bulk-generation-context";
+
+(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+const mocks = vi.hoisted(() => ({
+  mutation: vi.fn(),
+  client: { query: vi.fn() },
+}));
+vi.mock("convex/react", () => ({
+  useConvex: () => mocks.client,
+  useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
+  useMutation: () => mocks.mutation,
+  useQuery: () => useSyncExternalStore(subscribe, getServerJob),
+}));
+vi.mock("@/context/session-context", () => ({ useSession: () => ({ sid: "guest", credits: 100 }) }));
+vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
+
+let serverJob: Record<string, unknown> | undefined;
+const subscribers = new Set<() => void>();
+function subscribe(listener: () => void) {
+  subscribers.add(listener);
+  return () => { subscribers.delete(listener); };
+}
+function getServerJob() { return serverJob; }
+function publishServerJob(overrides: Record<string, unknown>) {
+  serverJob = {
+    _id: "bulk-1", status: "paused", modelId: "test", aspectRatio: "16:9",
+    resolution: "1K", translation: "web", artStyleId: "classical", engine: "generic",
+    totalVerses: 4, completedCount: 1, failedCount: 1, skippedCount: 0, totalCreditsUsed: 2,
+    pausedReason: "provider_unavailable", ...overrides,
+  };
+  subscribers.forEach((listener) => listener());
+}
+
+let bulk: ReturnType<typeof useBulkGeneration>;
+function Probe() {
+  const value = useBulkGeneration();
+  useEffect(() => { bulk = value; });
+  return null;
+}
+const success = () => Response.json({ creditsCost: 2, engine: "generic" });
+const refuse = (status: number, error: string, extra = {}) => Response.json({ error, ...extra }, { status });
+const spyFetch = (responder: (order: number) => Response | Promise<Response>) =>
+  vi.stubGlobal("fetch", vi.fn((_url: string, init?: RequestInit) => {
+    const request = JSON.parse(String(init?.body));
+    sent.push(request);
+    return Promise.resolve(responder(Number(request.requestId.at(-1))));
+  }));
+const sent: Array<{requestId: string; engine?: string}> = [];
+const orders = () => sent.map((request) => Number(request.requestId.at(-1)));
+const lock = () => localStorage.getItem("bulk-gen-lock-bulk-1");
+const started = async (count: number) => {
+  const root = createRoot(document.createElement("div"));
+  await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));
+  await act(async () => {
+    await bulk.startBulkGeneration({
+      scope: { type: "chapters", count: 1 }, scopeLabel: "Genesis 1", estimatedTotalCredits: count * 2, translation: "web",
+      queue: Array.from({ length: count }, (_, order) => ({ verseId: `verse-${order}`, reference: `Genesis 1:${order + 1}`, order })),
+    });
+  });
+  return root;
+};
+const wait = (assertion: () => void) => vi.waitFor(async () => {
+  await act(async () => {});
+  assertion();
+});
+function deferred<T>() {
+  let resolve!: (value: T) => void;
+  const promise = new Promise<T>((done) => { resolve = done; });
+  return { promise, resolve, done: false };
+}
+let onMutation: (args: Record<string, unknown>) => Promise<void> | void;
+let persistedStatus: string;
+let persistedReason: unknown;
+beforeEach(() => {
+  serverJob = undefined;
+  document.cookie = "visibible_csrf=" + "a".repeat(64);
+  const storage = new Map<string, string>();
+  vi.stubGlobal("localStorage", {
+    getItem: (key: string) => storage.get(key) ?? null,
+    setItem: (key: string, value: string) => storage.set(key, value),
+    removeItem: (key: string) => storage.delete(key),
+  });
+  sent.length = 0;
+  onMutation = () => {};
+  persistedStatus = "active";
+  persistedReason = null;
+  mocks.mutation.mockReset();
+  mocks.mutation.mockImplementation(async (args) => {
+    await onMutation(args);
+    if ("verses" in args) {
+      return { created: true, status: "active", bulkId: "bulk-1", totalVerses: args.verses.length,
+        completedCount: 0, failedCount: 0, skippedCount: 0, totalCreditsUsed: 0 };
+    }
+    if ("reason" in args) {
+      if (persistedStatus !== "active") return { updated: false };
+      persistedStatus = "paused";
+      persistedReason = args.reason;
+    }
+    return { updated: true };
+  });
+});
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
+
+it("sends nothing more when Stop is pressed while a rate limit is waited out", async () => {
+  const pendingRateWait = deferred<void>();
+  const originalTimeout = window.setTimeout.bind(window);
+  const waitIntercepted = deferred<void>();
+  vi.spyOn(window, "setTimeout").mockImplementation(((fn: () => void, delay?: number, ...args: unknown[]) => {
+    if (delay === 12345) {
+      waitIntercepted.resolve();
+      void pendingRateWait.promise.then(() => fn());
+      return 0;
+    }
+    return originalTimeout(fn, delay, ...args);
+  }) as typeof window.setTimeout);
+  spyFetch(() => sent.length === 1 ? refuse(429, "Rate limit exceeded", { retryAfter: 12.345 }) : success());
+  const root = await started(3);
+  await act(async () => waitIntercepted.promise);
+  await act(async () => bulk.cancelBulkGeneration());
+  expect(bulk.state.status).toBe("cancelled");
+  await act(async () => pendingRateWait.resolve());
+  await act(async () => {});
+  expect(orders()).toEqual([0]);
+  await act(async () => root.unmount());
+});
+
+it("keeps painting one verse at a time until a verse binds the job's engine", async () => {
+  spyFetch((order) => order === 0 ? refuse(503, "Image service busy") : success());
+  const root = await started(5);
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  expect(orders()).toEqual([0, 1, 2, 3, 4]);
+  // Genesis 1:2 binds the job; the three after it go out bound.
+  expect(sent.map((request) => request.engine ?? null)).toEqual([null, null, "generic", "generic", "generic"]);
+  await act(async () => root.unmount());
+});
+
+it("tries a verse refused for credits again only once every other verse has settled", async () => {
+  const second = deferred<Response>();
+  const third = deferred<Response>();
+  const fourth = deferred<Response>();
+  spyFetch((order) => order === 0 ? success() : order === 1
+    ? orders().filter((seen) => seen === 1).length === 1 ? second.promise : success()
+    : order === 2 ? third.promise : fourth.promise);
+  const root = await started(4);
+  await wait(() => expect(orders()).toEqual([0, 1, 2, 3]));
+  await act(async () => second.resolve(refuse(402, "Insufficient credits")));
+  await act(async () => third.resolve(success()));
+  await act(async () => {});
+  // The fourth verse still holds credits, so Genesis 1:2 waits.
+  expect(orders()).toEqual([0, 1, 2, 3]);
+  await act(async () => fourth.resolve(success()));
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  expect(orders()).toEqual([0, 1, 2, 3, 1]);
+  expect(persistedReason).toBeNull();
+  await act(async () => root.unmount());
+});
+
+it("retries rather than pauses when the other verse's hold settles while the refused one is handed back", async () => {
+  const second = deferred<Response>();
+  const third = deferred<Response>();
+  const requeue = deferred<void>();
+  const sawRequeue = deferred<void>();
+  onMutation = (args) => {
+    if (args.verseId === "verse-1" && args.status === "queued" && !sawRequeue.done) {
+      sawRequeue.done = true;
+      sawRequeue.resolve();
+      return requeue.promise;
+    }
+  };
+  spyFetch((order) => order === 0 ? success() : order === 1
+    ? orders().filter((seen) => seen === 1).length === 1 ? second.promise : success()
+    : third.promise);
+  const root = await started(3);
+  await wait(() => expect(orders()).toEqual([0, 1, 2]));
+  await act(async () => {
+    second.resolve(refuse(402, "Insufficient credits"));
+    await sawRequeue.promise;
+  });
+  await act(async () => third.resolve(success()));
+  await act(async () => requeue.resolve());
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  expect(orders()).toEqual([0, 1, 2, 1]);
+  expect(persistedReason).toBeNull();
+  await act(async () => root.unmount());
+});
+
+it("keeps the first pause's reason and message when a verse still painting is refused for another reason", async () => {
+  const second = deferred<Response>();
+  const third = deferred<Response>();
+  spyFetch((order) => order === 0 ? success() : order === 1 ? second.promise : third.promise);
+  const root = await started(3);
+  await wait(() => expect(orders()).toEqual([0, 1, 2]));
+  await act(async () => second.resolve(refuse(503, "Image service unavailable")));
+  await wait(() => expect(bulk.state.errorMessage).toContain("Pictures can't be made right now"));
+  await act(async () => third.resolve(refuse(429, "Daily spending limit exceeded")));
+  await act(async () => {});
+  expect(bulk.state.errorMessage).toContain("Pictures can't be made right now");
+  expect(persistedReason).toBe("provider_unavailable");
+  await act(async () => root.unmount());
+});
+
+it("holds the run lock after a failed claim until every verse in flight has settled", async () => {
+  const delayed = deferred<Response>();
+  const claim = deferred<void>();
+  onMutation = (args) => {
+    if (args.verseId === "verse-2" && args.status === "generating") return claim.promise.then(() => { throw new Error("Claim network/auth error"); });
+  };
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  spyFetch((order) => order === 0 ? success() : delayed.promise.then(() => success()));
+  const root = await started(5);
+  await wait(() => expect(orders()).toEqual([0, 1, 3, 4]));
+  await act(async () => claim.resolve());
+  await act(async () => {});
+  expect(lock()).toBeTruthy();
+  await act(async () => delayed.resolve(success()));
+  await wait(() => expect(lock()).toBeNull());
+  expect(bulk.state.completedCount).toBe(4);
+  await act(async () => root.unmount());
+});
+
+it("keeps a pause's message through the progress that verses still painting write after it", async () => {
+  const second = deferred<Response>();
+  const third = deferred<Response>();
+  const fourth = deferred<Response>();
+  spyFetch((order) => order === 0 ? success() : [second, third, fourth][order - 1].promise);
+  const root = await started(4);
+  await wait(() => expect(orders()).toEqual([0, 1, 2, 3]));
+  await act(async () => second.resolve(refuse(503, "Image service unavailable")));
+  await wait(() => expect(bulk.state.errorMessage).toContain("Pictures can't be made right now"));
+  await act(async () => publishServerJob({}));
+  await act(async () => third.resolve(success()));
+  await act(async () => publishServerJob({ completedCount: 2, totalCreditsUsed: 4 }));
+  expect(bulk.state.status).toBe("paused");
+  expect(bulk.state.errorMessage).toContain("Pictures can't be made right now");
+  await act(async () => fourth.resolve(success()));
+  await act(async () => root.unmount());
+});

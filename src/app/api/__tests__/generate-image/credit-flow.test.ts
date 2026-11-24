@@ -17,6 +17,8 @@ let failAdmission = false;
 let saveBarrier: Promise<void> | null = null;
 let failSave = false;
 let failReserve = false;
+// The losing side of a race: the balance read before admission covered the image, the hold itself is refused.
+let refuseReserve: "credits" | "daily" | null = null;
 let failDeduct = false;
 let deductCommitsThenThrows = false;
 let rateLimited = false;
@@ -124,6 +126,9 @@ vi.mock("@/lib/convex-client", () => ({
       if ("inputFingerprint" in args) {
         if (failAdmission) throw new Error("Admission unavailable");
         return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
+      }
+      if (getFunctionName(_apiPath) === "verseImages:withdrawRefusedRequest") {
+        return requestDb.mutation(api.verseImages.withdrawRefusedRequest, args as FunctionArgs<typeof api.verseImages.withdrawRefusedRequest>);
       }
       if ("requestId" in args && "status" in args) {
         return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
@@ -291,6 +296,8 @@ vi.mock("@/lib/convex-client", () => ({
         // reserveCredits
         mockState.callHistory.push({ action: "reserveCredits", args });
         if (failReserve) throw new Error("reservation unavailable");
+        if (refuseReserve === "daily") return { success: false, error: "Daily spending limit exceeded", dailyLimit: 5, dailySpent: 4.99, remaining: 0.01 };
+        if (refuseReserve === "credits") return { success: false, error: "Insufficient credits", required: args.amount, available: 0 };
         if (!session) return { success: false, error: "Session not found" };
 
         const amount = args.amount as number;
@@ -411,6 +418,7 @@ describe("Image Generation API Credit Flow", () => {
     saveBarrier = null;
     failSave = false;
     failReserve = false;
+    refuseReserve = null;
     failDeduct = false;
     deductCommitsThenThrows = false;
     rateLimited = false;
@@ -1485,6 +1493,21 @@ describe("Image Generation API Credit Flow", () => {
         expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
         expect(getCallCount("reserveCredits")).toBe(1);
         expect(getCallCount("saveImage")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+      });
+
+      it.each([["credits", 402], ["daily", 429]] as const)("keeps a request id usable when its hold is refused (%s): a parallel verse can retry it once others settle (#530)", async (refusal, status) => {
+        await prepareWork();
+        refuseReserve = refusal;
+        const { POST } = await import("../../generate-image/route");
+        const refused = await POST(createGenerateImageRequest(body));
+        expect(refused.status).toBe(status);
+        expect(await storedRequests()).toHaveLength(0);
+        expect(imageCalls()).toHaveLength(0);
+        refuseReserve = null;
+        const retried = await POST(createGenerateImageRequest(body));
+        expect(retried.status).toBe(200);
+        expect(await retried.json()).not.toHaveProperty("reused");
         expect(imageCalls()).toHaveLength(1);
       });
 

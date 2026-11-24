@@ -337,11 +337,15 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           return decline(503, "Unable to safely start image generation", "Please try again.", true);
         }
         if (!reserve.success) {
+          // Nothing was held or attempted: withdraw the request so its id can be sent again (#530). Should that fail,
+          // it ends failed as before.
+          const withdrawn = await convex.mutation(api.verseImages.withdrawRefusedRequest, { requestId, generationId, serverSecret })
+            .then((result) => result.withdrawn, () => false);
           if ("dailyLimit" in reserve) {
-            await update("failed", { error: "Daily spending limit exceeded" }).catch(() => {});
+            if (!withdrawn) await update("failed", { error: "Daily spending limit exceeded" }).catch(() => {});
             return respond(429, { error: "Daily spending limit exceeded", dailyLimit: reserve.dailyLimit, dailySpent: reserve.dailySpent, requestId, remaining: reserve.remaining });
           }
-          await update("failed", { error: "Insufficient credits" }).catch(() => {});
+          if (!withdrawn) await update("failed", { error: "Insufficient credits" }).catch(() => {});
           return respond(402, { error: "Insufficient credits", requestId, required: estimatedCreditsCost, available: "available" in reserve ? reserve.available : 0 });
         }
         reservationMade = true;

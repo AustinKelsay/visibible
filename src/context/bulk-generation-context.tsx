@@ -424,8 +424,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       failedCount: bulkForState.failedCount,
       skippedCount: bulkForState.skippedCount,
       totalCreditsUsed: bulkForState.totalCreditsUsed,
+      // A pause's own message stands through the progress that verses still painting write after it (#530).
       errorMessage:
-        bulkForState.status === "paused" && prev.status === "blocked"
+        bulkForState.status === "paused" && (prev.status === "blocked" || prev.status === "paused")
           ? prev.errorMessage
           : null,
     }));
@@ -537,14 +538,23 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
         // Up to four verses are painted at once (#530). Each is claimed queued → generating, so no two workers take one.
         const pending = [...queue];
+        // Verses refused for credits while others were painting: their holds may be what the balance lacked, so these
+        // are tried again one at a time once the parallel workers drain.
+        const deferred: BulkQueueItem[] = [];
         const inFlight = new Map<number, string>();
         // An outcome that pauses the job starts no new verses; those already sent finish and record their outcomes.
+        // The first such outcome owns the pause: its reason and message stand.
         let halted = false;
+        let workerFailed = false;
         const halt = () => {
+          const first = !halted;
           halted = true;
           isPausedRef.current = true;
           shouldMarkComplete = false;
+          return first;
         };
+        // Whether a verse refused before admission may be sent again after a wait: not once the job stops or pauses.
+        const stillWanted = () => !halted && !workerFailed && !isCancelledRef.current && !isPausedRef.current && !lostLockRef.current && ownsRunLock(bulkId);
         const showInFlight = () => {
           const earliest = [...inFlight.entries()].sort(([a], [b]) => a - b)[0];
           setState((prev) => ({ ...prev, currentVerseReference: earliest?.[1] ?? null }));
@@ -596,7 +606,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 hasCookieString: document.cookie.length > 0,
                 csrfToken: null,
               });
-              halt();
+              const first = halt();
               await updateVerseStatus({
                 sid,
                 bulkGenerationId: bulkId,
@@ -604,12 +614,14 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 status: "queued",
                 expectedCurrentStatus: "generating",
               });
-              await pauseBulk({ id: bulkId, sid });
-              setState((prev) => ({
-                ...prev,
-                status: "blocked",
-                errorMessage,
-              }));
+              if (first) {
+                await pauseBulk({ id: bulkId, sid });
+                setState((prev) => ({
+                  ...prev,
+                  status: "blocked",
+                  errorMessage,
+                }));
+              }
               return false;
             }
 
@@ -623,11 +635,20 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             });
             // Retryable refusals (a scene still preparing, a style briefly unavailable) get a few
             // tries; an accepted-but-unfinished earlier attempt (202) is waited on, never repeated.
+            // A refusal before admission started nothing: after its wait the verse goes back to the queue rather than
+            // being sent once the job is stopped, paused or handed to another tab.
+            const putBack = async () => {
+              await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
+              pending.unshift(item);
+              return true;
+            };
+            const overlappedAtSend = inFlight.size > 1;
             let response = await submit();
             for (let attempt = 0; attempt < ITEM_RETRY_LIMIT && response.status === 503; attempt++) {
               const body = await response.clone().json().catch(() => null);
               if (!body?.retryable) break;
               await sleep(ITEM_RETRY_DELAY_MS);
+              if (!stillWanted()) return await putBack();
               response = await submit();
             }
             // The site's rate limit is waited out and the same request sent again; the daily limit is not.
@@ -636,6 +657,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               if (body?.error === DAILY_LIMIT_ERROR) break;
               const seconds = Number(body?.retryAfter ?? response.headers.get("Retry-After"));
               await sleep((Number.isFinite(seconds) && seconds > 0 ? seconds : 60) * 1000);
+              if (!stillWanted()) return await putBack();
               response = await submit();
             }
             for (let waited = 0; waited < IN_FLIGHT_WAIT_LIMIT && response.status === 202; waited++) {
@@ -666,30 +688,34 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               });
             } else if (response.status === 202) {
               // Still running server-side after the wait: leave it queued so resume replays it.
-              halt();
+              const first = halt();
               await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
-              await pauseBulk({ id: bulkId, sid, reason: "in_flight" });
-              setState((prev) => ({ ...prev, status: "blocked", errorMessage: "An earlier attempt for this verse is still running. Resume in a moment to pick up its result." }));
+              if (first) {
+                await pauseBulk({ id: bulkId, sid, reason: "in_flight" });
+                setState((prev) => ({ ...prev, status: "blocked", errorMessage: "An earlier attempt for this verse is still running. Resume in a moment to pick up its result." }));
+              }
               return false;
             } else if (response.status === 402) {
+              // Other verses' holds may be what the balance lacked: this one is tried again, alone, once they settle.
+              const overlapped = overlappedAtSend || inFlight.size > 1;
               await updateVerseStatus({
                 sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "queued",
               });
-              // Other verses' holds may be what the balance lacks: try this one again once they settle.
-              if (inFlight.size > 1) {
-                pending.push(item);
+              if (overlapped) {
+                deferred.push(item);
                 return false;
               }
-              halt();
-              await pauseBulk({ id: bulkId, sid, reason: "credits" });
-              setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
+              if (halt()) {
+                await pauseBulk({ id: bulkId, sid, reason: "credits" });
+                setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
+              }
               return false;
             } else if (response.status === 429) {
               const daily = (await response.json().catch(() => null) as { error?: string } | null)?.error === DAILY_LIMIT_ERROR;
-              halt();
+              const first = halt();
               await updateVerseStatus({
                 sid,
                 bulkGenerationId: bulkId,
@@ -697,14 +723,16 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 status: "queued",
                 expectedCurrentStatus: "generating",
               });
-              await pauseBulk({ id: bulkId, sid, reason: daily ? "daily_limit" : "rate_limited" });
-              setState((prev) => ({
-                ...prev,
-                status: "blocked",
-                errorMessage: daily
-                  ? "This session has reached today's spending limit. Resume tomorrow to paint the rest."
-                  : "Rate limited. Resume to continue when capacity is available.",
-              }));
+              if (first) {
+                await pauseBulk({ id: bulkId, sid, reason: daily ? "daily_limit" : "rate_limited" });
+                setState((prev) => ({
+                  ...prev,
+                  status: "blocked",
+                  errorMessage: daily
+                    ? "This session has reached today's spending limit. Resume tomorrow to paint the rest."
+                    : "Rate limited. Resume to continue when capacity is available.",
+                }));
+              }
               return false;
             } else {
               const errData = await response.json().catch(() => null) as { error?: string; message?: string; retryable?: boolean } | null;
@@ -714,10 +742,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               if (bindingChanged || stillRetryable) {
                 // The job keeps its configuration and completed outcomes; nothing was charged. It
                 // waits for the engine or style to be admitted again rather than switching.
-                halt();
+                const first = halt();
                 await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
-                await pauseBulk({ id: bulkId, sid, reason: bindingChanged ? "engine_unavailable" : errData?.error === "Art style unavailable" ? "style_unavailable" : "preparing" });
-                setState((prev) => ({ ...prev, status: "blocked", errorMessage: `${errData?.message || errorMsg} The job is paused; resume when it is available again.` }));
+                if (first) {
+                  await pauseBulk({ id: bulkId, sid, reason: bindingChanged ? "engine_unavailable" : errData?.error === "Art style unavailable" ? "style_unavailable" : "preparing" });
+                  setState((prev) => ({ ...prev, status: "blocked", errorMessage: `${errData?.message || errorMsg} The job is paused; resume when it is available again.` }));
+                }
                 return false;
               }
               failed++;
@@ -730,8 +760,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 error: errorMsg,
               });
               // The provider refuses every picture (its key cap or balance): pause rather than fail the rest.
-              if (errData?.error === PROVIDER_UNAVAILABLE_ERROR) {
-                halt();
+              if (errData?.error === PROVIDER_UNAVAILABLE_ERROR && halt()) {
                 await pauseBulk({ id: bulkId, sid, reason: "provider_unavailable" });
                 setState((prev) => ({ ...prev, status: "blocked", errorMessage: "Pictures can't be made right now. Resume later to paint the rest." }));
               }
@@ -769,7 +798,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         };
 
         const worker = async (limit = Infinity) => {
-          for (let taken = 0; !halted && taken < limit; taken++) {
+          for (let taken = 0; !halted && !workerFailed && taken < limit; taken++) {
             if (lostLockRef.current || !ownsRunLock(bulkId)) {
               lostLockRef.current = true;
               return;
@@ -786,18 +815,31 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             showInFlight();
             try {
               if (!(await paintItem(item))) return;
+            } catch (error) {
+              // A failed write stops new claims; the run lock is released only once every worker has settled.
+              workerFailed = true;
+              throw error;
             } finally {
               inFlight.delete(item.order);
               showInFlight();
             }
           }
         };
-        // An unbound job paints its first verse alone, so every later verse is sent bound to that verse's engine (#178).
-        if (!settings.engine) await worker(1);
-        await Promise.all(Array.from({ length: BULK_CONCURRENCY }, () => worker()));
-        // Verses handed back for credits while others were painting get one worker of their own, which pauses for
-        // credits if the balance still cannot cover the next one.
-        if (pending.length > 0) await worker();
+        const runWorkers = async (count: number, limit?: number) => {
+          const settled = await Promise.allSettled(Array.from({ length: count }, () => worker(limit)));
+          const rejected = settled.find((result): result is PromiseRejectedResult => result.status === "rejected");
+          if (rejected) throw rejected.reason;
+        };
+        // An unbound job paints one verse at a time until one binds it, so every later verse goes out bound (#178).
+        while (!settings.engine && pending.length > 0 && !halted && !isCancelledRef.current && !lostLockRef.current) {
+          await runWorkers(1, 1);
+        }
+        await runWorkers(BULK_CONCURRENCY);
+        // Verses refused for credits while others painted are tried again one at a time; a refusal now pauses the job.
+        if (deferred.length > 0) {
+          pending.unshift(...deferred.splice(0));
+          await runWorkers(1);
+        }
 
         if (
           !lostLockRef.current &&
