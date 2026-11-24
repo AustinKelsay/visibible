@@ -128,6 +128,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const isCancelledRef = useRef(false);
   // Set while a Stop is on its way to Convex, so an older "active" snapshot can't undo it.
   const cancellingRef = useRef(false);
+  // A Resume that lands while a run is still draining finds no runner to start, so that run restarts once it ends.
+  const resumedDuringRunRef = useRef(false);
   const isRunningRef = useRef(false);
   const lostLockRef = useRef(false);
   const pausedResolverRef = useRef<(() => void) | null>(null);
@@ -401,6 +403,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!bulkForState) return;
 
+    if (isPausedRef.current && bulkForState.status === "active" && isRunningRef.current) {
+      resumedDuringRunRef.current = true;
+    }
     isPausedRef.current = bulkForState.status === "paused";
     isCancelledRef.current = bulkForState.status === "cancelled" || cancellingRef.current;
     if (bulkForState.status !== "paused") {
@@ -491,8 +496,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (!sid) return;
       if (isRunningRef.current) return;
       isRunningRef.current = true;
-      // A worker failed while the job was paused: a Resume that arrives before the run drains finds no runner.
-      let failedWhilePaused = false;
 
       try {
         let completed = initialCounters.completedCount;
@@ -830,7 +833,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               // A failed write stops new claims; the run lock is released only once every worker has settled, so
               // workers waiting for Resume are woken to finish.
               workerFailed = true;
-              failedWhilePaused ||= isPausedRef.current;
               pausedResolverRef.current?.();
               throw error;
             } finally {
@@ -874,7 +876,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         pausedResolverRef.current = null;
         isRunningRef.current = false;
         releaseRunLock(bulkId);
-        if (failedWhilePaused && !isPausedRef.current && !isCancelledRef.current) {
+        const resumed = resumedDuringRunRef.current;
+        resumedDuringRunRef.current = false;
+        if (resumed && !isPausedRef.current && !isCancelledRef.current) {
           setRunLoopTrigger((value) => value + 1);
         }
       }
@@ -1093,6 +1097,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         return;
       }
       setState((prev) => ({ ...prev, status: "active", errorMessage: null }));
+      if (isRunningRef.current) resumedDuringRunRef.current = true;
       isPausedRef.current = false;
       lostLockRef.current = false;
       pausedResolverRef.current?.();

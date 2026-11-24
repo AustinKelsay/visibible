@@ -351,3 +351,79 @@ it("keeps Stop in force when an older progress snapshot arrives before the cance
   await act(async () => root.unmount());
   mocks.client.query.mockReset();
 });
+
+
+it.each(["same tab", "another tab"])(
+  "starts a new run after a failed claim when a Resume from %s arrives while the old run drains",
+  async (resumeSource) => {
+    const rejectFirstClaim = deferred<void>();
+    const firstClaimSent = deferred<void>();
+    const finishQueueLoad = deferred<void>();
+    const wait429 = holdTimer(12345);
+    const done = deferred<void>();
+    const statuses = new Map([0, 1, 2, 3, 4].map((order) => [order, "queued"]));
+    let firstClaim = true;
+    let claimRejected = false;
+    onMutation = async (args) => {
+      if (!args.verseId) return;
+      const order = Number(String(args.verseId).at(-1));
+      if (order === 1 && args.status === "generating" && firstClaim) {
+        firstClaim = false;
+        firstClaimSent.resolve();
+        await rejectFirstClaim.promise;
+        claimRejected = true;
+        throw new Error("One transient claim error");
+      }
+      expect(statuses.get(order)).toBe(args.expectedCurrentStatus);
+      statuses.set(order, String(args.status));
+      if ([...statuses.values()].every((status) => status === "completed")) done.resolve();
+    };
+    mocks.client.query.mockImplementation(async () => {
+      if (serverJob?.status === "active") await finishQueueLoad.promise;
+      return [...statuses].map(([order, status]) => ({
+        verseId: `verse-${order}`, reference: `Genesis 1:${order + 1}`, order, status,
+      }));
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    spyFetch(() => claimRejected || orders().length === 1
+      ? success()
+      : refuse(429, "Rate limit exceeded", { retryAfter: 12.345 }));
+    const root = await started(5);
+    try {
+      await act(async () => firstClaimSent.promise);
+      if (resumeSource === "same tab") {
+        await act(async () => bulk.pauseBulkGeneration());
+        await act(async () => bulk.resumeBulkGeneration());
+      } else {
+        // A different connection can commit Pause and Resume while the owner's claim is pending.
+        await act(async () => publishServerJob({
+          status: "paused", totalVerses: 5, completedCount: 1, failedCount: 0,
+          totalCreditsUsed: 2, pausedReason: undefined,
+        }));
+        expect(bulk.state.status).toBe("paused");
+      }
+      mocks.client.query.mockClear();
+      // The Resume transition starts a getVerses query. Its result can arrive after
+      // the failed mutation and before other workers' HTTP waits have drained.
+      await act(async () => publishServerJob({
+        status: "active", totalVerses: 5, completedCount: 1, failedCount: 0,
+        totalCreditsUsed: 2, pausedReason: undefined,
+      }));
+      expect(mocks.client.query).toHaveBeenCalledTimes(1);
+      await act(async () => rejectFirstClaim.resolve());
+      expect(claimRejected).toBe(true);
+      const draining = lock() !== null;
+      if (draining) await act(async () => wait429.started);
+      await act(async () => finishQueueLoad.resolve());
+      await act(async () => wait429.fire());
+      await wait(() => expect(lock()).toBeNull());
+      expect(orders()).toContain(1);
+      await done.promise;
+      expect(bulk.state.status).toBe("completed");
+    } finally {
+      await act(async () => { rejectFirstClaim.resolve(); finishQueueLoad.resolve(); wait429.fire(); });
+      await act(async () => root.unmount());
+      mocks.client.query.mockReset();
+    }
+  },
+);
