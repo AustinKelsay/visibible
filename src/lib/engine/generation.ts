@@ -84,7 +84,7 @@ async function providerReason(response: Response): Promise<string> {
   const raw = text(fields.metadata?.raw);
   const provider = text(fields.metadata?.provider_name);
   const reason = [text(fields.message), raw && (provider ? `${provider}: ${raw}` : raw)].filter(Boolean).join(" | ");
-  return reason ? reason.replace(/\b(sk-[\w-]{8,}|Bearer\s+\S+)/g, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+  return reason ? reason.replace(/\b(sk-[\w-]{8,}|AIza[\w-]{30,}|bearer\s+\S+)/gi, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
 }
 
 function imageTimeoutMsFromEnv() {
