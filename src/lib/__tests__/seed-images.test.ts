@@ -8,6 +8,8 @@ import { RATE_LIMITS } from "../../../convex/rateLimit";
 const SITE = "https://seed.test";
 const PASSWORD = "s3cret-Owner-Pass";
 const JONAH_2: SeedChapterEntry[] = [{ book: "jonah", chapter: 2, verses: 10 }];
+// Longer than a minute's allowance, so the pacing is exercised.
+const GENESIS_1: SeedChapterEntry[] = [{ book: "genesis", chapter: 1, verses: 31 }];
 const IMAGE_USD = 0.04;
 
 type Call = { method: string; path: string; headers: Record<string, string>; body: Record<string, unknown> | undefined; at: number };
@@ -400,8 +402,9 @@ describe("a paid run", () => {
     expect(GENERATE_REQUESTS_PER_MINUTE).toBe(RATE_LIMITS["generate-image"].maxRequests);
     expect(RATE_LIMITS["generate-image"].windowMs).toBe(60_000);
     const h = harness();
-    expect(await run(h, { concurrency: 4 })).toMatchObject({ rendered: 10 });
+    expect(await run(h, { concurrency: 4 }, GENESIS_1)).toMatchObject({ rendered: 31 });
     const at = h.site.generates.map((call) => call.at);
+    expect(at.length).toBeGreaterThan(GENERATE_REQUESTS_PER_MINUTE);
     for (let i = 0; i + GENERATE_REQUESTS_PER_MINUTE < at.length; i++) expect(at[i + GENERATE_REQUESTS_PER_MINUTE] - at[i]).toBeGreaterThan(60_000);
   });
 
@@ -484,8 +487,8 @@ describe("a paid run", () => {
     // Asked while the run waits for the next minute's allowance: the request it was waiting to send is never sent.
     const waiting = harness();
     waiting.deps.stopRequested = () => waiting.sleeps.length > 0;
-    expect(await run(waiting)).toMatchObject({ stop: "interrupted", rendered: 5 });
-    expect(waiting.rows.filter((entry) => entry.event === "start")).toHaveLength(5);
+    expect(await run(waiting, {}, GENESIS_1)).toMatchObject({ stop: "interrupted", rendered: GENERATE_REQUESTS_PER_MINUTE });
+    expect(waiting.rows.filter((entry) => entry.event === "start")).toHaveLength(GENERATE_REQUESTS_PER_MINUTE);
   });
 
   it("sends the password to the admin login alone and keeps it out of every log line and ledger row", async () => {

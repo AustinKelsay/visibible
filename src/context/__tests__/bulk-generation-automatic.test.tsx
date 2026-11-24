@@ -95,3 +95,132 @@ it("paints with the reader's Advanced image settings when the caller names none"
   expect(sent[0]).toMatchObject({ model: DEFAULT_IMAGE_MODEL, aspectRatio: "21:9", resolution: "1K" });
   await act(async () => root.unmount());
 });
+
+// #530: a chapter is painted four verses at a time, through rate limits and the provider's pushback.
+const queueOf = (count: number) => Array.from({ length: count }, (_, order) => ({ verseId: `genesis-1-${order + 1}`, reference: `Genesis 1:${order + 1}`, order }));
+const reply = (status: number, body: Record<string, unknown>, headers: Record<string, string> = {}) =>
+  new Response(JSON.stringify(body), { status, headers });
+const painted = () => reply(200, { creditsCost: 2, engine: "generic", imageUrl: "https://example.com/i.png" });
+// Each poll flushes React with an empty act, so the job's state is seen as soon as it changes.
+const settlesTo = (expected: string) => vi.waitFor(async () => {
+  await act(async () => {});
+  expect(status).toBe(expected);
+});
+async function paint(count: number) {
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));
+  await act(async () => {
+    await start({
+      scope: { type: "chapters", count: 1 }, scopeLabel: "Unpainted verses of Genesis 1", estimatedTotalCredits: count * 2,
+      queue: queueOf(count), modelId: "test-model", aspectRatio: "16:9", resolution: "1K", translation: "web",
+    });
+  });
+  return root;
+}
+
+it("paints four verses at once and sends each verse once", async () => {
+  let active = 0;
+  let peak = 0;
+  const waiting: Array<() => void> = [];
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    active++;
+    peak = Math.max(peak, active);
+    await new Promise<void>((resolve) => waiting.push(resolve));
+    active--;
+    return painted();
+  }));
+  const root = await paint(6);
+  // The first verse goes alone and binds the job's engine; then four go at once, bound to it.
+  await vi.waitFor(() => expect(sent).toHaveLength(1));
+  waiting.splice(0).forEach((resolve) => resolve());
+  await vi.waitFor(() => expect(sent).toHaveLength(5));
+  expect(peak).toBe(4);
+  expect(sent.slice(1).every((request) => request.engine === "generic")).toBe(true);
+  await vi.waitFor(() => {
+    waiting.splice(0).forEach((resolve) => resolve());
+    expect(sent).toHaveLength(6);
+  });
+  waiting.splice(0).forEach((resolve) => resolve());
+  await settlesTo("completed");
+  expect(peak).toBe(4);
+  expect(sent.map((request) => request.requestId).sort()).toEqual([0, 1, 2, 3, 4, 5].map((order) => `bulk-bulk-1-${order}`).sort());
+  await act(async () => root.unmount());
+});
+
+const pauseReasons = () => mutation.mock.calls.map(([args]) => args.reason).filter(Boolean);
+
+it("waits out the site's rate limit and sends the same request again, without pausing", async () => {
+  const answers = [reply(429, { error: "Rate limit exceeded", retryAfter: 0.01 }), painted()];
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    return answers.shift() ?? painted();
+  }));
+  const root = await paint(1);
+  await settlesTo("completed");
+  expect(sent.map((request) => request.requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-1-0"]);
+  expect(pauseReasons()).toEqual([]);
+  await act(async () => root.unmount());
+});
+
+it("pauses for the daily spending limit with its own reason, not as a rate limit", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    return reply(429, { error: "Daily spending limit exceeded", dailyLimit: 5 });
+  }));
+  const root = await paint(3);
+  await settlesTo("blocked");
+  expect(sent).toHaveLength(1);
+  expect(pauseReasons()).toEqual(["daily_limit"]);
+  await act(async () => root.unmount());
+});
+
+it("pauses rather than failing every verse when pictures can't be made at all", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    return reply(503, { error: "Image service unavailable", message: "Pictures can't be made right now. Please try again later.", retryable: false });
+  }));
+  const root = await paint(3);
+  await settlesTo("blocked");
+  expect(sent).toHaveLength(1);
+  expect(pauseReasons()).toEqual(["provider_unavailable"]);
+  expect(mutation).toHaveBeenCalledWith(expect.objectContaining({ verseId: "genesis-1-1", status: "failed", error: "Image service unavailable" }));
+  await act(async () => root.unmount());
+});
+
+it("tries a verse refused for credits again once the others' holds settle, and pauses only when it is alone", async () => {
+  let refusedOnce = false;
+  let releaseThird: (() => void) | null = null;
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    const request = JSON.parse(String(init?.body));
+    sent.push(request);
+    if (request.reference === "Genesis 1:2" && !refusedOnce) {
+      refusedOnce = true;
+      return reply(402, { error: "Insufficient credits" });
+    }
+    if (request.reference === "Genesis 1:3") await new Promise<void>((resolve) => { releaseThird = resolve; });
+    return painted();
+  }));
+  const root = await paint(3);
+  // Genesis 1:2 is refused while Genesis 1:3 still holds credits; it waits for that verse rather than pausing the job.
+  await vi.waitFor(() => expect(refusedOnce && releaseThird).toBeTruthy());
+  expect(sent.filter((request) => request.reference === "Genesis 1:2")).toHaveLength(1);
+  releaseThird!();
+  await settlesTo("completed");
+  expect(sent.map((request) => request.reference)).toEqual(["Genesis 1:1", "Genesis 1:2", "Genesis 1:3", "Genesis 1:2"]);
+  expect(pauseReasons()).toEqual([]);
+  await act(async () => root.unmount());
+});
+
+it("pauses for credits when a verse painting alone is refused", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    return reply(402, { error: "Insufficient credits" });
+  }));
+  const root = await paint(3);
+  await settlesTo("paused");
+  expect(sent).toHaveLength(1);
+  expect(pauseReasons()).toEqual(["credits"]);
+  await act(async () => root.unmount());
+});

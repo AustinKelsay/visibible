@@ -27,7 +27,7 @@ export const ESTIMATE_USD_PER_IMAGE = 0.045;
 /** What a request in flight, or one whose cost the provider did not report, is counted at: above any quote the engine admits (ten credits). An image reported above it stops the run. */
 export const CEILING_USD_PER_IMAGE = 0.1;
 /** The site admits this many image requests a minute for one session (convex/rateLimit.ts); the run paces itself to it. */
-export const GENERATE_REQUESTS_PER_MINUTE = 5;
+export const GENERATE_REQUESTS_PER_MINUTE = 20;
 /** A second longer than the site's minute, so a request held back for the window does not arrive just before it turns. */
 const PACE_WINDOW_MS = 61_000;
 const REQUEST_TIMEOUT_MS = 120_000;
