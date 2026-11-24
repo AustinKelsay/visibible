@@ -19,6 +19,7 @@ import { previewSource } from "@/lib/picture-source";
 import { quotePhrase } from "@/lib/quote-display";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
 import type { VideoJobResponse } from "@/lib/video-generation";
+import { readableReference } from "@/lib/readable-reference";
 
 export interface PictureMenuProps {
   verseId: string;
@@ -165,7 +166,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
         className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-ink/10 bg-reader-glass p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
       >
         <div className="flex items-center justify-between gap-2">
-          <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-ink/(--quiet-55) uppercase">Pictures of {reference}</h2>
+          <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-ink/(--quiet-55) uppercase">Pictures of {readableReference(reference)}</h2>
           {/* On a phone the sheet also closes by a tap outside; this is the visible way. */}
           <button
             type="button"
