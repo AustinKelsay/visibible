@@ -448,7 +448,7 @@ export const pause = mutation({
   args: {
     id: v.id("bulkGenerations"),
     sid: v.string(),
-    /** Why the coordinator paused it, shown to the reader: e.g. engine_unavailable, style_unavailable, credits, rate_limited. */
+    /** Why the coordinator paused it, shown to the reader: e.g. engine_unavailable, style_unavailable, preparing, in_flight, credits, rate_limited, daily_limit, provider_unavailable. */
     reason: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
