@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v6";
+export const LEAN_PROMPT_VERSION = "2026-11-24-lean-v7";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -155,7 +155,9 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     `RULES (they outrank everything below):\n${rules.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}`,
     `MOMENT (${input.moment.reference}): "${nameless(clip(input.moment.text, MOMENT_TEXT_MAX_CHARS))}"`,
     prev || next ? ["CONTEXT (for understanding only; paint the moment above):", ...(prev ? [`- Before: ${prev}`] : []), ...(next ? [`- After: ${next}`] : [])].join("\n") : "",
-    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When someone speaks, show the speaker and listeners where they are; never paint the content of the speech as a separate scene or as figures beside them. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
+    // Words that tell of another time or place are painted as what they tell; only words about the people present show
+    // the speaker. A long speech otherwise repeats one speaker scene verse after verse (Acts 13:16-41).
+    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When the moment is someone's words, including a speech, prayer or story that began before it, judge what these words do, not their neighbours. If they tell of events, people or places away from where they are said (history, a memory, a story or parable, a dream, vision or prophecy), paint what they tell, in its own time and place and its own era's dress, even when the words also address the listeners; anyone quoted inside the telling belongs to the told scene. Leave the teller and listeners out unless the text puts them inside it. Paint the speaker and listeners where they are only when the words are about those people there (a greeting, question, reply, command, warning or appeal) or the moment only says that someone spoke. Never both in one picture: no inset, bubble or second scene beside the speaker. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
     alias ? nameless(brief_) : brief_,
     effects ? effects.renderBlock : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.

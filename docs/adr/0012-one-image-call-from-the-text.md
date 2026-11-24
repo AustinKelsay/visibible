@@ -45,3 +45,17 @@ Earlier attempts to simplify removed parts of the full engine while keeping Lite
 - **Bulk jobs** bound to the generic engine continue on the lean pipeline. None was running at the switch.
 - **No rollback.** Until 10 November 2026 promoting `dpl_fVVRrsY5DS3kZvetCpPMRUbiJv6W` (main `b69b40c`) would have restored the full engine. The owner then gave that up: its app code (PR #395) and its Convex functions, record kinds and tables were removed ([record](../../llm/releases/2026-11-10-remove-preparation/README.md)). Restoring it now means reverting those changes from git history, and it would remake every look and plan.
 - **What is measured.** The comparison changed pipeline and model together, its scorers were models, and its holdout is 49 images. Holmes and Alice, which are not served, did worse on places and on Alice's card people than the Bible did.
+
+## Amendment: words that tell of another time or place (24 November 2026)
+
+Reading Acts 13, the owner found eleven of twelve images of Paul's synagogue speech (13:16-27) to be the same scene of Paul talking, while the words told of Egypt, the wilderness, the judges, Saul, David and John. The lean prompt had said "when someone speaks, show the speaker and listeners; never paint the content of the speech". That reversed the speaker rule of [ADR 0006](0006-unseen-presence-speakers-and-launch-bar.md) without a decision. The owner asked for a general rule.
+
+- **Judge the words by what they do.** Words that tell of events, people or places away from where they are said (history, a memory, a story or parable, a dream, vision or prophecy) are painted as what they tell, in its own time, place and dress, even when they also address the listeners. The teller and listeners stay out unless the text puts them in that scene. Anyone quoted inside the telling belongs to the told scene.
+- **The speaker scene stays for words about the people present:** a greeting, question, reply, command, warning or appeal, or a moment that only says someone spoke. So a speech opens and closes on its speaker, and what it recounts is shown between.
+- **One picture, never both.** No inset, bubble or second scene beside the speaker; rule 2 already forbids collage.
+- **The era rule follows the picture.** Rule 3 reads "Nothing from outside the era of what is painted", so David is not dressed in the section's Roman-era clothing.
+- **Each moment decides alone.** The rule reads only the moment and its two neighbours, like everything else in the lean prompt. It needs no record of which scenes earlier images showed.
+
+Measured in the [told-events record](../../llm/releases/2026-11-24-told-events/README.md): over 40 verses, a text preview of what the model would paint moved told events from 6-7 of 26 to 24 of 26 (adjudicated), with all 10 speeches to people present unchanged. Six real images on Nano Banana 2.1 all came out as intended. The prompt version is `2026-11-24-lean-v7`.
+
+Known gaps: people who are only told of (David, Moses, Samuel) are not in the section's cast, so they are drawn as unnamed figures and do not match their look in their own books. The name matcher also offers Paul's canon ("Saul/Paul") for King Saul in Acts 13:21; the one image drawn did not give Saul Paul's face.

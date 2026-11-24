@@ -13,9 +13,9 @@ An image is one call built from the moment's own text ([ADR 0012](../../docs/adr
 ## Blocks, in order
 
 1. "Paint one illustration of a single moment from …".
-2. **RULES**, numbered ([engineRules](../../src/lib/engine/prompt.ts)): no writing (naming the work's writing surfaces), one scene to every edge, nothing outside the era, natural anatomy, the content floor, no real likeness, the work's rule for subjects without form when it has one, and that a character drawn from CANON keeps that look while anyone else is an unnamed figure.
+2. **RULES**, numbered ([engineRules](../../src/lib/engine/prompt.ts)): no writing (naming the work's writing surfaces), one scene to every edge, nothing outside the era of what is painted, natural anatomy, the content floor, no real likeness, the work's rule for subjects without form when it has one, and that a character drawn from CANON keeps that look while anyone else is an unnamed figure.
 3. **MOMENT** with its reference, then **CONTEXT** with the verse before and after.
-4. **HOW TO READ IT**: one instant; a speaker shown with listeners, never the content of the speech as figures; figures of speech are not objects; time, light and weather from the text.
+4. **HOW TO READ IT**: one instant. Words judged by what they do, not by their neighbours: words that tell of another time or place (history, a memory, a story or parable, a dream, vision or prophecy) are painted as what they tell, in its own era, without the teller and listeners unless the text puts them in it; words about the people present (a greeting, question, reply, command, warning or appeal), or a moment that only says someone spoke, show the speaker and listeners. Never both in one picture. Figures of speech are not objects; time, light and weather from the text ([told events](../releases/2026-11-24-told-events/README.md)).
 5. The **WORK BRIEF** block.
 6. For a section with a subject without form: the work's **UNSEEN PRESENCE** line, and, when the moment or a neighbour names it, **IMAGERY, NOT FORM**: the text's words giving it a seat, clothing or a body are imagery, and any throne stays empty.
 7. For a symbol entry: the work's symbol line and the entries' names.
