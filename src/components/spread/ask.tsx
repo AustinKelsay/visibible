@@ -37,24 +37,26 @@ function useAsk(): AskState {
  * Meaning in a new tab. When the tab cannot store it, it lasts while the page stays open.
  */
 const TOPIC_KEY = "visibible-ask-topic";
+/** The topic chosen while the tab could not store it; null while storage works. */
 let topicWithoutStorage: QuestionTopic | null = null;
 const topicListeners = new Set<() => void>();
 
 function chosenTopic(): QuestionTopic {
   try {
     const stored = sessionStorage.getItem(TOPIC_KEY);
-    return isQuestionTopic(stored) ? stored : "meaning";
+    return isQuestionTopic(stored) ? stored : topicWithoutStorage ?? "meaning";
   } catch {
     return topicWithoutStorage ?? "meaning";
   }
 }
 
 function chooseTopic(topic: QuestionTopic) {
-  topicWithoutStorage = topic;
   try {
     sessionStorage.setItem(TOPIC_KEY, topic);
+    topicWithoutStorage = null;
   } catch {
-    // Kept in `topicWithoutStorage` instead.
+    // A tab that can read storage but not write it (a full quota, say) keeps the topic here instead.
+    topicWithoutStorage = topic;
   }
   topicListeners.forEach((listener) => listener());
 }

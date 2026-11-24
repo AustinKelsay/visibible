@@ -255,11 +255,20 @@ describe("question topics (#529)", () => {
     await openVerse();
     expect(topicStates(askFoot())[0]).toBe("Meaning (chosen)");
 
-    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Full", "QuotaExceededError"); });
-    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new DOMException("Denied", "SecurityError"); });
+    // Storage that cannot be written (a full quota), then cannot be read at all.
+    const write = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Full", "QuotaExceededError"); });
     await click(button("Context", askFoot()));
-    await openVerse("john", "1", "6");
     expect(topicStates(askFoot())[1]).toBe("Context (chosen)");
+    const read = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new DOMException("Denied", "SecurityError"); });
+    await click(button("Words", askFoot()));
+    await openVerse("john", "1", "6");
+    expect(topicStates(askFoot())[3]).toBe("Words (chosen)");
+
+    // Once storage works again it holds the topic, and the tab's own copy is dropped.
+    write.mockRestore();
+    read.mockRestore();
+    await click(button("Meaning", askFoot()));
+    expect(sessionStorage.getItem("visibible-ask-topic")).toBe("meaning");
   });
 
   it("names a verse or chapter of Psalms as one psalm, and the book as Psalms", async () => {
