@@ -302,8 +302,9 @@ export function cardPosition(at: { left: number; top: number }, gap: number, box
   const roomBelow = box.height - edge - (at.top + gap);
   const roomAbove = at.top - gap - ceiling;
   const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
-  // No shorter than a few lines, for a marker at the very edge.
-  const maxHeight = Math.max(Math.min(below ? roomBelow : roomAbove, tallest), Math.min(120, tallest));
+  // The room on that side, so it scrolls rather than cover the marker; only a map too short for two lines (under the
+  // controls, a phone's strip beside Ask) lets it reach over.
+  const maxHeight = Math.max(Math.min(below ? roomBelow : roomAbove, tallest), Math.min(48, tallest));
   const shown = Math.min(height, maxHeight);
   return { left, top: clamp(below ? at.top + gap : at.top - gap - shown, ceiling, box.height - shown - edge), maxHeight };
 }
@@ -341,22 +342,34 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const box = useRef<HTMLDivElement>(null);
   const controls = useRef<HTMLDivElement>(null);
   const footer = useRef<HTMLDivElement>(null);
+  const locator = useRef<SVGSVGElement>(null);
   const map = useRef<SVGSVGElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = useState<MapBox | null>(null);
+  // The locator's box in screen pixels, where it shows: names keep clear of it.
+  const [corner, setCorner] = useState<Box | null>(null);
   // Before the first paint, so the map never shows a frame laid out for another size.
   useLayoutEffect(() => {
     const node = box.current;
     if (!node) return;
     const measure = () => {
       const top = controls.current ? controls.current.offsetTop + controls.current.offsetHeight + 8 : 0;
-      const bottom = footer.current ? node.clientHeight - footer.current.offsetTop + 8 : 0;
+      // Above the note and the way back to the picture, but not the taller locator, which sits in the corner instead,
+      // so the map frames the setting as it would without it.
+      const footerTop = footer.current?.offsetTop ?? node.clientHeight;
+      const items = Array.from(footer.current?.children ?? []).filter((item): item is HTMLElement => item instanceof HTMLElement && item.offsetHeight > 0);
+      const itemsTop = items.length > 0 ? footerTop + Math.min(...items.map((item) => item.offsetTop)) : footerTop;
+      const bottom = footer.current ? node.clientHeight - itemsTop + 8 : 0;
       setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom } : null);
+      const inset = locator.current?.getBoundingClientRect();
+      const origin = node.getBoundingClientRect();
+      setCorner(inset && inset.width > 0 ? { left: inset.left - origin.left - 4, top: inset.top - origin.top - 4, right: inset.right - origin.left + 4, bottom: inset.bottom - origin.top + 4 } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(node);
     if (footer.current) observer.observe(footer.current);
+    for (const item of Array.from(footer.current?.children ?? [])) observer.observe(item);
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -372,13 +385,15 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     setOpenedState(key);
   };
   const focused = useRef<string | null>(null);
+  // The marker with keyboard focus, drawn lit: with a card open, focus moving to another marker does not swap the card.
+  const [keyFocus, setKeyFocus] = useState<string | null>(null);
   const focusCard = useRef(false);
   const [chosenStep, setChosenStep] = useState<ZoomStep>(() => remembered.step);
 
   const markers = settingMarkers(setting);
-  // A card opened at a site this verse's setting does not have closes as the page turns.
+  // A card opened at a site this verse's setting does not have closes as the page turns, or as the map opens on one.
   const openedHere = opened !== null && markers.some((marker) => marker.key === opened);
-  const [seenSetting, setSeenSetting] = useState(setting);
+  const [seenSetting, setSeenSetting] = useState<VerseSetting | null>(null);
   if (seenSetting !== setting) {
     setSeenSetting(setting);
     if (opened !== null && !openedHere) setOpened(null);
@@ -431,7 +446,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     [...markers]
       .sort((a, b) => Number(b.favoured || b.pinned) - Number(a.favoured || a.pinned) || b.radius - a.radius)
       .map((marker) => ({ key: marker.key, ...toScreen(marker.x, marker.y), radius: marker.radius, names: marker.names })),
-    regionBoxes,
+    corner && step !== "world" ? [...regionBoxes, corner] : regionBoxes,
     band,
     onlyOneDebated ? 13 : 15,
   );
@@ -447,7 +462,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     .slice(0, 40);
   const faint = placeNames(
     nearbyDots.map(({ place, at }) => ({ key: place.id, ...at, radius: 0, names: [place.name] })),
-    [...regionBoxes, ...rings, ...names.map(nameBox)],
+    [...regionBoxes, ...rings, ...names.map(nameBox), ...(corner && step !== "world" ? [corner] : [])],
     band,
     12,
   ).slice(0, 10);
@@ -458,7 +473,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const usableCard = lit !== null && lit.key === opened;
   // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving. A marker a
   // page turn removed may never have sent blur (Firefox), so only one of this setting's counts.
-  const leave = () => setPreview(focused.current && markers.some((other) => other.key === focused.current) ? focused.current : null);
+  const leave = () => setPreview(!openedHere && focused.current && markers.some((other) => other.key === focused.current) ? focused.current : null);
   // An opened card holds while the pointer crosses other markers on its way to the card's links.
   const hover = (key: string) => {
     if (!openedHere) setPreview(key);
@@ -535,7 +550,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           })}
         </g>
         {markers.map((marker) => {
-          const on = marker.key === shownKey;
+          const on = marker.key === shownKey || marker.key === keyFocus;
           const debatedNames = marker.entries.filter((entry) => entry.place.debated).map((entry) => entry.place.name);
           const pinNames = marker.entries.filter((entry) => !entry.place.debated).map((entry) => entry.place.name);
           return (
@@ -551,8 +566,16 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
               aria-expanded={marker.key === opened && openedHere}
               onPointerEnter={() => hover(marker.key)}
               onPointerLeave={leave}
-              onFocus={() => setPreview((focused.current = marker.key))}
-              onBlur={() => setPreview((focused.current = null))}
+              onFocus={() => {
+                focused.current = marker.key;
+                setKeyFocus(marker.key);
+                if (!openedHere) setPreview(marker.key);
+              }}
+              onBlur={() => {
+                focused.current = null;
+                setKeyFocus(null);
+                setPreview(null);
+              }}
               onClick={() => open(marker.key)}
               onKeyDown={(event) => {
                 if (event.key !== "Enter" && event.key !== " ") return;
@@ -688,7 +711,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           </a>
         </p>
         {/* Where the view sits in the Bible world, on a computer, until the view is the Bible world. */}
-        {step !== "world" ? <Locator world={frames.world} view={view} /> : null}
+        {step !== "world" ? <Locator locatorRef={locator} world={frames.world} view={view} /> : null}
       </div>
 
       {lit ? (
@@ -713,7 +736,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
 }
 
 /** A small map of the Bible world with the part the view shows marked on it. */
-function Locator({ world, view }: { world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
+function Locator({ locatorRef, world, view }: { locatorRef: RefObject<SVGSVGElement | null>; world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
   // The view's rectangle, kept inside the small map and never too small to see.
   const least = world.width / 40;
   const left = clamp(view.x, world.x, world.x + world.width - least);
@@ -722,10 +745,12 @@ function Locator({ world, view }: { world: MapFrame; view: { x: number; y: numbe
   const height = Math.max(least, Math.min(view.y + view.height, world.y + world.height) - top);
   return (
     <svg
+      ref={locatorRef}
       aria-hidden="true"
       data-locator
       viewBox={`${world.x} ${world.y} ${world.width} ${world.height}`}
-      preserveAspectRatio="xMidYMid slice"
+      // The whole frame, so the view's rectangle is always in sight (Rome, at Acts 28, is at its far edge).
+      preserveAspectRatio="xMidYMid meet"
       className="ml-auto hidden h-[5.5rem] w-36 shrink-0 overflow-hidden rounded-lg border-2 border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:block"
       style={{ background: SEA }}
     >
@@ -868,7 +893,12 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
         <PlaceChapters key={place.id} place={place} here={here} reference={reference} all={all} onAll={() => {
           if (!all) onExplore?.({ action: "all_chapters" });
           setAll(!all);
-        }} onChapter={(direction) => onExplore?.({ action: "chapter", direction })} />
+        }} onChapter={(direction) => {
+          // The next page keeps to this place, where it shares a marker there.
+          remember({ place: place.id });
+          setChosen(place.id);
+          onExplore?.({ action: "chapter", direction });
+        }} />
         {nearby.length > 0 ? (
           <p data-nearby-places className="mt-1.5 text-[11px] leading-snug text-white/55">
             Nearby · {nearby.map((other) => `${other.name} ${other.km} km`).join(" · ")}
@@ -909,7 +939,7 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
         <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
           <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
           <span className="font-serif text-[15px] italic text-[#e8c37a]">
-            {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse</span>
+            {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
           </span>
         </li>
         {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}

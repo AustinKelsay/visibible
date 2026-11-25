@@ -389,6 +389,12 @@ describe("the map's zoom", () => {
     expect(pressed()).toContain("Here");
   });
 
+  it("shows the whole Bible world in its locator, so the view's rectangle is always in it", async () => {
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    await act(async () => button("See where this happened")!.click());
+    expect(container.querySelector("[data-locator]")?.getAttribute("preserveAspectRatio")).toBe("xMidYMid meet");
+  });
+
   it("cannot choose a step that would show nothing new", async () => {
     await renderReader(setting("EXO", 14, 20), false, { book: "Exodus", slug: "exodus", chapter: 14, verse: 20 });
     await act(async () => button("See where this happened")!.click());
@@ -519,6 +525,55 @@ describe("the place card", () => {
     expect(eyebrow()).toMatch(/^Sodom · /);
   });
 
+  it("keeps to the place whose chapter was followed, where it shares a marker on the next page", async () => {
+    const eyebrow = () => card()!.querySelector("[data-chapters] p")?.textContent;
+    const succoth = () => Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => marker.getAttribute("aria-label")?.startsWith("Succoth: proposed at Tell el Maskhuta"))!;
+    await renderReader(setting("NUM", 33, 5), false, { book: "Numbers", slug: "numbers", chapter: 33, verse: 5 });
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => succoth().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(eyebrow()).toMatch(/^Succoth · /);
+    await act(async () => link("Before: Exodus 13:20")!.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
+    // Exodus 13:20 has Etham first at Tell el Maskhuta; the card stays with Succoth, whether the view is kept or remade.
+    await renderReader(setting("EXO", 13, 20), false, { book: "Exodus", slug: "exodus", chapter: 13, verse: 20 });
+    expect(eyebrow()).toMatch(/^Succoth · /);
+    act(() => root.unmount());
+    root = createRoot(container);
+    await renderReader(setting("EXO", 13, 20), false, { book: "Exodus", slug: "exodus", chapter: 13, verse: 20 });
+    expect(eyebrow()).toMatch(/^Succoth · /);
+  });
+
+  it("does not bring back a card a page without its site put away, after the map is remade", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    const remount = async (here: typeof bethel, book: string) => {
+      act(() => root.unmount());
+      root = createRoot(container);
+      await renderReader(setting(book, here.chapter, here.verse), false, here);
+    };
+    await remount({ book: "Exodus", slug: "exodus", chapter: 14, verse: 2 }, "EXO");
+    await remount(bethel, "GEN");
+    expect(map()).not.toBeNull();
+    expect(card()).toBeNull();
+  });
+
+  it("keeps an open card while keyboard focus moves to another marker, and lights that marker", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    const other = container.querySelectorAll<SVGGElement>('[data-rings="Bethel · Luz"]')[1];
+    const strokeOf = () => other.querySelector("circle")!.getAttribute("stroke");
+    const unlit = strokeOf();
+    await act(async () => other.focus());
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    expect(cardInfo()).toContain("Beitin");
+    expect(strokeOf()).not.toBe(unlit);
+  });
+
+  it("counts this chapter's verses naming the place beside this verse", async () => {
+    await openMap({ ...bethel, chapter: 35, verse: 1 });
+    await act(async () => container.querySelector<SVGGElement>("[data-pin], [data-rings]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.querySelector('[aria-current="true"]')?.textContent).toMatch(/^●Genesis 35:1 · this verse · \d+ in the chapter$/);
+  });
+
   it("offers the full list for a place named in only two chapters", async () => {
     await renderReader(setting("GEN", 10, 10), false, { book: "Genesis", slug: "genesis", chapter: 10, verse: 10 });
     await act(async () => button("See where this happened")!.click());
@@ -574,6 +629,12 @@ describe("the map's layout", () => {
     const tall = cardPosition(middle, 20, { width: 390, height: 390, top: 60 }, 286);
     const shown = Math.min(286, tall.maxHeight);
     expect(middle.top >= tall.top && middle.top <= tall.top + shown).toBe(false);
+    // In the strip a phone leaves the map beside Ask, the card scrolls in what room there is, clear of the whole ring.
+    const strip = { left: 195, top: 141 };
+    const gap = 32;
+    const short = cardPosition(strip, gap, { width: 390, height: 253, top: 92 }, 286);
+    const bottom = short.top + Math.min(286, short.maxHeight);
+    expect(bottom <= strip.top - gap + 10 || short.top >= strip.top + gap - 10).toBe(true);
   });
 });
 
