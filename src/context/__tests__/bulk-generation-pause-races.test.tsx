@@ -305,3 +305,103 @@ it("does not submit a new image when Pause is pending and reconciliation publish
 
   expect(premature).toEqual({ claims: 0, images: 0 });
 });
+
+it("an outstanding queue read cannot write recovery progress before the retry delay", async () => {
+  const read = deferred();
+  beforeWrite = (name) => {
+    if (name === "updateProgress") throw new Error("write unavailable");
+  };
+
+  // One worker is painting. An active update starts a queue read which outlasts the failed final save.
+  await act(async () => publish());
+  expect(fetchSpy).toHaveBeenCalledTimes(1);
+  mocks.query.mockImplementationOnce(async () => {
+    await read.promise;
+    return rows.map((row) => ({ ...row }));
+  });
+  await act(async () => publish({ updatedAt: 1 }));
+  await act(async () => completeImage(success()));
+  expect(writes("updateProgress")).toHaveLength(1);
+  expect(retries.size).toBe(1);
+  await act(async () => read.resolve());
+
+  expect(writes("updateProgress")).toHaveLength(1);
+});
+
+it.each(["pause", "cancel"])("an outstanding queue read cannot settle a claim while %s is pending", async (control) => {
+  const read = deferred();
+  const action = deferred();
+  rows[0].status = "generating";
+  mocks.query.mockImplementationOnce(async () => {
+    await read.promise;
+    return rows.map((row) => ({ ...row }));
+  });
+  beforeWrite = (name) => {
+    if (name === control) return action.promise;
+  };
+
+  await act(async () => publish());
+  let stopping!: Promise<void>;
+  await act(async () => {
+    stopping = control === "pause" ? bulk.pauseBulkGeneration() : bulk.cancelBulkGeneration();
+  });
+  expect(writes(control)).toHaveLength(1);
+  await act(async () => read.resolve());
+  const settlementsWhilePending = writes("reconcileInterrupted").length;
+  await act(async () => { action.resolve(); await stopping; });
+
+  expect(settlementsWhilePending).toBe(0);
+});
+
+it("the snapshot suppressed during reconciliation gets a sync even when the follow-up read fails", async () => {
+  const read = deferred();
+  rows[0].status = "generating";
+  mocks.query.mockImplementationOnce(async () => rows.map((row) => ({ ...row })));
+  mocks.query.mockImplementationOnce(async () => {
+    await read.promise;
+    throw new Error("follow-up read failed");
+  });
+
+  await act(async () => publish());
+  expect(writes("reconcileInterrupted")).toHaveLength(1);
+  expect(rows[0].status).toBe("queued");
+  expect(mocks.query).toHaveBeenCalledTimes(2);
+  await act(async () => publish({ updatedAt: 1 }));
+  await act(async () => read.resolve());
+
+  expect(bulk.state.status).toBe("active");
+  expect(fetchSpy).toHaveBeenCalledTimes(1);
+});
+
+it("a dismissed job's late reconciliation failure cannot charge its successor's retry budget", async () => {
+  const interrupted = deferred();
+  const firstClaim = deferred();
+  rows[0].status = "generating";
+  beforeWrite = async (name, args) => {
+    if (name === "reconcileInterrupted" && args.id === "bulk-1") {
+      await interrupted.promise;
+      throw new Error("old job's settlement failed");
+    }
+    if (name === "updateVerseStatus" && args.bulkGenerationId === "bulk-2") {
+      await firstClaim.promise;
+      throw new Error("new job's claim failed");
+    }
+  };
+
+  await act(async () => publish());
+  expect(writes("reconcileInterrupted")).toHaveLength(1);
+
+  // Another tab stops the old job and creates the successor while the old reply is pending.
+  await act(async () => publish({ status: "cancelled" }));
+  expect(bulk.state.status).toBe("cancelled");
+  await act(async () => bulk.dismissBulkGeneration());
+  rows = [{ ...rows[0], status: "queued" }];
+  await act(async () => publish({ _id: "bulk-2", status: "active" }));
+  expect(writes("updateVerseStatus")).toHaveLength(1);
+
+  await act(async () => interrupted.resolve());
+  await act(async () => firstClaim.resolve());
+  for (let i = 0; i < 3 && retries.size > 0; i++) await nextRetry();
+
+  expect(writes("updateVerseStatus").filter((args) => args.bulkGenerationId === "bulk-2")).toHaveLength(4);
+});
