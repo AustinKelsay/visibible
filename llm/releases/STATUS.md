@@ -1,5 +1,10 @@
 # Generic engine release status
 
+**Chapter painting retries and spent requests (25 November 2026, 19:44 UTC).** On the owner's "yes", `main` at `d0078aa3` (#564) went out Convex first, then Vercel `dpl_8eSHq556mttkVMHPRg7BUrmXxSb9`.
+- A verse's waits follow the latest answer, so a rate-limit retry answered by a scene still preparing is waited out instead of pausing the job.
+- A verse refused for credits or by the daily limit goes again under its next request id when the refused request was recorded failed, instead of replaying the failure and ending failed (#562).
+- Smoke: a fresh guest sees 20 image requests a minute, and a zero-credit request gets 402. Nothing painted, no spend ([deployment](2026-11-25-bulk-painting-edges/deployment.json)).
+
 **The map's place card and Then · Today (25 November 2026, 19:08 UTC).** On the owner's "Let's remove the experimental tab and ship it!", `main` at `1fec4365` went out as Vercel `dpl_HVAcqf1zqUA4ihSpQR8SABhzU9ES`, frontend only.
 - The verse map gets named zoom steps and a locator, and a marker's card shows the chapters naming its place around this verse, with nearby places (#557, spec #556; #554's polish inside).
 - Then · Today draws today's borders, countries and cities from Natural Earth under the verse's places. The Experimental tag is gone.
