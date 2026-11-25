@@ -343,6 +343,7 @@ describe("a paid run", () => {
     const h = harness({ generate: (body, nth) => {
       if (body.reference === "Jonah 2:2") return json(503, { error: "Reference lookup unavailable" });
       if (body.reference === "Jonah 2:3") return json(500, { error: "Failed to generate image", message: "OpenRouter API error: 500", requestId: body.requestId });
+      if (body.reference === "Jonah 2:4") return json(503, { error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", requestId: body.requestId, retryable: false });
       return rendered(body, nth);
     } });
     const summary = await run(h);
@@ -351,10 +352,12 @@ describe("a paid run", () => {
     expect(refused[0].body?.requestId).not.toBe(refused[1].body?.requestId);
     // A failure after admission may have been paid for and may have saved an image: one request, held at the ceiling, no second id.
     expect(h.site.generates.filter((call) => call.body?.reference === "Jonah 2:3")).toHaveLength(1);
+    expect(h.site.generates.filter((call) => call.body?.reference === "Jonah 2:4")).toHaveLength(1);
     expect(h.rows.filter((entry) => entry.event === "result" && entry.outcome !== "rendered").map((entry) => [entry.reference, entry.attempt, entry.outcome, entry.status, entry.usd, entry.usdSource])).toEqual([
       ["Jonah 2:2", 1, "failed", 503, 0, "none"], ["Jonah 2:2", 2, "failed", 503, 0, "none"], ["Jonah 2:3", 1, "unresolved", 500, 0.1, "ceiling"],
+      ["Jonah 2:4", 1, "unresolved", 503, 0.1, "ceiling"],
     ]);
-    expect(summary).toMatchObject({ stop: "complete", rendered: 8, unresolved: 1, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.32, unconfirmedUsd: 0.1 });
+    expect(summary).toMatchObject({ stop: "complete", rendered: 7, unresolved: 2, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.28, unconfirmedUsd: 0.2 });
   });
 
   it("counts an image at the ceiling unless the provider reported its cost, and stops when one costs more than the ceiling", async () => {

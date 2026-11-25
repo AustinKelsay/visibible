@@ -35,7 +35,7 @@ function publishServerJob(overrides: Record<string, unknown>) {
     _id: "bulk-1", status: "paused", modelId: "test", aspectRatio: "16:9",
     resolution: "1K", translation: "web", artStyleId: "classical", engine: "generic",
     totalVerses: 4, completedCount: 1, failedCount: 1, skippedCount: 0, totalCreditsUsed: 2,
-    pausedReason: "provider_unavailable", ...overrides,
+    pausedReason: "images_unavailable", ...overrides,
   };
   subscribers.forEach((listener) => listener());
 }
@@ -137,7 +137,7 @@ it("sends nothing more when Stop is pressed while a rate limit is waited out", a
 });
 
 it("keeps painting one verse at a time until a verse binds the job's engine", async () => {
-  spyFetch((order) => order === 0 ? refuse(503, "Image service busy") : success());
+  spyFetch((order) => order === 0 ? refuse(500, "Failed to generate image") : success());
   const root = await started(5);
   await wait(() => expect(bulk.state.status).toBe("completed"));
   expect(orders()).toEqual([0, 1, 2, 3, 4]);
@@ -202,12 +202,12 @@ it("keeps the first pause's reason and message when a verse still painting is re
   spyFetch((order) => order === 0 ? success() : order === 1 ? second.promise : third.promise);
   const root = await started(3);
   await wait(() => expect(orders()).toEqual([0, 1, 2]));
-  await act(async () => second.resolve(refuse(503, "Image service unavailable")));
-  await wait(() => expect(bulk.state.errorMessage).toContain("Pictures can't be made right now"));
+  await act(async () => second.resolve(refuse(503, "Images are temporarily unavailable")));
+  await wait(() => expect(bulk.state.errorMessage).toContain("Images are temporarily unavailable"));
   await act(async () => third.resolve(refuse(429, "Daily spending limit exceeded")));
   await act(async () => {});
-  expect(bulk.state.errorMessage).toContain("Pictures can't be made right now");
-  expect(persistedReason).toBe("provider_unavailable");
+  expect(bulk.state.errorMessage).toContain("Images are temporarily unavailable");
+  expect(persistedReason).toBe("images_unavailable");
   await act(async () => root.unmount());
 });
 
@@ -237,13 +237,13 @@ it("keeps a pause's message through the progress that verses still painting writ
   spyFetch((order) => order === 0 ? success() : [second, third, fourth][order - 1].promise);
   const root = await started(4);
   await wait(() => expect(orders()).toEqual([0, 1, 2, 3]));
-  await act(async () => second.resolve(refuse(503, "Image service unavailable")));
-  await wait(() => expect(bulk.state.errorMessage).toContain("Pictures can't be made right now"));
+  await act(async () => second.resolve(refuse(503, "Images are temporarily unavailable")));
+  await wait(() => expect(bulk.state.errorMessage).toContain("Images are temporarily unavailable"));
   await act(async () => publishServerJob({}));
   await act(async () => third.resolve(success()));
   await act(async () => publishServerJob({ completedCount: 2, totalCreditsUsed: 4 }));
   expect(bulk.state.status).toBe("paused");
-  expect(bulk.state.errorMessage).toContain("Pictures can't be made right now");
+  expect(bulk.state.errorMessage).toContain("Images are temporarily unavailable");
   await act(async () => fourth.resolve(success()));
   await act(async () => root.unmount());
 });

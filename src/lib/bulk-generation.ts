@@ -18,6 +18,8 @@ export interface BulkQueueItem {
   reference: string;
   location?: VerseLocation;
   order: number;
+  /** Request ids the item has spent on provider outages (see convex/_helpers/bulkRequestId.ts). */
+  attempt?: number;
 }
 
 export interface BulkCostEstimate {

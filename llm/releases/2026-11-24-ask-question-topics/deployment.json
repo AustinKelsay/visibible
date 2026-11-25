@@ -1,0 +1,36 @@
+{
+  "authorization": [
+    "The owner chose design B (topic chips) from five mockups and asked to build it \"systematically, end to end full send matt style\" (#529, #533), then to do its three follow-ups \"end to end full send\" (#535, #538).",
+    "The owner then asked: \"ok lets get this live and finished!\""
+  ],
+  "release": {
+    "pullRequests": [533, 538],
+    "mainCommit": "7b501d58",
+    "spec": 529,
+    "ticket": 535,
+    "reviewFindings": "GPT-6.2 Sol (xhigh) approved #533 in 2 rounds (the foot grew when a question wrapped: fixed by giving every topic's list one grid cell; a whitespace point declined and the spec clarified) and #538 in 2 (three wording fixes in the eval record). The CodeRabbit PR review on #533 found nothing actionable; on #538 it hit its review limit, and the CodeRabbit CLI found nothing. CI quality-gates passed on both."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-24T20:37:38Z", "convex": "Pushed main at 7b501d58 to prod unique-impala-244: storedAnswers.present reads up to 16 keys (was 4). No schema change, no deletions. The CLI also listed an empty 'version for Node.js actions' change (neither side set; no convex.json)." },
+      { "at": "2026-11-24T20:38:58Z", "commit": "7b501d58", "carries": [533, 538], "vercel": "dpl_2TLot1u1wJvdiyxg12jNorZRwqkx" }
+    ],
+    "before": "Production was dpl_3wygUD843j28Y7zPDMcS7m7LuP3c (release/glow-seams: dae431ca plus #536). Main's only code changes beyond it were #533 and #538."
+  },
+  "changes": [
+    "Under \"Ask about this verse\" a row of question topics (Meaning, Context, People & places, Words, For today) chooses which suggested questions show: 12 per verse, 11 at a chapter's first verse. Ask opens on Meaning, which keeps the two earlier questions first. The foot keeps the height of its tallest topic, so changing topic never moves the verse.",
+    "The phone's Ask page shows the same topics before the first question.",
+    "Every suggested question's first complete answer is stored and served free to later readers, as the first two were (#505)."
+  ],
+  "smoke": {
+    "after": "Production, John 1:7, translation web, desktop. A new guest saw the five topics, chose For today (aria-pressed) and asked \"How can I apply John 1:7 today?\". It was answered as a free answer (20 left before, 19 after), and the next quote listed it as stored. A second new guest's quote listed it as stored with 20 free answers left; the question came back with \"Saved answer\" and identical text, and the guest still had 20."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_3wygUD843j28Y7zPDMcS7m7LuP3c. Readers see the two questions again; stored answers to the others go unused and expire after 30 days.",
+    "convex": "Backward compatible: the old page asks for at most two keys."
+  },
+  "productionWrites": [
+    "One Convex push and one Vercel production deployment.",
+    "Two smoke guest sessions and one free answer on the free key (about $0.0002), stored for John 1:7 (web)."
+  ]
+}

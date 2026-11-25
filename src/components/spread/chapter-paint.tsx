@@ -14,6 +14,7 @@ import { artStyleLabel } from "@/lib/art-styles";
 import { estimateBulkCost, type BulkQueueItem } from "@/lib/bulk-generation";
 import { canAffordImageGeneration } from "@/lib/image-models";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
+import { readableReference } from "@/lib/readable-reference";
 
 /** Where a verse stands in the reader's bulk job, as its Contents tile shows it. */
 export type TileJobStatus = "queued" | "generating" | "completed" | "failed";
@@ -110,7 +111,9 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, someInOtherStyles 
     try {
       await startBulkGeneration({
         scope: { type: "chapters", count: 1 },
-        scopeLabel: someInOtherStyles ? `${book.name} ${chapter} in ${artStyleLabel(artStyle)}` : `Unpainted verses of ${book.name} ${chapter}`,
+        scopeLabel: someInOtherStyles
+          ? `${readableReference(`${book.name} ${chapter}`)} in ${artStyleLabel(artStyle)}`
+          : `Unpainted verses of ${readableReference(`${book.name} ${chapter}`)}`,
         queue,
         estimatedTotalCredits: estimate.totalCredits,
         // The model, ratio and resolution are the reader's Advanced image settings, which the provider fills in.

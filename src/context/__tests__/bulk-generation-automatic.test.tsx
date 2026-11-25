@@ -29,9 +29,10 @@ vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => 
 
 let start: ReturnType<typeof useBulkGeneration>["startBulkGeneration"];
 let status = "";
+let message: string | null = null;
 function Probe() {
   const bulk = useBulkGeneration();
-  useEffect(() => { start = bulk.startBulkGeneration; status = bulk.state.status; });
+  useEffect(() => { start = bulk.startBulkGeneration; status = bulk.state.status; message = bulk.state.errorMessage; });
   return null;
 }
 
@@ -73,6 +74,32 @@ it("submits each bulk item as automatic generation with its stable request id, a
     { automatic: true, reference: "Genesis 1:2", requestId: "bulk-bulk-1-1", engine: "generic" },
   ]);
   for (const request of sent) expect(request).not.toHaveProperty("quoteId");
+  await act(async () => root.unmount());
+});
+
+it("pauses the job when images are unavailable, requeuing the verse with its request id spent, and sends an item's next id", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)));
+    return new Response(JSON.stringify({ error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", retryable: false, requestId: "x" }), { status: 503 });
+  }));
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));
+  await act(async () => {
+    await start({
+      scope: { type: "chapter" } as never, scopeLabel: "Genesis 1", estimatedTotalCredits: 4,
+      // Genesis 1:1 spent one request id in an earlier outage.
+      queue: [{ verseId: "genesis-1-1", reference: "Genesis 1:1", order: 0, attempt: 1 }, { verseId: "genesis-1-2", reference: "Genesis 1:2", order: 1 }] as never,
+      modelId: "test-model", aspectRatio: "16:9", resolution: "1K", translation: "web",
+    });
+  });
+  await act(async () => { await vi.waitFor(() => expect(status).toBe("blocked")); });
+  // One request, under the item's next id; the second verse is never sent and nothing is retried.
+  expect(sent).toMatchObject([{ reference: "Genesis 1:1", requestId: "bulk-bulk-1-0-a1" }]);
+  expect(mutation).toHaveBeenCalledWith(expect.objectContaining({ verseId: "genesis-1-1", status: "queued", expectedCurrentStatus: "generating", spentRequest: true }));
+  expect(mutation).toHaveBeenCalledWith(expect.objectContaining({ id: "bulk-1", reason: "images_unavailable" }));
+  expect(mutation).not.toHaveBeenCalledWith(expect.objectContaining({ status: "failed" }));
+  expect(message).toBe("Images are temporarily unavailable. The job is paused; resume when painting is back.");
   await act(async () => root.unmount());
 });
 
@@ -173,19 +200,6 @@ it("pauses for the daily spending limit with its own reason, not as a rate limit
   await settlesTo("blocked");
   expect(sent).toHaveLength(1);
   expect(pauseReasons()).toEqual(["daily_limit"]);
-  await act(async () => root.unmount());
-});
-
-it("pauses rather than failing every verse when pictures can't be made at all", async () => {
-  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
-    sent.push(JSON.parse(String(init?.body)));
-    return reply(503, { error: "Image service unavailable", message: "Pictures can't be made right now. Please try again later.", retryable: false });
-  }));
-  const root = await paint(3);
-  await settlesTo("blocked");
-  expect(sent).toHaveLength(1);
-  expect(pauseReasons()).toEqual(["provider_unavailable"]);
-  expect(mutation).toHaveBeenCalledWith(expect.objectContaining({ verseId: "genesis-1-1", status: "failed", error: "Image service unavailable" }));
   await act(async () => root.unmount());
 });
 

@@ -1093,13 +1093,16 @@ describe("Image Generation API Credit Flow", () => {
       expect((await savedImages())[0]).toMatchObject({ engine: "generic", translationId: "web" });
     });
 
-    it("releases the reservation and fails the request when the provider returns an error", async () => {
+    /** The structured error lines the route logged, as one string. */
+    const loggedErrors = (spy: { mock: { calls: unknown[][] } }) => spy.mock.calls.map((call) => String(call[0])).join("\n");
+
+    it("releases the reservation and fails the request when the provider errors, telling the reader images are unavailable", async () => {
       await prepareWork();
       mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(500);
-      expect(await response.json()).toMatchObject({ error: "Failed to generate image" });
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Images are temporarily unavailable", retryable: false });
       expect(getCallCount("releaseReservation")).toBe(1);
       expect(getCallCount("deductCredits")).toBe(0);
       expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
@@ -1131,13 +1134,13 @@ describe("Image Generation API Credit Flow", () => {
         expect((await storedRequests())[0]).toMatchObject({ status: "succeeded" });
       });
 
-      it("gives up on a full in-flight budget after two more tries: busy, the hold released, the request ended", async () => {
+      it("gives up on a full in-flight budget after two more tries: images unavailable, the hold released, the request ended", async () => {
         await prepareWork();
         providerAnswers(refusal(402, { limit_source: "openrouter_in_flight_budget" }));
         const { POST } = await import("../../generate-image/route");
         const response = await POST(createGenerateImageRequest(body));
         expect(response.status).toBe(503);
-        expect(await response.json()).toMatchObject({ error: "Image service busy" });
+        expect(await response.json()).toMatchObject({ error: "Images are temporarily unavailable", retryable: false });
         expect(imageCalls()).toHaveLength(3);
         expect(sleeps).toEqual([2000, 4000]);
         expect(getCallCount("releaseReservation")).toBe(1);
@@ -1146,18 +1149,80 @@ describe("Image Generation API Credit Flow", () => {
         expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
       });
 
-      it("does not retry a used-up key cap and says pictures can't be made right now", async () => {
+      it("does not retry a used-up key cap and says images are unavailable", async () => {
         await prepareWork();
         providerAnswers(refusal(402, { limit_source: "openrouter_key_limit" }));
         const { POST } = await import("../../generate-image/route");
         const response = await POST(createGenerateImageRequest(body));
         expect(response.status).toBe(503);
-        expect(await response.json()).toMatchObject({ error: "Image service unavailable", message: "Pictures can't be made right now. Please try again later." });
+        expect(await response.json()).toMatchObject({ error: "Images are temporarily unavailable", message: "No credits were used. Please try again later." });
         expect(imageCalls()).toHaveLength(1);
         expect(sleeps).toEqual([]);
         expect(getCallCount("releaseReservation")).toBe(1);
         expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
       });
+    });
+
+    it("tells the reader images are unavailable when the provider cannot take the request, and logs the provider's reason", async () => {
+      const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
+      try {
+        await prepareWork();
+        for (const [index, status] of [402, 401, 408, 429, 502, 503].entries()) {
+          const reason = `Key limit reached (${status})`;
+          mockFetchResponse = { ok: false, status, json: async () => ({ error: { code: status, message: reason } }) };
+          const { POST } = await import("../../generate-image/route");
+          const response = await POST(createGenerateImageRequest({ ...body, requestId: `unavailable-${index}` }));
+          expect(response.status).toBe(503);
+          expect(await response.json()).toMatchObject({
+            error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", retryable: false, requestId: expect.any(String),
+          });
+          expect(loggedErrors(errorLog)).toContain(`OpenRouter API error ${status}: ${reason}`);
+          // The request id is spent: sent again, it replays the failure and never calls the provider twice.
+          const replay = await POST(createGenerateImageRequest({ ...body, requestId: `unavailable-${index}` }));
+          expect(replay.status).toBe(409);
+          expect(await replay.json()).toMatchObject({ error: `OpenRouter API error ${status}` });
+        }
+        // A rate limit (429) is sent twice more before it is answered as an outage.
+        expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai/api/v1/chat")).length).toBe(8);
+        expect(getCallCount("releaseReservation")).toBe(6);
+        expect(getCallCount("deductCredits")).toBe(0);
+        expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+        expect((await storedRequests()).map((request) => [request.status, request.error])).toEqual(
+          [402, 401, 408, 429, 502, 503].map((status) => ["failed", `OpenRouter API error ${status}`]),
+        );
+      } finally {
+        errorLog.mockRestore();
+      }
+    });
+
+    it("keeps a provider refusal of the request itself a failure, logging the provider's reason, and survives an unreadable error body", async () => {
+      const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
+      try {
+        await prepareWork();
+        mockFetchResponse = { ok: false, status: 400, json: async () => ({ error: { code: 400, message: "image_config.aspect_ratio is invalid" } }) };
+        const { POST } = await import("../../generate-image/route");
+        const refused = await POST(createGenerateImageRequest(body));
+        expect(refused.status).toBe(500);
+        expect(await refused.json()).toMatchObject({ error: "Failed to generate image", message: "OpenRouter API error 400" });
+        expect((await storedRequests())[0]).toMatchObject({ status: "failed", error: "OpenRouter API error 400" });
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 400: image_config.aspect_ratio is invalid");
+
+        // OpenRouter passing on a model provider's failure puts the provider's own answer in metadata.raw.
+        mockFetchResponse = { ok: false, status: 429, json: async () => ({ error: { code: 429, message: "Provider returned error", metadata: {
+          provider_name: "Google", raw: `Resource exhausted for google/gemini-3.1-flash-image-preview, key sk-or-v1-0123456789abcdef or AIzaSyA0123456789abcdefghijklmnopqrstu or AQ.Ab8RN6Lk0123456789abcdefghij or ${"f0e1d2c3".repeat(5)}; bearer abc.def`,
+        } } }) };
+        expect((await POST(createGenerateImageRequest({ ...body, requestId: "wrapped-provider" }))).status).toBe(503);
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 429: Provider returned error | Google: Resource exhausted for google/gemini-3.1-flash-image-preview, key [redacted] or [redacted] or [redacted] or [redacted]; [redacted]");
+
+        mockFetchResponse = { ok: false, status: 402, json: async () => { throw new SyntaxError("Unexpected token <"); } };
+        const unreadable = await POST(createGenerateImageRequest({ ...body, requestId: "unreadable" }));
+        expect(unreadable.status).toBe(503);
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 402: no reason given");
+        expect(getCallCount("releaseReservation")).toBe(3);
+        expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      } finally {
+        errorLog.mockRestore();
+      }
     });
 
     it("still delivers the image when its cost event cannot be recorded, and queues the event instead", async () => {
@@ -1230,7 +1295,7 @@ describe("Image Generation API Credit Flow", () => {
         const { quote } = (await askQuote()).body;
         mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
         const failed = await generate({ quoteId: quote.quoteId });
-        expect(failed.status).toBe(500);
+        expect(failed.status).toBe(503);
         expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
         expect(getCallCount("releaseReservation")).toBe(1);
         expect(getCallCount("deductCredits")).toBe(0);

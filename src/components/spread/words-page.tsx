@@ -7,6 +7,7 @@ import { LookButton, LookTranslationButton } from "@/components/spread/look";
 import { usePreferences, type TextSize } from "@/context/preferences-context";
 import { PageTurnLink, type TrackPageTurn } from "@/components/spread/page-turn";
 import { withItalics } from "@/components/spread/prose-text";
+import { readableReference } from "@/lib/readable-reference";
 
 /** The verse's size on the words page for each of Look's text sizes, phone then computer. */
 const VERSE_SIZE: Record<TextSize, string> = {
@@ -100,7 +101,7 @@ export function WordsPage({
               {bookName} · Chapter {chapter}
             </p>
             <h1 className="mt-3 font-serif text-6xl leading-none lining-nums text-ink/(--quiet-60) md:mt-8 md:text-8xl">
-              <span className="sr-only">{bookName} {chapter}:</span>{verseNumber}
+              <span className="sr-only">{readableReference(`${bookName} ${chapter}`)}:</span>{verseNumber}
             </h1>
             <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>
               {verseText}
