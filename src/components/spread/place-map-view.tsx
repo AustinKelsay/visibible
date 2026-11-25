@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { X } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import Link from "next/link";
+import { Minus, Plus, X } from "lucide-react";
 import outline from "@/data/bible-map-outline.json";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
+import { contextPlaces, divisionOf, momentsAround, momentUrl, nearbyPlaces, type Moment } from "@/lib/place-moments";
 import type { SettingPlace, VerseSetting } from "@/lib/verse-setting";
 
 /** The map's box in map units: x, y (top-left), width and height. */
@@ -20,22 +22,63 @@ const MIN_REGION_SPAN = 9;
 
 /**
  * The part of the world that frames a setting: every proposed site with room around it, at least a few towns
- * across (a whole land when the setting is only regions), and never past the edges of the map outline.
+ * across (a whole land when the setting is only regions), and never past the edges of the map outline. `minSpan`
+ * overrides how close it may come, for the zoom steps.
  */
-export function frameSetting(setting: VerseSetting): MapFrame {
+export function frameSetting(setting: VerseSetting, minSpan?: number): MapFrame {
   const sites = setting.places.flatMap((place) => place.sites);
   const lons = sites.map((site) => site.lon);
   const lats = sites.map((site) => site.lat);
-  const minSpan = setting.places.every((place) => place.region) ? MIN_REGION_SPAN : MIN_SPAN;
+  const regionsOnly = setting.places.every((place) => place.region);
+  const least = regionsOnly ? MIN_REGION_SPAN : minSpan ?? MIN_SPAN;
   const centre = { lon: (Math.min(...lons) + Math.max(...lons)) / 2, lat: (Math.min(...lats) + Math.max(...lats)) / 2 };
   // Never wider than the outline: a setting spanning the Bible world (Tarshish to Ophir) shows all of it.
-  const latSpan = Math.min(MAP_BOUNDS.north - MAP_BOUNDS.south, Math.max(minSpan, (Math.max(...lats) - Math.min(...lats)) * 1.5));
-  const lonSpan = Math.min(MAP_BOUNDS.east - MAP_BOUNDS.west, Math.max(minSpan, (Math.max(...lons) - Math.min(...lons)) * 1.5));
+  const latSpan = Math.min(MAP_BOUNDS.north - MAP_BOUNDS.south, Math.max(least, (Math.max(...lats) - Math.min(...lats)) * 1.5));
+  const lonSpan = Math.min(MAP_BOUNDS.east - MAP_BOUNDS.west, Math.max(least, (Math.max(...lons) - Math.min(...lons)) * 1.5));
   const west = clamp(centre.lon - lonSpan / 2, MAP_BOUNDS.west, MAP_BOUNDS.east - lonSpan);
   const north = clamp(centre.lat + latSpan / 2, MAP_BOUNDS.south + latSpan, MAP_BOUNDS.north);
   const [x, y] = project(west, north);
   const [right, bottom] = project(west + lonSpan, north - latSpan);
   return { x, y, width: right - x, height: bottom - y };
+}
+
+/** The map's zoom steps, closest first; the land is how the map opens. */
+export type ZoomStep = "here" | "land" | "world";
+export const ZOOM_STEPS: ZoomStep[] = ["here", "land", "world"];
+const STEP_NAMES: Record<ZoomStep, [string, string]> = { here: ["Here", "Here"], land: ["The land", "Land"], world: ["The Bible world", "World"] };
+
+/** The closest the Here step comes: half a degree of latitude, about 55 km. */
+const HERE_SPAN = 0.5;
+/** The Bible world: Greece and Libya to Persia, Ethiopia's edge to the Black Sea. */
+const BIBLE_WORLD = { west: 8, east: 56, south: 14, north: 44 };
+
+/**
+ * Each zoom step's frame, and whether it shows anything the step beside it does not: Here closes in on the sites,
+ * the land is the opening frame, and the Bible world is that region joined with the land, so the setting stays in it.
+ */
+export function zoomFrames(setting: VerseSetting): { frames: Record<ZoomStep, MapFrame>; usable: Record<ZoomStep, boolean> } {
+  const land = frameSetting(setting);
+  const here = frameSetting(setting, HERE_SPAN);
+  const [wx, wy] = project(BIBLE_WORLD.west, BIBLE_WORLD.north);
+  const [wr, wb] = project(BIBLE_WORLD.east, BIBLE_WORLD.south);
+  const x = Math.min(wx, land.x);
+  const y = Math.min(wy, land.y);
+  const world = { x, y, width: Math.max(wr, land.x + land.width) - x, height: Math.max(wb, land.y + land.height) - y };
+  const same = (a: MapFrame, b: MapFrame) => Math.abs(a.width - b.width) < b.width * 0.02 && Math.abs(a.height - b.height) < b.height * 0.02;
+  return { frames: { here, land, world }, usable: { here: !same(here, land), land: true, world: !same(world, land) } };
+}
+
+/** The reader's zoom step and opened card (by its site), kept while turning pages for the visit, as the map itself is. */
+const remembered: { step: ZoomStep; opened: string | null } = { step: "land", opened: null };
+
+function remember(change: Partial<typeof remembered>) {
+  Object.assign(remembered, change);
+}
+
+/** Back to the opening step with no card open; for tests, which share this module's state. */
+export function resetPlaceMap() {
+  remembered.step = "land";
+  remembered.opened = null;
 }
 
 /** "Pi-hahiroth, Migdol and Baal-zephon", or in a sentence "the Red Sea". */
@@ -195,6 +238,13 @@ export function placeNames(
   return placed;
 }
 
+/** The box a placed name covers, in screen pixels, as `placeNames` reckons it. */
+export function nameBox(name: PlacedName): Box {
+  const width = nameWidth(name.text, name.size);
+  const left = name.anchor === "start" ? name.x : name.anchor === "end" ? name.x - width : name.x - width / 2;
+  return { left, top: name.y - name.size * 0.75, right: left + width, bottom: name.y + name.size * 0.25 };
+}
+
 /** The map's free band: below the tag and close button, above the note, in screen pixels. */
 interface MapBox {
   width: number;
@@ -220,35 +270,53 @@ export function fitView(frame: MapFrame, box: MapBox) {
   };
 }
 
-const CARD_WIDTH = 224;
+const CARD_WIDTH = 264;
 
 /**
  * Where a marker's card goes, in screen pixels: beside the marker (right, else left), or where the box is too narrow
- * for that (a phone), above or below it, whichever has room, so it never covers the marker it describes.
+ * for that (a phone), above or below it, whichever has room, so it never covers the marker it describes. It stays
+ * below the box's `top` (the zoom steps, tag and close button), and the tallest card starts there and scrolls.
  */
-export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number }, height: number) {
+export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number }, height: number) {
   const edge = 12;
+  const ceiling = Math.max(edge, box.top ?? 0);
   const fitsRight = at.left + gap + CARD_WIDTH <= box.width - edge;
   const fitsLeft = at.left - gap - CARD_WIDTH >= edge;
   if (fitsRight || fitsLeft) {
-    return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, edge, box.height - height - edge) };
+    return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, box.height - height - edge) };
   }
   const left = clamp(at.left - CARD_WIDTH / 2, edge, box.width - CARD_WIDTH - edge);
   const roomBelow = box.height - edge - (at.top + gap);
-  const roomAbove = at.top - gap - edge;
+  const roomAbove = at.top - gap - ceiling;
   const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
-  return { left, top: clamp(below ? at.top + gap : at.top - gap - height, edge, box.height - height - edge) };
+  return { left, top: clamp(below ? at.top + gap : at.top - gap - height, ceiling, box.height - height - edge) };
+}
+
+/** What a reader did on the map, for analytics. */
+export type MapExploration =
+  | { action: "zoom"; step: ZoomStep }
+  | { action: "moment"; direction: "before" | "after" | "list" }
+  | { action: "all_moments" };
+
+/** The verse being read: its book's slug, chapter and verse. */
+export interface MapHere {
+  slug: string;
+  chapter: number;
+  verse: number;
 }
 
 /**
  * The map in the picture's place: the Bible world drawn from Natural Earth, with the verse's setting on it. A settled
  * place is a pin and its name; a debated place is a ring at each proposed site, sized by its score; a settled region
- * is a wide label. Sizes are in screen pixels whatever the zoom.
+ * is a wide label. Well-known places around it are named faintly. Sizes are in screen pixels whatever the zoom, which
+ * moves in three named steps.
  */
-export default function PlaceMapView({ setting, reference, onClose, picture, takeFocus }: {
+export default function PlaceMapView({ setting, reference, here, onClose, onExplore, picture, takeFocus }: {
   setting: VerseSetting;
   reference: string;
+  here: MapHere;
   onClose: () => void;
+  onExplore?: (exploration: MapExploration) => void;
   /** The way back to the picture (the painting window), when the verse has one. */
   picture?: ReactNode;
   /** Whether the map should take focus as it opens: it was opened from the keyboard. */
@@ -258,6 +326,7 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
   const controls = useRef<HTMLDivElement>(null);
   const footer = useRef<HTMLDivElement>(null);
   const map = useRef<SVGSVGElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = useState<MapBox | null>(null);
   // Before the first paint, so the map never shows a frame laid out for another size.
   useLayoutEffect(() => {
@@ -278,19 +347,47 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
     if (takeFocus?.()) map.current?.focus();
   }, [takeFocus]);
 
-  // The marker under the pointer or keyboard focus, or tapped, which shows its card.
-  const [active, setActive] = useState<string | null>(null);
+  // The marker under the pointer or keyboard focus, which previews its card, and the one opened by a click, tap or
+  // Enter, whose card stays and can be used.
+  const [preview, setPreview] = useState<string | null>(null);
+  const [opened, setOpenedState] = useState<string | null>(() => remembered.opened);
+  const setOpened = (key: string | null) => {
+    remember({ opened: key });
+    setOpenedState(key);
+  };
   const focused = useRef<string | null>(null);
+  const focusCard = useRef(false);
+  const [chosenStep, setChosenStep] = useState<ZoomStep>(() => remembered.step);
+
+  const markers = settingMarkers(setting);
+  // A card opened at a site this verse's setting does not have closes as the page turns.
+  const openedHere = opened !== null && markers.some((marker) => marker.key === opened);
+  const [seenSetting, setSeenSetting] = useState(setting);
+  if (seenSetting !== setting) {
+    setSeenSetting(setting);
+    if (opened !== null && !openedHere) setOpened(null);
+  }
+
+  const { frames, usable } = zoomFrames(setting);
+  // A step this setting cannot show (Here for a setting of only regions) falls back to the land.
+  const step = usable[chosenStep] ? chosenStep : "land";
+  const zoomTo = (next: ZoomStep) => {
+    if (!usable[next] || next === step) return;
+    remember({ step: next });
+    setChosenStep(next);
+    onExplore?.({ action: "zoom", step: next });
+  };
+  const stepIndex = ZOOM_STEPS.indexOf(step);
+  const closer = ZOOM_STEPS.slice(0, stepIndex).reverse().find((candidate) => usable[candidate]) ?? null;
+  const wider = ZOOM_STEPS.slice(stepIndex + 1).find((candidate) => usable[candidate]) ?? null;
 
   // Before the box is measured (and in tests), a nominal box.
   const size = measured ?? { width: 800, height: 600, top: 0, bottom: 0 };
-  const frame = frameSetting(setting);
-  const view = fitView(frame, size);
+  const view = fitView(frames[step], size);
   const px = (pixels: number) => pixels * view.unit;
   /** Where a map point sits in the box, in screen pixels. */
   const toScreen = (x: number, y: number) => ({ left: (x - view.x) / view.unit, top: (y - view.y) / view.unit });
 
-  const markers = settingMarkers(setting);
   const band = { left: 4, top: Math.max(4, size.top - 8), right: size.width - 4, bottom: size.height - Math.max(4, size.bottom - 8) };
   const rings = markers.map((marker) => {
     const at = toScreen(marker.x, marker.y);
@@ -322,11 +419,51 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
     band,
     onlyOneDebated ? 13 : 15,
   );
+  // Well-known places around the setting, faint and small, the most named first and only where a name fits clear of
+  // everything the setting draws.
+  const settingNames = new Set(setting.places.map((place) => place.name));
+  const centres = markers.map((marker) => toScreen(marker.x, marker.y));
+  const nearbyDots = contextPlaces()
+    .filter((place) => !settingNames.has(place.name))
+    .map((place) => ({ place, at: toScreen(...project(place.lon, place.lat)) }))
+    .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
+    .filter(({ at }) => centres.every((centre) => Math.hypot(centre.left - at.left, centre.top - at.top) > 16))
+    .slice(0, 40);
+  const faint = placeNames(
+    nearbyDots.map(({ place, at }) => ({ key: place.id, ...at, radius: 0, names: [place.name] })),
+    [...regionBoxes, ...rings, ...names.map(nameBox)],
+    band,
+    12,
+  ).slice(0, 10);
+
   const label = `Map of ${listNames(setting.places)}, where ${reference} happened`;
-  const lit = markers.find((marker) => marker.key === active) ?? null;
+  const shownKey = preview ?? (openedHere ? opened : null);
+  const lit = markers.find((marker) => marker.key === shownKey) ?? null;
+  const usableCard = lit !== null && lit.key === opened;
   // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving. A marker a
   // page turn removed may never have sent blur (Firefox), so only one of this setting's counts.
-  const leave = () => setActive(focused.current && markers.some((other) => other.key === focused.current) ? focused.current : null);
+  const leave = () => setPreview(focused.current && markers.some((other) => other.key === focused.current) ? focused.current : null);
+  // An opened card holds while the pointer crosses other markers on its way to the card's links.
+  const hover = (key: string) => {
+    if (!openedHere) setPreview(key);
+  };
+  const open = (key: string, fromKeyboard = false) => {
+    focusCard.current = fromKeyboard;
+    setOpened(key);
+  };
+  // Opened from the keyboard, the card takes focus, so its links come next.
+  useEffect(() => {
+    if (!usableCard || !focusCard.current) return;
+    focusCard.current = false;
+    (cardRef.current?.querySelector<HTMLElement>("a") ?? cardRef.current?.querySelector<HTMLElement>("button"))?.focus();
+  });
+  const closeCard = (toMarker: boolean) => {
+    const key = opened;
+    setOpened(null);
+    setPreview(null);
+    if (toMarker && key) map.current?.querySelector<SVGGElement>(`[data-marker-key="${key}"]`)?.focus();
+    else map.current?.focus();
+  };
 
   return (
     <div ref={box} className="absolute inset-0 overflow-hidden" style={{ background: SEA }}>
@@ -338,37 +475,67 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
         viewBox={`${view.x} ${view.y} ${view.width} ${view.height}`}
         preserveAspectRatio="xMidYMid meet"
         className="absolute inset-0 h-full w-full outline-none"
-        // A tap on the open map (not on a marker) puts a tapped marker's card away.
+        data-step={step}
+        // A tap on the open map (not on a marker) puts the card away.
         onClick={(event) => {
-          if (!(event.target as Element).closest("[data-marker]")) setActive(null);
+          if ((event.target as Element).closest("[data-marker]")) return;
+          setPreview(null);
+          setOpened(null);
         }}
       >
         <path aria-hidden="true" d={outline.land} fill={LAND} fillRule="evenodd" stroke={COAST} strokeWidth={1} vectorEffect="non-scaling-stroke" />
         <path aria-hidden="true" d={outline.lakes} fill={SEA} stroke={COAST} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
         <path aria-hidden="true" d={outline.rivers} fill="none" stroke={RIVER} strokeWidth={1.2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        {/* Well-known places around the setting: context, not part of it, so quiet and not interactive. */}
+        <g aria-hidden="true" pointerEvents="none" data-nearby>
+          {faint.map((name) => {
+            const dot = nearbyDots.find(({ place }) => place.id === name.key)!.at;
+            return (
+              <g key={name.key}>
+                <circle cx={view.x + dot.left * view.unit} cy={view.y + dot.top * view.unit} r={px(2.5)} fill={INK} fillOpacity={0.5} />
+                <text
+                  x={view.x + name.x * view.unit}
+                  y={view.y + name.y * view.unit}
+                  textAnchor={name.anchor}
+                  fontSize={px(name.size)}
+                  fill={INK}
+                  fillOpacity={0.6}
+                  stroke={HALO}
+                  strokeOpacity={0.7}
+                  strokeWidth={px(2.5)}
+                  paintOrder="stroke"
+                  className="font-serif"
+                >
+                  {name.text}
+                </text>
+              </g>
+            );
+          })}
+        </g>
         {markers.map((marker) => {
-          const on = marker.key === active;
-          const show = () => setActive(marker.key);
+          const on = marker.key === shownKey;
           const debatedNames = marker.entries.filter((entry) => entry.place.debated).map((entry) => entry.place.name);
           const pinNames = marker.entries.filter((entry) => !entry.place.debated).map((entry) => entry.place.name);
           return (
             <g
               key={marker.key}
               data-marker
+              data-marker-key={marker.key}
               data-rings={debatedNames.length ? debatedNames.join(" · ") : undefined}
               data-pin={debatedNames.length ? undefined : pinNames.join(" · ")}
               tabIndex={0}
               role="button"
               aria-label={marker.entries.map(({ place, index }) => markerLabel(place, index)).join("; ")}
-              onPointerEnter={show}
+              aria-expanded={marker.key === opened && openedHere}
+              onPointerEnter={() => hover(marker.key)}
               onPointerLeave={leave}
-              onFocus={() => setActive((focused.current = marker.key))}
-              onBlur={() => setActive((focused.current = null))}
-              onClick={show}
+              onFocus={() => setPreview((focused.current = marker.key))}
+              onBlur={() => setPreview((focused.current = null))}
+              onClick={() => open(marker.key)}
               onKeyDown={(event) => {
                 if (event.key !== "Enter" && event.key !== " ") return;
                 event.preventDefault();
-                show();
+                open(marker.key, true);
               }}
               className="cursor-pointer outline-none"
             >
@@ -402,9 +569,9 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
               textAnchor={name.anchor}
               fontSize={px(name.size)}
               strokeWidth={px(3)}
-              onPointerEnter={() => setActive(name.key)}
+              onPointerEnter={() => hover(name.key)}
               onPointerLeave={leave}
-              onClick={() => setActive(name.key)}
+              onClick={() => open(name.key)}
             >
               {name.text}
             </text>
@@ -435,6 +602,45 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
         ))}
       </svg>
 
+      {/* The zoom steps, named, level with the tag and close button. A phone with Ask open leaves the map a thin strip, so they go. */}
+      <div role="group" aria-label="Zoom" className="absolute left-3 top-12 flex items-center gap-2 md:left-6 md:top-16 max-md:[main:has([data-ask-page])_&]:hidden">
+        <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
+          {ZOOM_STEPS.map((candidate) => (
+            <button
+              key={candidate}
+              type="button"
+              aria-pressed={candidate === step}
+              disabled={!usable[candidate]}
+              onClick={() => zoomTo(candidate)}
+              className="h-8 rounded-full px-2.5 text-[11px] text-white/75 transition-colors hover:text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white disabled:opacity-35 disabled:hover:text-white/75 aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] md:px-3 md:text-xs"
+            >
+              <span className="md:hidden">{STEP_NAMES[candidate][1]}</span>
+              <span className="max-md:hidden">{STEP_NAMES[candidate][0]}</span>
+            </button>
+          ))}
+        </div>
+        <div className="liquid-glass hidden h-9 items-center overflow-hidden rounded-full md:flex">
+          <button
+            type="button"
+            aria-label="Zoom out"
+            disabled={!wider}
+            onClick={() => wider && zoomTo(wider)}
+            className="grid h-9 w-9 place-items-center text-white/90 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white disabled:opacity-35"
+          >
+            <Minus size={15} strokeWidth={1.75} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            aria-label="Zoom in"
+            disabled={!closer}
+            onClick={() => closer && zoomTo(closer)}
+            className="grid h-9 w-9 place-items-center border-l border-white/15 text-white/90 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white disabled:opacity-35"
+          >
+            <Plus size={15} strokeWidth={1.75} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
       <div ref={controls} className="absolute right-3 top-12 flex items-center gap-2 md:right-6 md:top-16">
         <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
           Experimental
@@ -459,18 +665,52 @@ export default function PlaceMapView({ setting, reference, onClose, picture, tak
             Places: OpenBible.info, CC BY 4.0
           </a>
         </p>
+        {/* Where the view sits in the Bible world, on a computer, until the view is the Bible world. */}
+        {step !== "world" ? <Locator world={frames.world} view={view} /> : null}
       </div>
 
       {lit ? (
         <MarkerCard
+          key={lit.key}
+          cardRef={cardRef}
           entries={lit.entries}
           at={toScreen(lit.x, lit.y)}
           // Clear of the ring's edge (or the pin), whichever side the card goes.
           gap={Math.max(lit.radius, 6) + 10}
           box={size}
+          opened={usableCard}
+          here={here}
+          reference={reference}
+          onClose={() => closeCard(false)}
+          onEscape={() => closeCard(true)}
+          onExplore={onExplore}
         />
       ) : null}
     </div>
+  );
+}
+
+/** A small map of the Bible world with the part the view shows marked on it. */
+function Locator({ world, view }: { world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
+  // The view's rectangle, kept inside the small map and never too small to see.
+  const least = world.width / 40;
+  const left = clamp(view.x, world.x, world.x + world.width - least);
+  const top = clamp(view.y, world.y, world.y + world.height - least);
+  const width = Math.max(least, Math.min(view.x + view.width, world.x + world.width) - left);
+  const height = Math.max(least, Math.min(view.y + view.height, world.y + world.height) - top);
+  return (
+    <svg
+      aria-hidden="true"
+      data-locator
+      viewBox={`${world.x} ${world.y} ${world.width} ${world.height}`}
+      preserveAspectRatio="xMidYMid slice"
+      className="ml-auto hidden h-[5.5rem] w-36 shrink-0 overflow-hidden rounded-lg border-2 border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:block"
+      style={{ background: SEA }}
+    >
+      <path d={outline.land} fill={LAND} fillRule="evenodd" stroke={COAST} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
+      <path d={outline.lakes} fill={SEA} />
+      <rect x={left} y={top} width={width} height={height} fill={GOLD} fillOpacity={0.25} stroke={GOLD} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />
+    </svg>
   );
 }
 
@@ -493,58 +733,237 @@ export function rank(place: SettingPlace, index: number, short = false): string 
   return score >= top * 0.5 ? `also widely favoured (${index + 1} of ${count})` : `less favoured (${index + 1} of ${count})`;
 }
 
-/** The small card by the marker under the pointer or focus: each place there, where it is proposed, and how it ranks. */
-function MarkerCard({ entries, at, gap, box }: {
+/**
+ * The card by the marker under the pointer or focus, or opened by a click, tap or Enter: each place there, where it
+ * is proposed and how it ranks, then a place's moments in the Bible around this verse and the places nearby. Only an
+ * opened card can be used (its links, its full list of moments, its close button); a previewed one is a glance.
+ */
+function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, onClose, onEscape, onExplore }: {
+  cardRef: RefObject<HTMLDivElement | null>;
   entries: MarkerEntry[];
   at: { left: number; top: number };
   gap: number;
-  box: { width: number; height: number };
+  box: { width: number; height: number; top?: number };
+  opened: boolean;
+  here: MapHere;
+  reference: string;
+  onClose: () => void;
+  onEscape: () => void;
+  onExplore?: (exploration: MapExploration) => void;
 }) {
-  const card = useRef<HTMLDivElement>(null);
   const site = (entry: MarkerEntry) => entry.place.sites[entry.index].name;
   // Places sharing one site name it once, a line each, so a card for four places still fits a phone's map.
   const shared = entries.length > 1 && entries.every((entry) => site(entry) === site(entries[0]));
+  // Whose moments the card shows, where places share the marker.
+  const [chosen, setChosen] = useState(0);
+  const [all, setAll] = useState(false);
+  const place = entries[Math.min(chosen, entries.length - 1)].place;
   // Placed by its drawn height, measured before it paints; a guess until then (and where nothing is laid out).
   const [drawn, setDrawn] = useState(0);
-  const id = entries.map(({ place, index }) => `${place.id}:${index}`).join(" ");
-  useLayoutEffect(() => setDrawn(card.current?.offsetHeight ?? 0), [id, box.width]);
-  const height = Math.min(drawn || 24 + entries.length * (shared ? 22 : 56), box.height - 24);
+  const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
+  useLayoutEffect(() => setDrawn(cardRef.current?.offsetHeight ?? 0), [cardRef, id, box.width, chosen, all, opened]);
+  // As tall as the box allows below the controls; a longer card scrolls.
+  const tallest = box.height - Math.max(12, box.top ?? 0) - 12;
+  const height = Math.min(drawn || 24 + entries.length * (shared ? 22 : 56) + 110, tallest);
   const { left, top } = cardPosition(at, gap, box, height);
+  const spot = entries[0].place.sites[entries[0].index];
+  const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (
     <div
-      ref={card}
-      aria-hidden="true"
+      ref={cardRef}
+      aria-hidden={opened ? undefined : true}
+      inert={!opened}
+      role={opened ? "group" : undefined}
+      aria-label={opened ? `${listNames(entries.map((entry) => entry.place))}: the card` : undefined}
       data-marker-card
-      className="pointer-events-none absolute z-10 overflow-hidden rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md"
-      style={{ left, top, width: CARD_WIDTH, maxHeight: box.height - 24 }}
+      data-opened={opened ? "" : undefined}
+      // Escape in the card puts it away and goes back to its marker; it does not close the map.
+      onKeyDown={(event) => {
+        if (event.key !== "Escape" || event.nativeEvent.isComposing) return;
+        event.preventDefault();
+        onEscape();
+      }}
+      className={`absolute z-10 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
+      style={{ left, top, width: CARD_WIDTH, maxHeight: tallest }}
     >
+      {opened ? (
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close the card"
+          className="absolute right-1.5 top-1.5 grid size-7 place-items-center rounded-full text-white/60 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+        >
+          <X size={14} strokeWidth={1.75} aria-hidden="true" />
+        </button>
+      ) : null}
       {shared ? (
         <>
           {/* A described site ("south of the Lisan") reads as its own heading. */}
-          <p className="text-xs leading-snug text-white/70">{/^[a-z]/.test(site(entries[0])) ? site(entries[0]).replace(/^./, (c) => c.toUpperCase()) : `At ${site(entries[0])}`}</p>
+          <p className="pr-6 text-xs leading-snug text-white/70">{/^[a-z]/.test(site(entries[0])) ? site(entries[0]).replace(/^./, (c) => c.toUpperCase()) : `At ${site(entries[0])}`}</p>
           {/* One line for each place there. */}
-          {entries.map(({ place, index }) => (
-            <p key={`${place.id}:${index}`} className="mt-1 text-[11px] leading-snug text-white/55">
-              <span className="font-serif text-[15px] text-white">{place.name}</span>{" "}
-              {place.debated ? rank(place, index, true) : "settled"}
+          {entries.map(({ place: each, index }) => (
+            <p key={`${each.id}:${index}`} className="mt-1 text-[11px] leading-snug text-white/55">
+              <span className="font-serif text-[15px] text-white">{each.name}</span>{" "}
+              {each.debated ? rank(each, index, true) : "settled"}
             </p>
           ))}
         </>
       ) : (
-        entries.map(({ place, index }, row) => (
-          <div key={`${place.id}:${index}`} className={row > 0 ? "mt-2 border-t border-white/10 pt-2" : ""}>
-            <p className="font-serif text-base leading-tight text-white">{place.name}</p>
-            {place.debated ? (
+        entries.map(({ place: each, index }, row) => (
+          <div key={`${each.id}:${index}`} className={row > 0 ? "mt-2 border-t border-white/10 pt-2" : "pr-6"}>
+            <p className="font-serif text-base leading-tight text-white">{each.name}</p>
+            {each.debated ? (
               <>
-                <p className="mt-1 text-xs leading-snug">Proposed at {place.sites[index].name}</p>
-                <p className="mt-0.5 text-[11px] leading-snug text-white/55">{rank(place, index).replace(/^./, (c) => c.toUpperCase())}</p>
+                <p className="mt-1 text-xs leading-snug">Proposed at {each.sites[index].name}</p>
+                <p className="mt-0.5 text-[11px] leading-snug text-white/55">{rank(each, index).replace(/^./, (c) => c.toUpperCase())}</p>
               </>
             ) : (
-              <p className="mt-0.5 text-xs leading-snug">{place.sites[index].name === place.name ? "Its site is settled" : `At ${place.sites[index].name}`}</p>
+              <p className="mt-0.5 text-xs leading-snug">{each.sites[index].name === each.name ? "Its site is settled" : `At ${each.sites[index].name}`}</p>
             )}
           </div>
         ))
       )}
+      <div data-moments className="mt-2 border-t border-white/10 pt-2">
+        {entries.length > 1 ? (
+          // Where places share the marker, which one's moments to show.
+          <div className="mb-1.5 flex flex-wrap gap-1">
+            {entries.map((entry, row) => (
+              <button
+                key={`${entry.place.id}:${entry.index}`}
+                type="button"
+                aria-pressed={row === Math.min(chosen, entries.length - 1)}
+                onClick={() => {
+                  setChosen(row);
+                  setAll(false);
+                }}
+                className="rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
+              >
+                {entry.place.name}
+              </button>
+            ))}
+          </div>
+        ) : null}
+        <Moments key={place.id} place={place} here={here} reference={reference} all={all} onAll={() => {
+          if (!all) onExplore?.({ action: "all_moments" });
+          setAll(!all);
+        }} onMoment={(direction) => onExplore?.({ action: "moment", direction })} />
+        {nearby.length > 0 ? (
+          <p data-nearby-places className="mt-1.5 text-[11px] leading-snug text-white/55">
+            Nearby · {nearby.map((other) => `${other.name} ${other.km} km`).join(" · ")}
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+/** "Genesis 28:19". */
+const momentReference = (moment: Moment) => `${moment.book} ${moment.chapter}:${moment.verse}`;
+
+const MOMENT_LINK =
+  "font-serif text-[15px] italic text-white underline decoration-white/30 underline-offset-[3px] hover:decoration-white/70 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-white";
+
+/**
+ * A place's moments around this verse: the one before (‹), this verse, the one after (›), each a link, and the way to
+ * every chapter that names the place, grouped by part of the Bible.
+ */
+function Moments({ place, here, reference, all, onAll, onMoment }: {
+  place: SettingPlace;
+  here: MapHere;
+  reference: string;
+  all: boolean;
+  onAll: () => void;
+  onMoment: (direction: "before" | "after" | "list") => void;
+}) {
+  const { moments, current, before, after } = momentsAround(place.id, here.slug, here.chapter);
+  const verses = moments.reduce((sum, moment) => sum + moment.verses, 0);
+  const shownCount = Number(Boolean(before)) + Number(Boolean(after)) + Number(Boolean(current));
+  const count = (moment: Moment) => (moment.verses > 1 ? <span className="text-[11px] text-white/45"> · {moment.verses} verses</span> : null);
+  return (
+    <>
+      <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
+        {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {moments.length} {moments.length === 1 ? "chapter" : "chapters"}
+      </p>
+      <ol className="mt-1">
+        {before ? (
+          <li className="flex items-baseline gap-2 py-0.5">
+            <span aria-hidden="true" className="w-3 text-white/45">‹</span>
+            <span>
+              <Link href={momentUrl(before)} aria-label={`Before: ${momentReference(before)}`} onClick={() => onMoment("before")} className={MOMENT_LINK}>{momentReference(before)}</Link>
+              {count(before)}
+            </span>
+          </li>
+        ) : null}
+        <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
+          <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
+          <span className="font-serif text-[15px] italic text-[#e8c37a]">
+            {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse</span>
+          </span>
+        </li>
+        {after ? (
+          <li className="flex items-baseline gap-2 py-0.5">
+            <span aria-hidden="true" className="w-3 text-white/45">›</span>
+            <span>
+              <Link href={momentUrl(after)} aria-label={`After: ${momentReference(after)}`} onClick={() => onMoment("after")} className={MOMENT_LINK}>{momentReference(after)}</Link>
+              {count(after)}
+            </span>
+          </li>
+        ) : null}
+      </ol>
+      {moments.length <= 1 ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
+      {moments.length > shownCount ? (
+        <button
+          type="button"
+          aria-expanded={all}
+          onClick={onAll}
+          className="mt-1 text-left text-[12px] text-[#f3e6c8] underline decoration-[#f3e6c8]/35 underline-offset-[3px] hover:decoration-[#f3e6c8]/80 focus-visible:outline-2 focus-visible:outline-white"
+        >
+          {all ? "Fewer moments" : `All ${moments.length} moments at ${place.name}`}
+        </button>
+      ) : null}
+      {all ? <MomentList moments={moments} here={here} onMoment={() => onMoment("list")} /> : null}
+    </>
+  );
+}
+
+/** Every chapter that names a place, a book to a line, grouped by part of the Bible; this chapter is marked. */
+function MomentList({ moments, here, onMoment }: { moments: Moment[]; here: MapHere; onMoment: () => void }) {
+  const parts: { division: string; books: { book: string; moments: Moment[] }[] }[] = [];
+  for (const moment of moments) {
+    const division = divisionOf(moment.bookId);
+    if (parts.at(-1)?.division !== division) parts.push({ division, books: [] });
+    const books = parts.at(-1)!.books;
+    if (books.at(-1)?.book !== moment.book) books.push({ book: moment.book, moments: [] });
+    books.at(-1)!.moments.push(moment);
+  }
+  return (
+    <div data-all-moments className="mt-1.5 space-y-1.5">
+      {parts.map(({ division, books }) => (
+        <div key={division}>
+          <p className="text-[9.5px] uppercase tracking-[0.16em] text-white/45">{division}</p>
+          {books.map(({ book, moments: inBook }) => (
+            <p key={book} className="text-[12px] leading-relaxed">
+              <span className="mr-1.5 font-serif text-[13.5px] text-white">{book}</span>
+              {inBook.map((moment) => {
+                const isHere = moment.slug === here.slug && moment.chapter === here.chapter;
+                return (
+                  <Link
+                    key={moment.chapter}
+                    href={momentUrl(moment)}
+                    prefetch={false}
+                    aria-label={momentReference(moment)}
+                    aria-current={isHere ? "true" : undefined}
+                    onClick={onMoment}
+                    className={`mr-1.5 inline-block underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-white ${isHere ? "font-semibold text-[#e8c37a] decoration-[#e8c37a]/50" : "text-white/80 decoration-white/25 hover:text-white"}`}
+                  >
+                    {moment.chapter}
+                  </Link>
+                );
+              })}
+            </p>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

@@ -9,9 +9,10 @@ import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
 import { usePictureStyles } from "@/context/work-scope-context";
-import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
+import { trackMapExplored, trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { previewSource } from "@/lib/picture-source";
 import type { VerseSetting } from "@/lib/verse-setting";
+import type { MapExploration, MapHere } from "@/components/spread/place-map-view";
 
 // The map experiment (#532). The map and its outline load only when a reader first opens it.
 const PlaceMapView = lazy(() => import("@/components/spread/place-map-view"));
@@ -152,16 +153,20 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
  * The map in the picture's place, while the map is on and the verse has a setting (never in the whole-picture view).
  * Escape, its close button and its painting window turn it off.
  */
-export function PlaceMapStage({ setting, verseId, reference, hidden }: {
+export function PlaceMapStage({ setting, verseId, reference, here, hidden }: {
   setting: VerseSetting | null | undefined;
   verseId: string;
   reference: string;
+  /** The verse being read, for the place card's moments around it. */
+  here: MapHere;
   /** The whole-picture view is open, which shows the picture. */
   hidden: boolean;
 }) {
   const { close } = useMapMode();
   const { openLayer } = useLayers();
+  const { tier, credits } = useSession();
   const shows = useMapShows(setting, hidden);
+  const onExplore = (exploration: MapExploration) => trackMapExplored({ ...exploration, reference, tier, hasCredits: credits > 0 });
 
   useEffect(() => {
     if (!shows || openLayer !== null) return;
@@ -181,7 +186,7 @@ export function PlaceMapStage({ setting, verseId, reference, hidden }: {
   return (
     <div className="absolute inset-0 bg-[#0f1a22] md:right-[var(--words-page-width)]">
       <Suspense fallback={null}>
-        <PlaceMapView setting={setting} reference={reference} onClose={close} takeFocus={takeMapFocus} picture={<PaintingWindow verseId={verseId} reference={reference} onBack={close} />} />
+        <PlaceMapView setting={setting} reference={reference} here={here} onClose={close} onExplore={onExplore} takeFocus={takeMapFocus} picture={<PaintingWindow verseId={verseId} reference={reference} onBack={close} />} />
       </Suspense>
     </div>
   );

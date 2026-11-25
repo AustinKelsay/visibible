@@ -3,12 +3,12 @@
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
+import { trackMapExplored, trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { cardPosition, fitView, frameSetting, placeNames, rank, settingNote } from "../place-map-view";
+import PlaceMapView, { cardPosition, fitView, frameSetting, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -18,7 +18,10 @@ const convex = vi.hoisted(() => ({ enabled: false, picture: null as { imageUrl: 
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => convex.enabled }));
 vi.mock("convex/react", () => ({ useQuery: () => convex.picture }));
 vi.mock("@/context/work-scope-context", () => ({ usePictureStyles: () => ({ chosen: "classical", visible: ["classical"], order: ["classical"] }) }));
-vi.mock("@/lib/analytics", () => ({ trackMapLinkShown: vi.fn(), trackMapOpened: vi.fn() }));
+vi.mock("@/lib/analytics", () => ({ trackMapLinkShown: vi.fn(), trackMapOpened: vi.fn(), trackMapExplored: vi.fn() }));
+// A plain link, without the router (and its prefetching) behind it.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- left off the plain link
+vi.mock("next/link", () => ({ default: ({ prefetch: _prefetch, ...props }: { prefetch?: boolean } & Record<string, unknown>) => <a {...props} /> }));
 
 globalThis.ResizeObserver ??= class {
   observe() {}
@@ -34,7 +37,9 @@ let root: Root;
 beforeEach(() => {
   vi.mocked(trackMapLinkShown).mockClear();
   vi.mocked(trackMapOpened).mockClear();
+  vi.mocked(trackMapExplored).mockClear();
   resetMapMode();
+  resetPlaceMap();
   convex.enabled = false;
   convex.picture = null;
   session.isLoading = false;
@@ -52,18 +57,29 @@ const button = (name: string) =>
   Array.from(container.querySelectorAll("button")).find((b) => (b.getAttribute("aria-label") ?? b.textContent) === name);
 
 /** The link and the map as the spread puts them together. */
-async function renderReader(verseSettingValue: VerseSetting | null, hidden = false) {
+async function renderReader(verseSettingValue: VerseSetting | null, hidden = false, here = { book: "Exodus", slug: "exodus", chapter: 14, verse: 2 }) {
+  const reference = `${here.book} ${here.chapter}:${here.verse}`;
   await act(async () =>
     root.render(
       <>
-        <PlaceMapStage setting={verseSettingValue} verseId="exodus-14-2" reference="Exodus 14:2" hidden={hidden} />
-        {verseSettingValue ? <MapLink setting={verseSettingValue} bookName="Exodus" chapter={14} verseNumber={2} /> : null}
+        <PlaceMapStage setting={verseSettingValue} verseId={`${here.slug}-${here.chapter}-${here.verse}`} reference={reference} here={here} hidden={hidden} />
+        {verseSettingValue ? <MapLink setting={verseSettingValue} bookName={here.book} chapter={here.chapter} verseNumber={here.verse} /> : null}
       </>,
     ),
   );
 }
 
 const map = () => container.querySelector('svg[role="group"]');
+const card = () => container.querySelector<HTMLElement>("[data-marker-card]");
+/** What a marker's card says about the marker, leaving out its moments and close button. */
+const cardInfo = () => {
+  const shown = card();
+  if (!shown) return undefined;
+  const copy = shown.cloneNode(true) as HTMLElement;
+  copy.querySelector("[data-moments]")?.remove();
+  copy.querySelector('[aria-label="Close the card"]')?.remove();
+  return copy.textContent;
+};
 
 describe("the map link", () => {
   it("offers the map under a verse with a setting and reports being shown once", async () => {
@@ -202,7 +218,7 @@ describe("the map link", () => {
 });
 
 describe("the map", () => {
-  const view = (value: VerseSetting) => act(async () => root.render(<PlaceMapView setting={value} reference="Exodus 14:2" onClose={() => {}} />));
+  const view = (value: VerseSetting) => act(async () => root.render(<PlaceMapView setting={value} reference="Exodus 14:2" here={{ slug: "exodus", chapter: 14, verse: 2 }} onClose={() => {}} />));
 
   it("pins a settled place and rings each proposed site of a debated one", async () => {
     await view(setting("JHN", 1, 19));
@@ -213,7 +229,7 @@ describe("the map", () => {
     const rings = container.querySelectorAll('[data-rings="Red Sea"] circle');
     expect(rings.length).toBeGreaterThan(1);
     // A lone debated place names each of its sites on the map.
-    const labels = Array.from(container.querySelectorAll("svg text"), (text) => text.textContent);
+    const labels = Array.from(container.querySelectorAll("svg text[data-marker]"), (text) => text.textContent);
     expect(labels).toEqual(expect.arrayContaining(["Gulf of Suez", "Bitter Lakes"]));
   });
 
@@ -243,13 +259,12 @@ describe("the map", () => {
 
   it("tells about a proposed site when a ring is hovered, focused or tapped", async () => {
     await view(setting("EXO", 15, 4));
-    const card = () => container.querySelector("[data-marker-card]");
     const [first, second] = Array.from(container.querySelectorAll<SVGGElement>('[data-rings="Red Sea"]'));
     expect(first.getAttribute("aria-label")).toBe("Red Sea: proposed at Gulf of Suez, the most favoured of 5 proposed sites");
     expect(card()).toBeNull();
 
     await act(async () => first.dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
-    expect(card()?.textContent).toBe("Red SeaProposed at Gulf of SuezThe most favoured of 5 proposed sites");
+    expect(cardInfo()).toBe("Red SeaProposed at Gulf of SuezThe most favoured of 5 proposed sites");
     await act(async () => first.dispatchEvent(new PointerEvent("pointerout", { bubbles: true })));
     expect(card()).toBeNull();
 
@@ -273,21 +288,21 @@ describe("the map", () => {
     await view(setting("ISA", 2, 3));
     const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem · Zion"]')!;
     expect(pin.getAttribute("aria-label")).toBe("Jerusalem; Zion, at Jerusalem");
-    expect(Array.from(container.querySelectorAll("svg text"), (text) => text.textContent)).toEqual(["Jerusalem · Zion"]);
+    expect(Array.from(container.querySelectorAll("svg text[data-marker]"), (text) => text.textContent)).toEqual(["Jerusalem · Zion"]);
 
     // Exodus 14:2: Baal-zephon and Pi-hahiroth are both proposed at Al Mahamdiyah.
     await view(setting("EXO", 14, 2));
     const shared = Array.from(container.querySelectorAll<SVGGElement>('[data-rings="Baal-zephon · Pi-hahiroth"]')).find((ring) => ring.getAttribute("aria-label")!.includes("Al Mahamdiyah"))!;
     await act(async () => shared.focus());
     // The shared site is named once.
-    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("At Al MahamdiyahBaal-zephon less favoured (3 of 3)Pi-hahiroth less favoured (5 of 5)");
+    expect(cardInfo()).toBe("At Al MahamdiyahBaal-zephon less favoured (3 of 3)Pi-hahiroth less favoured (5 of 5)");
   });
 
   it("opens a marker's card from its name too", async () => {
     await view(setting("JHN", 1, 19));
-    const name = Array.from(container.querySelectorAll("svg text")).find((text) => text.textContent === "Jerusalem")!;
+    const name = Array.from(container.querySelectorAll("svg text[data-marker]")).find((text) => text.textContent === "Jerusalem")!;
     await act(async () => name.dispatchEvent(new MouseEvent("click", { bubbles: true })));
-    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("JerusalemIts site is settled");
+    expect(cardInfo()).toBe("JerusalemIts site is settled");
   });
 
   it("opens a marker's card with Enter", async () => {
@@ -309,7 +324,7 @@ describe("the map", () => {
     const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem"]')!;
     expect(pin.getAttribute("aria-label")).toBe("Jerusalem");
     await act(async () => pin.focus());
-    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("JerusalemIts site is settled");
+    expect(cardInfo()).toBe("JerusalemIts site is settled");
   });
 
   it("labels a region instead of pinning it", async () => {
@@ -322,6 +337,150 @@ describe("the map", () => {
     await view(setting("JHN", 1, 19));
     expect(container.textContent).toContain("Experimental");
     expect(container.querySelector('a[href="https://www.openbible.info/geo/"]')?.textContent).toBe("Places: OpenBible.info, CC BY 4.0");
+  });
+});
+
+describe("the map's zoom", () => {
+  const bethel = { book: "Genesis", slug: "genesis", chapter: 28, verse: 19 };
+  const steps = () => Array.from(container.querySelectorAll<HTMLButtonElement>('[aria-label="Zoom"] [aria-pressed]'));
+  const pressed = () => steps().find((step) => step.getAttribute("aria-pressed") === "true")?.textContent;
+  const height = () => Number(map()!.getAttribute("viewBox")!.split(" ")[3]);
+
+  it("closes in on the setting at Here, opens on the land and pulls back to the Bible world", () => {
+    const { frames, usable } = zoomFrames(setting("GEN", 28, 19));
+    expect(frames.here.height).toBeLessThan(frames.land.height);
+    expect(frames.land.height).toBeLessThan(frames.world.height);
+    expect(usable).toEqual({ here: true, land: true, world: true });
+    // A setting of only regions has nothing closer to show.
+    expect(zoomFrames(setting("EXO", 14, 20)).usable.here).toBe(false);
+  });
+
+  it("moves between named steps with the steps and with − and +, and keeps the step while turning pages", async () => {
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    await act(async () => button("See where this happened")!.click());
+    expect(pressed()).toContain("The land");
+    const land = height();
+
+    await act(async () => steps()[2].click());
+    expect(pressed()).toContain("The Bible world");
+    expect(height()).toBeGreaterThan(land);
+    expect(button("Zoom out")!.disabled).toBe(true);
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "zoom", step: "world", reference: "Genesis 28:19" }));
+
+    await act(async () => button("Zoom in")!.click());
+    await act(async () => button("Zoom in")!.click());
+    expect(pressed()).toContain("Here");
+    expect(height()).toBeLessThan(land);
+    expect(button("Zoom in")!.disabled).toBe(true);
+
+    // The step lasts across the page turn, even when the map is drawn afresh.
+    await renderReader(null, false, bethel);
+    await renderReader(setting("GEN", 28, 20), false, { ...bethel, verse: 20 });
+    expect(pressed()).toContain("Here");
+  });
+
+  it("cannot choose a step that would show nothing new", async () => {
+    await renderReader(setting("EXO", 14, 20), false, { book: "Exodus", slug: "exodus", chapter: 14, verse: 20 });
+    await act(async () => button("See where this happened")!.click());
+    expect(steps()[0].disabled).toBe(true);
+    expect(button("Zoom in")!.disabled).toBe(true);
+  });
+
+  it("names well-known places around the setting faintly, never the setting's own", async () => {
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    await act(async () => button("See where this happened")!.click());
+    const faint = Array.from(container.querySelectorAll("[data-nearby] text"), (text) => text.textContent);
+    expect(faint).toContain("Jerusalem");
+    expect(faint).not.toContain("Bethel");
+  });
+});
+
+describe("the place card", () => {
+  const bethel = { book: "Genesis", slug: "genesis", chapter: 28, verse: 19 };
+  const openMap = async (here = bethel) => {
+    await renderReader(setting("GEN", here.chapter, here.verse), false, here);
+    await act(async () => button("See where this happened")!.click());
+  };
+  // Genesis 28:19 names Bethel and Luz, its old name, proposed at the same two sites; Beitin is the most favoured.
+  const pin = () => container.querySelector<SVGGElement>('[data-rings="Bethel · Luz"]')!;
+  const link = (label: string) => container.querySelector<HTMLAnchorElement>(`[data-marker-card] a[aria-label="${label}"]`);
+
+  it("previews the place's moments around this verse, and opens to walk them", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    // A preview is a glance: hidden from screen readers and not usable.
+    expect(card()!.getAttribute("aria-hidden")).toBe("true");
+    expect(card()!.hasAttribute("inert")).toBe(true);
+    expect(card()!.textContent).toContain("Bethel · 69 verses in 35 chapters");
+
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-opened")).toBe(true);
+    expect(card()!.getAttribute("aria-hidden")).toBeNull();
+    expect(link("Before: Genesis 13:3")?.getAttribute("href")).toBe("/genesis/13/3");
+    expect(link("After: Genesis 31:13")?.getAttribute("href")).toBe("/genesis/31/13");
+    expect(card()!.querySelector('[aria-current="true"]')?.textContent).toBe("●Genesis 28:19 · this verse");
+    expect(card()!.querySelector("[data-nearby-places]")?.textContent).toBe("Nearby · Ai 2 km · Mizpah 5 km · Michmash 6 km");
+
+    await act(async () => link("After: Genesis 31:13")!.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "moment", direction: "after" }));
+  });
+
+  it("lists every chapter that names the place, by part of the Bible", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await act(async () => button("All 35 moments at Bethel")!.click());
+    const list = container.querySelector("[data-all-moments]")!;
+    expect(Array.from(list.querySelectorAll("div > p:first-child"), (heading) => heading.textContent)).toEqual(["Law", "History", "Prophets"]);
+    expect(list.querySelector('[aria-current="true"]')?.getAttribute("aria-label")).toBe("Genesis 28:19");
+    expect(list.querySelectorAll("a")).toHaveLength(35);
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "all_moments" }));
+    await act(async () => button("Fewer moments")!.click());
+    expect(container.querySelector("[data-all-moments]")).toBeNull();
+  });
+
+  it("stays open for the same place as the page turns to its next moment", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await renderReader(setting("GEN", 31, 13), false, { ...bethel, chapter: 31, verse: 13 });
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    expect(card()!.querySelector('[aria-current="true"]')?.textContent).toBe("●Genesis 31:13 · this verse");
+    expect(link("Before: Genesis 28:19")).not.toBeNull();
+  });
+
+  it("opens with Enter into the card, and Escape there goes back to the marker without closing the map", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(document.activeElement).toBe(link("Before: Genesis 13:3"));
+    await act(async () => document.activeElement!.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })));
+    expect(map()).not.toBeNull();
+    expect(card()?.hasAttribute("data-opened") ?? false).toBe(false);
+    expect(document.activeElement).toBe(pin());
+  });
+
+  it("holds an opened card while the pointer crosses another marker", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    const other = container.querySelectorAll<SVGGElement>('[data-rings="Bethel · Luz"]')[1];
+    await act(async () => other.dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    expect(cardInfo()).toContain("Beitin");
+  });
+
+  it("closes with its close button", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await act(async () => button("Close the card")!.click());
+    expect(card()).toBeNull();
+    expect(map()).not.toBeNull();
+  });
+
+  it("switches between the places that share a marker", async () => {
+    await renderReader(setting("ISA", 2, 3), false, { book: "Isaiah", slug: "isaiah", chapter: 2, verse: 3 });
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => container.querySelector('[data-pin="Jerusalem · Zion"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.textContent).toContain("Jerusalem · 955 verses");
+    await act(async () => button("Zion")!.click());
+    expect(card()!.textContent).toContain("Zion · 148 verses");
   });
 });
 
@@ -355,12 +514,14 @@ describe("the map's layout", () => {
   it("puts a card above or below its marker on a phone, never over it", () => {
     const at = { left: 195, top: 150 };
     const { left, top } = cardPosition(at, 20, { width: 390, height: 390 }, 74);
-    const coversMarker = at.left >= left && at.left <= left + 224 && at.top >= top && at.top <= top + 74;
+    const coversMarker = at.left >= left && at.left <= left + 264 && at.top >= top && at.top <= top + 74;
     expect(coversMarker).toBe(false);
     // Low in the box, a tall card goes above.
     const low = { left: 195, top: 250 };
     const above = cardPosition(low, 20, { width: 390, height: 390 }, 130);
     expect(above.top + 130).toBeLessThanOrEqual(low.top);
+    // It never rises over the controls at the top of the box; a card too tall for the room starts below them.
+    expect(cardPosition({ left: 195, top: 120 }, 20, { width: 390, height: 390, top: 60 }, 330).top).toBe(60);
     // A computer's box has room beside it.
     expect(cardPosition(at, 20, { width: 900, height: 700 }, 74).left).toBe(215);
   });

@@ -199,6 +199,15 @@ type VerseNavigationProps = BaseProps & {
 };
 
 /** The map experiment (#532): which verse, and what kind of setting its map shows. */
+type MapExploredProps = BaseProps & {
+  /** The verse being read, "Genesis 28:19". */
+  reference: string;
+} & (
+  | { action: "zoom"; step: "here" | "land" | "world" }
+  | { action: "moment"; direction: "before" | "after" | "list" }
+  | { action: "all_moments" }
+);
+
 type MapLinkProps = BaseProps & {
   book: string;
   chapter: number;
@@ -349,4 +358,9 @@ export function trackMapLinkShown(props: MapLinkProps) {
 // Track the reader opening the map from the words page's link
 export function trackMapOpened(props: MapLinkProps) {
   track("map_opened", props);
+}
+
+// Track the reader exploring the open map: a zoom step, a moment at a place, or a place's full list of moments
+export function trackMapExplored(props: MapExploredProps) {
+  track("map_explored", props);
 }
