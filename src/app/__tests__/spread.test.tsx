@@ -763,6 +763,17 @@ describe("swiping on a phone", () => {
     expect(push).not.toHaveBeenCalled();
   });
 
+  it("leaves a sideways swipe to a row that scrolls sideways itself, such as the map card's place chips", async () => {
+    await openVerse("john", "1", "5");
+    const row = document.createElement("div");
+    row.setAttribute("data-scrolls-sideways", "");
+    const chip = row.appendChild(document.createElement("button"));
+    within(container.querySelector("main")).appendChild(row);
+    drag(chip, [300, 300], [80, 300]);
+    expect(push).not.toHaveBeenCalled();
+    row.remove();
+  });
+
   it("ignores a two-finger gesture", async () => {
     await openVerse("john", "1", "5");
     const main = within(container.querySelector("main"));

@@ -760,6 +760,8 @@ describe("the place card", () => {
     expect(link("After: Genesis 31:13")).not.toBeNull();
     expect(card()!.querySelector('[aria-current="true"]')!.className).toContain("hidden");
     expect(button("Luz")).toBeDefined();
+    // The chips scroll sideways, so a swipe across them does not turn the page.
+    expect(button("Luz")!.closest("[data-scrolls-sideways]")).not.toBeNull();
     // The full list still opens, and the card scrolls for it as before.
     await act(async () => button("All 35 chapters naming Bethel")!.click());
     expect(card()!.querySelector("[data-all-chapters]")).not.toBeNull();
@@ -809,6 +811,29 @@ describe("the place card", () => {
     expect(card()!.hasAttribute("data-compact")).toBe(true);
     expect(document.activeElement).toBe(before);
     expect(before.isConnected).toBe(true);
+  });
+
+  it("shortens a compact card's long references in this verse's book, keeping their full names for a screen reader", async () => {
+    phoneMap(390);
+    const song = { book: "Song of Solomon", slug: "song-of-solomon", chapter: 6, verse: 4 };
+    await renderReader(setting("SNG", 6, 4), false, song);
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => container.querySelector("[data-pin], [data-rings]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(link("Before: Song of Solomon 5:8")?.textContent).toBe("5:8");
+    expect(link("After: Song of Solomon 8:4")?.textContent).toBe("8:4");
+  });
+
+  it("tabs through a compact card's chapters in the order they show", async () => {
+    phoneMap(390);
+    // Genesis 35:2 carries Bethel from 35:1.
+    await openMap({ ...bethel, chapter: 35, verse: 2 });
+    await act(async () => container.querySelector('[data-rings="Bethel"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    const order = [...card()!.querySelectorAll("[data-chapters] ol a")].map((anchor) => anchor.getAttribute("aria-label"));
+    expect(order).toEqual(["Before: Genesis 31:13", "After: Joshua 7:2", "Named in Genesis 35:1"]);
+    // Short enough to share the row whole.
+    expect(link("Before: Genesis 31:13")?.textContent).toBe("Genesis 31:13");
   });
 
   it("keeps its full view where it fits", async () => {

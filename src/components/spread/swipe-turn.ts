@@ -22,7 +22,8 @@ type Gesture = { x: number; y: number; axis: "undecided" | "horizontal" | "verti
  * Turns the page with a one-finger horizontal swipe on the spread: leftward for the next verse, rightward
  * for the previous one. A touch that first moves up or down is a scroll and never turns the page, so a long
  * verse still scrolls. Nothing turns while a layer other than the whole-picture view is open, or when the
- * touch starts in a text field. Spread the returned handlers onto the spread's root element.
+ * touch starts in a text field or in a row that scrolls sideways itself (`data-scrolls-sideways`, as the map card's
+ * place chips). Spread the returned handlers onto the spread's root element.
  */
 export function useSwipeTurn({ prevUrl, nextUrl, onTurn }: SwipeTurnOptions) {
   const router = useRouter();
@@ -34,7 +35,7 @@ export function useSwipeTurn({ prevUrl, nextUrl, onTurn }: SwipeTurnOptions) {
     return {
       onTouchStart(event: TouchEvent) {
         const point = event.touches[0];
-        if (blocked || event.touches.length !== 1 || !point || startsInField(event.target)) {
+        if (blocked || event.touches.length !== 1 || !point || startsOwnGesture(event.target)) {
           gesture.current = null;
           return;
         }
@@ -75,7 +76,8 @@ export function useSwipeTurn({ prevUrl, nextUrl, onTurn }: SwipeTurnOptions) {
   }, [openLayer, prevUrl, nextUrl, onTurn, router]);
 }
 
-function startsInField(target: EventTarget | null): boolean {
+/** Whether a touch starts where the gesture is the element's own: a text field, or a row that scrolls sideways. */
+function startsOwnGesture(target: EventTarget | null): boolean {
   if (!(target instanceof Element)) return false;
-  return Boolean(target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], [role="textbox"]'));
+  return Boolean(target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], [role="textbox"], [data-scrolls-sideways]'));
 }
