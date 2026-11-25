@@ -5,6 +5,11 @@
 - Then · Today draws today's borders, countries and cities from Natural Earth under the verse's places. The Experimental tag is gone.
 - Smoke: on Genesis 28:19 at phone and desktop sizes, the map opens, Today draws its cities, a card opens and the map closes. Nothing painted, no spend ([deployment](2026-11-25-map-place-card/deployment.json)).
 
+**Chapter painting four verses at a time (25 November 2026, 15:43 UTC).** On the owner's "get this all shipped systematically end to end", `main` at `700b289f` (#540, with the #552 follow-ups) went out Convex first, then Vercel `dpl_5zrhJC5P28nsH6eU4CaqeDqvR63s`.
+- A chapter paints four verses at a time, eight for the owner, who also gets 40 image requests a minute against everyone else's 20. Short refusals are waited out; the job pauses only when waiting won't help.
+- A failed save restarts the job after 5 s, up to three times, then shows "Couldn't save progress". Claim numbers stop a tab that lost the run from undoing the claim of the tab that took over.
+- Smoke: a fresh guest sees 20 image requests a minute, and a zero-credit request gets 402 and spends one of them. Nothing painted, no spend ([deployment](2026-11-25-parallel-painting/deployment.json)).
+
 **Map link and told-events wording (25 November 2026, about 14:45 UTC).** On the owner's "let's get the rest of this shipped and deployed", `main` at `69594448` went out as Vercel `dpl_6KkBb3C1PtkarnaWVTf1mZSeEZQh`, frontend only.
 - The image prompt moves to `2026-11-25-lean-v8` (#550): a teller is left out of what they tell. Told scenes went from 13/20 to 15/20 on real images, with speakers kept 8/8 ([climb](2026-11-25-told-events-2/README.md)).
 - The experimental "See where this happened" map link is live under verses with a known place (#537, #551).
