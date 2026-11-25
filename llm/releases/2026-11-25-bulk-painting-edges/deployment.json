@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner said \"yes\" to merging and releasing #564 (Convex first, then Vercel), after \"continue\" on the #540 follow-ups."
+  ],
+  "release": {
+    "pullRequests": [564],
+    "issues": [562],
+    "commit": "d0078aa3 (main)",
+    "summary": "Chapter painting waits out each refusal from the latest answer, with a budget per kind, so a rate-limit retry answered by a scene still preparing no longer pauses the job. Every 402 requeue and the daily-limit pause mark the request spent; Convex gives the verse its next request id only when that request ended failed (a refused hold whose withdrawal failed, or a refused final charge) and answers with the attempt, so a deferred retry or Resume no longer replays a recorded failure and ends the verse failed.",
+    "leftOut": "The two refactors from #540 (split paintItem, gather the recovery refs) are #563."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-25T19:44:06Z",
+        "convex": "Pushed to unique-impala-244 from d0078aa3. The only Convex change since the last push (700b289f) is bulkGenerations.updateVerseStatus answering a spent requeue with the verse's attempt. The dry run validated the schema."
+      },
+      {
+        "at": "2026-11-25T19:44:14Z",
+        "commit": "d0078aa3",
+        "vercel": "dpl_8eSHq556mttkVMHPRg7BUrmXxSb9"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "For a fresh guest, /api/rate-limit-status reports generate-image 20 of 20. An automatic zero-credit request for John 1:1 got 402 (required 6, available 0, nothing charged). /john/1/1 answers 200. No chapter was painted: a real bulk run needs credits and the owner's budget.",
+    "beforeRelease": "npm test 1708/1709 (thumbnail-backfill, untouched, flaky: passed on three reruns), tsc clean, eslint 0 errors, CI quality-gates green on 764599d2. Every new test failed before the fix. An independent agent review and CodeRabbit found nothing to change."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_HVAcqf1zqUA4ihSpQR8SABhzU9ES (1fec4365, the previous production).",
+    "convex": "Push the Convex functions from 1fec4365. Older pages ignore the extra attempt field, so this is only needed if the Convex change itself misbehaves."
+  },
+  "productionWrites": [
+    "One Convex production push.",
+    "One Vercel production deployment.",
+    "One guest session from the smoke check (the 402 came before admission, so no request record)."
+  ],
+  "spend": "None."
+}
