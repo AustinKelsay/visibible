@@ -11,6 +11,7 @@ import { act, useEffect, useSyncExternalStore } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { BulkGenerationProvider, useBulkGeneration } from "@/context/bulk-generation-context";
+import { BULK_PAUSES } from "@/lib/bulk-pause";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -232,6 +233,7 @@ it("shows the canonical reason when another tab adds it to a manually paused job
   expect(bulk.state).toMatchObject({ status: "paused", errorMessage: null });
   await act(async () => publish({ pausedReason: "engine_unavailable" }));
   const live = { status: bulk.state.status, message: bulk.state.errorMessage };
+  expect(live).toEqual({ status: "blocked", message: BULK_PAUSES.engine_unavailable.message });
   await act(async () => root.unmount());
   root = createRoot(document.createElement("div"));
   await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));

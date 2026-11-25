@@ -849,7 +849,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             failedCount: failed,
             skippedCount: skipped,
             totalCreditsUsed: creditsUsed,
-            errorMessage: halted ? prev.errorMessage : null,
+            // A pause, this run's or one another tab recorded, keeps its message through late progress.
+            errorMessage: halted || prev.status === "paused" || prev.status === "blocked" ? prev.errorMessage : null,
           }));
           return !halted;
         };
@@ -929,6 +930,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           isRunningRef.current = false;
           const resumed = resumedDuringRunRef.current;
           resumedDuringRunRef.current = false;
+          // A failed write may still have landed (a claim whose reply was lost): the next sync settles such verses from
+          // their request records, whether or not this run tries again.
+          if (saveFailed) reconciledBulkIdRef.current = null;
           // The reader's Resume restarts the job at once; otherwise a run that ended on a failed save tries again shortly.
           if (resumed && !isPausedRef.current && !isCancelledRef.current) {
             setRunLoopTrigger((value) => value + 1);
