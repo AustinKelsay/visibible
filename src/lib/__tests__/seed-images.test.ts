@@ -8,6 +8,8 @@ import { RATE_LIMITS } from "../../../convex/rateLimit";
 const SITE = "https://seed.test";
 const PASSWORD = "s3cret-Owner-Pass";
 const JONAH_2: SeedChapterEntry[] = [{ book: "jonah", chapter: 2, verses: 10 }];
+// Longer than a minute's allowance, so the pacing is exercised.
+const GENESIS_1: SeedChapterEntry[] = [{ book: "genesis", chapter: 1, verses: 31 }];
 const IMAGE_USD = 0.04;
 
 type Call = { method: string; path: string; headers: Record<string, string>; body: Record<string, unknown> | undefined; at: number };
@@ -341,6 +343,7 @@ describe("a paid run", () => {
     const h = harness({ generate: (body, nth) => {
       if (body.reference === "Jonah 2:2") return json(503, { error: "Reference lookup unavailable" });
       if (body.reference === "Jonah 2:3") return json(500, { error: "Failed to generate image", message: "OpenRouter API error: 500", requestId: body.requestId });
+      if (body.reference === "Jonah 2:4") return json(503, { error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", requestId: body.requestId, retryable: false });
       return rendered(body, nth);
     } });
     const summary = await run(h);
@@ -349,10 +352,12 @@ describe("a paid run", () => {
     expect(refused[0].body?.requestId).not.toBe(refused[1].body?.requestId);
     // A failure after admission may have been paid for and may have saved an image: one request, held at the ceiling, no second id.
     expect(h.site.generates.filter((call) => call.body?.reference === "Jonah 2:3")).toHaveLength(1);
+    expect(h.site.generates.filter((call) => call.body?.reference === "Jonah 2:4")).toHaveLength(1);
     expect(h.rows.filter((entry) => entry.event === "result" && entry.outcome !== "rendered").map((entry) => [entry.reference, entry.attempt, entry.outcome, entry.status, entry.usd, entry.usdSource])).toEqual([
       ["Jonah 2:2", 1, "failed", 503, 0, "none"], ["Jonah 2:2", 2, "failed", 503, 0, "none"], ["Jonah 2:3", 1, "unresolved", 500, 0.1, "ceiling"],
+      ["Jonah 2:4", 1, "unresolved", 503, 0.1, "ceiling"],
     ]);
-    expect(summary).toMatchObject({ stop: "complete", rendered: 8, unresolved: 1, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.32, unconfirmedUsd: 0.1 });
+    expect(summary).toMatchObject({ stop: "complete", rendered: 7, unresolved: 2, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.28, unconfirmedUsd: 0.2 });
   });
 
   it("counts an image at the ceiling unless the provider reported its cost, and stops when one costs more than the ceiling", async () => {
@@ -400,8 +405,9 @@ describe("a paid run", () => {
     expect(GENERATE_REQUESTS_PER_MINUTE).toBe(RATE_LIMITS["generate-image"].maxRequests);
     expect(RATE_LIMITS["generate-image"].windowMs).toBe(60_000);
     const h = harness();
-    expect(await run(h, { concurrency: 4 })).toMatchObject({ rendered: 10 });
+    expect(await run(h, { concurrency: 4 }, GENESIS_1)).toMatchObject({ rendered: 31 });
     const at = h.site.generates.map((call) => call.at);
+    expect(at.length).toBeGreaterThan(GENERATE_REQUESTS_PER_MINUTE);
     for (let i = 0; i + GENERATE_REQUESTS_PER_MINUTE < at.length; i++) expect(at[i + GENERATE_REQUESTS_PER_MINUTE] - at[i]).toBeGreaterThan(60_000);
   });
 
@@ -484,8 +490,8 @@ describe("a paid run", () => {
     // Asked while the run waits for the next minute's allowance: the request it was waiting to send is never sent.
     const waiting = harness();
     waiting.deps.stopRequested = () => waiting.sleeps.length > 0;
-    expect(await run(waiting)).toMatchObject({ stop: "interrupted", rendered: 5 });
-    expect(waiting.rows.filter((entry) => entry.event === "start")).toHaveLength(5);
+    expect(await run(waiting, {}, GENESIS_1)).toMatchObject({ stop: "interrupted", rendered: GENERATE_REQUESTS_PER_MINUTE });
+    expect(waiting.rows.filter((entry) => entry.event === "start")).toHaveLength(GENERATE_REQUESTS_PER_MINUTE);
   });
 
   it("sends the password to the admin login alone and keeps it out of every log line and ledger row", async () => {

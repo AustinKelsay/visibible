@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { createContext, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { ArrowUp, ChevronLeft, Sparkles } from "lucide-react";
 import { useSession } from "@/context/session-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -13,7 +13,8 @@ import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
 import { freeAnswersUsedMessage } from "@/lib/free-answer-display";
-import { questionsByTopic, type QuestionTopic } from "@/lib/ask-suggestions";
+import { isQuestionTopic, questionsByTopic, type QuestionTopic } from "@/lib/ask-suggestions";
+import { readableReference } from "@/lib/readable-reference";
 
 export interface AskVerse {
   bookName: string;
@@ -31,10 +32,58 @@ function useAsk(): AskState {
   return state;
 }
 
+/**
+ * The question topic the reader last chose, kept for this tab (#529 follow-up): Ask opens on it at every verse, and on
+ * Meaning in a new tab. When the tab cannot store it, it lasts while the page stays open.
+ */
+const TOPIC_KEY = "visibible-ask-topic";
+/** The topic last chosen on this page, for when storage cannot be read or was not written. */
+let lastChosen: QuestionTopic | null = null;
+/** Whether the last choice failed to reach storage, so storage holds an older topic or none. */
+let unstored = false;
+const topicListeners = new Set<() => void>();
+
+/** Storage that can be read and holds the last choice is the truth; otherwise the page's own copy is. */
+function chosenTopic(): QuestionTopic {
+  let stored: string | null;
+  try {
+    stored = sessionStorage.getItem(TOPIC_KEY);
+  } catch {
+    return lastChosen ?? "meaning";
+  }
+  if (unstored && lastChosen) return lastChosen;
+  return isQuestionTopic(stored) ? stored : "meaning";
+}
+
+function chooseTopic(topic: QuestionTopic) {
+  lastChosen = topic;
+  try {
+    sessionStorage.setItem(TOPIC_KEY, topic);
+    unstored = false;
+  } catch {
+    // A full quota, say: the page keeps the topic instead.
+    unstored = true;
+  }
+  topicListeners.forEach((listener) => listener());
+}
+
+function useChosenTopic() {
+  const topic = useSyncExternalStore(
+    (listener) => {
+      topicListeners.add(listener);
+      return () => topicListeners.delete(listener);
+    },
+    chosenTopic,
+    // The server renders Meaning; a stored topic shows once the page is running.
+    () => "meaning" as const,
+  );
+  return [topic, chooseTopic] as const;
+}
+
 function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   const { translation } = usePreferences();
   const { buyCredits } = useSession();
-  const reference = `${bookName} ${chapter}:${verseNumber}`;
+  const reference = readableReference(`${bookName} ${chapter}:${verseNumber}`);
   // The answering model is the default unless Advanced overrides it.
   const { answeringModel } = useAdvancedSettings();
   const chat = usePaidChat({
@@ -128,10 +177,10 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat.standingPending]);
 
-  // The chosen topic's questions about the verse on screen (#529), Meaning first. From the chapter's second verse
-  // Meaning holds a summary of the chapter so far, which the server answers from the chapter's text up to this verse.
-  // Their answers are stored (#505).
-  const [topic, setTopic] = useState<QuestionTopic>("meaning");
+  // The chosen topic's questions about the verse on screen (#529), Meaning until the reader chooses another. From the
+  // chapter's second verse Meaning holds a summary of the chapter so far, which the server answers from the chapter's
+  // text up to this verse. Their answers are stored (#505).
+  const [topic, setTopic] = useChosenTopic();
   const topics = questionsByTopic(bookName, chapter, verseNumber);
   const suggestions = topics.find((item) => item.id === topic)?.questions ?? [];
 
@@ -140,7 +189,8 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
 
 /**
  * Ask for one verse: the conversation, the question being typed and the turned-over words page. It lasts while the
- * reader stays on the verse; give it `key` = the verse so a page turn clears it. Nothing is saved.
+ * reader stays on the verse; give it `key` = the verse so a page turn clears it. The conversation is not saved; only
+ * the chosen question topic carries over to the next verse.
  */
 export function AskProvider({ verse, children }: { verse: AskVerse; children: ReactNode }) {
   const state = useAskState(verse);
@@ -150,18 +200,45 @@ export function AskProvider({ verse, children }: { verse: AskVerse; children: Re
   return <AskContext.Provider value={state}>{children}</AskContext.Provider>;
 }
 
-/** The topics of the suggested questions (#529): choosing one shows its questions, on both sides of the words page. */
+/**
+ * The topics of the suggested questions (#529): choosing one shows its questions, on both sides of the words page. On
+ * a phone they are one row that scrolls sideways to the screen's edges, as five never fit its width, and the chosen
+ * topic is scrolled into view, including when it was chosen at an earlier verse.
+ */
 function QuestionTopics({ className }: { className?: string }) {
   const { topics, topic, setTopic } = useAsk();
+  const group = useRef<HTMLDivElement>(null);
+  // The chosen topic is in view at once when Ask opens, and glides into view when the reader chooses another.
+  const opened = useRef(false);
+  useEffect(() => {
+    const row = group.current;
+    const chip = row?.querySelector<HTMLElement>('[aria-pressed="true"]');
+    // After the first time the row's own smooth scrolling applies, which reduced motion turns off.
+    const behavior = opened.current ? "auto" : "instant";
+    opened.current = true;
+    if (!row || !chip || row.scrollWidth <= row.clientWidth) return;
+    const inset = parseFloat(getComputedStyle(row).paddingLeft) || 0;
+    const rowBox = row.getBoundingClientRect();
+    const chipBox = chip.getBoundingClientRect();
+    const by = chipBox.left < rowBox.left + inset
+      ? chipBox.left - rowBox.left - inset
+      : chipBox.right > rowBox.right - inset ? chipBox.right - rowBox.right + inset : 0;
+    if (by !== 0) row.scrollBy({ left: by, behavior });
+  }, [topic]);
   return (
-    <div role="group" aria-label="Question topics" className={`flex flex-wrap gap-1.5 ${className ?? ""}`}>
+    <div
+      ref={group}
+      role="group"
+      aria-label="Question topics"
+      className={`flex gap-1.5 max-md:-mx-4 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:scroll-smooth max-md:px-4 max-md:py-1 motion-reduce:scroll-auto max-md:[scrollbar-width:none] max-md:[mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1rem),transparent)] md:flex-wrap max-md:[&::-webkit-scrollbar]:hidden ${className ?? ""}`}
+    >
       {topics.map(({ id, label }) => (
         <button
           key={id}
           type="button"
           aria-pressed={topic === id}
           onClick={() => setTopic(id)}
-          className="rounded-full px-3 py-1.5 text-[13px] leading-none text-ink/75 ring-1 ring-ink/15 transition-colors hover:text-ink hover:ring-ink/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70 aria-pressed:bg-ink/90 aria-pressed:text-paper aria-pressed:ring-transparent"
+          className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] leading-none text-ink/75 ring-1 ring-ink/15 transition-colors hover:text-ink hover:ring-ink/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70 aria-pressed:bg-ink/90 aria-pressed:text-paper aria-pressed:ring-transparent"
         >
           {label}
         </button>
@@ -271,8 +348,9 @@ export function AskPage() {
           </button>
           <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">{reference}</span>
         </div>
-        <blockquote className="mx-4 line-clamp-3 border-b border-ink/10 pt-1 pb-4 font-serif text-lg leading-snug text-ink/70 md:mx-12 md:pt-3 md:pb-6 md:text-xl lg:mx-14">
-          {verseText}
+        {/* The clamp is on the text, not the quote: a clamped box's bottom padding would show the cut-off fourth line. */}
+        <blockquote className="mx-4 border-b border-ink/10 pt-1 pb-4 font-serif text-lg leading-snug text-ink/70 md:mx-12 md:pt-3 md:pb-6 md:text-xl lg:mx-14">
+          <p className="line-clamp-3">{verseText}</p>
         </blockquote>
 
         <div ref={conversation} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:px-12 md:py-6 lg:px-14">
@@ -282,8 +360,9 @@ export function AskPage() {
                 <Sparkles size={12} strokeWidth={1.75} aria-hidden="true" />
                 Ask about this verse
               </p>
-              <QuestionTopics className="mt-3" />
-              <ul data-suggestions className="mt-3 flex flex-col gap-2">
+              {/* On a phone the topics' row keeps 4px above and below for the focus ring, so the gaps stay 12px. */}
+              <QuestionTopics className="mt-2 md:mt-3" />
+              <ul data-suggestions className="mt-2 flex flex-col gap-2 md:mt-3">
                 {suggestions.map((question) => (
                   <li key={question}>
                     <button

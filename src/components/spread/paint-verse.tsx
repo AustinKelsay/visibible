@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSession } from "@/context/session-context";
 import { quotePhrase } from "@/lib/quote-display";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
+import { readableReference } from "@/lib/readable-reference";
 
 export const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
 export const PRIMARY = `${PILL} bg-ink text-paper hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60`;
@@ -74,7 +75,7 @@ export function PaintProgress({ paint, reference }: { paint: PaintVerse; referen
   return (
     <div
       role="progressbar"
-      aria-label={`Painting ${reference}`}
+      aria-label={`Painting ${readableReference(reference)}`}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={paint.percent}

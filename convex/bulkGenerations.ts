@@ -3,13 +3,10 @@ import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/s
 import { v } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
+import { bulkItemRequestId } from "./_helpers/bulkRequestId";
 
 const engineValidator = v.union(v.literal("legacy"), v.literal("generic"));
 export const DEFAULT_BULK_ART_STYLE = "classical";
-/** The request id every item is submitted under; stable across resume so the route replays instead of repeating. */
-export function bulkItemRequestId(bulkId: Id<"bulkGenerations">, order: number) {
-  return `bulk-${bulkId}-${order}`;
-}
 
 const bulkGenerationVerseStatusValidator = v.union(
   v.literal("queued"),
@@ -333,6 +330,10 @@ export const updateVerseStatus = mutation({
     expectedCurrentStatus: v.optional(bulkGenerationVerseStatusValidator),
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
+    /** With a requeue: the item's request id was spent (the provider could not take it), so its next one is new. */
+    spentRequest: v.optional(v.boolean()),
+    /** The claim number this write belongs to, as the claim returned it. A write from a replaced claim is refused. */
+    claim: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const bulkGeneration = await requireOwnedBulkGeneration(
@@ -347,6 +348,8 @@ export const updateVerseStatus = mutation({
       )
       .unique();
     if (!verse) return { updated: false };
+    // Another tab may have reconciled and claimed this item since the writer's claim (#552).
+    if (args.claim !== undefined && (verse.claim ?? 0) !== args.claim) return { updated: false };
     if (
       args.expectedCurrentStatus !== undefined &&
       verse.status !== args.expectedCurrentStatus
@@ -377,12 +380,15 @@ export const updateVerseStatus = mutation({
     if (!canTransition) {
       return { updated: false };
     }
+    if (args.spentRequest && !isRequeueTransition) return { updated: false };
 
     const patch: {
       status?: typeof args.status;
       creditsCost?: number;
       error?: string;
       updatedAt?: number;
+      attempt?: number;
+      claim?: number;
     } = {};
 
     patch.status = args.status;
@@ -393,10 +399,18 @@ export const updateVerseStatus = mutation({
     if (args.error !== undefined) {
       patch.error = args.error;
     }
+    // Only a request that ended failed is spent. One still accepted (its failure was not recorded) keeps the item's
+    // id, so the next submission replays it rather than starting a second attempt beside it.
+    if (args.spentRequest && (await requestStateFor(ctx, bulkGeneration, verse)).state === "failed") {
+      patch.attempt = (verse.attempt ?? 0) + 1;
+    }
+
+    const isClaim = verse.status === "queued" && args.status === "generating";
+    if (isClaim) patch.claim = (verse.claim ?? 0) + 1;
 
     if (Object.keys(patch).length === 0) return { updated: false };
     await ctx.db.patch(verse._id, patch);
-    return { updated: true };
+    return isClaim ? { updated: true, claim: patch.claim } : { updated: true };
   },
 });
 
@@ -448,11 +462,16 @@ export const pause = mutation({
   args: {
     id: v.id("bulkGenerations"),
     sid: v.string(),
-    /** Why the coordinator paused it, shown to the reader: e.g. engine_unavailable, style_unavailable, credits, rate_limited. */
+    /** Why the coordinator paused it, shown to the reader: e.g. engine_unavailable, style_unavailable, preparing, in_flight, credits, rate_limited, daily_limit, images_unavailable. */
     reason: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    // The reader may have paused while a request was out; the reason it then came back with still says why.
+    if (bulk.status === "paused" && args.reason) {
+      await ctx.db.patch(args.id, { pausedReason: args.reason, updatedAt: Date.now() });
+      return { updated: true };
+    }
     if (bulk.status !== "active") return { updated: false };
 
     await ctx.db.patch(args.id, {
@@ -530,8 +549,8 @@ export const bindEngine = mutation({
 type RequestState = "unstarted" | "accepted" | "succeeded" | "failed";
 
 /** What the authoritative request record says about one item; absent means nothing was ever admitted. */
-async function requestStateFor(ctx: BulkGenerationCtx, bulk: Doc<"bulkGenerations">, order: number) {
-  const request = await ctx.db.query("imageGenerationRequests").withIndex("by_requestId", (q) => q.eq("requestId", bulkItemRequestId(bulk._id, order))).first();
+async function requestStateFor(ctx: BulkGenerationCtx, bulk: Doc<"bulkGenerations">, item: Pick<Doc<"bulkGenerationVerses">, "order" | "attempt">) {
+  const request = await ctx.db.query("imageGenerationRequests").withIndex("by_requestId", (q) => q.eq("requestId", bulkItemRequestId(bulk._id, item.order, item.attempt))).first();
   if (!request || request.sid !== bulk.sid) return { state: "unstarted" as RequestState, request: null };
   if (request.status === "succeeded") return { state: "succeeded" as RequestState, request };
   if (request.status === "failed") return { state: "failed" as RequestState, request };
@@ -554,7 +573,7 @@ export const reconcileInterrupted = mutation({
     let boundEngine = bulk.engine;
     const now = Date.now();
     for (const item of generating) {
-      const { state, request } = await requestStateFor(ctx, bulk, item.order);
+      const { state, request } = await requestStateFor(ctx, bulk, item);
       if (state === "succeeded") {
         // The browser may have gone before it could bind the job: the accepted request's engine binds it now.
         if (!boundEngine) {
@@ -604,7 +623,7 @@ export const countItems = query({
         for (const itemStatus of ["queued", "generating"] as const) {
           const items = await ctx.db.query("bulkGenerationVerses").withIndex("by_bulk_status", (q) => q.eq("bulkGenerationId", job._id).eq("status", itemStatus)).collect();
           for (const item of items) {
-            const { state } = await requestStateFor(ctx, job, item.order);
+            const { state } = await requestStateFor(ctx, job, item);
             bucket[state]++;
           }
         }

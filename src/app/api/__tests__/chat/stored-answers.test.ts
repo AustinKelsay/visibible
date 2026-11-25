@@ -267,6 +267,15 @@ describe("a question from another topic (#529)", () => {
     expect(mockStreamTextImpl).not.toHaveBeenCalled();
   });
 
+  it("is recognised in the wording the page shows for a psalm, and stored under the app's own reference", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    const psalm = { book: "Psalms", chapter: 23, verseRange: "4" };
+    await ask(turn("What does Psalms 23:4 mean?", { context: psalm }));
+    expect(calls("storedSave")).toHaveLength(0);
+    await ask(turn("What does Psalm 23:4 mean?", { context: psalm }));
+    expect(calls("storedSave")).toEqual([expect.objectContaining({ reference: "Psalms 23:4", question: "What does Psalm 23:4 mean?" })]);
+  });
+
   it("is not stored when typed with any other wording", async () => {
     mockState.freeAnswer = { allowed: true, remaining: 19 };
     await ask(turn("How can I apply John 1:5 today"));

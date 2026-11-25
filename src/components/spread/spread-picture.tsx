@@ -14,6 +14,7 @@ import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { PaintButton, PaintProgress, PILL, usePaintVerse } from "@/components/spread/paint-verse";
 import { PlayMark } from "@/components/spread/play-mark";
 import { wordsPageWidthPx } from "@/components/spread/words-page-width";
+import { readableReference } from "@/lib/readable-reference";
 
 interface SpreadPictureProps {
   verseId: string;
@@ -26,6 +27,8 @@ interface SpreadPictureProps {
   onPlayOn?: () => boolean;
   /** Continuous play turned to this spread: its picture's video starts at once and Continuous play stays on. */
   arrivesPlaying?: boolean;
+  /** The map (#532) covers the picture: its video stops, and Continuous play with it. */
+  covered?: boolean;
 }
 
 /**
@@ -70,7 +73,7 @@ function useReducedMotion() {
   return useSyncExternalStore(subscribeReducedMotion, () => window.matchMedia?.(REDUCED_MOTION).matches ?? false, () => false);
 }
 
-function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, arrivesPlaying = false }: SpreadPictureProps) {
+function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, arrivesPlaying = false, covered = false }: SpreadPictureProps) {
   const { chosen: chosenStyle, order } = usePictureStyles();
   // The picture rule. The next spread's prefetch reads the same query with the same arguments (prefetch-next.tsx).
   const rulePicture = useQuery(api.verseImages.getSpreadPicture, { verseId, styles: order });
@@ -119,6 +122,11 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     setPlayback(null);
     setPlayOn(false);
   };
+  if (covered && (playback !== null || playOn || arrivalPending)) {
+    setPlayback(null);
+    setPlayOn(false);
+    setArrivalPending(false);
+  }
 
   // Continuous play: offered while a video is pressed and the next verse's picture (by the same rule) has a video too.
   const offersPlayOn = phase !== null && !reducedMotion && Boolean(nextVerseId && onPlayOn);
@@ -228,8 +236,8 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
 
   const action = phase === "playing" ? "Pause" : phase === "ended" ? "Play again" : "Play";
   const playLabel = phase === "playing"
-    ? `Pause the video of ${reference}`
-    : phase === "ended" ? `Play the video of ${reference} again` : `Play the video of ${reference}`;
+    ? `Pause the video of ${readableReference(reference)}`
+    : phase === "ended" ? `Play the video of ${readableReference(reference)} again` : `Play the video of ${readableReference(reference)}`;
   const toggleSound = () => {
     const on = !sound;
     soundChosen = on;
@@ -270,7 +278,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <button
           type="button"
           aria-pressed={sound}
-          aria-label={`Sound of the video of ${reference}`}
+          aria-label={`Sound of the video of ${readableReference(reference)}`}
           onClick={toggleSound}
           className="liquid-glass spread-dock flex h-9 w-9 items-center justify-center rounded-full text-ink/85 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:h-11 md:w-11"
         >
@@ -313,7 +321,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       <button
         ref={button}
         type="button"
-        aria-label={wholeIsOpen ? "Back to the words" : `Show the whole picture of ${reference}`}
+        aria-label={wholeIsOpen ? "Back to the words" : `Show the whole picture of ${readableReference(reference)}`}
         onClick={() => {
           if (wholeIsOpen) {
             closeWhole();
@@ -332,7 +340,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <img
           key={picture.id}
           src={picture.imageUrl}
-          alt={`Picture of ${reference}`}
+          alt={`Picture of ${readableReference(reference)}`}
           className={`${pictureClass} transition-opacity duration-300 motion-reduce:transition-none`}
           style={showThumbnail ? { ...fit, opacity: 0 } : fit}
           onLoad={(event) => {
@@ -383,7 +391,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       </button>
       {playControls}
       {/* Continuous play carried the reader into this verse: said once its video plays, without taking focus. */}
-      {arrivesPlaying ? <span role="status" className="sr-only">{phase !== null && phase !== "loading" ? `Now playing ${reference}` : ""}</span> : null}
+      {arrivesPlaying ? <span role="status" className="sr-only">{phase !== null && phase !== "loading" ? `Now playing ${readableReference(reference)}` : ""}</span> : null}
       {/* Continuous play fetches the next clip ahead, so the next verse starts to move without a wait. */}
       {continues && nextVideoUrl ? <video src={nextVideoUrl} preload="auto" muted aria-hidden="true" tabIndex={-1} className="hidden" /> : null}
       {shown && pictures ? (
@@ -457,7 +465,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered =
   if (paint.painting) {
     body = (
       <div className="w-full space-y-2">
-        <p className="text-sm text-ink/90">Painting {reference} in {chosenLabel}…</p>
+        <p className="text-sm text-ink/90">Painting {readableReference(reference)} in {chosenLabel}…</p>
         <PaintProgress paint={paint} reference={reference} />
       </div>
     );
