@@ -43,4 +43,11 @@ describe("image allowance by tier", () => {
     expect(await allowedOf("admin", { adminUntil: Date.now() - 1000 })).toBe(20);
     expect(await allowedOf("admin", { adminUntil: Date.now() + 60_000 })).toBe(40);
   });
+
+  it("reports the owner's allowance as admission applies it", async () => {
+    const t = convexTest(schema, modules);
+    await t.run(async (ctx) => { await ctx.db.insert("sessions", { sid: "s1", tier: "admin", credits: 100, createdAt: Date.now(), lastSeenAt: Date.now() }); });
+    await t.mutation(api.rateLimit.checkRateLimit, { identifier: "ip:s1", endpoint: "generate-image", serverSecret: SECRET, sid: "s1" });
+    expect(await t.query(api.rateLimit.getRateLimitStatus, { identifier: "ip:s1", endpoint: "generate-image", serverSecret: SECRET, sid: "s1" })).toMatchObject({ remaining: 39, limit: 40 });
+  });
 });

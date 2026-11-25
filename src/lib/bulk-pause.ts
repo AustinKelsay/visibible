@@ -13,7 +13,7 @@ export const BULK_PAUSES = {
   rate_limited: { shows: "blocked", message: "Rate limited. Resume to continue when capacity is available." },
   daily_limit: { shows: "blocked", message: "This session has reached today's spending limit. Resume tomorrow to paint the rest." },
   images_unavailable: { shows: "blocked", message: `${IMAGES_UNAVAILABLE}. The job is paused; resume when painting is back.` },
-  /** The bound engine, the style, or a scene isn't admitting work; the route's own explanation leads when there is one. */
+  /** The bound engine, the style, or a scene isn't admitting work. */
   engine_unavailable: { shows: "blocked", message: "This job's engine isn't taking new pictures right now. The job is paused; resume when it is available again." },
   style_unavailable: { shows: "blocked", message: "This job's art style isn't available right now. The job is paused; resume when it is available again." },
   preparing: { shows: "blocked", message: "A scene is still being prepared. The job is paused; resume when it is available again." },
@@ -25,11 +25,8 @@ export const BULK_PAUSES = {
 
 export type BulkPauseReason = keyof typeof BULK_PAUSES;
 
-/** The message for a pause. `detail` is the route's explanation for an engine, style or scene pause, when known. */
-export function bulkPauseMessage(reason: BulkPauseReason, detail?: string): string | null {
-  if (detail && (reason === "engine_unavailable" || reason === "style_unavailable" || reason === "preparing")) {
-    return `${detail} The job is paused; resume when it is available again.`;
-  }
+/** The message for a pause, the same live and after a reload. */
+export function bulkPauseMessage(reason: BulkPauseReason): string | null {
   return BULK_PAUSES[reason].message;
 }
 

@@ -125,6 +125,24 @@ const SAVE_RETRY_DELAY_MS = 5000;
 const SAVE_RETRY_LIMIT = 3;
 const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
+/** A Convex write that failed. It ends the run for the save recovery rather than failing the verse it was about (#552). */
+class SaveFailed extends Error {}
+const saved = <T,>(write: Promise<T>) =>
+  write.catch((error: unknown) => {
+    throw new SaveFailed(error instanceof Error ? error.message : String(error), { cause: error });
+  });
+
+/** A job's counters as its verse rows record them, never lower than the job's own (a progress write can fail). */
+function countersFrom(verses: BulkGenerationVerse[], job: BulkGenerationCounters): BulkGenerationCounters {
+  const done = verses.filter((verse) => verse.status === "completed");
+  return {
+    completedCount: Math.max(job.completedCount, done.length),
+    failedCount: Math.max(job.failedCount, verses.filter((verse) => verse.status === "failed").length),
+    skippedCount: Math.max(job.skippedCount, verses.filter((verse) => verse.status === "skipped").length),
+    totalCreditsUsed: Math.max(job.totalCreditsUsed, done.reduce((sum, verse) => sum + (verse.creditsCost ?? 0), 0)),
+  };
+}
+
 const BulkGenerationContext = createContext<BulkGenerationContextType | null>(
   null
 );
@@ -447,7 +465,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({
       ...prev,
       bulkId: bulkForState._id,
-      status: bulkForState.status as BulkGenerationStatus,
+      // A pause shows as the table says, live and after a reload (#552).
+      status: bulkForState.status === "paused" && isBulkPauseReason(bulkForState.pausedReason)
+        ? BULK_PAUSES[bulkForState.pausedReason].shows
+        : bulkForState.status as BulkGenerationStatus,
       totalVerses: bulkForState.totalVerses,
       completedCount: bulkForState.completedCount,
       failedCount: bulkForState.failedCount,
@@ -507,6 +528,31 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       releaseRunLock();
     };
   }, [getRunLockStorageKey, releaseRunLock, scheduleRunLockRetry]);
+
+  // A Convex write failed (a claim, an outcome, progress, reconciliation): the job starts again shortly, a few times
+  // in a row, then shows why it stopped. The server job is paused too if that write gets through (#552).
+  const scheduleSaveRetry = useCallback((bulkId: Id<"bulkGenerations">) => {
+    if (!sid) return;
+    saveFailuresRef.current++;
+    if (saveFailuresRef.current <= SAVE_RETRY_LIMIT) {
+      // A claim whose reply was lost may still have landed: the next run settles such verses from their request
+      // records first, as after a reload.
+      reconciledBulkIdRef.current = null;
+      const generation = runGenerationRef.current;
+      if (saveRetryTimeoutRef.current !== null) window.clearTimeout(saveRetryTimeoutRef.current);
+      saveRetryTimeoutRef.current = window.setTimeout(() => {
+        saveRetryTimeoutRef.current = null;
+        if (runGenerationRef.current === generation) setRunLoopTrigger((value) => value + 1);
+      }, SAVE_RETRY_DELAY_MS);
+      return;
+    }
+    saveFailuresRef.current = 0;
+    isPausedRef.current = true;
+    setState((prev) => ({ ...prev, status: BULK_PAUSES.save_failed.shows, errorMessage: bulkPauseMessage("save_failed") }));
+    void pauseBulk({ id: bulkId, sid, reason: "save_failed" }).catch((error) => {
+      console.error("Failed to pause bulk generation after failed saves:", error);
+    });
+  }, [pauseBulk, sid]);
 
   // ---------------------------------------------------------------------------
   // Generation loop
@@ -589,10 +635,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         };
         // Records the job's pause and shows its message. A job stopped meanwhile stays stopped: only a job this pause
         // reached shows it.
-        const pauseJob = async (reason: BulkPauseReason, detail?: string) => {
-          const paused = await pauseBulk({ id: bulkId, sid, reason });
+        const pauseJob = async (reason: BulkPauseReason) => {
+          const paused = await saved(pauseBulk({ id: bulkId, sid, reason }));
           if (paused?.updated === false) return;
-          setRunState((prev) => ({ ...prev, status: BULK_PAUSES[reason].shows, errorMessage: bulkPauseMessage(reason, detail) }));
+          setRunState((prev) => ({ ...prev, status: BULK_PAUSES[reason].shows, errorMessage: bulkPauseMessage(reason) }));
         };
         // Whether a verse refused before admission may be sent again after a wait: not once the job stops or pauses.
         const stillWanted = () => !halted && !workerFailed && !isCancelledRef.current && !isPausedRef.current && !lostLockRef.current && ownsRunLock(bulkId);
@@ -613,7 +659,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         /** Paints one verse; false when this worker should take no more. */
         const paintItem = async (item: BulkQueueItem): Promise<boolean> => {
           const writeVerse = (status: BulkVerseStatus, extra: VerseWriteExtra, claim?: number) =>
-            updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status, ...(claim !== undefined ? { claim } : {}), ...extra });
+            saved(updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status, ...(claim !== undefined ? { claim } : {}), ...extra }));
           const claimResult = await writeVerse("generating", { expectedCurrentStatus: "queued" });
           if (!claimResult?.updated) {
             return true;
@@ -625,10 +671,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             setVerse("queued", { expectedCurrentStatus: "generating", ...(spentRequest ? { spentRequest: true } : {}) });
           // The verse goes back to the queue and the run takes no more. Only the run's first pause writes the job's
           // reason and shows its message; a job that was stopped meanwhile stays stopped.
-          const pauseFor = async (reason: BulkPauseReason, options: { spentRequest?: boolean; detail?: string } = {}) => {
+          // A requeue Convex refused belongs to a replaced claim: the tab that holds the verse now decides about the job.
+          const pauseFor = async (reason: BulkPauseReason, options: { spentRequest?: boolean } = {}) => {
             const first = halt();
-            await requeue(options.spentRequest);
-            if (first) await pauseJob(reason, options.detail);
+            const moved = await requeue(options.spentRequest);
+            if (first && moved?.updated) await pauseJob(reason);
             return false;
           };
 
@@ -677,7 +724,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 lostLockRef.current = true;
                 return false;
               }
-              await requeue();
+              if (!(await requeue())?.updated) return false;
               pending.unshift(item);
               return true;
             };
@@ -711,8 +758,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             if (response.ok && response.status !== 202) {
               const data = await response.json();
               const cost = data.creditsCost ?? 0;
-              completed++;
-              creditsUsed += cost;
               if (!settings.engine && (data.engine === "legacy" || data.engine === "generic")) {
                 // The first accepted item binds the job; every later item is submitted with this engine.
                 settings.engine = data.engine;
@@ -721,7 +766,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 });
               }
 
-              await setVerse("completed", { expectedCurrentStatus: "generating", creditsCost: cost });
+              // Counted only once saved: a refused write means another tab's claim holds the verse, and it records the outcome.
+              if (!(await setVerse("completed", { expectedCurrentStatus: "generating", creditsCost: cost }))?.updated) return false;
+              completed++;
+              creditsUsed += cost;
               saveFailuresRef.current = 0;
             } else if (response.status === 202) {
               // Still running server-side after the wait: leave it queued so resume replays it.
@@ -729,8 +777,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             } else if (response.status === 402) {
               // Other verses' holds may be what the balance lacked: this one is tried again, alone, once they settle.
               if (overlappedAtSend || inFlight.size > 1) {
-                await requeue();
-                deferred.push(item);
+                if ((await requeue())?.updated) deferred.push(item);
                 return false;
               }
               return await pauseFor("credits");
@@ -750,17 +797,19 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               // The job keeps its configuration and completed outcomes; nothing was charged. It waits for the engine
               // or style to be admitted again rather than switching.
               if (response.status === 409 && errData?.error === ENGINE_BINDING_CHANGED) {
-                return await pauseFor("engine_unavailable", { detail: errData?.message || errorMsg });
+                return await pauseFor("engine_unavailable");
               }
               if (response.status === 503 && errData?.retryable === true) {
-                return await pauseFor(errData.error === ART_STYLE_UNAVAILABLE ? "style_unavailable" : "preparing", { detail: errData?.message || errorMsg });
+                return await pauseFor(errData.error === ART_STYLE_UNAVAILABLE ? "style_unavailable" : "preparing");
               }
+              if (!(await setVerse("failed", { expectedCurrentStatus: "generating", error: errorMsg }))?.updated) return false;
               failed++;
-              await setVerse("failed", { expectedCurrentStatus: "generating", error: errorMsg });
             }
           } catch (err) {
+            // Only the image request and its answer fail the verse; a failed save ends the run for the save recovery.
+            if (err instanceof SaveFailed) throw err;
+            if (!(await setVerse("failed", { expectedCurrentStatus: "generating", error: err instanceof Error ? err.message : "Unknown error" }))?.updated) return false;
             failed++;
-            await setVerse("failed", { expectedCurrentStatus: "generating", error: err instanceof Error ? err.message : "Unknown error" });
           }
 
           await updateProgress({
@@ -861,24 +910,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           if (resumed && !isPausedRef.current && !isCancelledRef.current) {
             setRunLoopTrigger((value) => value + 1);
           } else if (saveFailed && !lostLock && !isPausedRef.current && !isCancelledRef.current) {
-            saveFailuresRef.current++;
-            if (saveFailuresRef.current <= SAVE_RETRY_LIMIT) {
-              // A claim whose reply was lost may still have landed: the next run settles such verses from their
-              // request records first, as after a reload.
-              reconciledBulkIdRef.current = null;
-              saveRetryTimeoutRef.current = window.setTimeout(() => {
-                saveRetryTimeoutRef.current = null;
-                if (runGenerationRef.current === generation) setRunLoopTrigger((value) => value + 1);
-              }, SAVE_RETRY_DELAY_MS);
-            } else {
-              // Still failing: the reader sees why the job stopped, and the server job is paused if that write gets through.
-              saveFailuresRef.current = 0;
-              isPausedRef.current = true;
-              setState((prev) => ({ ...prev, status: BULK_PAUSES.save_failed.shows, errorMessage: bulkPauseMessage("save_failed") }));
-              void pauseBulk({ id: bulkId, sid, reason: "save_failed" }).catch((error) => {
-                console.error("Failed to pause bulk generation after failed saves:", error);
-              });
-            }
+            scheduleSaveRetry(bulkId);
           }
         }
       }
@@ -891,6 +923,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       bindEngine,
       readCsrfToken,
       releaseRunLock,
+      scheduleSaveRetry,
       sid,
     ]
   );
@@ -917,8 +950,15 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           // in-flight item must not be requeued and counted twice.
           if (!acquireRunLock(bulkForState._id)) return;
           lockTakenToReconcile = true;
+          try {
+            await reconcileInterrupted({ sid, id: bulkForState._id });
+          } catch (error) {
+            // Not settled: the lock goes back and the job tries again like any failed save (#552).
+            releaseRunLock(bulkForState._id);
+            if (!cancelled) scheduleSaveRetry(bulkForState._id);
+            throw error;
+          }
           reconciledBulkIdRef.current = bulkForState._id;
-          await reconcileInterrupted({ sid, id: bulkForState._id });
           if (cancelled) { releaseRunLock(bulkForState._id); return; }
           verses = await loadAllVerses(bulkForState._id);
           if (cancelled) { releaseRunLock(bulkForState._id); return; }
@@ -948,11 +988,33 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           }));
 
         queueRef.current = pendingQueue;
+        // The rows are the record of each verse's outcome; a progress write that failed leaves the job's counters behind.
+        const counters = countersFrom(verses, bulkForState);
+
+        // Every verse has an outcome but the job never heard: its last progress write failed. Save it from the rows.
+        if (
+          sid &&
+          bulkForState.status === "active" &&
+          !isRunningRef.current &&
+          !generatingVerse &&
+          pendingQueue.length === 0 &&
+          counters.completedCount + counters.failedCount + counters.skippedCount >= bulkForState.totalVerses
+        ) {
+          try {
+            await updateProgress({ sid, id: bulkForState._id, ...counters });
+          } catch (error) {
+            if (lockTakenToReconcile) releaseRunLock(bulkForState._id);
+            if (!cancelled) scheduleSaveRetry(bulkForState._id);
+            throw error;
+          }
+        }
 
         if (
           bulkForState.status !== "active" ||
           isPausedRef.current ||
           isRunningRef.current ||
+          // A run that failed to save starts again when its wait ends, not on the next snapshot.
+          saveRetryTimeoutRef.current !== null ||
           pendingQueue.length === 0
         ) {
           if (lockTakenToReconcile) releaseRunLock(bulkForState._id);
@@ -966,12 +1028,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         isPausedRef.current = false;
         isCancelledRef.current = false;
         lostLockRef.current = false;
-        void runGenerationLoop(bulkForState._id, pendingQueue, {
-          completedCount: bulkForState.completedCount,
-          failedCount: bulkForState.failedCount,
-          skippedCount: bulkForState.skippedCount,
-          totalCreditsUsed: bulkForState.totalCreditsUsed,
-        });
+        void runGenerationLoop(bulkForState._id, pendingQueue, counters);
       } catch (error) {
         if (!cancelled) {
           console.error("Failed to load bulk generation queue:", error);
@@ -984,7 +1041,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [acquireRunLock, bulkForState, loadAllVerses, reconcileInterrupted, releaseRunLock, runGenerationLoop, runLoopTrigger, sid]);
+  }, [acquireRunLock, bulkForState, loadAllVerses, reconcileInterrupted, releaseRunLock, runGenerationLoop, runLoopTrigger, scheduleSaveRetry, sid, updateProgress]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -1098,6 +1155,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     if (!state.bulkId || !sid) return;
     const previousStatus = state.status;
     try {
+      // The reader's Resume ends any wait after a failed save.
+      if (saveRetryTimeoutRef.current !== null) window.clearTimeout(saveRetryTimeoutRef.current);
+      saveRetryTimeoutRef.current = null;
       const result = await resumeBulk({ id: state.bulkId, sid });
       if (!result?.updated) {
         // Failed saves can show a job as blocked that the server never paused: Resume starts it again.

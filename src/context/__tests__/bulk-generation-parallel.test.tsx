@@ -249,7 +249,8 @@ it("keeps a pause's message through the progress that verses still painting writ
   await act(async () => publishServerJob({}));
   await act(async () => third.resolve(success()));
   await act(async () => publishServerJob({ completedCount: 2, totalCreditsUsed: 4 }));
-  expect(bulk.state.status).toBe("paused");
+  // A job paused for an outage shows as blocked, as the pause table says (#552).
+  expect(bulk.state.status).toBe("blocked");
   expect(bulk.state.errorMessage).toContain("Images are temporarily unavailable");
   await act(async () => fourth.resolve(success()));
   await act(async () => root.unmount());

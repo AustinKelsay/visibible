@@ -89,6 +89,8 @@ async function handleRateLimitStatusGet(request: Request): Promise<NextResponse<
       serverSecret: getConvexServerSecret(),
       identifier: rateLimitIdentifier,
       endpoint: "generate-image",
+      // An owner is told the owner's allowance, as admission applies it (#552).
+      sid,
     }),
     convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() }),
   ]);
@@ -123,7 +125,7 @@ async function handleRateLimitStatusGet(request: Request): Promise<NextResponse<
       },
       "generate-image": {
         remaining: imageStatus.remaining,
-        limit: RATE_LIMITS["generate-image"].maxRequests,
+        limit: imageStatus.limit ?? RATE_LIMITS["generate-image"].maxRequests,
         resetAt: imageStatus.resetAt,
         windowMs: RATE_LIMITS["generate-image"].windowMs,
       },
