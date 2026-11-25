@@ -12,7 +12,7 @@ import { usePictureStyles } from "@/context/work-scope-context";
 import { trackMapExplored, trackMapLinkShown, trackMapOpened, type MapExploration } from "@/lib/analytics";
 import { previewSource } from "@/lib/picture-source";
 import type { VerseSetting } from "@/lib/verse-setting";
-import type { MapHere } from "@/components/spread/place-map-view";
+import type { MapHere } from "@/components/spread/place-card";
 import { forgetOpenedCard } from "@/components/spread/place-map-memory";
 
 // The map experiment (#532). The map and its outline load only when a reader first opens it.

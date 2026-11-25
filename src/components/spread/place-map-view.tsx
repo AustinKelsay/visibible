@@ -84,7 +84,6 @@ export function zoomFrames(setting: VerseSetting, box: MapBox): { frames: Record
 }
 
 export { resetPlaceMap } from "./place-map-memory";
-export type { MapHere } from "./place-card";
 
 /** The map's one line about its setting, in words a reader can trust. */
 export function settingNote(setting: VerseSetting): string {
