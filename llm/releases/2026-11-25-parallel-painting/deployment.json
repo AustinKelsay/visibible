@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner said \"Okay, let's get these seven follow-ups in place and then get this all shipped systematically end to end\" about #540 and its follow-ups (#552)."
+  ],
+  "release": {
+    "pullRequests": [540],
+    "issues": [530, 552],
+    "commit": "700b289f (main)",
+    "summary": "A chapter paints four verses at a time, eight for the owner (an admin session, who also gets 40 image requests a minute against everyone else's 20). Short refusals are waited out: the site's rate limit, an OpenRouter 429 and an in-flight-budget 402. The job pauses only when waiting won't help. Follow-ups (#552): claim numbers fence verse writes; a failed Convex write restarts the run after 5 s, up to three times, then blocks with save_failed; one pause table gives the same status and message live, after a reload and in a second tab; HTTP-date Retry-After.",
+    "leftOut": "Follow-ups listed in the PR body: one retry loop over the latest response, an explicit request state for a refused withdrawal, and a new request id after a refusal at the final charge."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-25T15:43:18Z",
+        "convex": "Pushed to unique-impala-244 from 700b289f (schema: optional bulkGenerationVerses.claim; bulkGenerations; rateLimit; verseImages.withdrawRefusedRequest). The dry run validated the schema and deleted no indexes."
+      },
+      {
+        "at": "2026-11-25T15:43:29Z",
+        "commit": "700b289f",
+        "vercel": "dpl_5zrhJC5P28nsH6eU4CaqeDqvR63s"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com redirects to /genesis/1/1 (200), and api.visibible.com answers. For a fresh guest, /api/rate-limit-status reports generate-image 20 of 20. An automatic zero-credit request for Job 1:6 got 402 (required 6, available 0, nothing charged), and the allowance then read 19 of 20, so the sid-aware Convex rate limit is live. No chapter was painted: a real bulk run needs credits and the owner's budget.",
+    "beforeRelease": "npm test 1630/1630 merged with main, tsc clean, eslint 0 errors, CI quality-gates green on 8d7fe3de. Ten Sol review rounds (GPT-6.2 Sol, xhigh), five for #530 and five for #552; every repro is kept as a test. The last Sol finding (S14) was fixed with the guard Sol proposed and had tested in a scratch copy. CodeRabbit's two reviews are answered; the paid on-demand review was not run."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_6KkBb3C1PtkarnaWVTf1mZSeEZQh (69594448, the previous production).",
+    "convex": "Push the Convex functions from 69594448. The optional claim field can stay: older code ignores it."
+  },
+  "productionWrites": [
+    "One Convex production push.",
+    "One Vercel production deployment.",
+    "One guest session and one refused (402) request record from the smoke check."
+  ],
+  "spend": "None."
+}
