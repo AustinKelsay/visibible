@@ -699,6 +699,8 @@ export default defineSchema({
     status: bulkGenerationVerseStatusValidator,
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
+    // Request ids spent on provider outages; the item's request id carries it after the first (convex/_helpers/bulkRequestId.ts).
+    attempt: v.optional(v.number()),
     updatedAt: v.number(),
   })
     .index("by_bulk_order", ["bulkGenerationId", "order"])

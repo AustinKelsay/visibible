@@ -9,6 +9,7 @@ import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { drawGlow } from "@/lib/glow";
 import { previewSource } from "@/lib/picture-source";
 import { PaintButton, PaintProgress, PRIMARY, usePaintVerse } from "@/components/spread/paint-verse";
+import { readableReference } from "@/lib/readable-reference";
 
 interface UnpaintedPictureProps {
   verseId: string;
@@ -45,14 +46,14 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
 
   if (made && !made.saved) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={made.url} alt={`Picture of ${reference}`} className="absolute inset-0 h-full w-full object-cover object-center" />;
+    return <img src={made.url} alt={`Picture of ${readableReference(reference)}`} className="absolute inset-0 h-full w-full object-cover object-center" />;
   }
 
   let body;
   if (paint.painting) {
     body = (
       <div className="w-full max-w-[280px] space-y-3">
-        <p className="font-serif text-xl text-ink/90">Painting {reference}</p>
+        <p className="font-serif text-xl text-ink/90">Painting {readableReference(reference)}</p>
         <PaintProgress paint={paint} reference={reference} />
         <p className="text-xs text-ink/(--quiet-60)">
           {generation.phase === "generating" ? "The picture is being painted." : "Getting the scene ready."} Keep reading; it appears here when it is done.
@@ -84,7 +85,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
         <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14">
           <Brush aria-hidden="true" className="h-5 w-5 text-ink/85" />
         </span>
-        <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {reference} yet</p>
+        <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {readableReference(reference)} yet</p>
         <PaintButton paint={paint} label={`Paint this ${word}`} />
       </>
     );

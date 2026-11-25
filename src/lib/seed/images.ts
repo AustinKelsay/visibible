@@ -21,6 +21,7 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { scrubForLog } from "@/lib/image-evals/suite-run";
 import { BIBLE_WORK_ID } from "../../../convex/lib/proseWorks";
 import { SEED_CHAPTERS, type SeedChapterEntry } from "./chapters";
+import { IMAGES_UNAVAILABLE } from "@/lib/image-errors";
 
 /** What the dry run projects per image: the provider's measured price for one image is about $0.043 (ADR 0012). */
 export const ESTIMATE_USD_PER_IMAGE = 0.045;
@@ -204,6 +205,9 @@ export function classifyGenerateResponse(status: number, json: Json | null): Att
   if (status === 429) return failed({ stop: body.error === "Daily spending limit exceeded" ? "daily-limit" : "rate-limited" });
   // A replay of a request that was admitted and ended without a saved image: no image exists, and its cost is unknown.
   if (status === 409 && body.reused === true) return failed(held);
+  // The provider failed after admission: the reader's hold was released, but a provider 5xx does not prove nothing was
+  // spent, so it is held at the ceiling like any other failure after admission, and its spent request id is not retried.
+  if (status === 503 && body.error === IMAGES_UNAVAILABLE) return unresolved();
   // The engine or admission declined the scene before any request record or charge.
   if (status === 503 && typeof body.retryable === "boolean") return { outcome: "declined", status, retryable: body.retryable, ...none, error };
   // Any other 502 or 503 is answered before admission: a Scripture lookup or a service that is down.

@@ -1,0 +1,38 @@
+{
+  "authorization": [
+    "Asked for this lane's follow-ups, the owner answered: \"Okay, so this seems small, but a consistent, simple fix\" (Psalm wording), \"Yes\" (remember the topic), \"Yes, please fix. And find a good solution\" (phone chips) and \"Yes\" (worktree cleanup). Contested wording was discussed only; nothing changed.",
+    "Shown #544 ready, the owner said: \"ok do it\" (merge and release)."
+  ],
+  "release": {
+    "pullRequests": [544],
+    "mainCommit": "e9995af5",
+    "followsUp": [529, 535],
+    "reviewFindings": "An independent Claude review found no request, key or stored-value leak of the reader-facing wording and one low finding (a tab that can read but not write storage kept no topic): fixed. CodeRabbit's PR review raised two more storage edge cases (a topic chosen after a failed write, and a read that fails after a successful write): both fixed with regression tests; the CodeRabbit CLI then found nothing. CI passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-24T21:38:44Z", "commit": "e9995af5", "carries": [544], "vercel": "dpl_H8NzDXFNgFHuq2L92VhXsyaZ6x86" }
+    ],
+    "before": "Production was dpl_BV6NJVDFDc1KCSX3iMz2JFR6ogj5 (main 9cb39d3f, #543). Main's only change beyond it besides #544 was the #545 release record. No Convex, package or lockfile change, so no Convex push."
+  },
+  "changes": [
+    "The chosen question topic is kept for the browser tab (sessionStorage visibible-ask-topic), so Ask opens on it at every verse; Meaning in a new tab.",
+    "A verse or chapter of Psalms reads \"Psalm 23:4\" in the suggested questions, the page title, Contents, captions, the picture menu and alt and aria text; the book stays \"Psalms\". Requests, verse ids, stored pictures, videos and answers and the public image API keep \"Psalms 23:4\".",
+    "On a phone the question topics are one row that scrolls sideways to the screen's edges, with the chosen topic scrolled into view. The computer foot is unchanged.",
+    "The Ask page's verse quote no longer shows the cut-off fourth line of a long verse."
+  ],
+  "smoke": {
+    "after": "Production at 390 x 844 (phone), a new guest, chat, painting, video and invoice requests blocked. At John 1:5 the guest opened Ask and chose For today, then went to Psalms 23:4: the title read \"Psalm 23:4 - Visibible\", the Ask header \"PSALM 23:4\", For today was still chosen and scrolled into view in a one-line (33 px) scrolling row, and its questions read \"How can I apply Psalm 23:4 today?\" and \"What can I pray about from Psalm 23:4?\". No question was sent."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_BV6NJVDFDc1KCSX3iMz2JFR6ogj5. Psalms suggestions return to the \"Psalms 23:4\" wording, whose stored answers are still there until they expire.",
+    "convex": "Nothing to roll back."
+  },
+  "knownEffects": [
+    "Stored answers to Psalms suggestions were keyed by the old wording, so they are no longer served; the first reader to ask each again gets a new answer (free or paid as usual). The old rows stay until their 30-day expiry and can be removed with storedAnswers:removeForReference under \"Psalms N:V\"."
+  ],
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "One smoke guest session (quotes only). No spend."
+  ]
+}

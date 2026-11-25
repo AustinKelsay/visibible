@@ -1,3 +1,5 @@
+import { readableReference } from "./readable-reference";
+
 /**
  * The questions Ask suggests for a verse (#442), grouped by topic (#529). The page offers them; the server recognises
  * them, since their answers are stored and served to every reader who asks the same one (#505).
@@ -12,17 +14,23 @@ const QUESTION_TOPICS = [
 
 export type QuestionTopic = (typeof QUESTION_TOPICS)[number]["id"];
 
+/** Whether a value, such as one read back from storage, names a question topic. */
+export function isQuestionTopic(value: unknown): value is QuestionTopic {
+  return QUESTION_TOPICS.some((topic) => topic.id === value);
+}
+
 /**
  * Every question suggested for a verse, in topic order. Meaning comes first with "What does John 1:5 mean?", then
- * "Summarize John 1 so far", or at a chapter's first verse its historical context, which Context then leaves out.
+ * "Summarize John 1 so far", or at a chapter's first verse its historical context, which Context then leaves out. A
+ * verse or chapter of Psalms reads "Psalm 23:1"; the book itself stays "Psalms".
  */
 export function suggestedQuestions(bookName: string, chapter: number, verse: number): { topic: QuestionTopic; text: string }[] {
-  const reference = `${bookName} ${chapter}:${verse}`;
+  const reference = readableReference(`${bookName} ${chapter}:${verse}`);
   const historicalContext = `What is the historical context of ${reference}?`;
   const firstVerse = verse <= 1;
   return [
     { topic: "meaning", text: `What does ${reference} mean?` },
-    { topic: "meaning", text: firstVerse ? historicalContext : `Summarize ${bookName} ${chapter} so far` },
+    { topic: "meaning", text: firstVerse ? historicalContext : `Summarize ${readableReference(`${bookName} ${chapter}`)} so far` },
     { topic: "meaning", text: `Why does ${reference} matter?` },
     { topic: "context", text: `What leads up to ${reference}?` },
     ...(firstVerse ? [] : [{ topic: "context" as const, text: historicalContext }]),

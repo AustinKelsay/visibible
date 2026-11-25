@@ -23,6 +23,7 @@ import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { analysisAccess, listAnalysisRecords } from "./analysis-records";
 import { makeThumbnail as makeThumbnailFromBytes } from "../thumbnails";
+import { IMAGES_UNAVAILABLE } from "../image-errors";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 type Runtime = GenericGenerationInput["runtime"];
@@ -49,6 +50,49 @@ const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
 // A thumbnail takes well under a second; past this the picture is saved without one.
 const THUMBNAIL_TIMEOUT_MS = 5_000;
+
+/**
+ * Provider answers that say nothing is wrong with this request, only that images cannot be made now: the key is
+ * refused or out of credit (401, 402), the call timed out or was rate limited (408, 429), or the provider is down.
+ */
+const PROVIDER_UNAVAILABLE_STATUSES = new Set([401, 402, 408, 429]);
+/** The most of the provider's reason kept in a log line. */
+const PROVIDER_REASON_LIMIT = 300;
+/**
+ * What a provider's reason may echo that must not reach a log: known key shapes (OpenRouter `sk-`, Google `AIza` and
+ * `AQ.`), a bearer credential in any case, and any unbroken run of 32 or more letters, digits or underscores, the shape
+ * of other providers' keys. Model names and request ids are broken by hyphens and stay readable.
+ */
+const CREDENTIAL_PATTERN = /\b(sk-[\w-]{8,}|AIza[\w-]{30,}|AQ\.[\w.-]{20,}|bearer\s+\S+|\w{32,})/gi;
+
+/** A provider answer other than success, with the reason it gave. */
+class ProviderError extends Error {
+  constructor(readonly status: number, reason: string) {
+    super(`OpenRouter API error ${status}: ${reason}`);
+    this.name = "ProviderError";
+  }
+
+  /** True when the provider could take no request now, whatever was asked. */
+  get providerUnavailable(): boolean {
+    return PROVIDER_UNAVAILABLE_STATUSES.has(this.status) || this.status >= 500;
+  }
+}
+
+/**
+ * The provider's reason from its error body (`{ error: { message, metadata } }`), or a placeholder when it gave none.
+ * When OpenRouter passes on a model provider's failure its message is generic ("Provider returned error") and the
+ * provider's own answer is in `metadata.raw`, so that follows. Anything shaped like a credential is masked.
+ */
+async function providerReason(response: Response): Promise<string> {
+  const body = (await response.json().catch(() => null)) as { error?: unknown } | null;
+  const error = body?.error;
+  const text = (value: unknown) => typeof value === "string" ? value.trim() : value === undefined || value === null ? "" : JSON.stringify(value);
+  const fields = error && typeof error === "object" ? error as { message?: unknown; metadata?: { raw?: unknown; provider_name?: unknown } } : { message: error };
+  const raw = text(fields.metadata?.raw);
+  const provider = text(fields.metadata?.provider_name);
+  const reason = [text(fields.message), raw && (provider ? `${provider}: ${raw}` : raw)].filter(Boolean).join(" | ");
+  return reason ? reason.replace(CREDENTIAL_PATTERN, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+}
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -320,16 +364,18 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.action(api.sessions.logAdminUsage, { sid, endpoint: "generate-image", modelId, estimatedCredits: reservationCreditsCost, estimatedCostUsd: reservationCostUsd, serverSecret })
           .catch((error) => logWarn("generic.admin_audit_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
       }
-      const fail = async (status: number, error: string, message: string, discardImage = false) => {
+      // `recorded` is what the request record keeps (and a replay answers with) when it differs from what the reader is told.
+      const fail = async (status: number, error: string, message: string, { discardImage = false, retryable, recorded = message }: { discardImage?: boolean; retryable?: boolean; recorded?: string } = {}) => {
         // Marking failed first lets a save still in flight observe it and clean up its own blobs.
         // Without a confirmed mark the hold stays held, since a save may still commit.
-        const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
-        if (!marked?.success) return respond(status, { error, message, requestId });
+        const marked = await update("failed", { error: recorded, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
+        const body = { error, message, requestId, ...(retryable !== undefined ? { retryable } : {}) };
+        if (!marked?.success) return respond(status, body);
         if (discardImage && generationId) {
           await convex.action(api.verseImages.discardImageByGenerationId, { generationId, serverSecret }).catch(() => {});
         }
         await release("generic_release_on_failure");
-        return respond(status, { error, message, requestId });
+        return respond(status, body);
       };
 
       // 12. One provider call, references inline after the prompt in packet order.
@@ -354,7 +400,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             }),
             signal: controller.signal,
           });
-          if (!response.ok) throw new Error(`OpenRouter API error: ${response.status}`);
+          if (!response.ok) throw new ProviderError(response.status, await providerReason(response));
           return (await response.json()) as Record<string, unknown>;
         } finally {
           clearTimeout(timer);
@@ -377,8 +423,16 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           logApiTimeout({ context: requestContext, stage: "openrouter_generation", timeoutMs, sid, generationId });
           return fail(504, "Image generation timed out", `${TIMEOUT_PREFIX} ${timeoutMs}ms`);
         }
+        if (error instanceof ProviderError && error.providerUnavailable) {
+          // Nothing was made, so nothing is charged; the reader is told to come back rather than shown a failure. This
+          // request id is spent (a retry under it replays the failure), so it is not `retryable`; a new request may succeed.
+          logApiFailure({ context: requestContext, stage: "openrouter_unavailable", error, statusCode: 503, sid, generationId });
+          return fail(503, IMAGES_UNAVAILABLE, "No credits were used. Please try again later.", { retryable: false, recorded: `OpenRouter API error ${error.status}` });
+        }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
-        return fail(500, "Failed to generate image", error instanceof Error ? error.message : "Failed to generate image");
+        // The provider's reason stays in the log: the request record and the answer carry only its status.
+        const detail = error instanceof ProviderError ? `OpenRouter API error ${error.status}` : error instanceof Error ? error.message : "Failed to generate image";
+        return fail(500, "Failed to generate image", detail);
       }
       const first = toAttempt(firstData);
       if ("noImage" in first) {
@@ -447,7 +501,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       } catch (error) {
         logApiFailure({ context: requestContext, stage: "generic_save_image", error, statusCode: 500, sid, generationId });
         // The save may have committed before its response was lost; the discard happens after the failure mark.
-        return fail(500, "Failed to generate image", "The image could not be saved", true);
+        return fail(500, "Failed to generate image", "The image could not be saved", { discardImage: true });
       }
       // Settlement follows persistence: a picture that could not be saved releases its hold instead of charging.
       // 14. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
@@ -479,7 +533,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         }
         if (deduct && !deduct.success) {
           logSettlementEvent({ context: requestContext, outcome: "deduct_failed", sid, generationId, details: { actualCredits: chargedCredits } });
-          return fail(402, "Insufficient credits", "Insufficient credits", true);
+          return fail(402, "Insufficient credits", "Insufficient credits", { discardImage: true });
         }
         if (deduct && "newBalance" in deduct) updatedCredits = deduct.newBalance;
         if (deduct) logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual } });

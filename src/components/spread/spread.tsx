@@ -25,6 +25,7 @@ import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
 import type { VerseSetting } from "@/lib/verse-setting";
+import { readableReference } from "@/lib/readable-reference";
 
 export interface SpreadProps {
   /** Where the verse's pictures are kept ("genesis-1-1"), or a prose moment's (its first unit's id). */
@@ -159,7 +160,7 @@ function SpreadScreen({
             covered={mapShows}
           />
         </div>
-        <PlaceMapStage setting={setting} verseId={verseId} reference={reference} hidden={whole} />
+        <PlaceMapStage setting={setting} verseId={verseId} reference={readableReference(reference)} hidden={whole} />
         {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />
         <WholePictureCaption
@@ -175,7 +176,7 @@ function SpreadScreen({
       <PrefetchNextSpread nextUrl={nextUrl} nextVerseId={nextVerseId} />
 
       <VerseMarks
-        label={`${word === "verse" ? "Verses" : "Passages"} of ${chapterLabel ?? `${bookName} ${chapter}`}`}
+        label={`${word === "verse" ? "Verses" : "Passages"} of ${chapterLabel ?? readableReference(`${bookName} ${chapter}`)}`}
         places={places}
         current={verseNumber}
         onTurn={onTurn}
