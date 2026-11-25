@@ -2,6 +2,9 @@
  * Gemini Developer API Batch client (`batchGenerateContent` + Files API) for offline-paced evaluation runs at 50% of
  * standard token rates, using the exact same model, prompts, 1K resolution and reference attachments as live runs.
  */
+import { createInterface } from "node:readline";
+import { Readable } from "node:stream";
+import type { ReadableStream as WebReadableStream } from "node:stream/web";
 import { supportsResolution } from "../image-models";
 import { geminiModelId } from "./adapters";
 import { GEMINI_BATCH_DISCOUNT, geminiUsageUsd, type ModelPricing } from "./suite-run";
@@ -237,6 +240,40 @@ export async function downloadGeminiFile(options: { apiKey: string; fileName: st
   const text = await response.text();
   if (!response.ok) throw new Error(`Gemini file download failed (${response.status}): ${text.slice(0, 300)}`);
   return text;
+}
+
+/**
+ * Stream a completed batch's responses JSONL file line by line so large image batches (>512 MB with inline
+ * base64 images and thought signatures) never exceed V8's maximum string length.
+ */
+export async function streamGeminiFileLines(options: {
+  apiKey: string;
+  fileName: string;
+  fetch?: FetchLike;
+  onLine: (line: string) => void | Promise<void>;
+}): Promise<void> {
+  const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
+  const response = await fetchImpl(geminiFileDownloadUrl(options.fileName), {
+    headers: { "x-goog-api-key": options.apiKey },
+  });
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`Gemini file download failed (${response.status}): ${text.slice(0, 300)}`);
+  }
+  if (!response.body) {
+    const text = await response.text();
+    for (const raw of text.split("\n")) {
+      const line = raw.trim();
+      if (line) await options.onLine(line);
+    }
+    return;
+  }
+  const nodeStream = Readable.fromWeb(response.body as unknown as WebReadableStream);
+  const rl = createInterface({ input: nodeStream, crlfDelay: Infinity });
+  for await (const raw of rl) {
+    const line = raw.trim();
+    if (line) await options.onLine(line);
+  }
 }
 
 export type GeminiBatchParsedLine =

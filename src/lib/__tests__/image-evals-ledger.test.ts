@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createGeminiEvalImageProvider, geminiGenerateUrl } from "../image-evals/adapters";
 import {
   buildGeminiBatchLine, downloadGeminiFile, GEMINI_FILES_UPLOAD_URL, geminiBatchJobBoundUsd, geminiBatchUrl,
-  geminiFileDownloadUrl, geminiResourceUrl, parseGeminiBatchOutputLine, pollGeminiBatch, submitGeminiBatch, uploadGeminiFile,
+  geminiFileDownloadUrl, geminiResourceUrl, parseGeminiBatchOutputLine, pollGeminiBatch, streamGeminiFileLines, submitGeminiBatch, uploadGeminiFile,
 } from "../image-evals/gemini-batch";
 import { createLedger, GEMINI_BATCH_DISCOUNT, geminiUsageUsd, modelPricing, requestCeilingUsd, scrubForLog } from "../image-evals/suite-run";
 
@@ -240,7 +240,10 @@ describe("Gemini batch eval client", () => {
     expect(polled).toMatchObject({ state: "BATCH_STATE_SUCCEEDED", responsesFile: "files/out-1" });
 
     const text = await downloadGeminiFile({ apiKey: "gm-key", fileName: polled.responsesFile!, fetch: mockFetch });
-    const [imgRes, modRes, errRes] = text.trim().split("\n").map((l) => parseGeminiBatchOutputLine(l, nb));
+    const streamed: string[] = [];
+    await streamGeminiFileLines({ apiKey: "gm-key", fileName: polled.responsesFile!, fetch: mockFetch, onLine: (l) => { streamed.push(l); } });
+    expect(streamed).toEqual(text.trim().split("\n"));
+    const [imgRes, modRes, errRes] = streamed.map((l) => parseGeminiBatchOutputLine(l, nb));
 
     expect(imgRes.ok).toBe(true);
     if (imgRes.ok) {

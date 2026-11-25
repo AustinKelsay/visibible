@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-25T15:10:44.322Z",
+  "batchName": "batches/uislgml1t8asr19ewkjsr68plys834nfl6r8",
+  "measuredUsd": 5.45756475,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 206,
+    "check": 0
+  },
+  "blocked": null,
+  "outcomes": {
+    "image": 205,
+    "failed": 1
+  },
+  "imageMs": null,
+  "batchElapsedMs": 94870,
+  "productionMutations": 0
+}

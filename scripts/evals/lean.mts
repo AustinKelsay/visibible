@@ -56,8 +56,8 @@ import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createGeminiEvalImageProvider, createOpenRouterEvalImageProvider, geminiGenerateUrl } from "@/lib/image-evals/adapters";
 import {
-  buildGeminiBatchLine, deleteGeminiFile, downloadGeminiFile, GEMINI_SAFETY_REASONS, geminiBatchJobBoundUsd,
-  isGeminiBatchSucceeded, parseGeminiBatchOutputLine, pollGeminiBatch, submitGeminiBatch, uploadGeminiFile,
+  buildGeminiBatchLine, deleteGeminiFile, GEMINI_SAFETY_REASONS, geminiBatchJobBoundUsd,
+  isGeminiBatchSucceeded, parseGeminiBatchOutputLine, pollGeminiBatch, streamGeminiFileLines, submitGeminiBatch, uploadGeminiFile,
 } from "@/lib/image-evals/gemini-batch";
 import type { ReferenceRecord } from "@/lib/engine/lean-assemble";
 import { analysisAccess, listAnalysisRecords, type AnalysisRecord } from "@/lib/engine/analysis-records";
@@ -444,29 +444,66 @@ async function run() {
     saveLedger();
 
     const started = Date.now();
-    let jsonlOutput = "";
     let batchName = "offline/batch-1";
     let uploadedToCleanup: string[] = [];
+    const seenKeys = new Set<string>();
+    const handleOutputLine = (line: string, elapsedTotalMs: number) => {
+      const item = parseGeminiBatchOutputLine(line, pricing);
+      const job = byKey.get(item.key);
+      if (!job) return;
+      seenKeys.add(item.key);
+      const reserve = keyBounds[item.key] ?? 0;
+      const costUsd = values.offline ? Math.round((p.evaluation.reserves.image * GEMINI_BATCH_DISCOUNT) * 1e6) / 1e6 : item.costUsd;
+      ledgerState.counts.image++;
+      ledgerState.calls.push({ phase: item.key, kind: "image", status: item.ok ? "200" : item.moderated ? "403" : "500", measuredUsd: costUsd });
+      if (costUsd !== null) {
+        ledgerState.uncertainUsd = Math.max(0, Math.round((ledgerState.uncertainUsd - reserve) * 1e9) / 1e9);
+        ledgerState.measuredUsd = Math.round((ledgerState.measuredUsd + costUsd) * 1e9) / 1e9;
+      }
+      logProvider({
+        phase: item.key, kind: "image", batchName, at: new Date().toISOString(),
+        status: item.ok ? 200 : item.moderated ? 403 : 500,
+        reservedUsd: reserve,
+        response: scrubForLog(item.response, apiKey, sha256),
+        measuredUsageUsd: costUsd,
+      });
+      if (made.has(item.key)) return;
+      if (item.ok) {
+        const extension = item.mimeType === "image/jpeg" ? "jpg" : item.mimeType.split("/")[1] ?? "png";
+        const file = path.join(imageDir, `${item.key.replaceAll("/", "__")}__a1.${extension}`);
+        writeFileSync(file, item.bytes);
+        const present = job.rendering.present.map((m) => m.entryId);
+        record({
+          ...job.base, outcome: "image", momentId: job.sc.momentId, sectionId: job.sc.sectionId, context: job.context,
+          prompt: job.rendering.prompt, packet: job.rendering.packet,
+          references: job.rendering.references.map((r) => ({ kind: r.kind, storageId: r.storageId, caption: r.caption })),
+          prepared: { present: job.rendering.present.map((m) => ({ entryId: m.entryId, stageId: m.stageId })), plan: { present, primarySubject: `${job.context.moment.reference}: ${job.context.moment.text.slice(0, 200)}`, secondaryElements: "" } },
+          attempts: [{ n: 1, file: path.relative(root, file), sha256: sha256(item.bytes), bytes: item.bytes.length, mimeType: item.mimeType, costUsd, elapsedMs: elapsedTotalMs, providerRequestId: item.providerRequestId }],
+          chosen: 1, elapsedMs: elapsedTotalMs,
+        });
+      } else {
+        record({ ...job.base, outcome: "failed", stage: "image", message: item.error.slice(0, 400), elapsedMs: elapsedTotalMs });
+      }
+    };
 
     if (values.offline) {
       // Exercise JSONL construction and batch response parsing with a tiny valid 1x1 JPEG.
       const tinyJpegB64 = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=";
-      const lines = assembled.map((j) => {
+      for (const j of assembled) {
         const reqLine = buildGeminiBatchLine({
           key: j.key, prompt: j.rendering.prompt, model: p.image.model, aspectRatio: p.image.aspectRatio, resolution: p.image.resolution,
           references: j.rendering.sentReferences.map((r) => ({ kind: "file" as const, mimeType: "image/jpeg", fileUri: `https://generativelanguage.googleapis.com/v1beta/files/offline-${r.storageId}` })),
         });
         assert.ok(reqLine.key === j.key);
-        return JSON.stringify({
+        handleOutputLine(JSON.stringify({
           key: j.key,
           response: {
             responseId: `offline-${j.key}`,
             usageMetadata: { promptTokenCount: 3000, candidatesTokenCount: 1600, thoughtsTokenCount: 480, candidatesTokensDetails: [{ modality: "IMAGE", tokenCount: 1120 }] },
             candidates: [{ finishReason: "STOP", content: { parts: [{ inlineData: { mimeType: "image/jpeg", data: tinyJpegB64 } }] } }],
           },
-        });
-      });
-      jsonlOutput = lines.join("\n");
+        }), Date.now() - started);
+      }
     } else {
       let jobRecord: BatchJobRecord;
       if (attachedRecord) {
@@ -528,50 +565,15 @@ async function run() {
         writeFileSync(path.join(outDir, `run-finished${part}.json`), `${JSON.stringify(finished, null, 2)}\n`, { flag: "wx" });
         throw new Error(reason);
       }
-      jsonlOutput = await downloadGeminiFile({ apiKey, fileName: finalStatus.responsesFile });
+      const elapsedDownloadStart = Date.now() - started;
+      await streamGeminiFileLines({
+        apiKey,
+        fileName: finalStatus.responsesFile,
+        onLine: (line) => handleOutputLine(line, elapsedDownloadStart),
+      });
     }
 
-    const parsedLines = jsonlOutput.split("\n").map((l) => l.trim()).filter(Boolean);
-    const seenKeys = new Set<string>();
     const elapsedTotalMs = Date.now() - started;
-    for (const line of parsedLines) {
-      const item = parseGeminiBatchOutputLine(line, pricing);
-      const job = byKey.get(item.key);
-      if (!job) continue;
-      seenKeys.add(item.key);
-      const reserve = keyBounds[item.key] ?? 0;
-      const costUsd = values.offline ? Math.round((p.evaluation.reserves.image * GEMINI_BATCH_DISCOUNT) * 1e6) / 1e6 : item.costUsd;
-      ledgerState.counts.image++;
-      ledgerState.calls.push({ phase: item.key, kind: "image", status: item.ok ? "200" : item.moderated ? "403" : "500", measuredUsd: costUsd });
-      if (costUsd !== null) {
-        ledgerState.uncertainUsd = Math.max(0, Math.round((ledgerState.uncertainUsd - reserve) * 1e9) / 1e9);
-        ledgerState.measuredUsd = Math.round((ledgerState.measuredUsd + costUsd) * 1e9) / 1e9;
-      }
-      logProvider({
-        phase: item.key, kind: "image", batchName, at: new Date().toISOString(),
-        status: item.ok ? 200 : item.moderated ? 403 : 500,
-        reservedUsd: reserve,
-        response: scrubForLog(item.response, apiKey, sha256),
-        measuredUsageUsd: costUsd,
-      });
-      if (made.has(item.key)) continue;
-      if (item.ok) {
-        const extension = item.mimeType === "image/jpeg" ? "jpg" : item.mimeType.split("/")[1] ?? "png";
-        const file = path.join(imageDir, `${item.key.replaceAll("/", "__")}__a1.${extension}`);
-        writeFileSync(file, item.bytes);
-        const present = job.rendering.present.map((m) => m.entryId);
-        record({
-          ...job.base, outcome: "image", momentId: job.sc.momentId, sectionId: job.sc.sectionId, context: job.context,
-          prompt: job.rendering.prompt, packet: job.rendering.packet,
-          references: job.rendering.references.map((r) => ({ kind: r.kind, storageId: r.storageId, caption: r.caption })),
-          prepared: { present: job.rendering.present.map((m) => ({ entryId: m.entryId, stageId: m.stageId })), plan: { present, primarySubject: `${job.context.moment.reference}: ${job.context.moment.text.slice(0, 200)}`, secondaryElements: "" } },
-          attempts: [{ n: 1, file: path.relative(root, file), sha256: sha256(item.bytes), bytes: item.bytes.length, mimeType: item.mimeType, costUsd, elapsedMs: elapsedTotalMs, providerRequestId: item.providerRequestId }],
-          chosen: 1, elapsedMs: elapsedTotalMs,
-        });
-      } else {
-        record({ ...job.base, outcome: "failed", stage: "image", message: item.error.slice(0, 400), elapsedMs: elapsedTotalMs });
-      }
-    }
     for (const job of assembled) {
       if (!seenKeys.has(job.key)) {
         ledgerState.counts.image++;
