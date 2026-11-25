@@ -478,11 +478,16 @@ describe("today's map", () => {
     await openMap();
     expect(shownView()).toBe("Then");
     expect(map()!.getAttribute("data-view")).toBe("then");
+    // The note reads the same on both, so switching never changes its height (and with it the room for the controls).
+    const note = () => container.querySelector("a[href*='openbible']")!.closest("p")!.textContent;
+    const thenNote = note();
+    expect(thenNote).toContain("Map: Natural Earth");
     expect(container.querySelector("[data-today]")).toBeNull();
 
     await act(async () => views()[1].click());
     expect(shownView()).toBe("Today");
     expect(map()!.getAttribute("data-view")).toBe("today");
+    expect(note()).toBe(thenNote);
     expect(container.querySelector("[data-today] path")?.getAttribute("d")).toMatch(/^M/);
     const cities = Array.from(container.querySelectorAll("[data-today-city]"), (city) => city.getAttribute("data-today-city"));
     expect(cities).toEqual(expect.arrayContaining(["Tel Aviv", "Damascus", "Haifa"]));
@@ -494,7 +499,7 @@ describe("today's map", () => {
     // The setting stays, and the ancient context names give way to today's cities.
     expect(container.querySelector('[data-rings="Bethel · Luz"]')).not.toBeNull();
     expect(container.querySelectorAll("[data-nearby] text")).toHaveLength(0);
-    expect(container.textContent).toContain("Today: Natural Earth");
+    expect(container.textContent).toContain("Map: Natural Earth");
     expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "view", view: "today" }));
   });
 
@@ -578,6 +583,15 @@ describe("today's map", () => {
   });
 });
 
+describe("cardPosition beside the dock", () => {
+  it("reaches over the note when it must, but never down over the dock below it", () => {
+    // 1200×430: the controls end at 132, the note sits 166 px from the bottom, the dock 112 px.
+    const box = { width: 720, height: 430, top: 132, bottom: 166, dock: 112 };
+    const spot = cardPosition({ left: 300, top: 200 }, 24, box, 300);
+    expect(spot.top + Math.min(300, spot.maxHeight)).toBeLessThanOrEqual(430 - 112);
+  });
+});
+
 describe("locatorSpot on a short map", () => {
   it("gives way where it would reach up beside the controls", () => {
     // 1200×320: the note starts at 158 and the controls end at 132, so the locator would cover the close button.
@@ -595,12 +609,12 @@ describe("freeBand", () => {
     // 113 px tall beside Ask: the note starts at 67, so the controls give up their reserve first.
     const band = freeBand({ height: 113, controlsBottom: 60, footerTop: 67 });
     expect(band.bottom).toBe(54);
-    expect(113 - band.top - band.bottom).toBeGreaterThanOrEqual(Math.min(72, 113 - 54));
-    expect(band.top).toBe(0);
+    expect(113 - band.top - band.bottom).toBeGreaterThanOrEqual(Math.min(56, 113 - 54));
+    expect(band.top).toBe(3);
     // Faint names still keep below the controls.
     expect(band.clear).toBe(68);
     const tight = freeBand({ height: 295, controlsBottom: 164, footerTop: 212 });
-    expect(295 - tight.top - tight.bottom).toBe(72);
+    expect(295 - tight.top - tight.bottom).toBe(56);
   });
 });
 

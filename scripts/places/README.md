@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | [src/data/bible-places.json](../../src/data/bible-places.json) | [OpenBible.info Bible Geocoding Data](https://github.com/openbibleinfo/Bible-Geocoding-Data) (`data/ancient.jsonl`, `data/modern.jsonl`) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The map credits it: "Places: OpenBible.info, CC BY 4.0". |
 | [src/data/bible-map-outline.json](../../src/data/bible-map-outline.json) | [Natural Earth](https://www.naturalearthdata.com/) 1:10m land, lakes and rivers (`ne_10m_land`, `ne_10m_lakes`, `ne_10m_rivers_lake_centerlines`) | Public domain |
-| [src/data/today-map.json](../../src/data/today-map.json) | Natural Earth land boundary lines (`ne_10m_admin_0_boundary_lines_land`), populated places (`ne_10m_populated_places_simple`) and countries (`ne_50m_admin_0_countries`) | Public domain. The map credits it on Today: "Today: Natural Earth". |
+| [src/data/today-map.json](../../src/data/today-map.json) | Natural Earth land boundary lines (`ne_10m_admin_0_boundary_lines_land`), populated places (`ne_10m_populated_places_simple`) and countries (`ne_50m_admin_0_countries`) | Public domain. The map credits Natural Earth on both views: "Map: Natural Earth". |
 
 ## What the build keeps
 

@@ -287,8 +287,8 @@ export function locatorSpot(box: MapBox, avoid: Box[]): Box | null {
   return avoid.some((other) => overlaps(margin, other)) ? null : spot;
 }
 
-/** The least height of map kept clear for the verse's places between the controls and the note. */
-const MIN_BAND = 72;
+/** The least height of map kept clear for the verse's places between the controls and the note: a full ring (44 px) and a little. */
+const MIN_BAND = 56;
 
 /**
  * How far the map's free band stays from the box's top and bottom, in screen pixels: below the lowest control and
@@ -311,6 +311,8 @@ interface MapBox {
   clear?: number;
   /** Whether the zoom steps and Then · Today are put away, on a map too short for them and its places. */
   squeezed?: boolean;
+  /** The height under the note that a card never covers: the page-turn dock on a computer. */
+  dock?: number;
 }
 
 /**
@@ -337,9 +339,9 @@ const CARD_WIDTH = 264;
  * else left), or where the box is too narrow for that (a phone), above or below it, whichever has room, and no taller
  * than that side, so it never covers the marker it describes. It stays below the box's `top` (the zoom steps, tag and
  * close button) and above its `bottom` (the note, its credit and the way back to the picture), unless that would leave
- * a card too short to read: then it may reach over the footer to the box's edge.
+ * a card too short to read: then it may reach over the footer, down to the box's edge or, on a computer, the dock.
  */
-export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number; bottom?: number }, height: number) {
+export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number; bottom?: number; dock?: number }, height: number) {
   const edge = 12;
   const ceiling = Math.max(edge, box.top ?? 0);
   const place = (floor: number) => {
@@ -362,7 +364,7 @@ export function cardPosition(at: { left: number; top: number }, gap: number, box
   };
   const clear = place(box.height - Math.max(edge, box.bottom ?? 0));
   // About six lines: the place, its site and a chapter or two.
-  return clear.maxHeight >= Math.min(height, READABLE_CARD) ? clear : place(box.height - edge);
+  return clear.maxHeight >= Math.min(height, READABLE_CARD) ? clear : place(box.height - Math.max(edge, box.dock ?? 0));
 }
 
 /** The least height a card keeps above the footer before it may reach over it. */
@@ -421,8 +423,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       const both = Math.max(left, right);
       // Too short for the steps and the places (a short window): the steps go, as beside Ask on a phone.
       const squeezed = left > 0 && freeBand({ height: node.clientHeight, controlsBottom: both, footerTop }).top < both + 8;
+      // Focus there would fall to the page as they go: the map keeps it, and Tab walks on from there.
+      if (squeezed && leftControls.current?.contains(document.activeElement)) map.current?.focus();
       const { top, bottom, clear } = freeBand({ height: node.clientHeight, controlsBottom: squeezed ? right : both, footerTop });
-      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed } : null);
+      const dock = footer.current ? node.clientHeight - footer.current.offsetTop - footer.current.offsetHeight : 0;
+      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed, dock } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -893,12 +898,14 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           <a href="https://www.openbible.info/geo/" target="_blank" rel="noreferrer" className="whitespace-nowrap text-white/55 underline decoration-white/25 underline-offset-2 hover:text-white/80">
             Places: OpenBible.info, CC BY 4.0
           </a>
-          {mapView === "today" ? (
-            <span className="text-white/55">
-              {" · "}
-              <span className="whitespace-nowrap">Today: Natural Earth</span>
-            </span>
-          ) : null}
+          {/*
+            Both views are drawn from Natural Earth, so the note reads the same on each and switching never changes its
+            height. It is public domain, so a phone's strip beside Ask keeps only the credit OpenBible's licence asks for.
+          */}
+          <span className="text-white/55 max-md:[main:has([data-ask-page])_&]:hidden">
+            {" · "}
+            <span className="whitespace-nowrap">Map: Natural Earth</span>
+          </span>
         </p>
       </div>
       {/* Where the view sits in the Bible world, on a computer. */}
@@ -979,7 +986,7 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   entries: MarkerEntry[];
   at: { left: number; top: number };
   gap: number;
-  box: { width: number; height: number; top?: number; bottom?: number; clear?: number };
+  box: { width: number; height: number; top?: number; bottom?: number; clear?: number; dock?: number };
   opened: boolean;
   here: MapHere;
   reference: string;
