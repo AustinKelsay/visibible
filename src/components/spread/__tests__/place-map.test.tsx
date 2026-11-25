@@ -824,6 +824,18 @@ describe("the place card", () => {
     expect(link("After: Song of Solomon 8:4")?.textContent).toBe("8:4");
   });
 
+  it("shortens long references in other books to their short names in a compact card", async () => {
+    phoneMap(390);
+    // 2 Kings 23:12: the Kidron, named before in 1 Kings 15:13 and after in 2 Chronicles 15:16.
+    const kings = { book: "2 Kings", slug: "2-kings", chapter: 23, verse: 12 };
+    await renderReader(setting("2KI", 23, 12), false, kings);
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => container.querySelector("[data-marker]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(link("Before: 1 Kings 15:13")?.textContent).toBe("1 Kgs 15:13");
+    expect(link("After: 2 Chronicles 15:16")?.textContent).toBe("2 Chr 15:16");
+  });
+
   it("tabs through a compact card's chapters in the order they show", async () => {
     phoneMap(390);
     // Genesis 35:2 carries Bethel from 35:1.

@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState, type RefObject } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { bookAbbreviation } from "@/data/book-abbreviations";
 import type { MapExploration } from "@/lib/analytics";
 import { clamp } from "@/lib/clamp";
 import { chaptersAround, chapterUrl, divisionOf, nearbyPlaces, type PlaceChapter } from "@/lib/place-chapters";
@@ -289,9 +290,12 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
       </Link>
     </span>
   ) : null;
-  // Compact, two long references would not share the row ("Song of Solomon 5:8", "Song of Solomon 8:4"): those in
-  // this verse's book then drop the book. About 28 characters fit beside the arrows in the card's width.
+  // Compact, two long references would not share the row ("Song of Solomon 5:8", "1 Kings 15:13 · 2 Chronicles
+  // 15:16"): they are then shown short, without the book in this verse's book ("5:8") and with its short name in
+  // another ("1 Kgs 15:13"). About 28 characters fit beside the arrows in the card's width.
   const crowded = compact && (before ? chapterReference(before).length : 0) + (after ? chapterReference(after).length : 0) > 28;
+  const shown = (named: PlaceChapter) =>
+    !crowded ? undefined : named.slug === here.slug ? `${named.chapter}:${named.verse}` : `${bookAbbreviation(named.bookId, named.book)} ${named.chapter}:${named.verse}`;
   return (
     <>
       {/* One list in both views, so a link keeps keyboard focus as the card turns compact. */}
@@ -303,8 +307,8 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
       <ol className={compact ? "flex flex-wrap items-baseline gap-x-3" : "mt-1"}>
         {/* Compact, "named in" moves under the row: keyed, so only it moves and the order you tab in is the order shown. */}
         {(compact ? ["before", "current", "after", "named"] : ["before", "current", "named", "after"]).map((row) => {
-          if (row === "before") return before ? <NeighbourRow key={row} glyph="‹" side="Before" named={before} compact={compact} short={crowded && before.slug === here.slug} onFollow={() => onChapter("before")} /> : null;
-          if (row === "after") return after ? <NeighbourRow key={row} glyph="›" side="After" named={after} compact={compact} short={crowded && after.slug === here.slug} onFollow={() => onChapter("after")} /> : null;
+          if (row === "before") return before ? <NeighbourRow key={row} glyph="‹" side="Before" named={before} compact={compact} shown={shown(before)} onFollow={() => onChapter("before")} /> : null;
+          if (row === "after") return after ? <NeighbourRow key={row} glyph="›" side="After" named={after} compact={compact} shown={shown(after)} onFollow={() => onChapter("after")} /> : null;
           if (row === "named") return namedIn ? <li key={row} className={compact ? "basis-full text-[11px] text-white/55" : "flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55"}>{namedIn}</li> : null;
           return (
             <li key={row} aria-current="true" className={compact ? "hidden" : "flex items-baseline gap-2 py-0.5"}>
@@ -335,16 +339,16 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
 
 /**
  * The chapter before or after this one at a place: a link to it, with how many of its verses name the place. Compact,
- * the two share a row, the one after at its right end with › after it, and the counts are left out; `short` shows a
- * reference in this verse's book without the book ("5:8"), where two long ones would not share the row.
+ * the two share a row, the one after at its right end with › after it, and the counts are left out. `shown` is a
+ * shorter reference to show ("5:8", "1 Kgs 15:13"); a screen reader still hears the whole one.
  */
-function NeighbourRow({ glyph, side, named, compact, short, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; compact: boolean; short: boolean; onFollow: () => void }) {
+function NeighbourRow({ glyph, side, named, compact, shown, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; compact: boolean; shown?: string; onFollow: () => void }) {
   const after = side === "After";
   return (
     <li className={`flex items-baseline py-0.5 ${compact ? `gap-1.5 ${after ? "ml-auto flex-row-reverse" : ""}` : "gap-2"}`}>
       <span aria-hidden="true" className={`text-white/45 ${compact ? "" : "w-3"}`}>{glyph}</span>
       <span>
-        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{short ? `${named.chapter}:${named.verse}` : chapterReference(named)}</Link>
+        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{shown ?? chapterReference(named)}</Link>
         {named.verses > 1 && !compact ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
       </span>
     </li>
