@@ -209,6 +209,17 @@ type MapLinkProps = BaseProps & {
   debated: boolean;
 };
 
+/** Exploring the open map (#556): the verse, and what the reader did. */
+type MapExploredProps = BaseProps & {
+  /** The verse being read, "Genesis 28:19". */
+  reference: string;
+} & (
+  | { action: "zoom"; step: "here" | "land" | "world" }
+  | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
+  | { action: "view"; view: "then" | "today" }
+  | { action: "all_chapters" }
+);
+
 type WholePictureOpenedProps = BaseProps & {
   book: string;
   chapter: number;
@@ -349,4 +360,9 @@ export function trackMapLinkShown(props: MapLinkProps) {
 // Track the reader opening the map from the words page's link
 export function trackMapOpened(props: MapLinkProps) {
   track("map_opened", props);
+}
+
+// Track the reader exploring the open map: a zoom step, a chapter link at a place, or a place's full list of chapters
+export function trackMapExplored(props: MapExploredProps) {
+  track("map_explored", props);
 }

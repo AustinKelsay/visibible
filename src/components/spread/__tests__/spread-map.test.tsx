@@ -8,6 +8,7 @@ import { Spread } from "@/components/spread/spread";
 import { resetMapMode } from "@/components/spread/place-map";
 import { answerPictureRead } from "@/app/__tests__/fake-picture-reads";
 import type { VerseSetting } from "@/lib/verse-setting";
+import { setAdvancedSetting } from "@/lib/advanced-settings";
 
 const fixture = vi.hoisted(() => ({
   push: vi.fn(),
@@ -50,6 +51,11 @@ vi.mock("convex/react", () => ({
     );
   },
   useMutation: () => vi.fn(async () => ({})),
+}));
+
+// The feedback prompt shows at random; this stand-in shows only whether the spread holds it back.
+vi.mock("@/components/feedback-prompt", () => ({
+  FeedbackPrompt: ({ suppressed }: { suppressed?: boolean }) => <div data-feedback-prompt data-suppressed={String(Boolean(suppressed))} />,
 }));
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -119,4 +125,16 @@ it("hides the picture under the map without unmounting it, and stops its video",
   expect(button("Play the video of Exodus 15:23")).toBe(play);
   expect(play.closest(".hidden")).toBeNull();
   expect(host.querySelector("[data-picture-video]")).toBeNull();
+});
+
+it("holds the feedback prompt back while the map shows, where it would cover the map's controls", async () => {
+  setAdvancedSetting("feedbackPrompts", true);
+  try {
+    await render();
+    expect(host.querySelector("[data-feedback-prompt]")?.getAttribute("data-suppressed")).toBe("false");
+    await open();
+    expect(host.querySelector("[data-feedback-prompt]")?.getAttribute("data-suppressed")).toBe("true");
+  } finally {
+    setAdvancedSetting("feedbackPrompts", false);
+  }
 });

@@ -160,7 +160,7 @@ function SpreadScreen({
             covered={mapShows}
           />
         </div>
-        <PlaceMapStage setting={setting} verseId={verseId} reference={readableReference(reference)} hidden={whole} />
+        <PlaceMapStage setting={setting} verseId={verseId} reference={readableReference(reference)} here={{ slug: bookSlug ?? "", chapter, verse: verseNumber }} hidden={whole} />
         {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />
         <WholePictureCaption
@@ -220,7 +220,8 @@ function SpreadScreen({
       {feedbackPrompts ? (
         <FeedbackPrompt
           visitKey={verseId}
-          suppressed={openLayer !== null}
+          // It sits under the corner name, where the map's controls go.
+          suppressed={openLayer !== null || mapShows}
           onOpen={() => openLayerById("feedback")}
           className="absolute left-3 top-[4.25rem] md:left-5 md:top-[4.75rem]"
         />
