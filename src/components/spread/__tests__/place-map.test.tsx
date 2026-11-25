@@ -8,7 +8,7 @@ import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { cardPosition, fitView, frameSetting, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import PlaceMapView, { cardPosition, fitView, frameSetting, locatorSpot, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -395,6 +395,29 @@ describe("the map's zoom", () => {
     expect(container.querySelector("[data-locator]")?.getAttribute("preserveAspectRatio")).toBe("xMidYMid meet");
   });
 
+  it("puts the locator in the corner above the note, and leaves it out where it would cover the setting or crowd a narrow map", () => {
+    const box = { width: 1000, height: 600, top: 60, bottom: 80 };
+    expect(locatorSpot(box, [])).toEqual({ left: 832, top: 432, right: 976, bottom: 520 });
+    expect(locatorSpot(box, [{ left: 880, top: 470, right: 900, bottom: 490 }])).toBeNull();
+    expect(locatorSpot(box, [{ left: 400, top: 300, right: 420, bottom: 320 }])).not.toBeNull();
+    expect(locatorSpot({ ...box, width: 480 }, [])).toBeNull();
+  });
+
+  it("gives a narrow map the short step names and no − and +, clear of the tag and close button", async () => {
+    const width = vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(480);
+    const tall = vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(700);
+    try {
+      await renderReader(setting("GEN", 28, 19), false, bethel);
+      await act(async () => button("See where this happened")!.click());
+      expect(steps().map((step) => step.textContent)).toEqual(["Here", "Land", "World"]);
+      expect(button("Zoom in")?.parentElement?.className).toContain("hidden");
+      expect(container.querySelector("[data-locator]")).toBeNull();
+    } finally {
+      width.mockRestore();
+      tall.mockRestore();
+    }
+  });
+
   it("cannot choose a step that would show nothing new", async () => {
     await renderReader(setting("EXO", 14, 20), false, { book: "Exodus", slug: "exodus", chapter: 14, verse: 20 });
     await act(async () => button("See where this happened")!.click());
@@ -556,6 +579,23 @@ describe("the place card", () => {
     expect(card()).toBeNull();
   });
 
+  it("does not bring back a card after a verse with no setting", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await renderReader(null, false, { ...bethel, verse: 18 });
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    expect(map()).not.toBeNull();
+    expect(card()).toBeNull();
+  });
+
+  it("offers a place proposed at two sites one marker joins as one choice", async () => {
+    await renderReader(setting("JOS", 21, 18), false, { book: "Joshua", slug: "joshua", chapter: 21, verse: 18 });
+    await act(async () => button("See where this happened")!.click());
+    const anathoth = Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => (marker.getAttribute("aria-label")?.match(/Anathoth:/g) ?? []).length > 1)!;
+    await act(async () => anathoth.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(Array.from(card()!.querySelectorAll("button")).filter((choice) => choice.textContent === "Anathoth").length).toBeLessThanOrEqual(1);
+  });
+
   it("keeps an open card while keyboard focus moves to another marker, and lights that marker", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
@@ -566,6 +606,23 @@ describe("the place card", () => {
     expect(card()?.hasAttribute("data-opened")).toBe(true);
     expect(cardInfo()).toContain("Beitin");
     expect(strokeOf()).not.toBe(unlit);
+    // Enter there opens its card instead, and takes focus into it.
+    await act(async () => other.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    expect(cardInfo()).toContain("Al Bira");
+    expect(other.getAttribute("aria-expanded")).toBe("true");
+    expect(card()!.contains(document.activeElement)).toBe(true);
+  });
+
+  it("opens the activated marker's card even while the pointer still previews another", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    const other = container.querySelectorAll<SVGGElement>('[data-rings="Bethel · Luz"]')[1];
+    await act(async () => other.focus());
+    await act(async () => other.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(cardInfo()).toContain("Al Bira");
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
   });
 
   it("counts this chapter's verses naming the place beside this verse", async () => {

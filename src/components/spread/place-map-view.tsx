@@ -7,6 +7,7 @@ import outline from "@/data/bible-map-outline.json";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
 import { contextPlaces, divisionOf, chaptersAround, chapterUrl, nearbyPlaces, type PlaceChapter } from "@/lib/place-chapters";
 import type { SettingPlace, VerseSetting } from "@/lib/verse-setting";
+import { remember, remembered } from "./place-map-memory";
 
 /** The map's box in map units: x, y (top-left), width and height. */
 export interface MapFrame {
@@ -49,6 +50,11 @@ const STEP_NAMES: Record<ZoomStep, [string, string]> = { here: ["Here", "Here"],
 
 /** The closest the Here step comes: half a degree of latitude, about 55 km. */
 const HERE_SPAN = 0.5;
+/** Below this map width, in pixels, the zoom steps take their short names and drop − and +. */
+const COMPACT_WIDTH = 720;
+/** The locator's size, and the least map width it shows on. */
+const LOCATOR = { width: 144, height: 88 };
+const LOCATOR_ROOM = 600;
 /** The Bible world: Greece and Libya to Persia, Ethiopia's edge to the Black Sea. */
 const BIBLE_WORLD = { west: 8, east: 56, south: 14, north: 44 };
 
@@ -74,22 +80,7 @@ export function zoomFrames(setting: VerseSetting, box: MapBox): { frames: Record
   return { frames: { here, land, world }, usable: { here: !same(here), land: true, world: !same(world) } };
 }
 
-/**
- * The reader's zoom step, opened card (by its site) and, where places share its marker, the place whose chapters it
- * shows, kept while turning pages for the visit, as the map itself is.
- */
-const remembered: { step: ZoomStep; opened: string | null; place: string | null } = { step: "land", opened: null, place: null };
-
-function remember(change: Partial<typeof remembered>) {
-  Object.assign(remembered, change);
-}
-
-/** Back to the opening step with no card open; for tests, which share this module's state. */
-export function resetPlaceMap() {
-  remembered.step = "land";
-  remembered.opened = null;
-  remembered.place = null;
-}
+export { resetPlaceMap } from "./place-map-memory";
 
 /** "Pi-hahiroth, Migdol and Baal-zephon", or in a sentence "the Red Sea". */
 function listNames(places: SettingPlace[], prose = false): string {
@@ -255,6 +246,17 @@ export function nameBox(name: PlacedName): Box {
   return { left, top: name.y - name.size * 0.75, right: left + width, bottom: name.y + name.size * 0.25 };
 }
 
+/**
+ * Where the locator goes, in screen pixels: the map's bottom-right corner, just above the note, on a map wide enough
+ * for it. It gives way (null) where it would cover any of `avoid`, the places the verse names.
+ */
+export function locatorSpot(box: MapBox, avoid: Box[]): Box | null {
+  if (box.width < LOCATOR_ROOM) return null;
+  const spot = { left: box.width - 24 - LOCATOR.width, top: box.height - box.bottom - LOCATOR.height, right: box.width - 24, bottom: box.height - box.bottom };
+  const margin = { left: spot.left - 6, top: spot.top - 6, right: spot.right + 6, bottom: spot.bottom + 6 };
+  return avoid.some((other) => overlaps(margin, other)) ? null : spot;
+}
+
 /** The map's free band: below the tag and close button, above the note, in screen pixels. */
 interface MapBox {
   width: number;
@@ -342,34 +344,22 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const box = useRef<HTMLDivElement>(null);
   const controls = useRef<HTMLDivElement>(null);
   const footer = useRef<HTMLDivElement>(null);
-  const locator = useRef<SVGSVGElement>(null);
   const map = useRef<SVGSVGElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = useState<MapBox | null>(null);
-  // The locator's box in screen pixels, where it shows: names keep clear of it.
-  const [corner, setCorner] = useState<Box | null>(null);
   // Before the first paint, so the map never shows a frame laid out for another size.
   useLayoutEffect(() => {
     const node = box.current;
     if (!node) return;
     const measure = () => {
       const top = controls.current ? controls.current.offsetTop + controls.current.offsetHeight + 8 : 0;
-      // Above the note and the way back to the picture, but not the taller locator, which sits in the corner instead,
-      // so the map frames the setting as it would without it.
-      const footerTop = footer.current?.offsetTop ?? node.clientHeight;
-      const items = Array.from(footer.current?.children ?? []).filter((item): item is HTMLElement => item instanceof HTMLElement && item.offsetHeight > 0);
-      const itemsTop = items.length > 0 ? footerTop + Math.min(...items.map((item) => item.offsetTop)) : footerTop;
-      const bottom = footer.current ? node.clientHeight - itemsTop + 8 : 0;
+      const bottom = footer.current ? node.clientHeight - footer.current.offsetTop + 8 : 0;
       setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom } : null);
-      const inset = locator.current?.getBoundingClientRect();
-      const origin = node.getBoundingClientRect();
-      setCorner(inset && inset.width > 0 ? { left: inset.left - origin.left - 4, top: inset.top - origin.top - 4, right: inset.right - origin.left + 4, bottom: inset.bottom - origin.top + 4 } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(node);
     if (footer.current) observer.observe(footer.current);
-    for (const item of Array.from(footer.current?.children ?? [])) observer.observe(item);
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -410,6 +400,9 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     setChosenStep(next);
     onExplore?.({ action: "zoom", step: next });
   };
+  // A narrow map (a phone, or a computer's window beside the words page) has the short names and no − and +, so the
+  // steps stay clear of the tag and close button on the same row.
+  const compact = size.width < COMPACT_WIDTH;
   const stepIndex = ZOOM_STEPS.indexOf(step);
   const closer = ZOOM_STEPS.slice(0, stepIndex).reverse().find((candidate) => usable[candidate]) ?? null;
   const wider = ZOOM_STEPS.slice(stepIndex + 1).find((candidate) => usable[candidate]) ?? null;
@@ -441,12 +434,13 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     regionBoxes.push(boxAt(spot.left, spot.top));
     return { place, ...spot };
   });
+  const locatorBox = step === "world" ? null : locatorSpot(size, [...rings, ...regionBoxes]);
   const onlyOneDebated = setting.places.length === 1 && setting.places[0].debated;
   const names = placeNames(
     [...markers]
       .sort((a, b) => Number(b.favoured || b.pinned) - Number(a.favoured || a.pinned) || b.radius - a.radius)
       .map((marker) => ({ key: marker.key, ...toScreen(marker.x, marker.y), radius: marker.radius, names: marker.names })),
-    corner && step !== "world" ? [...regionBoxes, corner] : regionBoxes,
+    locatorBox ? [...regionBoxes, locatorBox] : regionBoxes,
     band,
     onlyOneDebated ? 13 : 15,
   );
@@ -459,16 +453,18 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     .map((place) => ({ place, at: toScreen(...project(place.lon, place.lat)) }))
     .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
     .filter(({ at }) => centres.every((centre) => Math.hypot(centre.left - at.left, centre.top - at.top) > 16))
+    .filter(({ at }) => !locatorBox || !overlaps({ left: at.left - 4, top: at.top - 4, right: at.left + 4, bottom: at.top + 4 }, locatorBox))
     .slice(0, 40);
   const faint = placeNames(
     nearbyDots.map(({ place, at }) => ({ key: place.id, ...at, radius: 0, names: [place.name] })),
-    [...regionBoxes, ...rings, ...names.map(nameBox), ...(corner && step !== "world" ? [corner] : [])],
+    [...regionBoxes, ...rings, ...names.map(nameBox), ...(locatorBox ? [locatorBox] : [])],
     band,
     12,
   ).slice(0, 10);
 
   const label = `Map of ${listNames(setting.places)}, where ${reference} happened`;
-  const shownKey = preview ?? (openedHere ? opened : null);
+  // An opened card holds; a preview shows only while none is open.
+  const shownKey = openedHere ? opened : preview;
   const lit = markers.find((marker) => marker.key === shownKey) ?? null;
   const usableCard = lit !== null && lit.key === opened;
   // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving. A marker a
@@ -486,6 +482,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       return;
     }
     focusCard.current = fromKeyboard;
+    setPreview(null);
     setOpened(key);
   };
   // Opened from the keyboard, the card takes focus, so its links come next.
@@ -659,12 +656,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
               onClick={() => zoomTo(candidate)}
               className="h-8 rounded-full px-2.5 text-[11px] text-white/75 transition-colors hover:text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white disabled:opacity-35 disabled:hover:text-white/75 aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] md:px-3 md:text-xs"
             >
-              <span className="md:hidden">{STEP_NAMES[candidate][1]}</span>
-              <span className="max-md:hidden">{STEP_NAMES[candidate][0]}</span>
+              {STEP_NAMES[candidate][compact ? 1 : 0]}
             </button>
           ))}
         </div>
-        <div className="liquid-glass hidden h-9 items-center overflow-hidden rounded-full md:flex">
+        <div className={`liquid-glass h-9 items-center overflow-hidden rounded-full ${compact ? "hidden" : "flex"}`}>
           <button
             type="button"
             aria-label="Zoom out"
@@ -710,9 +706,9 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
             Places: OpenBible.info, CC BY 4.0
           </a>
         </p>
-        {/* Where the view sits in the Bible world, on a computer, until the view is the Bible world. */}
-        {step !== "world" ? <Locator locatorRef={locator} world={frames.world} view={view} /> : null}
       </div>
+      {/* Where the view sits in the Bible world, on a computer. */}
+      {locatorBox ? <Locator at={locatorBox} world={frames.world} view={view} /> : null}
 
       {lit ? (
         <MarkerCard
@@ -736,7 +732,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
 }
 
 /** A small map of the Bible world with the part the view shows marked on it. */
-function Locator({ locatorRef, world, view }: { locatorRef: RefObject<SVGSVGElement | null>; world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
+function Locator({ at, world, view }: { at: Box; world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
   // The view's rectangle, kept inside the small map and never too small to see.
   const least = world.width / 40;
   const left = clamp(view.x, world.x, world.x + world.width - least);
@@ -745,14 +741,13 @@ function Locator({ locatorRef, world, view }: { locatorRef: RefObject<SVGSVGElem
   const height = Math.max(least, Math.min(view.y + view.height, world.y + world.height) - top);
   return (
     <svg
-      ref={locatorRef}
       aria-hidden="true"
       data-locator
       viewBox={`${world.x} ${world.y} ${world.width} ${world.height}`}
       // The whole frame, so the view's rectangle is always in sight (Rome, at Acts 28, is at its far edge).
       preserveAspectRatio="xMidYMid meet"
-      className="ml-auto hidden h-[5.5rem] w-36 shrink-0 overflow-hidden rounded-lg border-2 border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:block"
-      style={{ background: SEA }}
+      className="absolute hidden overflow-hidden rounded-lg border-2 border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:block"
+      style={{ background: SEA, left: at.left, top: at.top, width: at.right - at.left, height: at.bottom - at.top }}
     >
       <path d={outline.land} fill={LAND} fillRule="evenodd" stroke={COAST} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
       <path d={outline.lakes} fill={SEA} />
@@ -806,6 +801,8 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   const [chosen, setChosen] = useState(() => remembered.place);
   const [all, setAll] = useState(false);
   const place = entries.find((entry) => entry.place.id === chosen)?.place ?? entries[0].place;
+  // A place proposed at two sites a marker joins (Anathoth at Ras el Kharruba and Anata) is one choice.
+  const choices = entries.filter((entry, row) => entries.findIndex((other) => other.place.id === entry.place.id) === row);
   // Placed by its drawn height, measured before it paints; a guess until then (and where nothing is laid out).
   const [drawn, setDrawn] = useState(0);
   const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
@@ -870,10 +867,10 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
         ))
       )}
       <div data-chapters className="mt-2 border-t border-white/10 pt-2">
-        {entries.length > 1 ? (
+        {choices.length > 1 ? (
           // Where places share the marker, which one's chapters to show.
           <div className="mb-1.5 flex flex-wrap gap-1">
-            {entries.map((entry) => (
+            {choices.map((entry) => (
               <button
                 key={`${entry.place.id}:${entry.index}`}
                 type="button"

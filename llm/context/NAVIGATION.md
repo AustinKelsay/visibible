@@ -40,13 +40,13 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
     - The card goes beside the marker, or above or below it where the box is too narrow (a phone), placed by its drawn height, so it never covers it. It stays below the controls, and a tall card scrolls.
     - The opened card is remembered by its site while turning pages, so ‹ and › walk a place's story with the card still open. A page whose setting lacks that site closes it.
     - The places data reaches the browser only with the map's lazily loaded view.
-  - **Zoom** has three named steps, *Here · The land · The Bible world* (Here · Land · World on a phone), top left level with the tag. A computer also has − and + buttons. The controls are hidden on a phone with Ask open.
+  - **Zoom** has three named steps, *Here · The land · The Bible world*, top left level with the tag, with − and + beside them. A narrow map (under 720 px: a phone, or a small window beside the words page) shows Here · Land · World without − and +. The controls are hidden on a phone with Ask open. A step that would show the box nothing new is disabled.
     - The land is the opening frame above.
     - Here closes in to at least half a degree.
     - The Bible world is Greece and Libya to Persia, joined with the land frame.
     - A step that would show nothing new is disabled (Here for a setting of only regions).
     - The step lasts for the visit while turning pages.
-    - On a computer, a locator in the footer's right corner shows where the view sits in the Bible world, except at that step.
+    - On a computer, a locator in the map's bottom-right corner, above the note, shows where the view sits in the Bible world, except at that step, on a map under 600 px wide, or where it would cover a place the verse names. It does not change how the map frames the setting.
   - **What sits on the map.** A note under the map names the setting, says when it was carried ("Set at Marah, named in verse 23.") and when a site is debated. It credits "Places: OpenBible.info, CC BY 4.0". The map also has an **Experimental** tag (a glass pill in the words page's small capitals, beside the close button), a close button ("Close the map") and, for a painted verse, the picture small in its corner ("Back to the picture of …").
   - **While it shows**, the link reads "Back to the picture".
   - **Keyboard.** Opened from the keyboard, the map takes focus, so Tab walks its markers next. The link, the close button, the small picture and Escape (when no layer is open and the reader is not typing in a field) bring the picture back.

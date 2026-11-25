@@ -13,6 +13,7 @@ import { trackMapExplored, trackMapLinkShown, trackMapOpened } from "@/lib/analy
 import { previewSource } from "@/lib/picture-source";
 import type { VerseSetting } from "@/lib/verse-setting";
 import type { MapExploration, MapHere } from "@/components/spread/place-map-view";
+import { forgetOpenedCard } from "@/components/spread/place-map-memory";
 
 // The map experiment (#532). The map and its outline load only when a reader first opens it.
 const PlaceMapView = lazy(() => import("@/components/spread/place-map-view"));
@@ -181,6 +182,11 @@ export function PlaceMapStage({ setting, verseId, reference, here, hidden }: {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [shows, openLayer, close]);
+
+  // The map view is not there for a verse with no setting, so the stage puts its card away for it.
+  useEffect(() => {
+    if (!setting) forgetOpenedCard();
+  }, [setting]);
 
   if (!shows || !setting) return null;
   return (
