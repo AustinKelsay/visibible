@@ -94,6 +94,7 @@ export default function PlaceMapView({ setting, reference, onClose, picture }: {
 
   // The marker under the pointer or keyboard focus, which shows its card.
   const [active, setActive] = useState<{ place: SettingPlace; index: number } | null>(null);
+  const focused = useRef<{ place: SettingPlace; index: number } | null>(null);
 
   const frame = frameSetting(setting);
   // Map units per screen pixel: the frame fits inside the box (the outline fills the rest).
@@ -110,9 +111,10 @@ export default function PlaceMapView({ setting, reference, onClose, picture }: {
     role: "button" as const,
     "aria-label": markerLabel(place, index),
     onPointerEnter: () => setActive({ place, index }),
-    onPointerLeave: () => setActive(null),
-    onFocus: () => setActive({ place, index }),
-    onBlur: () => setActive(null),
+    // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving.
+    onPointerLeave: () => setActive(focused.current),
+    onFocus: () => setActive(focused.current = { place, index }),
+    onBlur: () => setActive(focused.current = null),
     onClick: () => setActive({ place, index }),
     className: "cursor-pointer outline-none",
   });

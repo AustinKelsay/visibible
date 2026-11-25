@@ -218,6 +218,11 @@ describe("the map", () => {
 
     await act(async () => second.focus());
     expect(card()?.textContent).toContain("Proposed at Bitter Lakes");
+    // A pointer passing over another ring leaves the focused one's card, the keyboard's place, on leaving.
+    await act(async () => first.dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    expect(card()?.textContent).toContain("Proposed at Gulf of Suez");
+    await act(async () => first.dispatchEvent(new PointerEvent("pointerout", { bubbles: true })));
+    expect(card()?.textContent).toContain("Proposed at Bitter Lakes");
     await act(async () => second.blur());
     await act(async () => second.dispatchEvent(new MouseEvent("click", { bubbles: true })));
     expect(card()?.textContent).toContain("Proposed at Bitter Lakes");
