@@ -464,6 +464,48 @@ describe("the map's zoom", () => {
   });
 });
 
+describe("today's map", () => {
+  const bethel = { book: "Genesis", slug: "genesis", chapter: 28, verse: 19 };
+  const views = () => Array.from(container.querySelectorAll<HTMLButtonElement>('[aria-label="Map"] [aria-pressed]'));
+  const shownView = () => views().find((view) => view.getAttribute("aria-pressed") === "true")?.textContent;
+  const openMap = async () => {
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    await act(async () => button("See where this happened")!.click());
+  };
+
+  it("opens on Then, and Today draws today's borders, countries and cities under the verse's places", async () => {
+    await openMap();
+    expect(shownView()).toBe("Then");
+    expect(map()!.getAttribute("data-view")).toBe("then");
+    expect(container.querySelector("[data-today]")).toBeNull();
+
+    await act(async () => views()[1].click());
+    expect(shownView()).toBe("Today");
+    expect(map()!.getAttribute("data-view")).toBe("today");
+    expect(container.querySelector("[data-today] path")?.getAttribute("d")).toMatch(/^M/);
+    const cities = Array.from(container.querySelectorAll("[data-today-city]"), (city) => city.getAttribute("data-today-city"));
+    expect(cities).toEqual(expect.arrayContaining(["Jerusalem", "Tel Aviv", "Damascus"]));
+    expect(container.querySelectorAll("[data-today-country]").length).toBeGreaterThan(0);
+    // The setting stays, and the ancient context names give way to today's cities.
+    expect(container.querySelector('[data-rings="Bethel · Luz"]')).not.toBeNull();
+    expect(container.querySelectorAll("[data-nearby] text")).toHaveLength(0);
+    expect(container.textContent).toContain("Today: Natural Earth");
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "view", view: "today" }));
+  });
+
+  it("keeps Today while turning pages, and the place card works on it", async () => {
+    await openMap();
+    await act(async () => views()[1].click());
+    await renderReader(setting("GEN", 31, 13), false, { ...bethel, chapter: 31, verse: 13 });
+    expect(shownView()).toBe("Today");
+    await act(async () => container.querySelector('[data-rings="Bethel"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    await act(async () => views()[0].click());
+    expect(map()!.getAttribute("data-view")).toBe("then");
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+  });
+});
+
 describe("the place card", () => {
   const bethel = { book: "Genesis", slug: "genesis", chapter: 28, verse: 19 };
   const openMap = async (here = bethel) => {

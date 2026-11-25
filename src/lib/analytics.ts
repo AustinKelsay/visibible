@@ -216,6 +216,7 @@ type MapExploredProps = BaseProps & {
 } & (
   | { action: "zoom"; step: "here" | "land" | "world" }
   | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
+  | { action: "view"; view: "then" | "today" }
   | { action: "all_chapters" }
 );
 

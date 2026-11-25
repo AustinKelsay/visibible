@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefO
 import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import outline from "@/data/bible-map-outline.json";
+import today from "@/data/today-map.json";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
 import { contextPlaces, divisionOf, chaptersAround, chapterUrl, nearbyPlaces, type PlaceChapter } from "@/lib/place-chapters";
 import type { SettingPlace, VerseSetting } from "@/lib/verse-setting";
@@ -108,6 +109,22 @@ const SEA = "#0f1a22";
 const LAND = "#2a2118";
 const COAST = "#7d6848";
 const RIVER = "#46606e";
+
+/** The map as it is read: the Bible's places on an ancient-toned land (then), or on today's borders and cities. */
+export type MapView = "then" | "today";
+const VIEWS: MapView[] = ["then", "today"];
+const VIEW_NAMES: Record<MapView, string> = { then: "Then", today: "Today" };
+/** Today's map is cooler and plainer, so the verse's gold rings stand out from modern borders and cities. */
+const PALETTE: Record<MapView, { sea: string; land: string; coast: string; river: string }> = {
+  then: { sea: SEA, land: LAND, coast: COAST, river: RIVER },
+  today: { sea: "#0d1620", land: "#23282c", coast: "#5a6770", river: "#3f6679" },
+};
+const BORDER = "#b4c0c8";
+
+type TodayCountry = [name: string, x: number, y: number, rank: number];
+type TodayCity = [name: string, x: number, y: number, rank: number, capital: number];
+const todayCountries = today.countries as TodayCountry[];
+const todayCities = today.cities as TodayCity[];
 const GOLD = "#e8c37a";
 const INK = "#f3e6c8";
 // Behind each name, so it reads over coast, river and ring alike.
@@ -202,6 +219,8 @@ export function placeNames(
   regions: Box[],
   band: Box,
   size: number,
+  /** How many of the spots to try: all eight, or only the four beside, above and below (no corners). */
+  spots = 8,
 ): PlacedName[] {
   const taken: Box[] = [...regions];
   const centres = markers.map((marker) => ({ key: marker.key, box: { left: marker.left - 6, top: marker.top - 6, right: marker.left + 6, bottom: marker.top + 6 } }));
@@ -226,7 +245,7 @@ export function placeNames(
       { x: marker.left - reach * 0.7, y: marker.top + reach * 0.7 + ascent, anchor: "end" },
     ];
     const others = centres.filter((centre) => centre.key !== marker.key).map((centre) => centre.box);
-    const fit = texts.flatMap((text) => candidates.map((candidate) => ({ text, candidate }))).find(({ text, candidate }) => {
+    const fit = texts.flatMap((text) => candidates.slice(0, spots).map((candidate) => ({ text, candidate }))).find(({ text, candidate }) => {
       const width = nameWidth(text, size);
       const left = candidate.anchor === "start" ? candidate.x : candidate.anchor === "end" ? candidate.x - width : candidate.x - width / 2;
       const box = { left, top: candidate.y - ascent, right: left + width, bottom: candidate.y + descent };
@@ -324,6 +343,7 @@ const READABLE_CARD = 140;
 export type MapExploration =
   | { action: "zoom"; step: ZoomStep }
   | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
+  | { action: "view"; view: MapView }
   | { action: "all_chapters" };
 
 /** The verse being read: its book's slug, chapter and verse. */
@@ -352,6 +372,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
 }) {
   const box = useRef<HTMLDivElement>(null);
   const controls = useRef<HTMLDivElement>(null);
+  const leftControls = useRef<HTMLDivElement>(null);
   const footer = useRef<HTMLDivElement>(null);
   const map = useRef<SVGSVGElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -361,7 +382,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     const node = box.current;
     if (!node) return;
     const measure = () => {
-      const top = controls.current ? controls.current.offsetTop + controls.current.offsetHeight + 8 : 0;
+      // Below the lower of the two control rows: the steps and Then · Today on the left (two rows on a narrow map), the
+      // tag and close button on the right.
+      const bottomOf = (node: HTMLElement | null) => (node && node.offsetHeight > 0 ? node.offsetTop + node.offsetHeight : 0);
+      const lowest = Math.max(bottomOf(controls.current), bottomOf(leftControls.current));
+      const top = lowest > 0 ? lowest + 8 : 0;
       const bottom = footer.current ? node.clientHeight - footer.current.offsetTop + 8 : 0;
       setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom } : null);
     };
@@ -369,6 +394,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     const observer = new ResizeObserver(measure);
     observer.observe(node);
     if (footer.current) observer.observe(footer.current);
+    if (leftControls.current) observer.observe(leftControls.current);
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -388,6 +414,14 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const [keyFocus, setKeyFocus] = useState<string | null>(null);
   const focusCard = useRef(false);
   const [chosenStep, setChosenStep] = useState<ZoomStep>(() => remembered.step);
+  const [mapView, setMapView] = useState<MapView>(() => remembered.view);
+  const showView = (next: MapView) => {
+    if (next === mapView) return;
+    remember({ view: next });
+    setMapView(next);
+    onExplore?.({ action: "view", view: next });
+  };
+  const colours = PALETTE[mapView];
 
   const markers = settingMarkers(setting);
   // A card opened at a site this verse's setting does not have closes as the page turns, or as the map opens on one.
@@ -458,7 +492,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   // everything the setting draws.
   const settingNames = new Set(setting.places.map((place) => place.name));
   const centres = markers.map((marker) => toScreen(marker.x, marker.y));
-  const nearbyDots = contextPlaces()
+  const nearbyDots = mapView === "today" ? [] : contextPlaces()
     .filter((place) => !settingNames.has(place.name))
     .map((place) => ({ place, at: toScreen(...project(place.lon, place.lat)) }))
     .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
@@ -471,6 +505,40 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     band,
     12,
   ).slice(0, 10);
+
+  // Today's map: country names where Natural Earth puts them, then the most important cities that fit, each clear of
+  // everything the setting draws.
+  const lettering = [...regionBoxes, ...names.map(nameBox), ...(locatorBox ? [locatorBox] : [])];
+  const taken = [...lettering, ...rings];
+  const countryLabels: { name: string; left: number; top: number }[] = [];
+  const cityDots: { key: string; left: number; top: number }[] = [];
+  let cityNames: PlacedName[] = [];
+  if (mapView === "today") {
+    for (const [name, x, y] of todayCountries) {
+      if (countryLabels.length >= 12) break;
+      const at = toScreen(x, y);
+      const width = nameWidth(name, 11, 3, true);
+      const spot = { left: at.left - width / 2, top: at.top - 9, right: at.left + width / 2, bottom: at.top + 3 };
+      if (!inside(spot, band) || taken.some((other) => overlaps(spot, other))) continue;
+      taken.push(spot);
+      lettering.push(spot);
+      countryLabels.push({ name, left: at.left, top: at.top });
+    }
+    const candidates = todayCities
+      .map(([name, x, y], index) => ({ key: `city-${index}`, name, at: toScreen(x, y) }))
+      .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
+      // A city's dot may sit inside a faint ring (Jerusalem beside Bethel's), but not on a marker's centre or any lettering.
+      .filter(({ at }) => centres.every((centre) => Math.hypot(centre.left - at.left, centre.top - at.top) > 8))
+      .filter(({ at }) => !lettering.some((other) => overlaps({ left: at.left - 3, top: at.top - 3, right: at.left + 3, bottom: at.top + 3 }, other)))
+      // The most important first, and none crowding one already kept, so a small town's dot never costs a capital its name.
+      .reduce<{ key: string; name: string; at: { left: number; top: number } }[]>((kept, city) => {
+        if (kept.length < 24 && kept.every((other) => Math.hypot(other.at.left - city.at.left, other.at.top - city.at.top) >= (compact ? 44 : 28))) kept.push(city);
+        return kept;
+      }, []);
+    // A city's name sits beside, above or below its dot, never at a corner, where it could be read as another dot's.
+    cityNames = placeNames(candidates.map(({ key, name, at }) => ({ key, ...at, radius: 0, names: [name] })), taken, band, 12, 4).slice(0, compact ? 8 : 14);
+    for (const placed of cityNames) cityDots.push({ key: placed.key, ...candidates.find((city) => city.key === placed.key)!.at });
+  }
 
   const label = `Map of ${listNames(setting.places)}, where ${reference} happened`;
   // An opened card holds; a preview shows only while none is open.
@@ -510,7 +578,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   };
 
   return (
-    <div ref={box} className="absolute inset-0 overflow-hidden" style={{ background: SEA }}>
+    <div ref={box} className="absolute inset-0 overflow-hidden" style={{ background: colours.sea }}>
       <svg
         ref={map}
         role="group"
@@ -520,6 +588,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         preserveAspectRatio="xMidYMid meet"
         className="absolute inset-0 h-full w-full outline-none"
         data-step={step}
+        data-view={mapView}
         // A tap on the open map (not on a marker) puts the card away.
         onClick={(event) => {
           if ((event.target as Element).closest("[data-marker]")) return;
@@ -527,9 +596,54 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           setOpened(null);
         }}
       >
-        <path aria-hidden="true" d={outline.land} fill={LAND} fillRule="evenodd" stroke={COAST} strokeWidth={1} vectorEffect="non-scaling-stroke" />
-        <path aria-hidden="true" d={outline.lakes} fill={SEA} stroke={COAST} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
-        <path aria-hidden="true" d={outline.rivers} fill="none" stroke={RIVER} strokeWidth={1.2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        <path aria-hidden="true" d={outline.land} fill={colours.land} fillRule="evenodd" stroke={colours.coast} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+        <path aria-hidden="true" d={outline.lakes} fill={colours.sea} stroke={colours.coast} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
+        <path aria-hidden="true" d={outline.rivers} fill="none" stroke={colours.river} strokeWidth={1.2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        {mapView === "today" ? (
+          // Today's borders (disputed and indefinite lines dashed), countries and cities: quiet, under the setting.
+          <g aria-hidden="true" pointerEvents="none" data-today>
+            <path d={today.borders} fill="none" stroke={BORDER} strokeOpacity={0.5} strokeWidth={1} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            <path d={today.disputed} fill="none" stroke={BORDER} strokeOpacity={0.45} strokeWidth={1} strokeDasharray={`${px(3)} ${px(3)}`} vectorEffect="non-scaling-stroke" />
+            {countryLabels.map(({ name, left, top }) => (
+              <text
+                key={name}
+                data-today-country={name}
+                x={view.x + left * view.unit}
+                y={view.y + top * view.unit}
+                textAnchor="middle"
+                fontSize={px(11)}
+                letterSpacing={px(3)}
+                fill="#ffffff"
+                fillOpacity={0.5}
+                className="font-sans uppercase"
+              >
+                {name}
+              </text>
+            ))}
+            {cityDots.map(({ key, left, top }) => (
+              <rect key={key} x={view.x + left * view.unit - px(2.5)} y={view.y + top * view.unit - px(2.5)} width={px(5)} height={px(5)} fill="#e6edf2" fillOpacity={0.8} />
+            ))}
+            {cityNames.map((name) => (
+              <text
+                key={name.key}
+                data-today-city={name.text}
+                x={view.x + name.x * view.unit}
+                y={view.y + name.y * view.unit}
+                textAnchor={name.anchor}
+                fontSize={px(name.size)}
+                fill="#e6edf2"
+                fillOpacity={0.8}
+                stroke={colours.land}
+                strokeOpacity={0.8}
+                strokeWidth={px(2.5)}
+                paintOrder="stroke"
+                className="font-sans"
+              >
+                {name.text}
+              </text>
+            ))}
+          </g>
+        ) : null}
         {/* Well-known places around the setting: context, not part of it, so quiet and not interactive. */}
         <g aria-hidden="true" pointerEvents="none" data-nearby>
           {faint.map((name) => {
@@ -654,8 +768,12 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         ))}
       </svg>
 
-      {/* The zoom steps, named, level with the tag and close button. A phone with Ask open leaves the map a thin strip, so they go. */}
-      <div role="group" aria-label="Zoom" className="absolute left-3 top-12 flex items-center gap-2 md:left-6 md:top-16 max-md:[main:has([data-ask-page])_&]:hidden">
+      {/*
+        The zoom steps, named, and Then · Today, level with the tag and close button and clear of the Visibible name above.
+        A narrow map puts Then · Today on a second row; a phone with Ask open leaves the map a thin strip, so they go.
+      */}
+      <div ref={leftControls} className={`absolute left-3 top-[4.75rem] flex gap-2 md:left-6 md:top-[5.5rem] max-md:[main:has([data-ask-page])_&]:hidden ${compact ? "flex-col items-start" : "items-center"}`}>
+      <div role="group" aria-label="Zoom" className="flex items-center gap-2">
         <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
           {ZOOM_STEPS.map((candidate) => (
             <button
@@ -691,8 +809,22 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           </button>
         </div>
       </div>
+      <div role="group" aria-label="Map" className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
+        {VIEWS.map((candidate) => (
+          <button
+            key={candidate}
+            type="button"
+            aria-pressed={candidate === mapView}
+            onClick={() => showView(candidate)}
+            className="h-8 rounded-full px-2.5 text-[11px] text-white/75 transition-colors hover:text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] md:px-3 md:text-xs"
+          >
+            {VIEW_NAMES[candidate]}
+          </button>
+        ))}
+      </div>
+      </div>
 
-      <div ref={controls} className="absolute right-3 top-12 flex items-center gap-2 md:right-6 md:top-16">
+      <div ref={controls} className="absolute right-3 top-[4.75rem] flex items-center gap-2 md:right-6 md:top-[5.5rem]">
         <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
           Experimental
         </span>
@@ -715,10 +847,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           <a href="https://www.openbible.info/geo/" target="_blank" rel="noreferrer" className="whitespace-nowrap text-white/55 underline decoration-white/25 underline-offset-2 hover:text-white/80">
             Places: OpenBible.info, CC BY 4.0
           </a>
+          {mapView === "today" ? <span className="whitespace-nowrap text-white/55"> · Today: Natural Earth</span> : null}
         </p>
       </div>
       {/* Where the view sits in the Bible world, on a computer. */}
-      {locatorBox ? <Locator at={locatorBox} world={frames.world} view={view} /> : null}
+      {locatorBox ? <Locator at={locatorBox} world={frames.world} view={view} colours={colours} /> : null}
 
       {lit ? (
         <MarkerCard
@@ -742,7 +875,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
 }
 
 /** A small map of the Bible world with the part the view shows marked on it. */
-function Locator({ at, world, view }: { at: Box; world: MapFrame; view: { x: number; y: number; width: number; height: number } }) {
+function Locator({ at, world, view, colours }: { at: Box; world: MapFrame; view: { x: number; y: number; width: number; height: number }; colours: (typeof PALETTE)[MapView] }) {
   // The view's rectangle, kept inside the small map and never too small to see.
   const least = world.width / 40;
   const left = clamp(view.x, world.x, world.x + world.width - least);
@@ -757,10 +890,10 @@ function Locator({ at, world, view }: { at: Box; world: MapFrame; view: { x: num
       // The whole frame, so the view's rectangle is always in sight (Rome, at Acts 28, is at its far edge).
       preserveAspectRatio="xMidYMid meet"
       className="absolute hidden overflow-hidden rounded-lg border-2 border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:block"
-      style={{ background: SEA, left: at.left, top: at.top, width: at.right - at.left, height: at.bottom - at.top }}
+      style={{ background: colours.sea, left: at.left, top: at.top, width: at.right - at.left, height: at.bottom - at.top }}
     >
-      <path d={outline.land} fill={LAND} fillRule="evenodd" stroke={COAST} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
-      <path d={outline.lakes} fill={SEA} />
+      <path d={outline.land} fill={colours.land} fillRule="evenodd" stroke={colours.coast} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
+      <path d={outline.lakes} fill={colours.sea} />
       <rect x={left} y={top} width={width} height={height} fill={GOLD} fillOpacity={0.25} stroke={GOLD} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />
     </svg>
   );

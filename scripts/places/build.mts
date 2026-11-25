@@ -9,11 +9,12 @@
  *   npm run places:build -- --openbible <Bible-Geocoding-Data checkout> --natural-earth <folder of ne_10m_*.geojson>
  */
 import { createReadStream } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { MAP_BOUNDS, project } from "../../src/lib/bible-map-projection";
+import { MAP_BOUNDS } from "../../src/lib/bible-map-projection";
+import { area, clipRing, inside, insideRuns, lines, pathData, polygons, readFeatures, simplify } from "./geo";
 
 const { values } = parseArgs({ options: { openbible: { type: "string" }, "natural-earth": { type: "string" } } });
 if (!values.openbible || !values["natural-earth"]) {
@@ -31,10 +32,6 @@ async function* jsonLines(path: string): AsyncGenerator<Record<string, unknown>>
   }
 }
 
-type Point = [number, number];
-type Geometry = { type: string; coordinates: unknown };
-const { west, south, east, north } = MAP_BOUNDS;
-const inside = ([lon, lat]: Point) => lon >= west && lon <= east && lat >= south && lat <= north;
 
 // ---- Places ----
 
@@ -85,100 +82,7 @@ for await (const place of jsonLines(join(values.openbible, "data", "ancient.json
 
 // ---- Outline ----
 
-/** Sutherland–Hodgman: a ring clipped to the outline's bounds. */
-function clipRing(ring: Point[]): Point[] {
-  const edges: [(p: Point) => boolean, (a: Point, b: Point) => Point][] = [
-    [(p) => p[0] >= west, (a, b) => [west, a[1] + ((b[1] - a[1]) * (west - a[0])) / (b[0] - a[0])]],
-    [(p) => p[0] <= east, (a, b) => [east, a[1] + ((b[1] - a[1]) * (east - a[0])) / (b[0] - a[0])]],
-    [(p) => p[1] >= south, (a, b) => [a[0] + ((b[0] - a[0]) * (south - a[1])) / (b[1] - a[1]), south]],
-    [(p) => p[1] <= north, (a, b) => [a[0] + ((b[0] - a[0]) * (north - a[1])) / (b[1] - a[1]), north]],
-  ];
-  let output = ring;
-  for (const [keep, cross] of edges) {
-    const input = output;
-    output = [];
-    for (let i = 0; i < input.length; i++) {
-      const current = input[i];
-      const previous = input[(i + input.length - 1) % input.length];
-      if (keep(current)) {
-        if (!keep(previous)) output.push(cross(previous, current));
-        output.push(current);
-      } else if (keep(previous)) {
-        output.push(cross(previous, current));
-      }
-    }
-    if (output.length === 0) break;
-  }
-  return output;
-}
-
-/** Douglas–Peucker, in degrees. */
-function simplify(points: Point[], tolerance: number): Point[] {
-  if (points.length < 3) return points;
-  const keep = new Uint8Array(points.length);
-  keep[0] = keep[points.length - 1] = 1;
-  const stack: [number, number][] = [[0, points.length - 1]];
-  while (stack.length) {
-    const [first, last] = stack.pop()!;
-    const [ax, ay] = points[first];
-    const [bx, by] = points[last];
-    const length = Math.hypot(bx - ax, by - ay);
-    let farthest = -1;
-    let distance = tolerance;
-    for (let i = first + 1; i < last; i++) {
-      const [px, py] = points[i];
-      const d = length === 0 ? Math.hypot(px - ax, py - ay) : Math.abs((bx - ax) * (ay - py) - (ax - px) * (by - ay)) / length;
-      if (d > distance) {
-        distance = d;
-        farthest = i;
-      }
-    }
-    if (farthest > 0) {
-      keep[farthest] = 1;
-      stack.push([first, farthest], [farthest, last]);
-    }
-  }
-  return points.filter((_, i) => keep[i]);
-}
-
-const area = (ring: Point[]) =>
-  Math.abs(ring.reduce((sum, [x, y], i) => {
-    const [nx, ny] = ring[(i + 1) % ring.length];
-    return sum + x * ny - nx * y;
-  }, 0)) / 2;
-
-/** Relative SVG path data in whole map units, which keeps the file small. */
-function pathData(points: Point[], closed: boolean): string {
-  let d = "";
-  let last: Point | null = null;
-  for (const [lon, lat] of points) {
-    const [x, y] = project(lon, lat).map(Math.round) as Point;
-    if (!last) d += `M${x} ${y}`;
-    else if (x !== last[0] || y !== last[1]) d += `l${x - last[0]} ${y - last[1]}`;
-    else continue;
-    last = [x, y];
-  }
-  return closed ? `${d}z` : d;
-}
-
-function polygons(geometry: Geometry): Point[][][] {
-  if (geometry.type === "Polygon") return [geometry.coordinates as Point[][]];
-  if (geometry.type === "MultiPolygon") return geometry.coordinates as Point[][][];
-  return [];
-}
-
-function lines(geometry: Geometry): Point[][] {
-  if (geometry.type === "LineString") return [geometry.coordinates as Point[]];
-  if (geometry.type === "MultiLineString") return geometry.coordinates as Point[][];
-  return [];
-}
-
-async function features(name: string) {
-  const collection = JSON.parse(await readFile(join(values["natural-earth"]!, `${name}.geojson`), "utf8")) as {
-    features: { properties: Record<string, unknown>; geometry: Geometry | null }[];
-  };
-  return collection.features.filter((feature) => feature.geometry);
-}
+const features = (name: string) => readFeatures(values["natural-earth"]!, name);
 
 /** Closed shapes (land, lakes) clipped, simplified and stripped of specks too small to see. */
 async function areas(name: string, tolerance: number, minArea: number): Promise<string> {
@@ -201,16 +105,7 @@ let rivers = "";
 for (const feature of await features("ne_10m_rivers_lake_centerlines")) {
   const name = String(feature.properties.name ?? "");
   if (Number(feature.properties.scalerank) > 6 || /canal/i.test(name)) continue;
-  for (const line of lines(feature.geometry!)) {
-    let run: Point[] = [];
-    for (const point of [...line, null]) {
-      if (point && inside(point)) run.push(point);
-      else {
-        if (run.length >= 2) rivers += pathData(simplify(run, 0.02), false);
-        run = [];
-      }
-    }
-  }
+  for (const line of lines(feature.geometry!)) rivers += insideRuns(line, 0.02);
 }
 
 const outline = {
