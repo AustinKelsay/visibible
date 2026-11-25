@@ -1,0 +1,176 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j013",
+      "faults": {
+        "incoherent": "yes",
+        "scene_mismatch": "yes"
+      },
+      "notes": "All five men stride rapidly down the road away from the burning whitewashed house behind their backs without looking at it, contradicting the text's account of hastening toward the fire in front of them."
+    },
+    {
+      "id": "j016",
+      "faults": {
+        "anatomy": "yes"
+      },
+      "notes": "Beneath Alice's hands, tiny animal jurymen fuse into mangled appendages beside the brown rodent's coat."
+    },
+    {
+      "id": "j024",
+      "faults": {
+        "anatomy": "no"
+      },
+      "notes": "The two arched card-soldiers have garbled numeral/glyph squiggles on their hanging white panels (captured under lettering) rather than malformed human or animal limbs."
+    },
+    {
+      "id": "j026",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "White unpainted paper shows in the upper-left sky corner (accepted by style)."
+    },
+    {
+      "id": "j029",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Small unpainted white paper corners appear at the bottom-left and bottom-right edges (accepted by style)."
+    },
+    {
+      "id": "j034",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "Frames 1 Corinthians 13:12 as Paul lecturing a crowd of eight listeners on a terrace, inserting the speaker and an invented audience."
+    },
+    {
+      "id": "j042",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "overall": "flawed",
+      "notes": "While the king presses his signet into clay on the roped slab, the rectangular stone leaves the entire front third of the circular pit mouth wide open."
+    },
+    {
+      "id": "j045",
+      "faults": {
+        "unpainted_edge": "no"
+      },
+      "notes": "Pale watercolor sky wash extends to all edges and corners."
+    },
+    {
+      "id": "j048",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "The bottom-right grass corner fades to unpainted white paper (accepted by style)."
+    },
+    {
+      "id": "j051",
+      "faults": {
+        "lettering": "no"
+      },
+      "overall": "acceptable",
+      "notes": "At full zoom, the small folded parchment held by the man in green behind the gold chest is completely blank with no writing or squiggles."
+    },
+    {
+      "id": "j061",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Bill the Lizard in a dark tailcoat is duplicated in the same scene—both stuck head-down inside the jury-box and standing upright clutching the lower rim directly beneath it."
+    },
+    {
+      "id": "j062",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Inserts a prominent standing prophet with a walking staff lecturing a gathered crowd in Isaiah 40:29, placing the speaker/narrator inside his own poetic verse."
+    },
+    {
+      "id": "j063",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "Shows Paul lecturing a seated Corinthian audience while holding a hand mirror, inserting the speaker and listeners into his epistle verse."
+    },
+    {
+      "id": "j066",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Unpainted white paper shows along the upper-left sky edge above the cloud (accepted by style)."
+    },
+    {
+      "id": "j072",
+      "faults": {
+        "lettering": "no"
+      },
+      "overall": "acceptable",
+      "notes": "At full zoom, the unrolled parchment scroll held by the priests in the center is completely blank with no writing lines or squiggles."
+    },
+    {
+      "id": "j073",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "Contradictory scale: Alice stands beside a giant mushroom taller than her, yet a miniature cottage with a door and window at lower right is only knee-high to her."
+    },
+    {
+      "id": "j076",
+      "faults": {
+        "rule_violation": "yes"
+      },
+      "notes": "The crowned King and Knave on the far right are drawn as flat oblong playing cards with stick limbs rather than people in court-card dress."
+    },
+    {
+      "id": "j077",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "Holmes and Hatherley stride down-left away from the burning house while the station-master walks right pointing toward it, and Hatherley has both wrists bandaged."
+    },
+    {
+      "id": "j086",
+      "faults": {
+        "scene_mismatch": "yes"
+      },
+      "notes": "Depicts Paul lecturing a seated crowd while the bronze mirror sits unused on a side table, failing to show the verse's dim-mirror reflection imagery."
+    },
+    {
+      "id": "j088",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "The right edge behind the leaves fades to unpainted white paper (accepted by style)."
+    },
+    {
+      "id": "j091",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The white courtyard perimeter curtain cuts directly across the front entrance of the Tabernacle tent, and the priest holds an intact, headed dove over the ash heap after the preceding verse wrung off its head."
+    },
+    {
+      "id": "j093",
+      "faults": {
+        "lettering": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Small dark unreadable glyph-like strokes appear on the white paper card tucked into the Hatter's hatband."
+    },
+    {
+      "id": "j095",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "overall": "flawed",
+      "notes": "A prominent bearded prophet with a staff stands in the right foreground gesturing out to the weary people with a listener seated at his feet, inserting the speaker/narrator into his own poetic verse."
+    }
+  ]
+}

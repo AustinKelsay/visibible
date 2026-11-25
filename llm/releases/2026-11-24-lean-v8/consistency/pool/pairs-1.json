@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "c001",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c001.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "c002",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c002.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "c003",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c003.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "c004",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c004.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+    },
+    {
+      "id": "c005",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c005.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "c006",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c006.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "c007",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c007.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; ",
+      "right": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+    },
+    {
+      "id": "c008",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c008.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+    },
+    {
+      "id": "c009",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c009.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "c010",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c010.jpg",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "question": "Do the left and right images show the same place (the vault cellar of the City and Suburban Bank)?",
+      "left": "The Red-Headed League ¶183 to The Red-Headed League ¶190: “Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought ; ",
+      "right": "The Red-Headed League ¶175 to The Red-Headed League ¶182: “You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask y; "
+    },
+    {
+      "id": "c011",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c011.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "c012",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c012.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "c013",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c013.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "c014",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c014.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "c015",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c015.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "c016",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c016.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "c017",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c017.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "c018",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c018.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "c019",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c019.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "c020",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c020.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "c021",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c021.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+    },
+    {
+      "id": "c022",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c022.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "c023",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c023.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "c024",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c024.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "c025",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c025.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+    },
+    {
+      "id": "c026",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c026.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "c027",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c027.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+    },
+    {
+      "id": "c028",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c028.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    },
+    {
+      "id": "c029",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c029.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "c030",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c030.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "c031",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c031.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "c032",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c032.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "c033",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c033.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "c034",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c034.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "c035",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c035.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+    },
+    {
+      "id": "c036",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c036.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "c037",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c037.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "c038",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c038.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "c039",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c039.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    },
+    {
+      "id": "c040",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c040.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "c041",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c041.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "c042",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c042.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "c043",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c043.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "c044",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c044.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+    },
+    {
+      "id": "c045",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c045.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "c046",
+      "file": "/Users/plebdev/Desktop/Projects/visibible/.claude/worktrees/told-events-2/llm/releases/2026-11-24-lean-v8/consistency/pool/composites/c046.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    }
+  ]
+}

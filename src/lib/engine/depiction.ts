@@ -23,6 +23,11 @@ const text = z.string().refine((value) => value.trim().length > 0 && !/[\x00-\x1
 const effectsSchema = z.object({
   /** Replaces the subject's names in every text the image prompt carries, so the model never reads a name it would draw as a person. */
   alias: text,
+  /**
+   * Unambiguous work-wide names (matched case-sensitively) that invoke this mode whenever the moment, its neighbours
+   * or another cast entry names them, even when no `effects` entry sits in the section cast.
+   */
+  names: z.array(text).optional(),
   /** A numbered priority rule in every image prompt of the work. */
   renderRule: text,
   /** The line added to an image prompt whose section cast includes such a subject. */

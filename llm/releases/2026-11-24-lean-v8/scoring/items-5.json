@@ -1,0 +1,1080 @@
+{
+  "tier": "image",
+  "items": [
+    {
+      "id": "j141",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j141.jpg",
+      "work": "The Holy Bible",
+      "reference": "Leviticus 1:16",
+      "text": "and he shall take away its crop and its feathers, and cast it beside the altar on the east part, in the place of the ashes.",
+      "previous": "The priest shall bring it to the altar, and wring off its head, and burn it on the altar; and its blood shall be drained out on the side of the altar;",
+      "next": "He shall tear it by its wings, but shall not divide it apart. The priest shall burn it on the altar, on the wood that is on the fire. It is a burnt offering, an offering made by fire, of a pleasant aroma to Yahweh.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j142",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j142.jpg",
+      "work": "The Holy Bible",
+      "reference": "Deuteronomy 1:7",
+      "text": "Turn, and take your journey, and go to the hill country of the Amorites and to all the places near there: in the Arabah, in the hill country, in the lowland, in the South, by the seashore, in the land of the Canaanites, and in Lebanon as far as the great river, the river Euphrates.",
+      "previous": "“Yahweh our God spoke to us in Horeb, saying, ‘You have lived long enough at this mountain.",
+      "next": "Behold, I have set the land before you. Go in and possess the land which Yahweh swore to your fathers—to Abraham, to Isaac, and to Jacob—to give to them and to their offspring after them.’”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j143",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j143.jpg",
+      "work": "The Holy Bible",
+      "reference": "Acts 9:3",
+      "text": "As he traveled, he got close to Damascus, and suddenly a light from the sky shone around him.",
+      "previous": "and asked for letters from him to the synagogues of Damascus, that if he found any who were of the Way, whether men or women, he might bring them bound to Jerusalem.",
+      "next": "He fell on the earth, and heard a voice saying to him, “Saul, Saul, why do you persecute me?”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j144",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j144.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12",
+      "text": "“It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this was his first speech. “You should learn not to make personal remarks,” Alice said with some severity; “it’s very rude.” The Hatter opened his eyes very wide on hearing this; but all he _said_ was, “Why is a raven like a writing-desk?” “Come, we shall have some fun now!” thought Alice. “I’m glad they’ve begun asking riddles.—I believe I can guess that,” she added aloud.",
+      "previous": "“Then it wasn’t very civil of you to offer it,” said Alice angrily.",
+      "next": "“Do you mean that you think you can find out the answer to it?” said the March Hare.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j145",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j145.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Noble Bachelor ¶169 to The Adventure of the Noble Bachelor ¶176",
+      "text": "“Ha! you find it so?” “Extremely so. I congratulate you warmly.” Lestrade rose in his triumph and bent his head to look. “Why,” he shrieked, “you’re looking at the wrong side!” “On the contrary, this is the right side.” “The right side? You’re mad! Here is the note written in pencil over here.” “And over here is what appears to be the fragment of a hotel bill, which interests me deeply.” “There’s nothing in it. I looked at it before,” said Lestrade. “‘Oct. 4th, rooms 8_s_., breakfast 2_s_. 6_d_., cocktail 1_s_., lunch 2_s_. 6_d_., glass sherry, 8_d_.’ I see nothing in that.” “Very likely not. It is most important, all the same. As to the note, it is important also, or at least the initials are, so I congratulate you again.”",
+      "previous": "“Very good, Lestrade,” said Holmes, laughing. “You really are very fine indeed. Let me see it.” He took up the paper in a listless way, but his attention instantly became riveted, and he gave a little cry of satisfaction. “This is indeed important,” said he.",
+      "next": "“I’ve wasted time enough,” said Lestrade, rising. “I believe in hard work and not in sitting by the fire spinning fine theories. Good-day, Mr. Holmes, and we shall see which gets to the bottom of the matter first.” He gathered up the garments, thrust them into the bag, and made for the door.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j146",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j146.jpg",
+      "work": "The Holy Bible",
+      "reference": "Mark 4:39",
+      "text": "He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.",
+      "previous": "He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”",
+      "next": "He said to them, “Why are you so afraid? How is it that you have no faith?”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j147",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j147.jpg",
+      "work": "The Holy Bible",
+      "reference": "Nehemiah 3:9",
+      "text": "Next to them, Rephaiah the son of Hur, the ruler of half the district of Jerusalem, made repairs.",
+      "previous": "Next to him, Uzziel the son of Harhaiah, goldsmiths, made repairs. Next to him, Hananiah, one of the perfumers, made repairs, and they fortified Jerusalem even to the wide wall.",
+      "next": "Next to them, Jedaiah the son of Harumaph made repairs across from his house. Next to him, Hattush the son of Hashabneiah made repairs.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j148",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j148.jpg",
+      "work": "The Holy Bible",
+      "reference": "1 Samuel 17:40",
+      "text": "He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.",
+      "previous": "David strapped his sword on his clothing and he tried to move, for he had not tested it. David said to Saul, “I can’t go with these, for I have not tested them.” Then David took them off.",
+      "next": "The Philistine walked and came near to David; and the man who bore the shield went before him.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j149",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j149.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ezekiel 37:4",
+      "text": "Again he said to me, “Prophesy over these bones, and tell them, ‘You dry bones, hear Yahweh’s word.",
+      "previous": "He said to me, “Son of man, can these bones live?” I answered, “Lord Yahweh, you know.”",
+      "next": "The Lord Yahweh says to these bones: “Behold, I will cause breath to enter into you, and you will live.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j150",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j150.jpg",
+      "work": "The Holy Bible",
+      "reference": "Numbers 9:22",
+      "text": "Whether it was two days, or a month, or a year that the cloud stayed on the tabernacle, remaining on it, the children of Israel remained encamped, and didn’t travel; but when it was taken up, they traveled.",
+      "previous": "Sometimes the cloud was from evening until morning; and when the cloud was taken up in the morning, they traveled; or by day and by night, when the cloud was taken up, they traveled.",
+      "next": "At the commandment of Yahweh they encamped, and at the commandment of Yahweh they traveled. They kept Yahweh’s command, at the commandment of Yahweh by Moses.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j151",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j151.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Blue Carbuncle ¶71 to The Adventure of the Blue Carbuncle ¶78",
+      "text": "When the commissionaire had gone, Holmes took up the stone and held it against the light. “It’s a bonny thing,” said he. “Just see how it glints and sparkles. Of course it is a nucleus and focus of crime. Every good stone is. They are the devil’s pet baits. In the larger and older jewels every facet may stand for a bloody deed. This stone is not yet twenty years old. It was found in the banks of the Amoy River in southern China and is remarkable in having every characteristic of the carbuncle, save that it is blue in shade instead of ruby red. In spite of its youth, it has already a sinister history. There have been two murders, a vitriol-throwing, a suicide, and several robberies brought about for the sake of this forty-grain weight of crystallised charcoal. Who would think that so pretty a toy would be a purveyor to the gallows and the prison? I’ll lock it up in my strong box now and drop a line to the Countess to say that we have it.” “Do you think that this man Horner is innocent?” “I cannot tell.” “Well, then, do you imagine that this other one, Henry Baker, had anything to do with the matter?” “It is, I think, much more likely that Henry Baker is an absolutely innocent man, who had no idea that the bird which he was carrying was of considerably more value than if it were made of solid gold. That, however, I shall determine by a very simple test if we have an answer to our advertisement.” “And you can do nothing until then?” “Nothing.” “In that case I shall continue my professional round. But I shall come back in the evening at the hour you have mentioned, for I should like to see the solution of so tangled a business.”",
+      "previous": null,
+      "next": null,
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j152",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j152.jpg",
+      "work": "The Holy Bible",
+      "reference": "Judges 19:29",
+      "text": "When he had come into his house, he took a knife and cut up his concubine, and divided her, limb by limb, into twelve pieces, and sent her throughout all the borders of Israel.",
+      "previous": "He said to her, “Get up, and let’s get going!” but no one answered. Then he took her up on the donkey; and the man rose up, and went to his place.",
+      "next": "It was so, that all who saw it said, “Such a deed has not been done or seen from the day that the children of Israel came up out of the land of Egypt to this day! Consider it, take counsel, and speak.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j153",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j153.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6",
+      "text": "There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Dormouse,” thought Alice; “only, as it’s asleep, I suppose it doesn’t mind.” The table was a large one, but the three were all crowded together at one corner of it: “No room! No room!” they cried out when they saw Alice coming. “There’s _plenty_ of room!” said Alice indignantly, and she sat down in a large arm-chair at one end of the table. “Have some wine,” the March Hare said in an encouraging tone. Alice looked all round the table, but there was nothing on it but tea. “I don’t see any wine,” she remarked. “There isn’t any,” said the March Hare. “Then it wasn’t very civil of you to offer it,” said Alice angrily.",
+      "previous": null,
+      "next": "“It wasn’t very civil of you to sit down without being invited,” said the March Hare.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j154",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j154.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Scandal in Bohemia, Part I ¶1",
+      "text": "To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory.",
+      "previous": null,
+      "next": "I had seen little of Holmes lately. My marriage had drifted us away from each other. My own complete happiness, and the home-centred interests which rise up around the man who first finds himself master of his own establishment, were sufficient to absorb all my attention, while Holmes, who loathed every form of society with his whole Bohemian soul, remained in our lodgings in Baker Street, buried among his old books, and alternating from week to week between cocaine and ambition, the drowsiness of the drug, and the fierce energy of his own keen nature. He was still, as ever, deeply attracted by the study of crime, and occupied his immense faculties and extraordinary powers of observation in following out those clues, and clearing up those mysteries which had been abandoned as hopeless by the official police. From time to time I heard some vague account of his doings: of his summons to Odessa in the case of the Trepoff murder, of his clearing up of the singular tragedy of the Atkinson brothers at Trincomalee, and finally of the mission which he had accomplished so delicately and successfully for the reigning family of Holland. Beyond these signs of his activity, however, which I merely shared with all the readers of the daily press, I knew little of my former friend and companion.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j155",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j155.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44",
+      "text": "“Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was all ridges and furrows; the balls were live hedgehogs, the mallets live flamingoes, and the soldiers had to double themselves up and to stand on their hands and feet, to make the arches. The chief difficulty Alice found at first was in managing her flamingo: she succeeded in getting its body tucked away, comfortably enough, under her arm, with its legs hanging down, but generally, just as she had got its neck nicely straightened out, and was going to give the hedgehog a blow with its head, it _would_ twist itself round and look up in her face, with such a puzzled expression that she could not help bursting out laughing: and when she had got its head down, and was going to begin again, it was very provoking to find that the hedgehog had unrolled itself, and was in the act of crawling away: besides all this, there was generally a ridge or furrow in the way wherever she wanted to send the hedgehog to, and, as the doubled-up soldiers were always getting up and walking off to other parts of the ground, Alice soon came to the conclusion that it was a very difficult game indeed. The players all played at once without waiting for turns, quarrelling all the while, and fighting for the hedgehogs; and in a very short time the Queen was in a furious passion, and went stamping about, and shouting “Off with his head!” or “Off with her head!” about once in a minute. Alice began to feel very uneasy: to be sure, she had not as yet had any dispute with the Queen, but she knew that it might happen any minute, “and then,” thought she, “what would become of me? They’re dreadfully fond of beheading people here; the great wonder is, that there’s any one left alive!”",
+      "previous": "“She boxed the Queen’s ears—” the Rabbit began. Alice gave a little scream of laughter. “Oh, hush!” the Rabbit whispered in a frightened tone. “The Queen will hear you! You see, she came rather late, and the Queen said—”",
+      "next": null,
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j156",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j156.jpg",
+      "work": "The Holy Bible",
+      "reference": "Revelation 4:6",
+      "text": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+      "previous": null,
+      "next": "The first creature was like a lion, the second creature like a calf, the third creature had a face like a man, and the fourth was like a flying eagle.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j157",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j157.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶1 to The Red-Headed League ¶7",
+      "text": "I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.",
+      "previous": null,
+      "next": "“Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outside the conventions and humdrum routine of everyday life. You have shown your relish for it by the enthusiasm which has prompted you to chronicle, and, if you will excuse my saying so, somewhat to embellish so many of my own little adventures.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j158",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j158.jpg",
+      "work": "The Holy Bible",
+      "reference": "Acts 3:7",
+      "text": "He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.",
+      "previous": "But Peter said, “I have no silver or gold, but what I have, that I give you. In the name of Jesus Christ of Nazareth, get up and walk!”",
+      "next": "Leaping up, he stood and began to walk. He entered with them into the temple, walking, leaping, and praising God.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j159",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j159.jpg",
+      "work": "The Holy Bible",
+      "reference": "Matthew 1:1",
+      "text": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "previous": null,
+      "next": "Abraham became the father of Isaac. Isaac became the father of Jacob. Jacob became the father of Judah and his brothers.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j160",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j160.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171",
+      "text": "“That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which, when it was crushed in the press, set fire to the wooden walls, though no doubt they were too excited in the chase after you to observe it at the time. Now keep your eyes open in this crowd for your friends of last night, though I very much fear that they are a good hundred miles off by now.”",
+      "previous": "The station-master had not finished his speech before we were all hastening in the direction of the fire. The road topped a low hill, and there was a great widespread whitewashed building in front of us, spouting fire at every chink and window, while in the garden in front three fire-engines were vainly striving to keep the flames under.",
+      "next": "And Holmes’ fears came to be realised, for from that day to this no word has ever been heard either of the beautiful woman, the sinister German, or the morose Englishman. Early that morning a peasant had met a cart containing several people and some very bulky boxes driving rapidly in the direction of Reading, but there all traces of the fugitives disappeared, and even Holmes’ ingenuity failed ever to discover the least clue as to their whereabouts.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j161",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j161.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ruth 4:22",
+      "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "previous": "and Salmon became the father of Boaz, and Boaz became the father of Obed,",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j162",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j162.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 21:9",
+      "text": "So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.",
+      "previous": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish.",
+      "next": "Jesus said to them, “Bring some of the fish which you have just caught.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j163",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j163.jpg",
+      "work": "The Holy Bible",
+      "reference": "Mark 4:38",
+      "text": "He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”",
+      "previous": "A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.",
+      "next": "He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j164",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j164.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶70 to A Mad Tea-Party ¶81",
+      "text": "“Once upon a time there were three little sisters,” the Dormouse began in a great hurry; “and their names were Elsie, Lacie, and Tillie; and they lived at the bottom of a well—” “What did they live on?” said Alice, who always took a great interest in questions of eating and drinking. “They lived on treacle,” said the Dormouse, after thinking a minute or two. “They couldn’t have done that, you know,” Alice gently remarked; “they’d have been ill.” “So they were,” said the Dormouse; “_very_ ill.” Alice tried to fancy to herself what such an extraordinary way of living would be like, but it puzzled her too much, so she went on: “But why did they live at the bottom of a well?” “Take some more tea,” the March Hare said to Alice, very earnestly. “I’ve had nothing yet,” Alice replied in an offended tone, “so I can’t take more.” “You mean you can’t take _less_,” said the Hatter: “it’s very easy to take _more_ than nothing.” “Nobody asked _your_ opinion,” said Alice. “Who’s making personal remarks now?” the Hatter asked triumphantly. Alice did not quite know what to say to this: so she helped herself to some tea and bread-and-butter, and then turned to the Dormouse, and repeated her question. “Why did they live at the bottom of a well?”",
+      "previous": "“And be quick about it,” added the Hatter, “or you’ll be asleep again before it’s done.”",
+      "next": "The Dormouse again took a minute or two to think about it, and then said, “It was a treacle-well.”",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j165",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j165.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Who Stole the Tarts? ¶16 to Who Stole the Tarts? ¶28",
+      "text": "The first witness was the Hatter. He came in with a teacup in one hand and a piece of bread-and-butter in the other. “I beg pardon, your Majesty,” he began, “for bringing these in: but I hadn’t quite finished my tea when I was sent for.” “You ought to have finished,” said the King. “When did you begin?” The Hatter looked at the March Hare, who had followed him into the court, arm-in-arm with the Dormouse. “Fourteenth of March, I _think_ it was,” he said. “Fifteenth,” said the March Hare. “Sixteenth,” added the Dormouse. “Write that down,” the King said to the jury, and the jury eagerly wrote down all three dates on their slates, and then added them up, and reduced the answer to shillings and pence. “Take off your hat,” the King said to the Hatter. “It isn’t mine,” said the Hatter. “_Stolen!_” the King exclaimed, turning to the jury, who instantly made a memorandum of the fact. “I keep them to sell,” the Hatter added as an explanation; “I’ve none of my own. I’m a hatter.” Here the Queen put on her spectacles, and began staring at the Hatter, who turned pale and fidgeted. “Give your evidence,” said the King; “and don’t be nervous, or I’ll have you executed on the spot.” This did not seem to encourage the witness at all: he kept shifting from one foot to the other, looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup instead of the bread-and-butter.",
+      "previous": null,
+      "next": "Just at this moment Alice felt a very curious sensation, which puzzled her a good deal until she made out what it was: she was beginning to grow larger again, and she thought at first she would get up and leave the court; but on second thoughts she decided to remain where she was as long as there was room for her.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j166",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j166.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6",
+      "text": "There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Dormouse,” thought Alice; “only, as it’s asleep, I suppose it doesn’t mind.” The table was a large one, but the three were all crowded together at one corner of it: “No room! No room!” they cried out when they saw Alice coming. “There’s _plenty_ of room!” said Alice indignantly, and she sat down in a large arm-chair at one end of the table. “Have some wine,” the March Hare said in an encouraging tone. Alice looked all round the table, but there was nothing on it but tea. “I don’t see any wine,” she remarked. “There isn’t any,” said the March Hare. “Then it wasn’t very civil of you to offer it,” said Alice angrily.",
+      "previous": null,
+      "next": "“It wasn’t very civil of you to sit down without being invited,” said the March Hare.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j167",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j167.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Case of Identity ¶92 to A Case of Identity ¶101",
+      "text": "I held the little printed slip to the light. “Missing,” it said, “on the morning of the fourteenth, a gentleman named Hosmer Angel. About five ft. seven in. in height; strongly built, sallow complexion, black hair, a little bald in the centre, bushy, black side-whiskers and moustache; tinted glasses, slight infirmity of speech. Was dressed, when last seen, in black frock-coat faced with silk, black waistcoat, gold Albert chain, and grey Harris tweed trousers, with brown gaiters over elastic-sided boots. Known to have been employed in an office in Leadenhall Street. Anybody bringing,” &c, &c. “That will do,” said Holmes. “As to the letters,” he continued, glancing over them, “they are very commonplace. Absolutely no clue in them to Mr. Angel, save that he quotes Balzac once. There is one remarkable point, however, which will no doubt strike you.” “They are typewritten,” I remarked. “Not only that, but the signature is typewritten. Look at the neat little ‘Hosmer Angel’ at the bottom. There is a date, you see, but no superscription except Leadenhall Street, which is rather vague. The point about the signature is very suggestive—in fact, we may call it conclusive.” “Of what?” “My dear fellow, is it possible you do not see how strongly it bears upon the case?” “I cannot say that I do unless it were that he wished to be able to deny his signature if an action for breach of promise were instituted.” “No, that was not the point. However, I shall write two letters, which should settle the matter. One is to a firm in the City, the other is to the young lady’s stepfather, Mr. Windibank, asking him whether he could meet us here at six o’clock to-morrow evening. It is just as well that we should do business with the male relatives. And now, Doctor, we can do nothing until the answers to those letters come, so we may put our little problem upon the shelf for the interim.” I had had so many reasons to believe in my friend’s subtle powers of reasoning and extraordinary energy in action that I felt that he must have some solid grounds for the assured and easy demeanour with which he treated the singular mystery which he had been called upon to fathom. Once only had I known him to fail, in the case of the King of Bohemia and of the Irene Adler photograph; but when I looked back to the weird business of the Sign of Four, and the extraordinary circumstances connected with the Study in Scarlet, I felt that it would be a strange tangle indeed which he could not unravel. I left him then, still puffing at his black clay pipe, with the conviction that when I came again on the next evening I would find that he held in his hands all the clues which would lead up to the identity of the disappearing bridegroom of Miss Mary Sutherland.",
+      "previous": "“I noted, in passing, that she had written a note before leaving home but after being fully dressed. You observed that her right glove was torn at the forefinger, but you did not apparently see that both glove and finger were stained with violet ink. She had written in a hurry and dipped her pen too deep. It must have been this morning, or the mark would not remain clear upon the finger. All this is amusing, though rather elementary, but I must go back to business, Watson. Would you mind reading me the advertised description of Mr. Hosmer Angel?”",
+      "next": null,
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j168",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j168.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:17",
+      "text": "A stone was brought, and laid on the mouth of the den; and the king sealed it with his own signet, and with the signet of his lords; that nothing might be changed concerning Daniel.",
+      "previous": "Then the king commanded, and they brought Daniel and cast him into the den of lions. The king spoke and said to Daniel, “Your God whom you serve continually, he will deliver you.”",
+      "next": "Then the king went to his palace, and passed the night fasting. No musical instruments were brought before him; and his sleep fled from him.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j169",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j169.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ezekiel 37:4",
+      "text": "Again he said to me, “Prophesy over these bones, and tell them, ‘You dry bones, hear Yahweh’s word.",
+      "previous": "He said to me, “Son of man, can these bones live?” I answered, “Lord Yahweh, you know.”",
+      "next": "The Lord Yahweh says to these bones: “Behold, I will cause breath to enter into you, and you will live.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j170",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j170.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5",
+      "text": "The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly, “I—I hardly know, sir, just at present—at least I know who I _was_ when I got up this morning, but I think I must have been changed several times since then.” “What do you mean by that?” said the Caterpillar sternly. “Explain yourself!” “I can’t explain _myself_, I’m afraid, sir,” said Alice, “because I’m not myself, you see.”",
+      "previous": null,
+      "next": "“I don’t see,” said the Caterpillar.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j171",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j171.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": null,
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "The Ancient of Days"
+      ]
+    },
+    {
+      "id": "j172",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j172.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶175 to The Red-Headed League ¶182",
+      "text": "“You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask you to be a little more quiet!” said Holmes severely. “You have already imperilled the whole success of our expedition. Might I beg that you would have the goodness to sit down upon one of those boxes, and not to interfere?” The solemn Mr. Merryweather perched himself upon a crate, with a very injured expression upon his face, while Holmes fell upon his knees upon the floor and, with the lantern and a magnifying lens, began to examine minutely the cracks between the stones. A few seconds sufficed to satisfy him, for he sprang to his feet again and put his glass in his pocket. “We have at least an hour before us,” he remarked, “for they can hardly take any steps until the good pawnbroker is safely in bed. Then they will not lose a minute, for the sooner they do their work the longer time they will have for their escape. We are at present, Doctor—as no doubt you have divined—in the cellar of the City branch of one of the principal London banks. Mr. Merryweather is the chairman of directors, and he will explain to you that there are reasons why the more daring criminals of London should take a considerable interest in this cellar at present.” “It is our French gold,” whispered the director. “We have had several warnings that an attempt might be made upon it.” “Your French gold?” “Yes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.”",
+      "previous": null,
+      "next": "“Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j173",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j173.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 15:22",
+      "text": "“But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+      "previous": "The son said to him, ‘Father, I have sinned against heaven and in your sight. I am no longer worthy to be called your son.’",
+      "next": "Bring the fattened calf, kill it, and let’s eat and celebrate;",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j174",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j174.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61",
+      "text": "“Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rather not,” the Cat remarked. “Don’t be impertinent,” said the King, “and don’t look at me like that!” He got behind Alice as he spoke. “A cat may look at a king,” said Alice. “I’ve read that in some book, but I don’t remember where.” “Well, it must be removed,” said the King very decidedly, and he called the Queen, who was passing at the moment, “My dear! I wish you would have this cat removed!” The Queen had only one way of settling all difficulties, great or small. “Off with his head!” she said, without even looking round. “I’ll fetch the executioner myself,” said the King eagerly, and he hurried off. Alice thought she might as well go back, and see how the game was going on, as she heard the Queen’s voice in the distance, screaming with passion. She had already heard her sentence three of the players to be executed for having missed their turns, and she did not like the look of things at all, as the game was in such confusion that she never knew whether it was her turn or not. So she went in search of her hedgehog.",
+      "previous": "The Queen smiled and passed on.",
+      "next": null,
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, trees and other figures.",
+        "Talking animals are drawn as animals with animal faces, with human posture and dress where the text gives it.",
+        "The Queen's soldiers, gardeners, courtiers and royal children are flat, oblong cards with hands and feet at the corners; the King, Queen, Knave and guests are people in court-card dress.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations, such as a blue dress and white pinafore."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j175",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-24-lean-v8/blind/j175.jpg",
+      "work": "The Holy Bible",
+      "reference": "Deuteronomy 1:7",
+      "text": "Turn, and take your journey, and go to the hill country of the Amorites and to all the places near there: in the Arabah, in the hill country, in the lowland, in the South, by the seashore, in the land of the Canaanites, and in Lebanon as far as the great river, the river Euphrates.",
+      "previous": "“Yahweh our God spoke to us in Horeb, saying, ‘You have lived long enough at this mountain.",
+      "next": "Behold, I have set the land before you. Go in and possess the land which Yahweh swore to your fathers—to Abraham, to Isaac, and to Jacob—to give to them and to their offspring after them.’”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    }
+  ]
+}

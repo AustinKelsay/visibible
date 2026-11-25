@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-25T15:58:20.079Z",
+  "provider": "gemini",
+  "commit": "e91a40b32a755dac60423fb464bf97eb92033a3f",
+  "grant": {
+    "authorization": "Owner, 2026-11-25, after a prompt naming this run's $4.43 estimate and $7.81 ledger cap on the $40/mo Google AI Ultra GCP credits via Gemini Batch API: \"ok\". Earlier on 2026-11-24 the owner confirmed applying the $40 Ultra Gen AI & Cloud credits to Google AI Studio billing and providing the Gemini eval API key.",
+    "operationCapUsd": 7.81,
+    "provider": "gemini-batch"
+  },
+  "capUsd": 2.352435,
+  "sources": {
+    "src/lib/engine/lean.ts": "ac1e09dc2e91f54110aaf664ee0e9e64d95452716729a5bbe04eefb4780256c7",
+    "src/lib/engine/lean-assemble.ts": "03bd4529616bb94731de3c20d70ed99df039dcb96405d2b02618851282bf8bbf",
+    "src/lib/engine/prompt.ts": "2f678ab7c356a4c9f18b692c57ef9024086986192e01832fec2601177bc6a04d",
+    "src/lib/engine/depiction.ts": "c5ae441ee895f170ada8b6226e32512516b260a12af64c2767255fe3f106bab5",
+    "src/lib/engine/work-inputs.ts": "cb38089438eab631b04eacf18c5f018d45c5efa39216fc6b353144b5d71c6146",
+    "src/lib/image-evals/adapters.ts": "5b40c61b39460ae0aa07acfb28510ef88656671ca3f120bed9466ec2e3bcc019",
+    "src/lib/image-evals/gemini-batch.ts": "039d531aac4a29eaaadf63d5b4fffce0f0f93262e76e70a2a09e0029943b2f3e",
+    "src/lib/image-evals/suite-run.ts": "b69d6e5a4324a5c9c48a7a40fa278a19cccf73d33251a39550c0b113d4c8c782",
+    "scripts/evals/lean.mts": "85832747914c401474fdfd652bcb00be5874b2f9bd75b27cc0c21826f5e7f9d3",
+    "evals/images/suite.json": "f5952b63deb6ff542800cda34a961504a20676915368a6e34db75280b322636c",
+    "evals/images/cases.json": "06bb40f953f7123b55cf2bfab8f153bbd5959c3c937181cdbb7b6b993ac0a224",
+    "evals/images/faults.json": "a909ae9f9399a5cc711b4fb18f4984f3ef9d34404b48f65964d40d0b1c8a15e1"
+  }
+}

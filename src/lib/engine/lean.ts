@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-25-lean-v8";
+export const LEAN_PROMPT_VERSION = "2026-11-25-lean-v9";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -49,7 +49,8 @@ export type LeanResult =
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const clip = (text: string, max: number) => { const flat = text.replace(/\s+/g, " ").trim(); return flat.length <= max ? flat : `${flat.slice(0, max - 1).trimEnd()}…`; };
-const wordPattern = (name: string) => new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu");
+const wordPattern = (name: string, flags: "giu" | "gu" | "u" = "giu") =>
+  new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, flags);
 
 /**
  * The words a text may call an entry by: its name, the name up to a comma, bracket or slash, each slash part, its
@@ -117,7 +118,7 @@ export function selectLeanReferences(present: readonly LeanCastMember[], availab
     const member = present.find((m) => m.entryId === reference.entryId)!;
     const name = shortName(member);
     const views = member.kind === "character" ? "one figure in several views" : "views of one place or thing";
-    return { ...reference, index, caption: `${n}: ${name}'s reference sheet (${views}). Keep ${name}'s identity exactly; do not copy its poses, layout or plain background.` };
+    return { ...reference, index, caption: `${n}: ${name}'s reference sheet (${views}). If the scene shows ${name}, keep ${name}'s identity exactly; do not copy its poses, layout or plain background.` };
   });
 }
 
@@ -128,17 +129,32 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
   const formless = present.filter((m) => m.depiction === "effects");
   const symbols = present.filter((m) => m.depiction === "symbol");
   const formed = present.filter((m) => m.depiction === "form");
+  const workWideNames = [...(depiction.modes.effects?.names ?? [])].sort((a, b) => b.length - a.length);
+  const workWideMatchPatterns = workWideNames.map((name) => wordPattern(name, "u"));
+  const hasWorkWideName = (text: string | null | undefined) => Boolean(text) && workWideMatchPatterns.some((re) => re.test(text!));
+  const workWideNamedInText = [input.moment.text, input.neighbors?.previous, input.neighbors?.next].some(hasWorkWideName);
+  const workWideInCast = present.some((m) => m.depiction !== "effects" && (hasWorkWideName(m.text) || hasWorkWideName(shortName(m))));
+  const hasEffects = formless.length > 0 || workWideNamedInText || workWideInCast;
+  const effectsNamed = formless.some(isNamed) || workWideNamedInText;
   let effects, symbol;
   try {
-    effects = formless.length ? effectsWordingFor(depiction, formless.map((m) => m.entryId)) : null;
+    effects = hasEffects ? effectsWordingFor(depiction, formless.map((m) => m.entryId)) : null;
     symbol = symbols.length ? symbolWordingFor(depiction, symbols.map((m) => m.entryId)) : null;
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
   }
-  // Every subject without form in the section is renamed, mentioned or not, so no text the model reads names it.
-  const unseen = input.cast.filter((m) => m.depiction === "effects").flatMap(leanNames).sort((a, b) => b.length - a.length);
-  const alias = depiction.modes.effects?.alias;
-  const nameless = (text: string) => alias ? unseen.reduce((t, name) => t.replace(wordPattern(name), alias), text) : text;
+  // Every subject without form in the section — plus unambiguous work-wide names when invoked — is renamed across
+  // every text the prompt carries, so a speech in a human-only section still never feeds raw divine names to the model.
+  const unseenPatterns = hasEffects
+    ? [
+        ...input.cast.filter((m) => m.depiction === "effects").flatMap(leanNames).map((name) => ({ name, exact: false })),
+        ...workWideNames.map((name) => ({ name, exact: true })),
+      ]
+        .sort((a, b) => b.name.length - a.name.length)
+        .map(({ name, exact }) => wordPattern(name, exact ? "gu" : "giu"))
+    : [];
+  const alias = effects?.alias;
+  const nameless = (text: string) => alias ? unseenPatterns.reduce((t, re) => t.replace(re, alias), text) : text;
   // Canon and captions of other entries can name it too ("Yahweh's house in Jerusalem"), so they are renamed as well.
   const references = selectLeanReferences(present, input.references, style.id).map((r) => ({ ...r, caption: nameless(r.caption) }));
   const prev = input.neighbors?.previous ? nameless(clip(input.neighbors.previous, NEIGHBOR_MAX_CHARS)) : null;
@@ -162,7 +178,7 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     alias ? nameless(brief_) : brief_,
     effects ? effects.renderBlock : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
-    alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
+    alias && effectsNamed ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
     symbol ? `${symbol.renderBlock} ${symbols.map((m) => nameless(m.name)).join("; ")}.` : "",
     canonBlock(`SETTING (where this passage happens; set the moment here and keep the place's fixed features, unless the moment, or what its words tell of, is somewhere else${places.length > 1 ? "; of several places, use the one the moment is in" : ""}):`, places),
     canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", cast.filter(isNamed)),
