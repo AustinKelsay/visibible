@@ -315,6 +315,8 @@ interface MapBox {
   squeezed?: boolean;
   /** The height under the note that a card never covers: the page-turn dock on a computer. */
   dock?: number;
+  /** How tall the note may grow before it scrolls. */
+  noteCap?: number;
 }
 
 /**
@@ -429,7 +431,9 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       if (squeezed && leftControls.current?.contains(document.activeElement)) map.current?.focus();
       const { top, bottom, clear } = freeBand({ height: node.clientHeight, controlsBottom: squeezed ? right : both, footerTop });
       const dock = footer.current ? node.clientHeight - footer.current.offsetTop - footer.current.offsetHeight : 0;
-      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed, dock } : null);
+      // The note scrolls past three tenths of the map, or sooner where the controls and the setting need the room.
+      const noteCap = Math.max(34, Math.min(Math.round(node.clientHeight * 0.3), node.clientHeight - dock - 8 - MIN_BAND - (both > 0 ? both + 8 : 0)));
+      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed, dock, noteCap } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -904,7 +908,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         {picture}
         {/* A long note (many places, beside the picture) scrolls rather than take the controls' room. */}
         <p
-          style={{ maxHeight: Math.round(size.height * 0.3) }}
+          style={{ maxHeight: size.noteCap ?? Math.round(size.height * 0.3) }}
           className="min-w-0 flex-1 overflow-y-auto rounded-xl border border-white/10 bg-black/75 px-3 py-2 text-[11px] leading-snug text-white/85 backdrop-blur-md md:max-w-xl md:text-xs"
         >
           {/* A phone with Ask open leaves the map a thin strip: the note keeps only its credit there. */}

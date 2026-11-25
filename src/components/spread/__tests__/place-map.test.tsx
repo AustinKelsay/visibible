@@ -569,6 +569,13 @@ describe("today's map", () => {
   it("keeps a long note from taking the controls' room: it scrolls past three tenths of the map", async () => {
     vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(360);
     vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(360);
+    // The note 60 px tall, 12 px above the bottom.
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return this.className.includes("bottom-3") ? 288 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return this.className.includes("bottom-3") ? 60 : 0;
+    });
     onTestFinished(() => {
       vi.restoreAllMocks();
     });
@@ -576,6 +583,40 @@ describe("today's map", () => {
     const note = container.querySelector("a[href*='openbible']")!.closest("p")!;
     expect(note.style.maxHeight).toBe("108px");
     expect(note.className).toContain("overflow-y-auto");
+  });
+
+  it("caps a long note by the room the controls and the setting leave, so a short phone keeps its controls", async () => {
+    // A 360×277 map (a 360×535 phone): the steps end at 112, the note sits 12 px above the bottom and would be 120 px.
+    const observers: (() => void)[] = [];
+    vi.stubGlobal("ResizeObserver", class {
+      constructor(callback: () => void) {
+        observers.push(callback);
+      }
+      observe() {}
+      disconnect() {}
+    });
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(360);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(277);
+    const footer = (element: HTMLElement) => element.className.includes("bottom-3");
+    const steps = (element: HTMLElement) => element.className.includes("top-[4.75rem]") && !element.className.includes("right-3");
+    const noteHeight = (element: HTMLElement) => Math.min(120, parseFloat(element.querySelector("p")!.style.maxHeight) || 120);
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? 277 - 12 - noteHeight(this) : steps(this) ? 76 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? noteHeight(this) : steps(this) ? 36 : 0;
+    });
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+      vi.unstubAllGlobals();
+    });
+    await openMap();
+    // Measured again as the note settles, as the browser's observer would.
+    for (let round = 0; round < 3; round++) await act(async () => observers.forEach((measure) => measure()));
+    const note = container.querySelector("a[href*='openbible']")!.closest("p")!;
+    // 277 − 12 under the note − 8 − 56 for the setting − 120 for the steps.
+    expect(note.style.maxHeight).toBe("81px");
+    expect(container.querySelector('[aria-label="Zoom"]')!.parentElement!.hasAttribute("inert")).toBe(false);
   });
 
   it("dashes disputed borders the same on screen at every step", async () => {
