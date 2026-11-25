@@ -1,0 +1,524 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j176",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands in the Babylonian banquet hall gesturing before the enthroned king beside a table of golden gifts, matching the verse with clean anatomy and no lettering or borders."
+    },
+    {
+      "id": "j177",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The scene accurately shows Alice speaking to the Cheshire Cat while the Queen listens behind her, but the three playing-card soldiers in the left background bear red heart and dark spot pips on their cards (no readable text or corner letters)."
+    },
+    {
+      "id": "j178",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "An apostle addresses a seated gathering of early believers in a stone room opening onto a sunlit courtyard, fitting the epistle passage with clean anatomy and no text or edge flaws."
+    },
+    {
+      "id": "j179",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses and Aaron instruct the Israelites before the Tabernacle while gesturing to a pig with clearly visible cloven hooves, and God's presence appears only as a pillar of cloud rather than a human figure."
+    },
+    {
+      "id": "j180",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah proclaims God's promise of strength to weary and exhausted listeners outside Jerusalem with clean figures, coherent staging, and no lettering or border defects."
+    },
+    {
+      "id": "j181",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus turns to look across the courtyard fire at a stricken Peter while a rooster crows atop the far stone wall, faithfully matching the verse with no visual faults."
+    },
+    {
+      "id": "j182",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Egyptian chariots, horsemen, and soldiers pursue the fleeing Israelites along the dry seabed between towering walls of water, with no unseen figure drawn and no text or anatomical errors."
+    },
+    {
+      "id": "j183",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The five men run down the road toward the bottom-right away from and past the blazing whitewashed house directly behind them without looking at it, contradicting the text's account of hastening toward the fire in front of them; there is also a small white unpainted corner at the bottom-right (accepted)."
+    },
+    {
+      "id": "j184",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter walks ashore from the fishing boat and net of fish toward Jesus tending fish and bread on a charcoal fire; the top-left and top-right sky fade into unpainted white paper, which is accepted by the style."
+    },
+    {
+      "id": "j185",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands unharmed among calm, closed-mouthed lions in the stone pit and speaks up to the king and guards at the rim, matching the verse with clean anatomy and full-bleed framing."
+    },
+    {
+      "id": "j186",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Ordinary householders fill and tend a storeroom overflowing with grain sacks, gold, silver, and fine goods, illustrating filled treasuries without depicting Wisdom as a personified figure."
+    },
+    {
+      "id": "j187",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples frantically bail water as heavy storm waves break over their boat while Jesus sleeps in the stern, faithfully capturing the moment with clean anatomy and no unwanted marks."
+    },
+    {
+      "id": "j188",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The father embraces and kisses his ragged, barefoot returning son on a dusty hillside road outside the village, matching the verse with accurate interlocked hands and no visual defects."
+    },
+    {
+      "id": "j189",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Jesus's pose is contradictory: while gesturing sideways toward the rolled stone and open tomb on the right where wrapped Lazarus stands, his head is turned sharply away to the left shouting directly at the onlookers."
+    },
+    {
+      "id": "j190",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "John points across the lake toward Jesus by the shore fire while Simon Peter wraps his cloak around his bare torso and leaps from the fishing boat into the water, cleanly matching the verse."
+    },
+    {
+      "id": "j191",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "At Goliath's feet in the bottom-right, the weapons are contradictory and merged: a spear shaft with a large spearhead protrudes directly out of Goliath's bronze left shin-guard and crosses a second double-pointed spear; the top corners also show accepted unpainted white paper."
+    },
+    {
+      "id": "j192",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah lifts a heavy stone block alongside fellow workers repairing Jerusalem's wall with the city and Temple on the hill behind, matching the text with clean anatomy and no lettering."
+    },
+    {
+      "id": "j193",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Streaks of fire and burning sulfur rain from storm clouds onto the walled city in the plain while distant fires smoke across the valley, faithfully depicting the verse without drawing God as a figure."
+    },
+    {
+      "id": "j194",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "A disembodied extra hand grips the top of Moses's staff above Moses's and Aaron's hands with no attached arm, and Moses's raised left hand on the right is anatomically reversed with its palm facing forward and thumb on the inside."
+    },
+    {
+      "id": "j195",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Paul gazes thoughtfully at his dim reflection in a bronze mirror while writing by lamplight, but faint horizontal lines of unreadable writing squiggles are visible on the parchment sheet beneath his reed pen behind the oil lamp."
+    },
+    {
+      "id": "j196",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes with his walking stick speaks to the clean-shaven pawnbroker's assistant at the door beneath the three gilt balls and blank brown board in Saxe-Coburg Square while Watson looks on, with no lettering or visual defects."
+    },
+    {
+      "id": "j197",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Giant Alice puts the animal jurors back into the overturned jury-box with the Lizard head-downward as the King watches, but a red 'J' corner index and heart pips appear on the Knave of Hearts's card front on the left alongside pips on the background card soldier and floor cards."
+    },
+    {
+      "id": "j198",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits at the long tea table opposite the sleeping Dormouse, wide-eyed Hatter with a plain unmarked hat, and dressed March Hare with an animal face, matching the scene and depiction rules cleanly."
+    },
+    {
+      "id": "j199",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses sits on a stone overlooking the valley battle while Aaron and Hur support his raised arms from either side, with accurate hands and anatomy and no lettering or border defects."
+    },
+    {
+      "id": "j200",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Radiant golden-white light breaks through dark primeval clouds across churning waters, directly depicting the verse without any human-shaped figure for God."
+    },
+    {
+      "id": "j201",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes and Watson converse in the railway compartment with a large ball of crumpled newspapers on the left rack and papers on the seat, but tiny unreadable printed column lines and squiggles are visible on the newspapers on the rack and bottom-left bench."
+    },
+    {
+      "id": "j202",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah gestures toward sunbeams breaking over Jerusalem as weary people rise and support one another below; the upper-left sky fades into unpainted white paper, which is accepted by the style."
+    },
+    {
+      "id": "j203",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The blue Caterpillar atop the mushroom is drawn with a distinctly human old man's face (human brow, nose, lips, and chin) instead of an animal face, breaking the depiction rule for talking animals."
+    },
+    {
+      "id": "j204",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes prepares to screen his dark lantern while Watson rests his revolver on a wooden crate and Merryweather and Jones crouch behind crates in the brick vault, matching the scene cleanly."
+    },
+    {
+      "id": "j205",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Pharaoh's chariots, horses, horsemen, and soldiers surge forward along the dry seabed between towering parted walls of water, cleanly matching the verse with no unseen figure drawn."
+    },
+    {
+      "id": "j206",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The masked, richly cloaked Count Von Kramm enters Baker Street before Holmes and seated Watson, but small horizontal writing squiggles are visible on the three notes pinned to the center wall between the windows and on the papers on the desk."
+    }
+  ]
+}

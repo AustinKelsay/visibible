@@ -1,0 +1,930 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.holmes-adventures.json",
+    "sha256": "4f184d9bd242a2b9453be8a9463ef8c0acf823b571bb9c2962df93d6bf2124ea"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-11-24-lean-v8/consistency/lean/results.ndjson",
+      "sha256": "f7fd3a1e18849e1a54b83a1b35706c6f74119b2fe0238097845f6f43dd4a423e"
+    },
+    {
+      "file": "llm/releases/2026-11-24-lean-v8/consistency/lean/snapshot.json",
+      "sha256": "3f0bb27951b27f7700d3f5cea93e3dadcb00a264a2c589b2e07460888476ef1c"
+    }
+  ],
+  "notRun": {
+    "character": [],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "sherlock-holmes",
+      "style": "classical",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "a-scandal-in-bohemia-1-1",
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "sherlock-holmes",
+      "style": "fresco",
+      "units": 6,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "sherlock-holmes",
+      "style": "watercolor",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "a-scandal-in-bohemia-1-1",
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "classical",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "fresco",
+      "units": 6,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "watercolor",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "the-red-headed-league-175",
+        "the-red-headed-league-183"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "the-red-headed-league-175",
+        "the-red-headed-league-183"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-adventure-of-the-engineers-thumb-160",
+        "the-adventure-of-the-engineers-thumb-165",
+        "the-adventure-of-the-engineers-thumb-170"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-adventure-of-the-engineers-thumb-160",
+        "the-adventure-of-the-engineers-thumb-165",
+        "the-adventure-of-the-engineers-thumb-170"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "1e41c59f9a63022d3e7c4eb7e7bffb20646aed92b03e3c5197ca62d9fb7df4b5",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-drive__watercolor__a1.jpg",
+        "sha256": "ec0ce4afc00a40c4719ad52d92867c69e56184e9d2a0f4069d6eebf8b58ebd94",
+        "scene": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-smoke__watercolor__a1.jpg",
+        "sha256": "9dcf243ff2f60e3c6530613a6cf4867a75e4decb047d664a5e51ba4002068004",
+        "scene": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-fire__watercolor__a1.jpg",
+        "sha256": "e57a168ca35508c621263bb099085fc030d47b5ee15fba18e32756d9eb09c4f0",
+        "scene": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-smoke__watercolor__a1.jpg",
+        "sha256": "9dcf243ff2f60e3c6530613a6cf4867a75e4decb047d664a5e51ba4002068004",
+        "scene": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "15876e9a16b89cef57e49b8017a1df4719fcf9551d04f8f6b546c007689d8f9f",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-smoke__classical__a1.jpg",
+        "sha256": "4cf5437a89d1780bf2ff6a507540748a0bf305981efef7a287f1101f910741f6",
+        "scene": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-fire__classical__a1.jpg",
+        "sha256": "f335fa7a1f8af418c7156deec64f6985b688d894ffd79885bd3bf7aed9469d08",
+        "scene": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "0eff1be704b8a0c71811417e8473dfe0c963551c1f98c955edd1cde55b4bd7a4",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "a608fca542a43bde8bdf5e588068962f45338b2a2aa01a48a3cc0f62601d9494",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "1e41c59f9a63022d3e7c4eb7e7bffb20646aed92b03e3c5197ca62d9fb7df4b5",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-smoke__classical__a1.jpg",
+        "sha256": "4cf5437a89d1780bf2ff6a507540748a0bf305981efef7a287f1101f910741f6",
+        "scene": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-drive__classical__a1.jpg",
+        "sha256": "4f7b0cc706a64b76b909dd7f5cbc3fe2cd49e36ac1466bcc54057e664573ce14",
+        "scene": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "0eff1be704b8a0c71811417e8473dfe0c963551c1f98c955edd1cde55b4bd7a4",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "1e41c59f9a63022d3e7c4eb7e7bffb20646aed92b03e3c5197ca62d9fb7df4b5",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "0f452283f8b880d694500888a1d0fe468b2f06656c889980440551628653a08d",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-drive__classical__a1.jpg",
+        "sha256": "4f7b0cc706a64b76b909dd7f5cbc3fe2cd49e36ac1466bcc54057e664573ce14",
+        "scene": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-fire__classical__a1.jpg",
+        "sha256": "f335fa7a1f8af418c7156deec64f6985b688d894ffd79885bd3bf7aed9469d08",
+        "scene": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "bank-cellar",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-183",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-bank-cellar-plans__watercolor__a1.jpg",
+        "sha256": "4d4b5c6086e0a85f445a5764cce732fdbc55163db8dea05575c8ef24e0407066",
+        "scene": "The Red-Headed League ¶183 to The Red-Headed League ¶190: “Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought ; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-175",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-bank-cellar-lantern__watercolor__a1.jpg",
+        "sha256": "90a2cdfe8c76fb351f7733a276de2bc2790a01426fb067754d49c5b7aa83c3c8",
+        "scene": "The Red-Headed League ¶175 to The Red-Headed League ¶182: “You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask y; "
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "a608fca542a43bde8bdf5e588068962f45338b2a2aa01a48a3cc0f62601d9494",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "15876e9a16b89cef57e49b8017a1df4719fcf9551d04f8f6b546c007689d8f9f",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-fire__watercolor__a1.jpg",
+        "sha256": "e57a168ca35508c621263bb099085fc030d47b5ee15fba18e32756d9eb09c4f0",
+        "scene": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-eyford-drive__watercolor__a1.jpg",
+        "sha256": "ec0ce4afc00a40c4719ad52d92867c69e56184e9d2a0f4069d6eebf8b58ebd94",
+        "scene": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "bank-cellar",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-175",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-bank-cellar-lantern__classical__a1.jpg",
+        "sha256": "fb53bb8cf54ffc1b7359e4c59abb4f0b0d88683a62df9be4fbd48dae8e8a58a6",
+        "scene": "The Red-Headed League ¶175 to The Red-Headed League ¶182: “You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask y; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-183",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-bank-cellar-plans__classical__a1.jpg",
+        "sha256": "129eda16931ea1f0bdb5c5ccd24b0b8aa09e185818040230c8b81bf4061642ee",
+        "scene": "The Red-Headed League ¶183 to The Red-Headed League ¶190: “Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought ; "
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "0eff1be704b8a0c71811417e8473dfe0c963551c1f98c955edd1cde55b4bd7a4",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "d46bcaa291615b755023f90e237a75e6a35fe27367572db3725153ea85be0ed3",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "a608fca542a43bde8bdf5e588068962f45338b2a2aa01a48a3cc0f62601d9494",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "d46bcaa291615b755023f90e237a75e6a35fe27367572db3725153ea85be0ed3",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "d46bcaa291615b755023f90e237a75e6a35fe27367572db3725153ea85be0ed3",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "15876e9a16b89cef57e49b8017a1df4719fcf9551d04f8f6b546c007689d8f9f",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "1e41c59f9a63022d3e7c4eb7e7bffb20646aed92b03e3c5197ca62d9fb7df4b5",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "d46bcaa291615b755023f90e237a75e6a35fe27367572db3725153ea85be0ed3",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "0f452283f8b880d694500888a1d0fe468b2f06656c889980440551628653a08d",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      }
+    },
+    {
+      "id": "pair036",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "0eff1be704b8a0c71811417e8473dfe0c963551c1f98c955edd1cde55b4bd7a4",
+        "scene": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+      }
+    },
+    {
+      "id": "pair037",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "0f452283f8b880d694500888a1d0fe468b2f06656c889980440551628653a08d",
+        "scene": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "dba1bc1c35d89e1278c64a481d18103884184dc02505c1f02e5cb014d3767877",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      }
+    },
+    {
+      "id": "pair038",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1cfc7109e0fdc4e0f100a6f5694ee796563711bad078cc8c95e0f9db531ba549",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__watercolor__a1.jpg",
+        "sha256": "bd271ff3fa0f94913d2c759971d03f60199e897c7c1cf0ed6c63f526501d39ba",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    },
+    {
+      "id": "pair039",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-red-headed-league__classical__a1.jpg",
+        "sha256": "fd2e0f41e02d7a987873ba6ddc45d05732c395c7534d54656d4d5fbcf39a35cd",
+        "scene": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "15876e9a16b89cef57e49b8017a1df4719fcf9551d04f8f6b546c007689d8f9f",
+        "scene": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+      }
+    },
+    {
+      "id": "pair040",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "53a51acac8ca399ed320292e3b9954b693aed49691c25ad866cf5cf47bf5ddf7",
+        "scene": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "ae994104ee7b5c4745ded9e674c9b998a511f36898b7a4480d273da88fdc41b7",
+        "scene": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+      }
+    }
+  ]
+}

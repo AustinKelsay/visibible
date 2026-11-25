@@ -1,0 +1,206 @@
+{
+ "scorer": "scorer-a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair006",
+   "verdict": "different",
+   "notes": "The left image shows bright midday under a blue sky with lush leafy green trees around the distant burning house, whereas the right image is pitch-black night with bare winter trees and lanterns even though neither description asks for night."
+  },
+  {
+   "id": "pair001",
+   "verdict": "same",
+   "notes": "Dr. Watson (standing left of Holmes outside the pawnshop at left and in the doorway at right) is the same sturdy middle-aged man with a neat dark-brown mustache, square jaw, light ruddy complexion, and compact build."
+  },
+  {
+   "id": "pair020",
+   "verdict": "same",
+   "notes": "Both views depict the same subterranean bank vault cellar with vaulted brick arches, brick piers, stone-flagstone floors, and stacks of wooden crates illuminated by lantern light."
+  },
+  {
+   "id": "pair011",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (seated examining a photograph at left and standing by the doorway at right) is the same tall lean man with slicked-back dark hair, a high receding hairline, a sharp aquiline nose, and a gaunt clean-shaven face."
+  },
+  {
+   "id": "pair021",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated holding the hat at left and standing beside Holmes outside the shop at right) is the same sturdy middle-aged man with a thick dark-brown mustache, square jaw, ruddy light skin, and stocky build."
+  },
+  {
+   "id": "pair015",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (standing outside the pawnshop at left and seated at his desk at right) shares the same slicked-back dark hair with a high receding hairline, aquiline nose, gaunt clean-shaven face, and tall slender build."
+  },
+  {
+   "id": "pair012",
+   "verdict": "different",
+   "notes": "The left image is bright sunny midday with lush leafy green trees clustered behind the burning house, whereas the right image shows dark dusk/twilight lighting and bare leafless winter trees around the house without that dense leafy clump."
+  },
+  {
+   "id": "pair033",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (pulling Watson through the doorway at left and kneeling on the bed striking with a cane at right) has the same slicked-back dark hair with a high hairline, sharp aquiline nose, gaunt clean-shaven face, and tall thin build."
+  },
+  {
+   "id": "pair040",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated on the chair at left and standing outside the pawnshop at right, both in a bowler hat) is the same sturdy middle-aged man with a thick dark-brown mustache, square jaw, and weathered light complexion."
+  },
+  {
+   "id": "pair027",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (seated on the right of the train carriage at left and pulling Watson through the doorway at right) shares the same slicked-back dark hair, high receding hairline, sharp nose, gaunt clean-shaven face, and slender build."
+  },
+  {
+   "id": "pair017",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (standing outside the pawnshop at left and kneeling on the bed with a cane at right) is the same tall lean man with slicked-back dark hair, high receding hairline, sharp aquiline nose, and gaunt clean-shaven face."
+  },
+  {
+   "id": "pair005",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (seated on the left bench of the train carriage at left and standing outside the pawnshop at right) shares the same slicked-back dark hair, high receding hairline, sharp nose, gaunt clean-shaven face, and lean build."
+  },
+  {
+   "id": "pair031",
+   "verdict": "same",
+   "notes": "Holmes seated in the train carriage on the left and examining a photograph at his desk on the right are clearly the same lean, clean-shaven middle-aged man with swept-back dark hair, high forehead, aquiline nose, and gaunt cheekbones."
+  },
+  {
+   "id": "pair036",
+   "verdict": "same",
+   "notes": "Holmes standing on the bed swinging a cane on the left and seated at his desk with a magnifying glass on the right are the same tall, lean, clean-shaven man with slicked-back dark hair, high forehead, aquiline nose, and sharp gaunt cheeks."
+  },
+  {
+   "id": "pair002",
+   "verdict": "same",
+   "notes": "Holmes examining a photograph at his desk on the left and kneeling on the bed swinging a cane on the right are clearly the same lean, clean-shaven man with slicked-back dark hair, high forehead, prominent aquiline nose, and gaunt cheekbones."
+  },
+  {
+   "id": "pair013",
+   "verdict": "same",
+   "notes": "Holmes seated at his desk on the left and tapping the pavement outside the pawnbroker's in a top hat on the right share the same tall lean build, clean-shaven gaunt face, sharp aquiline profile, and dark hair."
+  },
+  {
+   "id": "pair004",
+   "verdict": "different",
+   "notes": "The two scenes show different locations and conflicting foliage and lighting: the left is a country lane right outside the burning white manor surrounded by bare leafless winter trees under a dark stormy sky, whereas the right is a railway station platform looking across bright green fields toward a plume of smoke behind a lush leafy green clump of trees in bright daylight."
+  },
+  {
+   "id": "pair034",
+   "verdict": "same",
+   "notes": "Holmes seated in the railway carriage on the left and standing on the iron bed striking at the bell-rope on the right are the same lean, clean-shaven middle-aged man with slicked-back dark hair, high forehead, aquiline nose, and gaunt cheekbones."
+  },
+  {
+   "id": "pair018",
+   "verdict": "same",
+   "notes": "Dr. Watson standing in Saxe-Coburg Square on the left (holding his medical bag in a bowler hat) and seated in the armchair on the right share the same solid middle-aged build, thick dark brown mustache, sturdy jaw, and ruddy fair complexion."
+  },
+  {
+   "id": "pair026",
+   "verdict": "same",
+   "notes": "Dr. Watson entering the doorway on the left and seated in the armchair examining the battered hat on the right are clearly the same sturdy middle-aged man with neatly parted short brown hair, thick dark mustache, square jaw, and ruddy fair skin."
+  },
+  {
+   "id": "pair023",
+   "verdict": "different",
+   "notes": "The burning house has clearly different architecture—a wide five-bay Georgian manor with four chimneys and a flat portico on the left versus a smaller three-bay pitched-gable house with two end chimneys and a triangular porch on the right—and the grounds shift from bare leafless winter trees under a dark sky to leafy green trees and rose bushes in brighter daylight."
+  },
+  {
+   "id": "pair039",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (standing by the door on the left, seated on the left of the train compartment on the right) has the same gaunt angular face, prominent aquiline nose, swept-back dark hair with receding temples, pale skin, and slender build."
+  },
+  {
+   "id": "pair009",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated holding the hat on the left, seated in a bowler hat on the right) has the same thick brown mustache, square jaw, brow and facial structure, ruddy complexion, apparent age, and sturdy build."
+  },
+  {
+   "id": "pair014",
+   "verdict": "same",
+   "notes": "Dr. Watson (entering the parlor on the left, standing in the square on the right) has the same thick brown mustache, square jaw, facial features, fair complexion, apparent age, and sturdy build."
+  },
+  {
+   "id": "pair010",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (lunging on the bed on the left, standing by the doorway on the right) has the same gaunt angular face, prominent nose, swept-back dark hair with receding temples, pale skin, and slender build."
+  },
+  {
+   "id": "pair022",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (on the bed on the left, seated on the left of the train compartment on the right) matches in gaunt angular face, prominent nose, swept-back dark hair with receding temples, pale skin, and slender build."
+  },
+  {
+   "id": "pair035",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated on the right in both images) has the same side-parted dark brown hair, thick dark mustache, square jaw, brow shape, apparent age, and sturdy build."
+  },
+  {
+   "id": "pair019",
+   "verdict": "different",
+   "notes": "Although both show a burning white country house with rose bushes and a gravel drive, the left image is set in overcast daylight while the right is set in pitch-black night with a lit lantern, even though neither excerpt asks for a time-of-day change, and the right house adds a projecting front gable and circular central lawn."
+  },
+  {
+   "id": "pair032",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (tapping the pavement in a top hat on the left, standing by the doorway on the right) has the same gaunt angular face, sharp aquiline nose, pale complexion, clean-shaven jaw, and tall slender build."
+  },
+  {
+   "id": "pair030",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (tapping the pavement in a top hat on the left, seated on the right in the train carriage on the right) shares the same gaunt angular face, prominent aquiline nose, pale skin, clean-shaven jaw, and tall slender build."
+  },
+  {
+   "id": "pair038",
+   "verdict": "same",
+   "notes": "In both images Sherlock Holmes (on the bed at left, tapping the pavement in the center at right) is the same tall, lean, clean-shaven middle-aged man with a sharp aquiline nose, gaunt cheeks, pale skin, and dark hair visible under his top hat on the right."
+  },
+  {
+   "id": "pair028",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (standing right of the doorway at left and on the pawnbroker's doorstep at right) is clearly the same tall, gaunt, clean-shaven middle-aged man with a prominent sharp nose, sunken cheeks, pale skin, and dark swept-back hair with receding temples."
+  },
+  {
+   "id": "pair037",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated in the armchair at left and entering through the doorway wearing a bowler hat at right) is the same middle-aged man with fair skin, thick dark brown handlebar mustache, clean-shaven chin, strong jaw, and sturdy medium build."
+  },
+  {
+   "id": "pair003",
+   "verdict": "unclear",
+   "notes": "The left image shows the burning white house and its gravel drive up close, whereas the right image is set at Eyford railway station with only a distant plume of black smoke rising behind trees; too little of the house and its grounds is visible on the right to judge."
+  },
+  {
+   "id": "pair025",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (seated left examining a photograph at left and seated right in the train carriage at right) is the exact same gaunt, clean-shaven middle-aged man with a sharp aquiline nose, sunken cheeks, pale skin, dark swept-back hair with receding temples, and lean build."
+  },
+  {
+   "id": "pair024",
+   "verdict": "same",
+   "notes": "Both images depict the same subterranean brick-vaulted bank cellar with arched brick ceilings, uneven stone flagstone floors, stacks of wooden crates lining the walls, and dim lantern light."
+  },
+  {
+   "id": "pair007",
+   "verdict": "same",
+   "notes": "Dr. Watson (seated on the bedroom chair at left and entering the study in a bowler hat at right) is the same middle-aged man with fair skin, a thick dark brown mustache, clean-shaven chin, matching facial structure, and medium-stocky build."
+  },
+  {
+   "id": "pair029",
+   "verdict": "same",
+   "notes": "Dr. Watson (standing in the doorway holding a bowler hat at left and seated in the dark bedroom wearing the bowler hat at right) is the same middle-aged man with fair-ruddy skin, thick brown handlebar mustache, clean-shaven chin, heavy brow, and sturdy medium build."
+  },
+  {
+   "id": "pair008",
+   "verdict": "same",
+   "notes": "Sherlock Holmes (standing left of the doorway pulling Watson in at left and seated left examining a photograph at right) is the exact same tall, lean, clean-shaven middle-aged man with a sharp aquiline nose, hollow cheeks, and dark swept-back hair with receding temples."
+  },
+  {
+   "id": "pair016",
+   "verdict": "same",
+   "notes": "Dr. Watson (standing right of Holmes in Saxe-Coburg Square wearing a bowler hat at left and seated in the bedroom chair at far right in the right image) is the same middle-aged man with fair skin, a thick dark brown handlebar mustache, clean-shaven chin, and sturdy medium build."
+  }
+ ]
+}

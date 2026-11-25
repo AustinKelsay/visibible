@@ -1,0 +1,915 @@
+{
+  "run": "2026-11-24-lean-v8",
+  "pairs": [
+    {
+      "id": "c001",
+      "set": "lean/bible-web",
+      "pairId": "pair065"
+    },
+    {
+      "id": "c002",
+      "set": "lean/bible-web",
+      "pairId": "pair097"
+    },
+    {
+      "id": "c003",
+      "set": "lean/bible-web",
+      "pairId": "pair093"
+    },
+    {
+      "id": "c004",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c005",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c006",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c007",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair030"
+    },
+    {
+      "id": "c008",
+      "set": "lean/bible-web",
+      "pairId": "pair080"
+    },
+    {
+      "id": "c009",
+      "set": "lean/bible-web",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c010",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair020"
+    },
+    {
+      "id": "c011",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c012",
+      "set": "lean/bible-web",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c013",
+      "set": "lean/bible-web",
+      "pairId": "pair060"
+    },
+    {
+      "id": "c014",
+      "set": "lean/bible-web",
+      "pairId": "pair027"
+    },
+    {
+      "id": "c015",
+      "set": "lean/bible-web",
+      "pairId": "pair035"
+    },
+    {
+      "id": "c016",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair021"
+    },
+    {
+      "id": "c017",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair015"
+    },
+    {
+      "id": "c018",
+      "set": "lean/bible-web",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c019",
+      "set": "lean/bible-web",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c020",
+      "set": "lean/bible-web",
+      "pairId": "pair051"
+    },
+    {
+      "id": "c021",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c022",
+      "set": "lean/bible-web",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c023",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair033"
+    },
+    {
+      "id": "c024",
+      "set": "lean/bible-web",
+      "pairId": "pair094"
+    },
+    {
+      "id": "c025",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c026",
+      "set": "lean/bible-web",
+      "pairId": "pair058"
+    },
+    {
+      "id": "c027",
+      "set": "lean/bible-web",
+      "pairId": "pair024"
+    },
+    {
+      "id": "c028",
+      "set": "lean/bible-web",
+      "pairId": "pair108"
+    },
+    {
+      "id": "c029",
+      "set": "lean/bible-web",
+      "pairId": "pair036"
+    },
+    {
+      "id": "c030",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair040"
+    },
+    {
+      "id": "c031",
+      "set": "lean/bible-web",
+      "pairId": "pair069"
+    },
+    {
+      "id": "c032",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair027"
+    },
+    {
+      "id": "c033",
+      "set": "lean/bible-web",
+      "pairId": "pair025"
+    },
+    {
+      "id": "c034",
+      "set": "lean/bible-web",
+      "pairId": "pair048"
+    },
+    {
+      "id": "c035",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c036",
+      "set": "lean/bible-web",
+      "pairId": "pair053"
+    },
+    {
+      "id": "c037",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c038",
+      "set": "lean/bible-web",
+      "pairId": "pair102"
+    },
+    {
+      "id": "c039",
+      "set": "lean/bible-web",
+      "pairId": "pair073"
+    },
+    {
+      "id": "c040",
+      "set": "lean/bible-web",
+      "pairId": "pair039"
+    },
+    {
+      "id": "c041",
+      "set": "lean/bible-web",
+      "pairId": "pair100"
+    },
+    {
+      "id": "c042",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair017"
+    },
+    {
+      "id": "c043",
+      "set": "lean/bible-web",
+      "pairId": "pair033"
+    },
+    {
+      "id": "c044",
+      "set": "lean/bible-web",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c045",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c046",
+      "set": "lean/bible-web",
+      "pairId": "pair107"
+    },
+    {
+      "id": "c047",
+      "set": "lean/bible-web",
+      "pairId": "pair057"
+    },
+    {
+      "id": "c048",
+      "set": "lean/bible-web",
+      "pairId": "pair020"
+    },
+    {
+      "id": "c049",
+      "set": "lean/bible-web",
+      "pairId": "pair061"
+    },
+    {
+      "id": "c050",
+      "set": "lean/bible-web",
+      "pairId": "pair091"
+    },
+    {
+      "id": "c051",
+      "set": "lean/bible-web",
+      "pairId": "pair047"
+    },
+    {
+      "id": "c052",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair025"
+    },
+    {
+      "id": "c053",
+      "set": "lean/bible-web",
+      "pairId": "pair084"
+    },
+    {
+      "id": "c054",
+      "set": "lean/bible-web",
+      "pairId": "pair081"
+    },
+    {
+      "id": "c055",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair034"
+    },
+    {
+      "id": "c056",
+      "set": "lean/bible-web",
+      "pairId": "pair092"
+    },
+    {
+      "id": "c057",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair020"
+    },
+    {
+      "id": "c058",
+      "set": "lean/bible-web",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c059",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c060",
+      "set": "lean/bible-web",
+      "pairId": "pair104"
+    },
+    {
+      "id": "c061",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair028"
+    },
+    {
+      "id": "c062",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair031"
+    },
+    {
+      "id": "c063",
+      "set": "lean/bible-web",
+      "pairId": "pair032"
+    },
+    {
+      "id": "c064",
+      "set": "lean/bible-web",
+      "pairId": "pair046"
+    },
+    {
+      "id": "c065",
+      "set": "lean/bible-web",
+      "pairId": "pair054"
+    },
+    {
+      "id": "c066",
+      "set": "lean/bible-web",
+      "pairId": "pair044"
+    },
+    {
+      "id": "c067",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair036"
+    },
+    {
+      "id": "c068",
+      "set": "lean/bible-web",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c069",
+      "set": "lean/bible-web",
+      "pairId": "pair082"
+    },
+    {
+      "id": "c070",
+      "set": "lean/bible-web",
+      "pairId": "pair085"
+    },
+    {
+      "id": "c071",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c072",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair013"
+    },
+    {
+      "id": "c073",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c074",
+      "set": "lean/bible-web",
+      "pairId": "pair090"
+    },
+    {
+      "id": "c075",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair034"
+    },
+    {
+      "id": "c076",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair027"
+    },
+    {
+      "id": "c077",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair018"
+    },
+    {
+      "id": "c078",
+      "set": "lean/bible-web",
+      "pairId": "pair043"
+    },
+    {
+      "id": "c079",
+      "set": "lean/bible-web",
+      "pairId": "pair049"
+    },
+    {
+      "id": "c080",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair022"
+    },
+    {
+      "id": "c081",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair013"
+    },
+    {
+      "id": "c082",
+      "set": "lean/bible-web",
+      "pairId": "pair095"
+    },
+    {
+      "id": "c083",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair026"
+    },
+    {
+      "id": "c084",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair029"
+    },
+    {
+      "id": "c085",
+      "set": "lean/bible-web",
+      "pairId": "pair050"
+    },
+    {
+      "id": "c086",
+      "set": "lean/bible-web",
+      "pairId": "pair076"
+    },
+    {
+      "id": "c087",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c088",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c089",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair023"
+    },
+    {
+      "id": "c090",
+      "set": "lean/bible-web",
+      "pairId": "pair059"
+    },
+    {
+      "id": "c091",
+      "set": "lean/bible-web",
+      "pairId": "pair096"
+    },
+    {
+      "id": "c092",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c093",
+      "set": "lean/bible-web",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c094",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c095",
+      "set": "lean/bible-web",
+      "pairId": "pair086"
+    },
+    {
+      "id": "c096",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair023"
+    },
+    {
+      "id": "c097",
+      "set": "lean/bible-web",
+      "pairId": "pair070"
+    },
+    {
+      "id": "c098",
+      "set": "lean/bible-web",
+      "pairId": "pair022"
+    },
+    {
+      "id": "c099",
+      "set": "lean/bible-web",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c100",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair039"
+    },
+    {
+      "id": "c101",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c102",
+      "set": "lean/bible-web",
+      "pairId": "pair063"
+    },
+    {
+      "id": "c103",
+      "set": "lean/bible-web",
+      "pairId": "pair038"
+    },
+    {
+      "id": "c104",
+      "set": "lean/bible-web",
+      "pairId": "pair066"
+    },
+    {
+      "id": "c105",
+      "set": "lean/bible-web",
+      "pairId": "pair103"
+    },
+    {
+      "id": "c106",
+      "set": "lean/bible-web",
+      "pairId": "pair088"
+    },
+    {
+      "id": "c107",
+      "set": "lean/bible-web",
+      "pairId": "pair075"
+    },
+    {
+      "id": "c108",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair015"
+    },
+    {
+      "id": "c109",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair014"
+    },
+    {
+      "id": "c110",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair026"
+    },
+    {
+      "id": "c111",
+      "set": "lean/bible-web",
+      "pairId": "pair019"
+    },
+    {
+      "id": "c112",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c113",
+      "set": "lean/bible-web",
+      "pairId": "pair089"
+    },
+    {
+      "id": "c114",
+      "set": "lean/bible-web",
+      "pairId": "pair098"
+    },
+    {
+      "id": "c115",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c116",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c117",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair022"
+    },
+    {
+      "id": "c118",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair035"
+    },
+    {
+      "id": "c119",
+      "set": "lean/bible-web",
+      "pairId": "pair071"
+    },
+    {
+      "id": "c120",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair019"
+    },
+    {
+      "id": "c121",
+      "set": "lean/bible-web",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c122",
+      "set": "lean/bible-web",
+      "pairId": "pair087"
+    },
+    {
+      "id": "c123",
+      "set": "lean/bible-web",
+      "pairId": "pair106"
+    },
+    {
+      "id": "c124",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair031"
+    },
+    {
+      "id": "c125",
+      "set": "lean/bible-web",
+      "pairId": "pair016"
+    },
+    {
+      "id": "c126",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair032"
+    },
+    {
+      "id": "c127",
+      "set": "lean/bible-web",
+      "pairId": "pair052"
+    },
+    {
+      "id": "c128",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair016"
+    },
+    {
+      "id": "c129",
+      "set": "lean/bible-web",
+      "pairId": "pair029"
+    },
+    {
+      "id": "c130",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair033"
+    },
+    {
+      "id": "c131",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair017"
+    },
+    {
+      "id": "c132",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair032"
+    },
+    {
+      "id": "c133",
+      "set": "lean/bible-web",
+      "pairId": "pair017"
+    },
+    {
+      "id": "c134",
+      "set": "lean/bible-web",
+      "pairId": "pair042"
+    },
+    {
+      "id": "c135",
+      "set": "lean/bible-web",
+      "pairId": "pair077"
+    },
+    {
+      "id": "c136",
+      "set": "lean/bible-web",
+      "pairId": "pair037"
+    },
+    {
+      "id": "c137",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair030"
+    },
+    {
+      "id": "c138",
+      "set": "lean/bible-web",
+      "pairId": "pair045"
+    },
+    {
+      "id": "c139",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair038"
+    },
+    {
+      "id": "c140",
+      "set": "lean/bible-web",
+      "pairId": "pair030"
+    },
+    {
+      "id": "c141",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair014"
+    },
+    {
+      "id": "c142",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair028"
+    },
+    {
+      "id": "c143",
+      "set": "lean/bible-web",
+      "pairId": "pair074"
+    },
+    {
+      "id": "c144",
+      "set": "lean/bible-web",
+      "pairId": "pair055"
+    },
+    {
+      "id": "c145",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair037"
+    },
+    {
+      "id": "c146",
+      "set": "lean/bible-web",
+      "pairId": "pair040"
+    },
+    {
+      "id": "c147",
+      "set": "lean/bible-web",
+      "pairId": "pair068"
+    },
+    {
+      "id": "c148",
+      "set": "lean/bible-web",
+      "pairId": "pair099"
+    },
+    {
+      "id": "c149",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair024"
+    },
+    {
+      "id": "c150",
+      "set": "lean/bible-web",
+      "pairId": "pair026"
+    },
+    {
+      "id": "c151",
+      "set": "lean/bible-web",
+      "pairId": "pair064"
+    },
+    {
+      "id": "c152",
+      "set": "lean/bible-web",
+      "pairId": "pair015"
+    },
+    {
+      "id": "c153",
+      "set": "lean/bible-web",
+      "pairId": "pair031"
+    },
+    {
+      "id": "c154",
+      "set": "lean/bible-web",
+      "pairId": "pair079"
+    },
+    {
+      "id": "c155",
+      "set": "lean/bible-web",
+      "pairId": "pair018"
+    },
+    {
+      "id": "c156",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c157",
+      "set": "lean/bible-web",
+      "pairId": "pair072"
+    },
+    {
+      "id": "c158",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair025"
+    },
+    {
+      "id": "c159",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair024"
+    },
+    {
+      "id": "c160",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair019"
+    },
+    {
+      "id": "c161",
+      "set": "lean/bible-web",
+      "pairId": "pair062"
+    },
+    {
+      "id": "c162",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair018"
+    },
+    {
+      "id": "c163",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c164",
+      "set": "lean/bible-web",
+      "pairId": "pair013"
+    },
+    {
+      "id": "c165",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair029"
+    },
+    {
+      "id": "c166",
+      "set": "lean/bible-web",
+      "pairId": "pair083"
+    },
+    {
+      "id": "c167",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c168",
+      "set": "lean/bible-web",
+      "pairId": "pair078"
+    },
+    {
+      "id": "c169",
+      "set": "lean/bible-web",
+      "pairId": "pair105"
+    },
+    {
+      "id": "c170",
+      "set": "lean/bible-web",
+      "pairId": "pair067"
+    },
+    {
+      "id": "c171",
+      "set": "lean/bible-web",
+      "pairId": "pair028"
+    },
+    {
+      "id": "c172",
+      "set": "lean/bible-web",
+      "pairId": "pair034"
+    },
+    {
+      "id": "c173",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c174",
+      "set": "lean/bible-web",
+      "pairId": "pair023"
+    },
+    {
+      "id": "c175",
+      "set": "lean/bible-web",
+      "pairId": "pair056"
+    },
+    {
+      "id": "c176",
+      "set": "lean/bible-web",
+      "pairId": "pair021"
+    },
+    {
+      "id": "c177",
+      "set": "lean/bible-web",
+      "pairId": "pair041"
+    },
+    {
+      "id": "c178",
+      "set": "lean/holmes-adventures",
+      "pairId": "pair016"
+    },
+    {
+      "id": "c179",
+      "set": "lean/bible-web",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c180",
+      "set": "lean/bible-web",
+      "pairId": "pair014"
+    },
+    {
+      "id": "c181",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair021"
+    },
+    {
+      "id": "c182",
+      "set": "lean/bible-web",
+      "pairId": "pair101"
+    }
+  ]
+}

@@ -75,7 +75,7 @@ const CEILING_HEADROOM_USD = 0.6;
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   run: { type: "string" }, from: { type: "string" }, model: { type: "string" }, cap: { type: "string" },
   execute: { type: "boolean", default: false }, offline: { type: "boolean", default: false }, resume: { type: "boolean", default: false },
-  baseline: { type: "string" }, "baseline-images": { type: "string" }, batches: { type: "string", default: "1" },
+  baseline: { type: "string" }, "baseline-images": { type: "string" }, "baseline-arm": { type: "string", default: "lean" }, batches: { type: "string", default: "1" },
   scores: { type: "string" }, operator: { type: "string" }, out: { type: "string" }, concurrency: { type: "string", default: String(DEFAULT_CONCURRENCY) },
   cases: { type: "string" }, styles: { type: "string" }, provider: { type: "string", default: "openrouter" },
 } });
@@ -694,9 +694,9 @@ async function run() {
 /** Asked beside the suite's faults: it separates readable writing from the small marks the launch bar accepts. */
 const READABLE_TEXT = "readable_text";
 
-/** Both arms' shown images in one pack, judged against the moment's text; the key keeps each item's arm. */
+/** Both arms' shown images in one pack (or candidate alone when baseline images are absent, reusing baseline's committed scores), judged against the moment's text. */
 async function blind() {
-  assert.ok(values.run && values.baseline && values["baseline-images"], "--run, --baseline and --baseline-images are required");
+  assert.ok(values.run && values.baseline, "--run and --baseline are required");
   const baseline = path.relative(root, path.resolve(root, values.baseline));
   const runDir = path.join(releases, values.run);
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
@@ -705,9 +705,10 @@ async function blind() {
   mkdirSync(scoringDir, { recursive: true });
   const blindDir = path.join(root, "evals/images/runs", values.run, "blind"); mkdirSync(blindDir, { recursive: true });
   const snap = snapshotOf(p.from);
+  const singleArm = !values["baseline-images"];
   const arms = [
     { arm: "lean", rows: ndjson(path.join(runDir, "results.ndjson")), resolve: (file: string) => path.join(root, file) },
-    { arm: "full", rows: ndjson(path.join(root, baseline, "results.ndjson")), resolve: (file: string) => path.join(path.resolve(values["baseline-images"]!), path.basename(file)) },
+    ...(singleArm ? [] : [{ arm: "full", rows: ndjson(path.join(root, baseline, "results.ndjson")), resolve: (file: string) => path.join(path.resolve(values["baseline-images"]!), path.basename(file)) }]),
   ];
   const pool: Array<{ arm: string; row: ResultRow; file: string; sha: string }> = [];
   for (const { arm, rows, resolve } of arms) for (const row of rows.filter((r) => r.outcome === "image")) {
@@ -736,7 +737,7 @@ async function blind() {
   const batches = Math.max(1, Number(values.batches)); const size = Math.ceil(items.length / batches);
   for (let b = 0; b < batches; b++) saveOnce(path.join(scoringDir, `items-${b + 1}.json`), { tier: "image", items: items.slice(b * size, (b + 1) * size) });
   writeFileSync(path.join(scoringDir, "SCORING.md"), jointInstructions(), { flag: "wx" });
-  saveOnce(path.join(scoringDir, "key.json"), { run: values.run, baseline, suite: p.suite, faults: p.faults, items: key });
+  saveOnce(path.join(scoringDir, "key.json"), { run: values.run, baseline, ...(singleArm ? { singleArm: true, baselineArm: values["baseline-arm"] } : {}), suite: p.suite, faults: p.faults, items: key });
   console.log(`${items.length} item(s) (${pool.filter((x) => x.arm === "lean").length} lean, ${pool.filter((x) => x.arm === "full").length} full) in ${batches} batch(es) under ${path.relative(root, scoringDir)}.`);
 }
 
@@ -775,7 +776,7 @@ async function report() {
   const runDir = path.join(releases, values.run);
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
   const scoringDir = path.join(runDir, "scoring");
-  const key = readJson(path.join(scoringDir, "key.json")) as { baseline: string; items: Array<{ id: string; arm: string; key: string; caseId: string; work: string; style: string; split: string; faults: string[] }> };
+  const key = readJson(path.join(scoringDir, "key.json")) as { baseline: string; singleArm?: boolean; baselineArm?: string; items: Array<{ id: string; arm: string; key: string; caseId: string; work: string; style: string; split: string; faults: string[] }> };
   const files = list(values.scores).map((f) => scoreFileSchema.parse(readJson(path.resolve(root, f))));
   const byScorer = new Map<string, ScoreFile>();
   for (const f of files) { const prior = byScorer.get(f.scorer); byScorer.set(f.scorer, prior ? { ...prior, scores: [...prior.scores, ...f.scores] } : f); }
@@ -784,34 +785,52 @@ async function report() {
   writeFileSync(path.join(scoringDir, "scores.json"), `${JSON.stringify({ scorers: [...byScorer.keys()], operator: operator?.scorer ?? null, settled, disputes }, null, 2)}\n`);
   if (disputes.length) { writeFileSync(path.join(scoringDir, "disputes.json"), `${JSON.stringify(disputes, null, 2)}\n`); console.log(`${disputes.length} disputed; rule on scoring/disputes.json, then report again with --operator.`); }
   // Each arm's items: its images scored here, plus its refusals. As in the suite report, a provider failure is not an item.
-  const armItems = (arm: string, rows: Array<ResultRow>, styleOf: (c: string) => string[], settled: Record<string, JudgedItem["score"] & object>) => {
+  const armItems = (arm: string, rows: Array<ResultRow>, styleOf: (c: string) => string[], keyItems: typeof key.items, settledMap: Record<string, JudgedItem["score"] & object>) => {
     const items: JudgedItem[] = [];
     for (const row of rows) {
-      if (row.outcome === "image") { const k = key.items.find((i) => i.arm === arm && i.key === row.key)!; items.push({ key: row.key, caseId: row.caseId, work: row.work, style: row.style, split: row.split, refused: false, score: settled[k.id] ?? null }); }
+      if (row.outcome === "image") { const k = keyItems.find((i) => i.arm === arm && i.key === row.key)!; items.push({ key: row.key, caseId: row.caseId, work: row.work, style: row.style, split: row.split, refused: false, score: settledMap[k.id] ?? null }); }
       else if (row.outcome === "refused") for (const style of row.standsFor ?? (row.style ? [row.style] : styleOf(row.caseId)))
         items.push({ key: `${row.caseId}/${style}`, caseId: row.caseId, work: row.work, style, split: row.split, refused: true, score: null });
     }
     return items;
   };
   const styleOf = (caseId: string): string[] => [...(p.cases.find((c) => c.caseId === caseId)?.styles ?? [])];
-  const [leanRows, fullRows] = [ndjson(path.join(runDir, "results.ndjson")), ndjson(path.join(root, key.baseline, "results.ndjson"))];
-  const lean = armItems("lean", leanRows, styleOf, settled);
-  const full = armItems("full", fullRows, styleOf, settled);
+  const leanRows = ndjson(path.join(runDir, "results.ndjson"));
+  const baseKey = key.singleArm
+    ? (readJson(path.join(root, key.baseline, "scoring/key.json")) as { baseline?: string; suite?: string; items: typeof key.items })
+    : null;
+  const baseArm = key.singleArm ? (key.baselineArm ?? "lean") : "full";
+  assert.ok(baseArm === "lean" || baseArm === "full", `Unsupported baseline arm: ${baseArm}`);
+  const baseResultsDir = !key.singleArm || baseArm === "lean"
+    ? path.join(root, key.baseline)
+    : (assert.ok(baseKey?.baseline, `Baseline key at ${key.baseline}/scoring/key.json has no baseline path for arm "full"`), path.join(root, baseKey.baseline));
+  const fullRows = ndjson(path.join(baseResultsDir, "results.ndjson"));
+  const baseKeyItems = baseKey ? baseKey.items : key.items;
+  const baseSuite = baseKey ? (baseKey.suite ?? (readJson(path.join(root, key.baseline, "plan.json")) as Plan).suite) : p.suite;
+  const baseScoresFile = key.singleArm ? (readJson(path.join(root, key.baseline, "scoring/scores.json")) as { settled: typeof settled; disputes: unknown[] }) : null;
+  const baseSettled = baseScoresFile ? baseScoresFile.settled : settled;
+  const baseDisputes = baseScoresFile ? baseScoresFile.disputes.length : disputes.length;
+  const lean = armItems("lean", leanRows, styleOf, key.items, settled);
+  const full = armItems(baseArm, fullRows, styleOf, baseKeyItems, baseSettled);
   // The operator's classification of lettering the scorers called readable (scoring/small-marks.json), made by blind id:
   // a card index or clock numeral is readable yet accepted by the ADR, so its answer becomes no for the launch bar only.
   const marksFile = path.join(scoringDir, "small-marks.json");
   const acceptedMarks = new Set(existsSync(marksFile) ? (readJson(marksFile) as { items: Array<{ id: string; classification: string }> }).items.filter((i) => i.classification === "accepted small marks").map((i) => i.id) : []);
   const forBar = Object.fromEntries(Object.entries(settled).map(([id, score]) => [id, acceptedMarks.has(id) ? { ...score, faults: { ...score.faults, [READABLE_TEXT]: "no" as const } } : score]));
+  const baseMarksFile = key.singleArm ? path.join(root, key.baseline, "scoring/small-marks.json") : marksFile;
+  const baseAcceptedMarks = new Set(existsSync(baseMarksFile) ? (readJson(baseMarksFile) as { items: Array<{ id: string; classification: string }> }).items.filter((i) => i.classification === "accepted small marks").map((i) => i.id) : []);
+  const baseForBar = Object.fromEntries(Object.entries(baseSettled).map(([id, score]) => [id, baseAcceptedMarks.has(id) ? { ...score, faults: { ...score.faults, [READABLE_TEXT]: "no" as const } } : score]));
   // The launch bar (ADR 0006 amendment 7): an image whose only fault is lettering that nobody can read is acceptable.
   const launchBar = (items: JudgedItem[]) => items.map((i) => {
     if (!i.score || i.score.overall === "uncertain" || i.score.faults[READABLE_TEXT] === "yes") return i;
     const present = faults.image.filter((f) => i.score!.faults[f.id] === "yes" && !(i.style && f.acceptedIn?.includes(i.style))).map((f) => f.id);
     return present.length === 1 && present[0] === "lettering" ? { ...i, score: { ...i.score, overall: "acceptable" as const } } : i;
   });
-  const summary = { lean: summarizeBy(lean, faults.image), full: summarizeBy(full, faults.image) };
-  const launch = { lean: summarizeBy(launchBar(armItems("lean", leanRows, styleOf, forBar)), faults.image), full: summarizeBy(launchBar(armItems("full", fullRows, styleOf, forBar)), faults.image) };
+  const baseLabel = key.singleArm ? "baseline" : "full";
+  const summary = { lean: summarizeBy(lean, faults.image), [baseLabel]: summarizeBy(full, faults.image) };
+  const launch = { lean: summarizeBy(launchBar(armItems("lean", leanRows, styleOf, key.items, forBar)), faults.image), [baseLabel]: summarizeBy(launchBar(armItems(baseArm, fullRows, styleOf, baseKeyItems, baseForBar)), faults.image) };
   const gate = evaluateSuiteGate({ config, faults: faults.image, expected: expectedHoldoutKeys(config, allCases, "image"),
-    candidate: { suiteVersion: p.suite, items: lean, disputes: disputes.length }, baseline: { suiteVersion: p.suite, items: full, disputes: disputes.length } });
+    candidate: { suiteVersion: p.suite, items: lean, disputes: disputes.length }, baseline: { suiteVersion: baseSuite, items: full, disputes: baseDisputes } });
   writeFileSync(path.join(runDir, "report.json"), `${JSON.stringify({ run: values.run, baseline: key.baseline, disputes: disputes.length, summary, launchBar: launch, gate }, null, 2)}\n`);
   const pct = (r: { rate: number | null; yes: number; judged: number }) => r.rate === null ? "n/a" : `${(r.rate * 100).toFixed(0)}% (${r.yes}/${r.judged})`;
   for (const [arm, s] of Object.entries(launch)) console.log(`${arm} launch bar (small marks accepted): ${pct(s.overall.acceptable)}; ${Object.entries(s.byWork).map(([w, x]) => `${w} ${pct(x.acceptable)}`).join(", ")}`);
@@ -821,7 +840,7 @@ async function report() {
     for (const [split, w] of Object.entries(s.bySplit)) console.log(`  ${split}: ${pct(w.acceptable)}`);
     for (const f of faults.image) console.log(`  ${f.id}: ${pct(s.overall.faults[f.id])}`);
   }
-  console.log(gate.pass ? "Gate passes: lean against full." : `Gate FAILS: lean against full:\n  ${gate.reasons.join("\n  ")}`);
+  console.log(gate.pass ? `Gate passes: lean against ${baseLabel}.` : `Gate FAILS: lean against ${baseLabel}:\n  ${gate.reasons.join("\n  ")}`);
 }
 
 async function pairing() {
