@@ -11,7 +11,7 @@ Nothing here authorizes spend. A paid run is the owner's decision, under the bud
 - The owner's approval as a dollar figure, and the production admin password.
 - Provider balance for that figure, and a limit on the key. The images are paid from the site's OpenRouter key, whose balance and limit the tool cannot see; a key that runs dry shows up as five failures in a row. **The key's own spending limit at OpenRouter is the only hard cap.** The tool's budget is its own accounting: it counts each request at a ceiling that is above every measured image, but the provider call has no cost cap of its own. Set the key's limit to no more than you are willing to lose before a paid run.
 - Production admitting images: `ENABLE_IMAGE_GENERATION=true` and `GENERIC_ENGINE_MODE` not `disabled` ([release runbook](ENGINE_RELEASE.md#engine-modes)).
-- Time. The site admits five image requests a minute for one session ([rateLimit.ts](../../convex/rateLimit.ts)), admin included, and the run paces itself to that: about 300 images an hour, so 1,000 images take about three and a half hours. `--concurrency` above 2 buys nothing.
+- Time. The site admits 20 new image requests a minute for one session ([rateLimit.ts](../../convex/rateLimit.ts)), admin included, and the run never starts more than that. An image takes about 15 seconds, so the default `--concurrency 2` draws about 8 a minute (1,000 images in about two hours) and `--concurrency 4` about 16 (about an hour).
 
 ## The dry run
 

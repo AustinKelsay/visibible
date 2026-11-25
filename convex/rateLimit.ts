@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query, type QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 import { validateServerSecret } from "./_helpers/auth";
 
@@ -9,7 +9,11 @@ import { validateServerSecret } from "./_helpers/auth";
  */
 export const RATE_LIMITS = {
   chat: { windowMs: 60_000, maxRequests: 20 }, // 20 requests per minute
-  "generate-image": { windowMs: 60_000, maxRequests: 5 }, // 5 images per minute
+  // Four bulk verses at once, about 15 s each, come to about 16 a minute (#530). Replays of a request do not count.
+  "generate-image": { windowMs: 60_000, maxRequests: 20 },
+  // Not an endpoint: the allowance checkRateLimit applies to an owner's "generate-image" requests, counted in that
+  // endpoint's record. The owner paints eight verses at once (#552).
+  "generate-image-owner": { windowMs: 60_000, maxRequests: 40 },
   // Quotes are read when a verse or the composer opens; they call no model and reserve nothing.
   "image-quote": { windowMs: 60_000, maxRequests: 30 },
   "chat-quote": { windowMs: 60_000, maxRequests: 30 },
@@ -37,6 +41,19 @@ export const RATE_LIMITS = {
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;
 
 /**
+ * The allowance for an endpoint. An owner's image requests get the owner's allowance (#552): the session must be a
+ * current admin, unrevoked, whose admin window has not lapsed (a cron demotes it later, convex/sessions.ts).
+ */
+async function allowanceFor(ctx: QueryCtx, endpoint: RateLimitEndpoint, sid: string | undefined, now: number) {
+  if (endpoint === "generate-image" && sid) {
+    const session = await ctx.db.query("sessions").withIndex("by_sid", (q) => q.eq("sid", sid)).unique();
+    const owner = session?.tier === "admin" && session.revokedAt === undefined && (session.adminUntil === undefined || session.adminUntil > now);
+    if (owner) return RATE_LIMITS["generate-image-owner"];
+  }
+  return RATE_LIMITS[endpoint];
+}
+
+/**
  * Check and increment rate limit for an identifier/endpoint pair.
  * Returns whether the request is allowed and retry-after info if blocked.
  *
@@ -48,6 +65,8 @@ export const checkRateLimit = mutation({
     identifier: v.string(),
     endpoint: v.string(),
     serverSecret: v.string(),
+    /** The caller's session, so an owner's image requests get the owner's allowance. */
+    sid: v.optional(v.string()),
   },
   handler: async (ctx, args): Promise<{
     allowed: boolean;
@@ -62,7 +81,7 @@ export const checkRateLimit = mutation({
     }
 
     const now = Date.now();
-    const { windowMs, maxRequests } = config;
+    const { windowMs, maxRequests } = await allowanceFor(ctx, args.endpoint as RateLimitEndpoint, args.sid, now);
 
     // Find existing rate limit record
     const existing = await ctx.db
@@ -118,10 +137,13 @@ export const getRateLimitStatus = query({
     serverSecret: v.string(),
     identifier: v.string(),
     endpoint: v.string(),
+    /** The caller's session, so an owner is told the owner's allowance. */
+    sid: v.optional(v.string()),
   },
   handler: async (ctx, args): Promise<{
     remaining: number;
     resetAt: number;
+    limit?: number;
   }> => {
     validateServerSecret(args.serverSecret);
     const config = RATE_LIMITS[args.endpoint as RateLimitEndpoint];
@@ -130,7 +152,7 @@ export const getRateLimitStatus = query({
     }
 
     const now = Date.now();
-    const { windowMs, maxRequests } = config;
+    const { windowMs, maxRequests } = await allowanceFor(ctx, args.endpoint as RateLimitEndpoint, args.sid, now);
 
     const existing = await ctx.db
       .query("rateLimits")
@@ -140,17 +162,18 @@ export const getRateLimitStatus = query({
       .first();
 
     if (!existing) {
-      return { remaining: maxRequests, resetAt: now + windowMs };
+      return { remaining: maxRequests, resetAt: now + windowMs, limit: maxRequests };
     }
 
     const windowEnd = existing.windowStart + windowMs;
     if (now >= windowEnd) {
-      return { remaining: maxRequests, resetAt: now + windowMs };
+      return { remaining: maxRequests, resetAt: now + windowMs, limit: maxRequests };
     }
 
     return {
       remaining: Math.max(0, maxRequests - existing.count),
       resetAt: windowEnd,
+      limit: maxRequests,
     };
   },
 });
