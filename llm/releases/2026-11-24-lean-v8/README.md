@@ -2,7 +2,7 @@
 
 **`lean-v8` improves image acceptability (71% vs 63% strict; 78% vs 75% launch bar; 73% vs 65% holdout launch bar), slashes extra figures by two-thirds (3% vs 9%; 0/49 on holdout), cuts lettering in half with zero readable text (0/206), halves unseen-subject violations (1/42 vs 2/42), and achieves 100% character consistency across all three works (132/132) while cutting full-suite run cost by 38% to $5.51 via Gemini Batch API.**
 
-The formal holdout image gate **fails on one metric (`incoherent`: 7/49 vs 3/49 baseline, allowed +2.45)**, likely reflecting a mix of stricter single-arm blind scoring on subtle prop/physics defects and genuine recurring prop/staging issues (e.g., Temple fishing nets, Goliath spears, Alice card/croquet glitches). The Bible consistency gate **passes** (100% character, 93% setting).
+The formal holdout image gate **fails on `incoherent`** both in the single-arm full suite (`7/49` vs `3/49` against `2026-11-09`) and in a follow-up **paired 98-image holdout check** (`lean-v6` vs `lean-v8` shuffled together in one blind pack, see below: `9/49` vs `3/49`, `not acceptable` `25/49` vs `19/49`), driven by Alice (`5/14` vs `10/14` launch bar) and scattered prop/physics glitches, while **Bible** (`81%` vs `78%` launch bar, `74%` vs `70%` strict) and **Holmes** (`75%` vs `63%` launch bar) both improved and **extra figures dropped 5→1**. The Bible consistency gate **passes** (100% character, 93% setting).
 
 ## What changed
 
@@ -60,8 +60,33 @@ Zero images had `readable_text: "yes"` (0 of 206), so all 14 lettering-only flaw
 | Alice | 21/22 (95%) | **22/22 (100%)** | 7/12 (58%) | **8/12 (67%)** | FAIL (<30 char / <20 setting pairs) |
 | **All works** | 178/183 (97%) | **132/132 decided (100%)** | 34/45 (76%) | **35/45 (78%)** | — |
 
+## Paired 49-holdout check (`lean-v6` vs `lean-v8`, same blind pack)
+
+To remove single-arm scorer calibration drift, we generated the 49 holdout images on the pre-told-events `lean-v6` prompt via Gemini Batch (`2026-11-25-lean-v6-holdout`, **$1.29** total: `$1.239` batch + `$0.052` live retry of `alice-tea-party-arrival/classical`) and shuffled all **98 holdout images** (`49 lean-v6` + `49 lean-v8`) into one shared blind pack ([`2026-11-25-holdout-paired`](../2026-11-25-holdout-paired/report.json)). Two independent blind scorers judged all 98 images; 23 disputes were adjudicated blind at full resolution ([rulings](../2026-11-25-holdout-paired/scoring/operator.json)).
+
+| Holdout (49 images) | `lean-v6` (pre-told-events) | `lean-v8` | `lean-v6` launch bar | `lean-v8` launch bar |
+| --- | --- | --- | --- | --- |
+| **Bible** (27) | 19/27 (70%) | **20/27 (74%)** | 21/27 (78%) | **22/27 (81%)** |
+| **Holmes** (8) | **3/8 (38%)** | 0/8 (0%) | 5/8 (63%) | **6/8 (75%)** |
+| **Alice** (14) | **8/14 (57%)** | 4/14 (29%) | **10/14 (71%)** | 5/14 (36%) |
+| **All (49)** | **30/49 (61%)** | 24/49 (49%) | **36/49 (73%)** | 33/49 (67%) |
+
+| Holdout fault (49) | `lean-v6` | `lean-v8` | Gate |
+| --- | --- | --- | --- |
+| Extra figures | 5 (10%) | **1 (2%)** | PASS |
+| Lettering (0 readable in either arm) | 12 (24%) | **10 (20%)** | PASS |
+| Scene not shown | 2 (4%) | 2 (4%) | PASS |
+| Unseen subject drawn (`effects_figure`) | 0/9 (0%) | 0/9 (0%) | PASS |
+| Anatomy | **2 (4%)** | 4 (8%) | PASS |
+| Depiction rule broken | **4 (8%)** | 6 (12%) | PASS |
+| Incoherent | **3 (6%)** | 9 (18%) | **FAIL** (+6 > 2.45) |
+| Not acceptable (strict) | **19 (39%)** | 25 (51%) | **FAIL** (+6 > 2.45) |
+
+- **Where `lean-v8` clearly won:** `1-corinthians-13-12` (all 3 styles fixed from Paul lecturing a crowd to the dim bronze mirror), `isaiah-40-29/classical` (fixed extra prophet), `bible-web` overall (+4pp strict / +3pp launch bar), and `holmes-adventures` launch bar (+12pp).
+- **Where `lean-v8` lost:** `incoherent` genuinely rose (`9` vs `3`) and Alice dropped sharply (`5/14` vs `10/14` launch bar) across scattered anatomy/prop/rule slips (3-armed Alice, stray paw, fused flamingo legs, open den mouth, double-hammer mason, walking away from fire). A plausible contributing factor is that `lean-v7`/`v8` expanded `HOW TO READ IT` from 324 chars to 948 chars (~3× longer), adding instruction density on non-speech scenes, compounded by Alice's contradictory generated canon in the frozen snapshot.
+
 ## Cost and method
 
-- **Total spend: $5.512** (`$5.457565` for 205 images via Gemini Batch job `batches/uislgml1t8asr19ewkjsr68plys834nfl6r8` at 50% batch pricing + `$0.054428` for 1 live Gemini Direct retry of `alice-refuses-to-leave/watercolor`, which hit a content filter in the batch run; `uncertainUsd: $0`).
+- **Total spend: $5.512** (`$5.457565` for 205 images via Gemini Batch job `batches/uislgml1t8asr19ewkjsr68plys834nfl6r8` at 50% batch pricing + `$0.054428` for 1 live Gemini Direct retry of `alice-refuses-to-leave/watercolor`, which hit a content filter in the batch run; `uncertainUsd: $0`). Paired 49-image `lean-v6` holdout follow-up cost **$1.291** (`$1.238822` batch + `$0.052490` live retry).
 - **38% cheaper than `2026-11-09` ($8.873 on OpenRouter)**, and **$0 out-of-pocket** (covered by monthly Google AI Ultra credits).
-- **Records:** [plan.json](plan.json), [funding.json](funding.json), [ledger.json](ledger.json), [ledger-2.json](ledger-2.json), [results.ndjson](results.ndjson), [report.json](report.json), [scoring/](scoring/), [consistency/](consistency/).
+- **Records:** [plan.json](plan.json), [funding.json](funding.json), [ledger.json](ledger.json), [ledger-2.json](ledger-2.json), [results.ndjson](results.ndjson), [report.json](report.json), [scoring/](scoring/), [consistency/](consistency/), paired holdout [2026-11-25-holdout-paired](../2026-11-25-holdout-paired/report.json) & [2026-11-25-lean-v6-holdout](../2026-11-25-lean-v6-holdout/results.ndjson).

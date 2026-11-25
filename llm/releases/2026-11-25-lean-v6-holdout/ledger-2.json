@@ -1,0 +1,19 @@
+{
+  "capUsd": 0.761179,
+  "calls": [
+    {
+      "phase": "alice-tea-party-arrival/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0524895
+    }
+  ],
+  "measuredUsd": 0.0524895,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 1,
+    "check": 0
+  },
+  "blocked": null
+}
