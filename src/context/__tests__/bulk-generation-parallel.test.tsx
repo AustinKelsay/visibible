@@ -101,6 +101,11 @@ beforeEach(() => {
         completedCount: 0, failedCount: 0, skippedCount: 0, totalCreditsUsed: 0 };
     }
     if ("reason" in args) {
+      // As convex/bulkGenerations.ts pause: a paused job takes the reason that arrives.
+      if (persistedStatus === "paused" && args.reason) {
+        persistedReason = args.reason;
+        return { updated: true };
+      }
       if (persistedStatus !== "active") return { updated: false };
       persistedStatus = "paused";
       persistedReason = args.reason;
@@ -500,4 +505,45 @@ it("leaves the next chapter alone when a stopped and dismissed run finally drain
     await act(async () => root.unmount());
     mocks.client.query.mockReset();
   }
+});
+
+it("sends nothing for a verse whose claim comes back after the reader paused, and paints it on Resume", async () => {
+  const claim = deferred<void>();
+  onMutation = (args) => {
+    if (args.verseId === "verse-0" && args.status === "generating") return claim.promise;
+  };
+  spyFetch(() => success());
+  const root = await started(1);
+  await act(async () => bulk.pauseBulkGeneration());
+  await act(async () => claim.resolve());
+  await act(async () => {});
+  expect(sent).toHaveLength(0);
+  await act(async () => bulk.resumeBulkGeneration());
+  await wait(() => expect(orders()).toEqual([0]));
+  await act(async () => root.unmount());
+});
+
+it("wakes a worker that parked for a Pause the server did not take", async () => {
+  const pause = deferred<void>();
+  const first = deferred<Response>();
+  let pauses = 0;
+  const base = mocks.mutation.getMockImplementation()!;
+  mocks.mutation.mockImplementation(async (args) => {
+    if (Object.keys(args).sort().join(",") === "id,sid" && pauses++ === 0) {
+      await pause.promise;
+      return { updated: false };
+    }
+    return base(args);
+  });
+  spyFetch((order) => order === 0 ? first.promise : success());
+  const root = await started(3);
+  await wait(() => expect(orders()).toEqual([0]));
+  let pausing!: Promise<void>;
+  await act(async () => { pausing = bulk.pauseBulkGeneration(); });
+  await act(async () => first.resolve(success()));
+  await act(async () => {});
+  expect(orders()).toEqual([0]);
+  await act(async () => { pause.resolve(); await pausing; });
+  await wait(() => expect(orders()).toEqual([0, 1, 2]));
+  await act(async () => root.unmount());
 });

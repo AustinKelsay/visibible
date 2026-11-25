@@ -564,10 +564,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         const setRunState: typeof setState = (update) => { if (current()) setState(update); };
         let halted = false;
         let workerFailed = false;
+        // A dismissed run stops itself but leaves the shared pause flag, and the server pause, to the run that owns them.
         const halt = () => {
-          const first = !halted;
+          const first = !halted && current();
           halted = true;
-          isPausedRef.current = true;
+          if (current()) isPausedRef.current = true;
           shouldMarkComplete = false;
           return first;
         };
@@ -666,6 +667,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               pending.unshift(item);
               return true;
             };
+            // Stop, Pause or another tab may have taken over while the claim was out: nothing is sent then.
+            if (!stillWanted()) return await putBack();
             const overlappedAtSend = inFlight.size > 1;
             let response = await submit();
             for (let attempt = 0; attempt < ITEM_RETRY_LIMIT && response.status === 503; attempt++) {
@@ -1102,15 +1105,20 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     if (!state.bulkId || !sid) return;
     const previousStatus = state.status;
     isPausedRef.current = true;
+    // A worker may have parked for this Pause while it was being sent: one that did not take wakes it again.
+    const rollBackPause = () => {
+      isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
+      if (!isPausedRef.current) pausedResolverRef.current?.();
+    };
     try {
       const result = await pauseBulk({ id: state.bulkId, sid });
       if (!result?.updated) {
-        isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
+        rollBackPause();
         return;
       }
       setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
     } catch (error) {
-      isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
+      rollBackPause();
       console.error("Failed to pause bulk generation:", error);
       setState((prev) => ({ ...prev, status: previousStatus }));
     }
