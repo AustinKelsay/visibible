@@ -209,16 +209,18 @@ type MapLinkProps = BaseProps & {
   debated: boolean;
 };
 
+/** What a reader did on the open map (#556): the one list the map and its event share. */
+export type MapExploration =
+  | { action: "zoom"; step: "here" | "land" | "world" }
+  | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
+  | { action: "view"; view: "then" | "today" }
+  | { action: "all_chapters" };
+
 /** Exploring the open map (#556): the verse, and what the reader did. */
 type MapExploredProps = BaseProps & {
   /** The verse being read, "Genesis 28:19". */
   reference: string;
-} & (
-  | { action: "zoom"; step: "here" | "land" | "world" }
-  | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
-  | { action: "view"; view: "then" | "today" }
-  | { action: "all_chapters" }
-);
+} & MapExploration;
 
 type WholePictureOpenedProps = BaseProps & {
   book: string;

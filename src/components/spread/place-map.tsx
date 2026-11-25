@@ -9,10 +9,10 @@ import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
 import { usePictureStyles } from "@/context/work-scope-context";
-import { trackMapExplored, trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
+import { trackMapExplored, trackMapLinkShown, trackMapOpened, type MapExploration } from "@/lib/analytics";
 import { previewSource } from "@/lib/picture-source";
 import type { VerseSetting } from "@/lib/verse-setting";
-import type { MapExploration, MapHere } from "@/components/spread/place-map-view";
+import type { MapHere } from "@/components/spread/place-map-view";
 import { forgetOpenedCard } from "@/components/spread/place-map-memory";
 
 // The map experiment (#532). The map and its outline load only when a reader first opens it.

@@ -66,8 +66,9 @@ export function placeChapters(placeId: string): PlaceChapter[] {
 }
 
 const bookBySlug = new Map(BIBLE_BOOKS.map((book, at) => [book.slug, at]));
-/** Where a chapter falls in the Bible, for comparing places in it. */
-const position = (slug: string, chapter: number) => (bookBySlug.get(slug) ?? 0) * 1000 + chapter;
+/** Which comes first in the Bible, as a sort compares: below 0 when chapter `a` does, 0 for the same chapter. */
+const compareChapters = (a: { slug: string; chapter: number }, b: { slug: string; chapter: number }) =>
+  (bookBySlug.get(a.slug) ?? 0) - (bookBySlug.get(b.slug) ?? 0) || a.chapter - b.chapter;
 
 /**
  * A place's chapters around the chapter being read (`slug` is its book's): the one being read, if it names the place,
@@ -75,10 +76,10 @@ const position = (slug: string, chapter: number) => (bookBySlug.get(slug) ?? 0) 
  */
 export function chaptersAround(placeId: string, slug: string, chapter: number) {
   const chapters = placeChapters(placeId);
-  const here = position(slug, chapter);
-  const at = chapters.findIndex((named) => position(named.slug, named.chapter) === here);
-  const before = chapters.filter((named) => position(named.slug, named.chapter) < here).at(-1) ?? null;
-  const after = chapters.find((named) => position(named.slug, named.chapter) > here) ?? null;
+  const here = { slug, chapter };
+  const at = chapters.findIndex((named) => compareChapters(named, here) === 0);
+  const before = chapters.filter((named) => compareChapters(named, here) < 0).at(-1) ?? null;
+  const after = chapters.find((named) => compareChapters(named, here) > 0) ?? null;
   return { chapters, current: at >= 0 ? chapters[at] : null, before, after };
 }
 

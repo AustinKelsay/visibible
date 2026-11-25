@@ -8,7 +8,8 @@ import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { cardPosition, fitView, freeBand, frameSetting, locatorSpot, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import PlaceMapView, { fitView, freeBand, frameSetting, locatorSpot, placeNames, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import { cardPosition, rank } from "../place-card";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
