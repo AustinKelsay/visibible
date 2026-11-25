@@ -340,15 +340,18 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
 /**
  * The chapter before or after this one at a place: a link to it, with how many of its verses name the place. Compact,
  * the two share a row, the one after at its right end with › after it, and the counts are left out. `shown` is a
- * shorter reference to show ("5:8", "1 Kgs 15:13"); a screen reader still hears the whole one.
+ * shorter reference to show ("5:8", "1 Kgs 15:13"); the link's name keeps it and the whole one.
  */
 function NeighbourRow({ glyph, side, named, compact, shown, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; compact: boolean; shown?: string; onFollow: () => void }) {
   const after = side === "After";
+  // The name holds what shows ("1 Kgs 15:13"), so voice control finds it, and the whole reference.
+  const whole = chapterReference(named);
+  const label = shown && !whole.includes(shown) ? `${side}: ${shown} (${whole})` : `${side}: ${whole}`;
   return (
     <li className={`flex items-baseline py-0.5 ${compact ? `gap-1.5 ${after ? "ml-auto flex-row-reverse" : ""}` : "gap-2"}`}>
       <span aria-hidden="true" className={`text-white/45 ${compact ? "" : "w-3"}`}>{glyph}</span>
       <span>
-        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{shown ?? chapterReference(named)}</Link>
+        <Link href={chapterUrl(named)} aria-label={label} onClick={onFollow} className={CHAPTER_LINK}>{shown ?? chapterReference(named)}</Link>
         {named.verses > 1 && !compact ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
       </span>
     </li>

@@ -832,8 +832,9 @@ describe("the place card", () => {
     await act(async () => button("See where this happened")!.click());
     await act(async () => container.querySelector("[data-marker]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
     expect(card()!.hasAttribute("data-compact")).toBe(true);
-    expect(link("Before: 1 Kings 15:13")?.textContent).toBe("1 Kgs 15:13");
-    expect(link("After: 2 Chronicles 15:16")?.textContent).toBe("2 Chr 15:16");
+    // The name holds what shows, for voice control, and the whole reference.
+    expect(link("Before: 1 Kgs 15:13 (1 Kings 15:13)")?.textContent).toBe("1 Kgs 15:13");
+    expect(link("After: 2 Chr 15:16 (2 Chronicles 15:16)")?.textContent).toBe("2 Chr 15:16");
   });
 
   it("tabs through a compact card's chapters in the order they show", async () => {
