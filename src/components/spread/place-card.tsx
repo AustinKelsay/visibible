@@ -130,9 +130,8 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
   // As tall as its side of the marker allows; a longer card scrolls.
   // Below the controls even where a short map's places reach up beside them.
   const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, measured || 24 + entries.length * (shared ? 22 : 56) + 110);
-  useLayoutEffect(() => {
-    if (!compact && !all && measured > maxHeight) setCompactFor(fit);
-  }, [compact, all, measured, maxHeight, fit]);
+  // Set while rendering, so the full view never paints where it does not fit.
+  if (!compact && !all && measured > maxHeight) setCompactFor(fit);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (
