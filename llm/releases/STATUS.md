@@ -1,5 +1,11 @@
 # Generic engine release status
 
+**Map link and told-events wording (25 November 2026, about 14:45 UTC).** On the owner's "let's get the rest of this shipped and deployed", `main` at `69594448` went out as Vercel `dpl_6KkBb3C1PtkarnaWVTf1mZSeEZQh`, frontend only.
+- The image prompt moves to `2026-11-25-lean-v8` (#550): a teller is left out of what they tell. Told scenes went from 13/20 to 15/20 on real images, with speakers kept 8/8 ([climb](2026-11-25-told-events-2/README.md)).
+- The experimental "See where this happened" map link is live under verses with a known place (#537, #551).
+- Parallel chapter painting (#540) follows in its own release, with its Convex push.
+- Smoke: the map opens and closes on Exodus 15:4 at phone and desktop sizes. Nothing painted, no spend ([deployment](2026-11-25-map-link-told-events/deployment.json)).
+
 **Chapter painting pauses during an image outage (24 November 2026, 21:44 UTC).** On the owner's "let's get both of these in", #547 (`main` at `d6ce2dfa`, Convex pushed first, then Vercel `dpl_H2xMSp1Krc76LM1snWa7bZ46p9dw`) pauses a chapter job on "Images are temporarily unavailable" with the verse back in the queue, instead of failing it and the rest. On resume that verse goes under a new request id (`-a1`) and the others keep theirs. Readers now also see "No credits were used. Please try again later." Smoke: pages and the image catalog answer; nothing painted. No spend ([deployment](2026-11-24-images-unavailable-pause/deployment.json)).
 
 **Ask polish (24 November 2026, 21:38 UTC).** On the owner's "ok do it", #544 (`main` at `e9995af5`, Vercel `dpl_H8NzDXFNgFHuq2L92VhXsyaZ6x86`, frontend only) keeps the chosen question topic for the browser tab, says "Psalm 23:4" wherever the reader reads a reference (identifiers keep "Psalms 23:4"), puts a phone's question topics in one sideways-scrolling row, and stops the Ask page's quote showing a cut-off line. Stored answers to Psalms suggestions are asked afresh once. Smoke on Psalms 23:4 at phone size; no question sent, no spend ([deployment](2026-11-24-ask-polish/deployment.json)).
