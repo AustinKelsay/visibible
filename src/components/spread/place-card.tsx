@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useState, type RefObject } from "react";
+import { useLayoutEffect, useRef, useState, type RefObject } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import type { MapExploration } from "@/lib/analytics";
@@ -132,6 +132,15 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
   const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, measured || 24 + entries.length * (shared ? 22 : 56) + 110);
   // Set while rendering, so the full view never paints where it does not fit.
   if (!compact && !all && measured > maxHeight) setCompactFor(fit);
+  // A compact card's row of chips scrolls sideways to the chosen place's chip.
+  const chips = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const row = chips.current;
+    const pressed = row?.querySelector<HTMLElement>('[aria-pressed="true"]');
+    if (!compact || !row || !pressed) return;
+    const left = pressed.offsetLeft - row.offsetLeft;
+    if (left < row.scrollLeft || left + pressed.offsetWidth > row.scrollLeft + row.clientWidth) row.scrollLeft = Math.max(0, left - 4);
+  }, [compact, place.id]);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (
@@ -202,7 +211,8 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
       <div data-chapters className={compact && choices.length > 1 ? "" : compact ? "mt-1.5 border-t border-white/10 pt-1.5" : "mt-2 border-t border-white/10 pt-2"}>
         {choices.length > 1 ? (
           // Where places share the marker, which one's chapters to show.
-          <div className={`flex flex-wrap items-center gap-1 ${compact ? "mb-1 pr-7" : "mb-1.5"}`}>
+          // Compact, the chips keep to one row that scrolls sideways, so many places never push the chapters down.
+          <div ref={chips} data-place-chips className={`flex items-center gap-1 ${compact ? "mb-1 mr-7 overflow-x-auto whitespace-nowrap [scrollbar-width:none]" : "mb-1.5 flex-wrap"}`}>
             {choices.map((entry) => (
               <button
                 key={`${entry.place.id}:${entry.index}`}
@@ -213,12 +223,13 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
                   setChosen(entry.place.id);
                   setAll(false);
                 }}
-                className="rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
+                className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
               >
                 {entry.place.name}
               </button>
             ))}
-            {compact && shared ? <span className="text-[11px] text-white/55">{whereShort(entries[0])}</span> : null}
+            {/* The chosen place's site: places at one marker can stand at different sites. */}
+            {compact ? <span className="shrink-0 text-[11px] text-white/55">{whereShort(entries.find((entry) => entry.place.id === place.id) ?? entries[0])}</span> : null}
           </div>
         ) : null}
         <PlaceChapters key={place.id} place={place} here={here} reference={reference} compact={compact} all={all} onAll={() => {
@@ -280,34 +291,23 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
   ) : null;
   return (
     <>
-      {compact ? (
-        <>
-          {before || after ? (
-            <p className="flex flex-wrap items-baseline justify-between gap-x-3">
-              {before ? <span><span aria-hidden="true" className="mr-1.5 text-white/45">‹</span><NeighbourLink side="Before" named={before} onFollow={() => onChapter("before")} /></span> : <span />}
-              {after ? <span><NeighbourLink side="After" named={after} onFollow={() => onChapter("after")} /><span aria-hidden="true" className="ml-1.5 text-white/45">›</span></span> : null}
-            </p>
-          ) : null}
-          {namedIn ? <p className="text-[11px] text-white/55">{namedIn}</p> : null}
-        </>
-      ) : (
-        <>
-          <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
-            {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {chapters.length} {chapters.length === 1 ? "chapter" : "chapters"}
-          </p>
-          <ol className="mt-1">
-            {before ? <NeighbourRow glyph="‹" side="Before" named={before} onFollow={() => onChapter("before")} /> : null}
-            <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
-              <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
-              <span className="font-serif text-[15px] italic text-[#e8c37a]">
-                {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
-              </span>
-            </li>
-            {namedIn ? <li className="flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55">{namedIn}</li> : null}
-            {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
-          </ol>
-        </>
+      {/* One list in both views, so a link keeps keyboard focus as the card turns compact. */}
+      {compact ? null : (
+        <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
+          {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {chapters.length} {chapters.length === 1 ? "chapter" : "chapters"}
+        </p>
       )}
+      <ol className={compact ? "flex flex-wrap items-baseline gap-x-3" : "mt-1"}>
+        {before ? <NeighbourRow glyph="‹" side="Before" named={before} compact={compact} onFollow={() => onChapter("before")} /> : null}
+        <li aria-current="true" className={compact ? "hidden" : "flex items-baseline gap-2 py-0.5"}>
+          <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
+          <span className="font-serif text-[15px] italic text-[#e8c37a]">
+            {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
+          </span>
+        </li>
+        {namedIn ? <li className={compact ? "order-last basis-full text-[11px] text-white/55" : "flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55"}>{namedIn}</li> : null}
+        {after ? <NeighbourRow glyph="›" side="After" named={after} compact={compact} onFollow={() => onChapter("after")} /> : null}
+      </ol>
       {chapters.length === 0 || (chapters.length === 1 && current) ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
       {/* Even where the rows above show them all, the list sets them in their parts of the Bible. */}
       {chapters.length > 1 ? (
@@ -325,19 +325,18 @@ function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter 
   );
 }
 
-/** The link to the chapter before or after this one at a place. */
-function NeighbourLink({ side, named, onFollow }: { side: "Before" | "After"; named: PlaceChapter; onFollow: () => void }) {
-  return <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{chapterReference(named)}</Link>;
-}
-
-/** The chapter before or after this one at a place: a link to it, with how many of its verses name the place. */
-function NeighbourRow({ glyph, side, named, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; onFollow: () => void }) {
+/**
+ * The chapter before or after this one at a place: a link to it, with how many of its verses name the place. Compact,
+ * the two share a row, the one after at its right end with › after it, and the counts are left out.
+ */
+function NeighbourRow({ glyph, side, named, compact, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; compact: boolean; onFollow: () => void }) {
+  const after = side === "After";
   return (
-    <li className="flex items-baseline gap-2 py-0.5">
-      <span aria-hidden="true" className="w-3 text-white/45">{glyph}</span>
+    <li className={`flex items-baseline py-0.5 ${compact ? `gap-1.5 ${after ? "ml-auto flex-row-reverse" : ""}` : "gap-2"}`}>
+      <span aria-hidden="true" className={`text-white/45 ${compact ? "" : "w-3"}`}>{glyph}</span>
       <span>
-        <NeighbourLink side={side} named={named} onFollow={onFollow} />
-        {named.verses > 1 ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
+        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{chapterReference(named)}</Link>
+        {named.verses > 1 && !compact ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
       </span>
     </li>
   );

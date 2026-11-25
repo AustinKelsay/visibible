@@ -754,14 +754,61 @@ describe("the place card", () => {
     expect(card()!.textContent).not.toContain("favoured");
     expect(card()!.textContent).not.toContain("verses in");
     expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
-    // The chapters before and after share one row.
-    const before = link("Before: Genesis 13:3");
-    expect(before?.parentElement?.parentElement).toBe(link("After: Genesis 31:13")?.parentElement?.parentElement);
+    // The chapters before and after share one row, without this verse's row between them (whether they fit is
+    // measured in a browser: jsdom lays nothing out).
+    expect(link("Before: Genesis 13:3")).not.toBeNull();
+    expect(link("After: Genesis 31:13")).not.toBeNull();
+    expect(card()!.querySelector('[aria-current="true"]')!.className).toContain("hidden");
     expect(button("Luz")).toBeDefined();
     // The full list still opens, and the card scrolls for it as before.
     await act(async () => button("All 35 chapters naming Bethel")!.click());
     expect(card()!.querySelector("[data-all-chapters]")).not.toBeNull();
     expect(card()!.hasAttribute("data-compact")).toBe(true);
+  });
+
+  it("names the chosen place's site in a compact card whose places stand at different sites", async () => {
+    phoneMap(390);
+    // Matthew 21:1: Bethphage, proposed at Et Tur, shares a marker with the Mount of Olives.
+    await renderReader(setting("MAT", 21, 1), false, { book: "Matthew", slug: "matthew", chapter: 21, verse: 1 });
+    await act(async () => button("See where this happened")!.click());
+    for (const ring of container.querySelectorAll('[data-rings="Bethphage"]')) {
+      await act(async () => ring.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+      if (button("Mount of Olives")) break;
+    }
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(button("Bethphage")!.getAttribute("aria-pressed")).toBe("true");
+    expect(card()!.textContent).toContain("proposed at Et Tur");
+    await act(async () => button("Mount of Olives")!.click());
+    expect(card()!.textContent).not.toContain("Et Tur");
+    expect(card()!.textContent).toContain("settled");
+  });
+
+  it("keeps keyboard focus on a chapter link as the card turns compact", async () => {
+    let height = 900;
+    const observers: (() => void)[] = [];
+    vi.stubGlobal("ResizeObserver", class {
+      constructor(callback: () => void) {
+        observers.push(callback);
+      }
+      observe() {}
+      disconnect() {}
+    });
+    onTestFinished(() => {
+      vi.unstubAllGlobals();
+    });
+    phoneMap(900);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockImplementation(() => height);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(false);
+    const before = link("Before: Genesis 13:3")!;
+    act(() => before.focus());
+    // The window shortens to a phone's map.
+    height = 390;
+    await act(async () => observers.forEach((measure) => measure()));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(document.activeElement).toBe(before);
+    expect(before.isConnected).toBe(true);
   });
 
   it("keeps its full view where it fits", async () => {
