@@ -748,11 +748,15 @@ describe("the place card", () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
     expect(card()!.hasAttribute("data-compact")).toBe(true);
-    // One line for the places there; no ranks and no nearby places.
-    expect(cardInfo()).toBe("At BeitinBethel · Luz");
+    // The place chips name the places there, with their site; no ranks, no count, no nearby places.
+    expect(cardInfo()).toBe("");
+    expect(card()!.textContent).toMatch(/^BethelLuzproposed at Beitin/);
+    expect(card()!.textContent).not.toContain("favoured");
+    expect(card()!.textContent).not.toContain("verses in");
     expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
-    expect(link("Before: Genesis 13:3")).not.toBeNull();
-    expect(link("After: Genesis 31:13")).not.toBeNull();
+    // The chapters before and after share one row.
+    const before = link("Before: Genesis 13:3");
+    expect(before?.parentElement?.parentElement).toBe(link("After: Genesis 31:13")?.parentElement?.parentElement);
     expect(button("Luz")).toBeDefined();
     // The full list still opens, and the card scrolls for it as before.
     await act(async () => button("All 35 chapters naming Bethel")!.click());

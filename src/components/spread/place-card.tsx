@@ -165,29 +165,25 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
           <X size={14} strokeWidth={1.75} aria-hidden="true" />
         </button>
       ) : null}
-      {shared ? (
+      {compact ? (
+        // Compact, the place chips name the places where there are several; otherwise one line names the place.
+        choices.length > 1 ? null : (
+          <p className="pr-7 leading-snug">
+            <span className="font-serif text-base text-white">{entries[0].place.name}</span> <span className="text-[11px] text-white/55">{whereShort(entries[0])}</span>
+          </p>
+        )
+      ) : shared ? (
         <>
           {/* A described site ("south of the Lisan") reads as its own heading. */}
           <p className="pr-6 text-xs leading-snug text-white/70">{/^[a-z]/.test(site(entries[0])) ? site(entries[0]).replace(/^./, (c) => c.toUpperCase()) : `At ${site(entries[0])}`}</p>
-          {/* One line for each place there; compact, one line for them all. */}
-          {compact ? (
-            <p className="mt-1 font-serif text-[15px] leading-snug text-white">{entries.map(({ place: each }) => each.name).join(" · ")}</p>
-          ) : entries.map(({ place: each, index }) => (
+          {/* One line for each place there. */}
+          {entries.map(({ place: each, index }) => (
             <p key={`${each.id}:${index}`} className="mt-1 text-[11px] leading-snug text-white/55">
               <span className="font-serif text-[15px] text-white">{each.name}</span>{" "}
               {each.debated ? rank(each, index, true) : "settled"}
             </p>
           ))}
         </>
-      ) : compact ? (
-        entries.map(({ place: each, index }, row) => (
-          <p key={`${each.id}:${index}`} className={`leading-snug ${row > 0 ? "mt-1" : "pr-6"}`}>
-            <span className="font-serif text-base text-white">{each.name}</span>{" "}
-            <span className="text-[11px] text-white/55">
-              {each.debated ? `proposed at ${each.sites[index].name}` : each.sites[index].name === each.name ? "settled" : `at ${each.sites[index].name}`}
-            </span>
-          </p>
-        ))
       ) : (
         entries.map(({ place: each, index }, row) => (
           <div key={`${each.id}:${index}`} className={row > 0 ? "mt-2 border-t border-white/10 pt-2" : "pr-6"}>
@@ -203,10 +199,10 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
           </div>
         ))
       )}
-      <div data-chapters className="mt-2 border-t border-white/10 pt-2">
+      <div data-chapters className={compact && choices.length > 1 ? "" : compact ? "mt-1.5 border-t border-white/10 pt-1.5" : "mt-2 border-t border-white/10 pt-2"}>
         {choices.length > 1 ? (
           // Where places share the marker, which one's chapters to show.
-          <div className="mb-1.5 flex flex-wrap gap-1">
+          <div className={`flex flex-wrap items-center gap-1 ${compact ? "mb-1 pr-7" : "mb-1.5"}`}>
             {choices.map((entry) => (
               <button
                 key={`${entry.place.id}:${entry.index}`}
@@ -222,9 +218,10 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
                 {entry.place.name}
               </button>
             ))}
+            {compact && shared ? <span className="text-[11px] text-white/55">{whereShort(entries[0])}</span> : null}
           </div>
         ) : null}
-        <PlaceChapters key={place.id} place={place} here={here} reference={reference} all={all} onAll={() => {
+        <PlaceChapters key={place.id} place={place} here={here} reference={reference} compact={compact} all={all} onAll={() => {
           if (!all) onExplore?.({ action: "all_chapters" });
           setAll(!all);
         }} onChapter={(direction) => {
@@ -243,6 +240,13 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
   );
 }
 
+/** Where a place is, in a few words for the compact card: "at Beitin", "proposed at Beitin", "settled". */
+function whereShort({ place, index }: MarkerEntry): string {
+  const site = place.sites[index].name;
+  if (place.debated) return `proposed at ${site}`;
+  return site === place.name ? "settled" : `at ${site}`;
+}
+
 /** "Genesis 28:19". */
 const chapterReference = (named: PlaceChapter) => `${named.book} ${named.chapter}:${named.verse}`;
 
@@ -251,44 +255,59 @@ const CHAPTER_LINK =
 
 /**
  * A place's chapters around this verse: the one before (‹), this verse, the one after (›), each a link, and the way to
- * every chapter that names the place, grouped by part of the Bible.
+ * every chapter that names the place, grouped by part of the Bible. Compact, the chapters before and after share one
+ * row, without the count above them or this verse's row.
  */
-function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
+function PlaceChapters({ place, here, reference, compact, all, onAll, onChapter }: {
   place: SettingPlace;
   here: MapHere;
   reference: string;
+  compact: boolean;
   all: boolean;
   onAll: () => void;
   onChapter: (direction: "before" | "after" | "current" | "list") => void;
 }) {
   const { chapters, current, before, after } = chaptersAround(place.id, here.slug, here.chapter);
   const verses = chapters.reduce((sum, named) => sum + named.verses, 0);
+  // A setting carried from an earlier verse: the way to the verse in this chapter that names the place.
+  const namedIn = current && current.verse !== here.verse ? (
+    <span>
+      named in{" "}
+      <Link href={chapterUrl(current)} aria-label={`Named in ${chapterReference(current)}`} onClick={() => onChapter("current")} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-white">
+        {chapterReference(current)}
+      </Link>
+    </span>
+  ) : null;
   return (
     <>
-      <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
-        {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {chapters.length} {chapters.length === 1 ? "chapter" : "chapters"}
-      </p>
-      <ol className="mt-1">
-        {before ? <NeighbourRow glyph="‹" side="Before" named={before} onFollow={() => onChapter("before")} /> : null}
-        <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
-          <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
-          <span className="font-serif text-[15px] italic text-[#e8c37a]">
-            {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
-          </span>
-        </li>
-        {current && current.verse !== here.verse ? (
-          // A setting carried from an earlier verse: the way to the verse in this chapter that names the place.
-          <li className="flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55">
-            <span>
-              named in{" "}
-              <Link href={chapterUrl(current)} aria-label={`Named in ${chapterReference(current)}`} onClick={() => onChapter("current")} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-white">
-                {chapterReference(current)}
-              </Link>
-            </span>
-          </li>
-        ) : null}
-        {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
-      </ol>
+      {compact ? (
+        <>
+          {before || after ? (
+            <p className="flex flex-wrap items-baseline justify-between gap-x-3">
+              {before ? <span><span aria-hidden="true" className="mr-1.5 text-white/45">‹</span><NeighbourLink side="Before" named={before} onFollow={() => onChapter("before")} /></span> : <span />}
+              {after ? <span><NeighbourLink side="After" named={after} onFollow={() => onChapter("after")} /><span aria-hidden="true" className="ml-1.5 text-white/45">›</span></span> : null}
+            </p>
+          ) : null}
+          {namedIn ? <p className="text-[11px] text-white/55">{namedIn}</p> : null}
+        </>
+      ) : (
+        <>
+          <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
+            {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {chapters.length} {chapters.length === 1 ? "chapter" : "chapters"}
+          </p>
+          <ol className="mt-1">
+            {before ? <NeighbourRow glyph="‹" side="Before" named={before} onFollow={() => onChapter("before")} /> : null}
+            <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
+              <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
+              <span className="font-serif text-[15px] italic text-[#e8c37a]">
+                {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
+              </span>
+            </li>
+            {namedIn ? <li className="flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55">{namedIn}</li> : null}
+            {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
+          </ol>
+        </>
+      )}
       {chapters.length === 0 || (chapters.length === 1 && current) ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
       {/* Even where the rows above show them all, the list sets them in their parts of the Bible. */}
       {chapters.length > 1 ? (
@@ -306,13 +325,18 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
   );
 }
 
+/** The link to the chapter before or after this one at a place. */
+function NeighbourLink({ side, named, onFollow }: { side: "Before" | "After"; named: PlaceChapter; onFollow: () => void }) {
+  return <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{chapterReference(named)}</Link>;
+}
+
 /** The chapter before or after this one at a place: a link to it, with how many of its verses name the place. */
 function NeighbourRow({ glyph, side, named, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; onFollow: () => void }) {
   return (
     <li className="flex items-baseline gap-2 py-0.5">
       <span aria-hidden="true" className="w-3 text-white/45">{glyph}</span>
       <span>
-        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{chapterReference(named)}</Link>
+        <NeighbourLink side={side} named={named} onFollow={onFollow} />
         {named.verses > 1 ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
       </span>
     </li>
