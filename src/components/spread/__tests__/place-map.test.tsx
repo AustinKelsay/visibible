@@ -71,12 +71,12 @@ async function renderReader(verseSettingValue: VerseSetting | null, hidden = fal
 
 const map = () => container.querySelector('svg[role="group"]');
 const card = () => container.querySelector<HTMLElement>("[data-marker-card]");
-/** What a marker's card says about the marker, leaving out its moments and close button. */
+/** What a marker's card says about the marker, leaving out its chapters and close button. */
 const cardInfo = () => {
   const shown = card();
   if (!shown) return undefined;
   const copy = shown.cloneNode(true) as HTMLElement;
-  copy.querySelector("[data-moments]")?.remove();
+  copy.querySelector("[data-chapters]")?.remove();
   copy.querySelector('[aria-label="Close the card"]')?.remove();
   return copy.textContent;
 };
@@ -405,7 +405,7 @@ describe("the place card", () => {
   const pin = () => container.querySelector<SVGGElement>('[data-rings="Bethel · Luz"]')!;
   const link = (label: string) => container.querySelector<HTMLAnchorElement>(`[data-marker-card] a[aria-label="${label}"]`);
 
-  it("previews the place's moments around this verse, and opens to walk them", async () => {
+  it("previews the place's chapters around this verse, and opens to walk them", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
     // A preview is a glance: hidden from screen readers and not usable.
@@ -422,23 +422,23 @@ describe("the place card", () => {
     expect(card()!.querySelector("[data-nearby-places]")?.textContent).toBe("Nearby · Ai 2 km · Mizpah 5 km · Michmash 6 km");
 
     await act(async () => link("After: Genesis 31:13")!.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
-    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "moment", direction: "after" }));
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "chapter", direction: "after" }));
   });
 
   it("lists every chapter that names the place, by part of the Bible", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
-    await act(async () => button("All 35 moments at Bethel")!.click());
-    const list = container.querySelector("[data-all-moments]")!;
+    await act(async () => button("All 35 chapters naming Bethel")!.click());
+    const list = container.querySelector("[data-all-chapters]")!;
     expect(Array.from(list.querySelectorAll("div > p:first-child"), (heading) => heading.textContent)).toEqual(["Law", "History", "Prophets"]);
     expect(list.querySelector('[aria-current="true"]')?.getAttribute("aria-label")).toBe("Genesis 28:19");
     expect(list.querySelectorAll("a")).toHaveLength(35);
-    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "all_moments" }));
-    await act(async () => button("Fewer moments")!.click());
-    expect(container.querySelector("[data-all-moments]")).toBeNull();
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "all_chapters" }));
+    await act(async () => button("Fewer chapters")!.click());
+    expect(container.querySelector("[data-all-chapters]")).toBeNull();
   });
 
-  it("stays open for the same place as the page turns to its next moment", async () => {
+  it("stays open for the same place as the page turns to its next named", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
     await renderReader(setting("GEN", 31, 13), false, { ...bethel, chapter: 31, verse: 13 });

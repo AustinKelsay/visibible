@@ -157,7 +157,7 @@ export function PlaceMapStage({ setting, verseId, reference, here, hidden }: {
   setting: VerseSetting | null | undefined;
   verseId: string;
   reference: string;
-  /** The verse being read, for the place card's moments around it. */
+  /** The verse being read, for the place card's chapters around it. */
   here: MapHere;
   /** The whole-picture view is open, which shows the picture. */
   hidden: boolean;

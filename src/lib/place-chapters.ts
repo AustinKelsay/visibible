@@ -2,12 +2,12 @@ import placesData from "@/data/bible-places.json";
 import { BIBLE_BOOKS } from "@/data/bible-structure";
 
 /**
- * A place's other moments in the Bible, and what lies around it, from the same places data as the map (#556). Only the
+ * A place's other chapters in the Bible, and what lies around it, from the same places data as the map (#556). Only the
  * map's lazily loaded view uses this, so the data reaches a reader's browser only once they open the map.
  */
 
 /** A chapter that names a place: the first verse there that names it, and how many do. */
-export interface Moment {
+export interface PlaceChapter {
   bookId: string;
   book: string;
   slug: string;
@@ -33,36 +33,36 @@ interface PlacesFile {
 const data = placesData as unknown as PlacesFile;
 const bookOrder = new Map(BIBLE_BOOKS.map((book, index) => [book.id, index]));
 
-let index: Map<string, Moment[]> | null = null;
-/** Every place's moments in Bible order, built on first use. */
-function momentsIndex(): Map<string, Moment[]> {
+let index: Map<string, PlaceChapter[]> | null = null;
+/** Every place's chapters in Bible order, built on first use. */
+function chaptersIndex(): Map<string, PlaceChapter[]> {
   if (index) return index;
   index = new Map();
-  const chapters = Object.keys(data.verses).sort((a, b) => {
+  const keys = Object.keys(data.verses).sort((a, b) => {
     const [bookA, chapterA] = a.split(" ");
     const [bookB, chapterB] = b.split(" ");
     return (bookOrder.get(bookA) ?? 0) - (bookOrder.get(bookB) ?? 0) || Number(chapterA) - Number(chapterB);
   });
-  for (const key of chapters) {
+  for (const key of keys) {
     const [bookId, chapter] = key.split(" ");
     const book = BIBLE_BOOKS[bookOrder.get(bookId) ?? -1];
     if (!book) continue;
-    const found = new Map<string, Moment>();
+    const found = new Map<string, PlaceChapter>();
     for (const [verse, ids] of Object.entries(data.verses[key]).sort(([a], [b]) => Number(a) - Number(b))) {
       for (const id of new Set(ids)) {
-        const moment = found.get(id);
-        if (moment) moment.verses += 1;
+        const named = found.get(id);
+        if (named) named.verses += 1;
         else found.set(id, { bookId, book: book.name, slug: book.slug, chapter: Number(chapter), verse: Number(verse), verses: 1 });
       }
     }
-    for (const [id, moment] of found) index.set(id, [...(index.get(id) ?? []), moment]);
+    for (const [id, named] of found) index.set(id, [...(index.get(id) ?? []), named]);
   }
   return index;
 }
 
 /** The chapters that name a place, in Bible order. */
-export function placeMoments(placeId: string): Moment[] {
-  return momentsIndex().get(placeId) ?? [];
+export function placeChapters(placeId: string): PlaceChapter[] {
+  return chaptersIndex().get(placeId) ?? [];
 }
 
 const bookBySlug = new Map(BIBLE_BOOKS.map((book, at) => [book.slug, at]));
@@ -70,21 +70,21 @@ const bookBySlug = new Map(BIBLE_BOOKS.map((book, at) => [book.slug, at]));
 const position = (slug: string, chapter: number) => (bookBySlug.get(slug) ?? 0) * 1000 + chapter;
 
 /**
- * A place's moments around the chapter being read (`slug` is its book's): the one being read, if it names the place,
+ * A place's chapters around the chapter being read (`slug` is its book's): the one being read, if it names the place,
  * and the nearest before and after it.
  */
-export function momentsAround(placeId: string, slug: string, chapter: number) {
-  const moments = placeMoments(placeId);
+export function chaptersAround(placeId: string, slug: string, chapter: number) {
+  const chapters = placeChapters(placeId);
   const here = position(slug, chapter);
-  const at = moments.findIndex((moment) => position(moment.slug, moment.chapter) === here);
-  const before = moments.filter((moment) => position(moment.slug, moment.chapter) < here).at(-1) ?? null;
-  const after = moments.find((moment) => position(moment.slug, moment.chapter) > here) ?? null;
-  return { moments, current: at >= 0 ? moments[at] : null, before, after };
+  const at = chapters.findIndex((named) => position(named.slug, named.chapter) === here);
+  const before = chapters.filter((named) => position(named.slug, named.chapter) < here).at(-1) ?? null;
+  const after = chapters.find((named) => position(named.slug, named.chapter) > here) ?? null;
+  return { chapters, current: at >= 0 ? chapters[at] : null, before, after };
 }
 
-/** Where a moment is read. */
-export function momentUrl(moment: Moment): string {
-  return `/${moment.slug}/${moment.chapter}/${moment.verse}`;
+/** Where a chapter that names a place is read: at its first verse that names it. */
+export function chapterUrl(named: PlaceChapter): string {
+  return `/${named.slug}/${named.chapter}/${named.verse}`;
 }
 
 const DIVISIONS: [string, string][] = [
@@ -115,7 +115,7 @@ export function contextPlaces(): ContextPlace[] {
     if (place.region || place.the || place.sites.length === 0) continue;
     const [top, next] = place.sites;
     if (next && top[2] < next[2] * 2) continue;
-    const verses = placeMoments(id).reduce((sum, moment) => sum + moment.verses, 0);
+    const verses = placeChapters(id).reduce((sum, named) => sum + named.verses, 0);
     if (verses < 5) continue;
     const kept = best.get(place.name);
     if (!kept || verses > kept.verses) best.set(place.name, { id, name: place.name, lon: top[0], lat: top[1], verses });

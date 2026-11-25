@@ -199,15 +199,6 @@ type VerseNavigationProps = BaseProps & {
 };
 
 /** The map experiment (#532): which verse, and what kind of setting its map shows. */
-type MapExploredProps = BaseProps & {
-  /** The verse being read, "Genesis 28:19". */
-  reference: string;
-} & (
-  | { action: "zoom"; step: "here" | "land" | "world" }
-  | { action: "moment"; direction: "before" | "after" | "list" }
-  | { action: "all_moments" }
-);
-
 type MapLinkProps = BaseProps & {
   book: string;
   chapter: number;
@@ -217,6 +208,16 @@ type MapLinkProps = BaseProps & {
   /** A place in the setting has more than one proposed site. */
   debated: boolean;
 };
+
+/** Exploring the open map (#556): the verse, and what the reader did. */
+type MapExploredProps = BaseProps & {
+  /** The verse being read, "Genesis 28:19". */
+  reference: string;
+} & (
+  | { action: "zoom"; step: "here" | "land" | "world" }
+  | { action: "chapter"; direction: "before" | "after" | "list" }
+  | { action: "all_chapters" }
+);
 
 type WholePictureOpenedProps = BaseProps & {
   book: string;
@@ -360,7 +361,7 @@ export function trackMapOpened(props: MapLinkProps) {
   track("map_opened", props);
 }
 
-// Track the reader exploring the open map: a zoom step, a moment at a place, or a place's full list of moments
+// Track the reader exploring the open map: a zoom step, a chapter link at a place, or a place's full list of chapters
 export function trackMapExplored(props: MapExploredProps) {
   track("map_explored", props);
 }

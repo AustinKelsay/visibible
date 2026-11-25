@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import outline from "@/data/bible-map-outline.json";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import { contextPlaces, divisionOf, momentsAround, momentUrl, nearbyPlaces, type Moment } from "@/lib/place-moments";
+import { contextPlaces, divisionOf, chaptersAround, chapterUrl, nearbyPlaces, type PlaceChapter } from "@/lib/place-chapters";
 import type { SettingPlace, VerseSetting } from "@/lib/verse-setting";
 
 /** The map's box in map units: x, y (top-left), width and height. */
@@ -295,8 +295,8 @@ export function cardPosition(at: { left: number; top: number }, gap: number, box
 /** What a reader did on the map, for analytics. */
 export type MapExploration =
   | { action: "zoom"; step: ZoomStep }
-  | { action: "moment"; direction: "before" | "after" | "list" }
-  | { action: "all_moments" };
+  | { action: "chapter"; direction: "before" | "after" | "list" }
+  | { action: "all_chapters" };
 
 /** The verse being read: its book's slug, chapter and verse. */
 export interface MapHere {
@@ -735,8 +735,8 @@ export function rank(place: SettingPlace, index: number, short = false): string 
 
 /**
  * The card by the marker under the pointer or focus, or opened by a click, tap or Enter: each place there, where it
- * is proposed and how it ranks, then a place's moments in the Bible around this verse and the places nearby. Only an
- * opened card can be used (its links, its full list of moments, its close button); a previewed one is a glance.
+ * is proposed and how it ranks, then a place's chapters in the Bible around this verse and the places nearby. Only an
+ * opened card can be used (its links, its full list of chapters, its close button); a previewed one is a glance.
  */
 function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, onClose, onEscape, onExplore }: {
   cardRef: RefObject<HTMLDivElement | null>;
@@ -754,7 +754,7 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   const site = (entry: MarkerEntry) => entry.place.sites[entry.index].name;
   // Places sharing one site name it once, a line each, so a card for four places still fits a phone's map.
   const shared = entries.length > 1 && entries.every((entry) => site(entry) === site(entries[0]));
-  // Whose moments the card shows, where places share the marker.
+  // Whose chapters the card shows, where places share the marker.
   const [chosen, setChosen] = useState(0);
   const [all, setAll] = useState(false);
   const place = entries[Math.min(chosen, entries.length - 1)].place;
@@ -823,9 +823,9 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
           </div>
         ))
       )}
-      <div data-moments className="mt-2 border-t border-white/10 pt-2">
+      <div data-chapters className="mt-2 border-t border-white/10 pt-2">
         {entries.length > 1 ? (
-          // Where places share the marker, which one's moments to show.
+          // Where places share the marker, which one's chapters to show.
           <div className="mb-1.5 flex flex-wrap gap-1">
             {entries.map((entry, row) => (
               <button
@@ -843,10 +843,10 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
             ))}
           </div>
         ) : null}
-        <Moments key={place.id} place={place} here={here} reference={reference} all={all} onAll={() => {
-          if (!all) onExplore?.({ action: "all_moments" });
+        <PlaceChapters key={place.id} place={place} here={here} reference={reference} all={all} onAll={() => {
+          if (!all) onExplore?.({ action: "all_chapters" });
           setAll(!all);
-        }} onMoment={(direction) => onExplore?.({ action: "moment", direction })} />
+        }} onChapter={(direction) => onExplore?.({ action: "chapter", direction })} />
         {nearby.length > 0 ? (
           <p data-nearby-places className="mt-1.5 text-[11px] leading-snug text-white/55">
             Nearby · {nearby.map((other) => `${other.name} ${other.km} km`).join(" · ")}
@@ -858,105 +858,101 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
 }
 
 /** "Genesis 28:19". */
-const momentReference = (moment: Moment) => `${moment.book} ${moment.chapter}:${moment.verse}`;
+const chapterReference = (named: PlaceChapter) => `${named.book} ${named.chapter}:${named.verse}`;
 
-const MOMENT_LINK =
+const CHAPTER_LINK =
   "font-serif text-[15px] italic text-white underline decoration-white/30 underline-offset-[3px] hover:decoration-white/70 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-white";
 
 /**
- * A place's moments around this verse: the one before (‹), this verse, the one after (›), each a link, and the way to
+ * A place's chapters around this verse: the one before (‹), this verse, the one after (›), each a link, and the way to
  * every chapter that names the place, grouped by part of the Bible.
  */
-function Moments({ place, here, reference, all, onAll, onMoment }: {
+function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
   place: SettingPlace;
   here: MapHere;
   reference: string;
   all: boolean;
   onAll: () => void;
-  onMoment: (direction: "before" | "after" | "list") => void;
+  onChapter: (direction: "before" | "after" | "list") => void;
 }) {
-  const { moments, current, before, after } = momentsAround(place.id, here.slug, here.chapter);
-  const verses = moments.reduce((sum, moment) => sum + moment.verses, 0);
+  const { chapters, current, before, after } = chaptersAround(place.id, here.slug, here.chapter);
+  const verses = chapters.reduce((sum, named) => sum + named.verses, 0);
   const shownCount = Number(Boolean(before)) + Number(Boolean(after)) + Number(Boolean(current));
-  const count = (moment: Moment) => (moment.verses > 1 ? <span className="text-[11px] text-white/45"> · {moment.verses} verses</span> : null);
   return (
     <>
       <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
-        {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {moments.length} {moments.length === 1 ? "chapter" : "chapters"}
+        {place.name} · {verses} {verses === 1 ? "verse" : "verses"} in {chapters.length} {chapters.length === 1 ? "chapter" : "chapters"}
       </p>
       <ol className="mt-1">
-        {before ? (
-          <li className="flex items-baseline gap-2 py-0.5">
-            <span aria-hidden="true" className="w-3 text-white/45">‹</span>
-            <span>
-              <Link href={momentUrl(before)} aria-label={`Before: ${momentReference(before)}`} onClick={() => onMoment("before")} className={MOMENT_LINK}>{momentReference(before)}</Link>
-              {count(before)}
-            </span>
-          </li>
-        ) : null}
+        {before ? <NeighbourRow glyph="‹" side="Before" named={before} onFollow={() => onChapter("before")} /> : null}
         <li aria-current="true" className="flex items-baseline gap-2 py-0.5">
           <span aria-hidden="true" className="w-3 text-[9px] text-[#e8c37a]">●</span>
           <span className="font-serif text-[15px] italic text-[#e8c37a]">
             {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse</span>
           </span>
         </li>
-        {after ? (
-          <li className="flex items-baseline gap-2 py-0.5">
-            <span aria-hidden="true" className="w-3 text-white/45">›</span>
-            <span>
-              <Link href={momentUrl(after)} aria-label={`After: ${momentReference(after)}`} onClick={() => onMoment("after")} className={MOMENT_LINK}>{momentReference(after)}</Link>
-              {count(after)}
-            </span>
-          </li>
-        ) : null}
+        {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
       </ol>
-      {moments.length <= 1 ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
-      {moments.length > shownCount ? (
+      {chapters.length === 0 || (chapters.length === 1 && current) ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
+      {chapters.length > shownCount ? (
         <button
           type="button"
           aria-expanded={all}
           onClick={onAll}
           className="mt-1 text-left text-[12px] text-[#f3e6c8] underline decoration-[#f3e6c8]/35 underline-offset-[3px] hover:decoration-[#f3e6c8]/80 focus-visible:outline-2 focus-visible:outline-white"
         >
-          {all ? "Fewer moments" : `All ${moments.length} moments at ${place.name}`}
+          {all ? "Fewer chapters" : `All ${chapters.length} chapters naming ${place.name}`}
         </button>
       ) : null}
-      {all ? <MomentList moments={moments} here={here} onMoment={() => onMoment("list")} /> : null}
+      {all ? <ChapterList chapters={chapters} here={here} onChapter={() => onChapter("list")} /> : null}
     </>
   );
 }
 
+/** The chapter before or after this one at a place: a link to it, with how many of its verses name the place. */
+function NeighbourRow({ glyph, side, named, onFollow }: { glyph: string; side: "Before" | "After"; named: PlaceChapter; onFollow: () => void }) {
+  return (
+    <li className="flex items-baseline gap-2 py-0.5">
+      <span aria-hidden="true" className="w-3 text-white/45">{glyph}</span>
+      <span>
+        <Link href={chapterUrl(named)} aria-label={`${side}: ${chapterReference(named)}`} onClick={onFollow} className={CHAPTER_LINK}>{chapterReference(named)}</Link>
+        {named.verses > 1 ? <span className="text-[11px] text-white/45"> · {named.verses} verses</span> : null}
+      </span>
+    </li>
+  );
+}
+
 /** Every chapter that names a place, a book to a line, grouped by part of the Bible; this chapter is marked. */
-function MomentList({ moments, here, onMoment }: { moments: Moment[]; here: MapHere; onMoment: () => void }) {
-  const parts: { division: string; books: { book: string; moments: Moment[] }[] }[] = [];
-  for (const moment of moments) {
-    const division = divisionOf(moment.bookId);
+function ChapterList({ chapters, here, onChapter }: { chapters: PlaceChapter[]; here: MapHere; onChapter: () => void }) {
+  const parts: { division: string; books: { book: string; chapters: PlaceChapter[] }[] }[] = [];
+  for (const named of chapters) {
+    const division = divisionOf(named.bookId);
     if (parts.at(-1)?.division !== division) parts.push({ division, books: [] });
     const books = parts.at(-1)!.books;
-    if (books.at(-1)?.book !== moment.book) books.push({ book: moment.book, moments: [] });
-    books.at(-1)!.moments.push(moment);
+    if (books.at(-1)?.book !== named.book) books.push({ book: named.book, chapters: [] });
+    books.at(-1)!.chapters.push(named);
   }
   return (
-    <div data-all-moments className="mt-1.5 space-y-1.5">
+    <div data-all-chapters className="mt-1.5 space-y-1.5">
       {parts.map(({ division, books }) => (
         <div key={division}>
           <p className="text-[9.5px] uppercase tracking-[0.16em] text-white/45">{division}</p>
-          {books.map(({ book, moments: inBook }) => (
+          {books.map(({ book, chapters: inBook }) => (
             <p key={book} className="text-[12px] leading-relaxed">
               <span className="mr-1.5 font-serif text-[13.5px] text-white">{book}</span>
-              {inBook.map((moment) => {
-                const isHere = moment.slug === here.slug && moment.chapter === here.chapter;
+              {inBook.map((named) => {
+                const isHere = named.slug === here.slug && named.chapter === here.chapter;
                 return (
                   <Link
-                    key={moment.chapter}
-                    href={momentUrl(moment)}
+                    key={named.chapter}
+                    href={chapterUrl(named)}
                     prefetch={false}
-                    aria-label={momentReference(moment)}
+                    aria-label={chapterReference(named)}
                     aria-current={isHere ? "true" : undefined}
-                    onClick={onMoment}
+                    onClick={onChapter}
                     className={`mr-1.5 inline-block underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-white ${isHere ? "font-semibold text-[#e8c37a] decoration-[#e8c37a]/50" : "text-white/80 decoration-white/25 hover:text-white"}`}
                   >
-                    {moment.chapter}
+                    {named.chapter}
                   </Link>
                 );
               })}

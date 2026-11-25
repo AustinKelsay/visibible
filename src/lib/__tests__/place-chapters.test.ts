@@ -1,40 +1,40 @@
 import { describe, expect, it } from "vitest";
-import { contextPlaces, divisionOf, momentsAround, momentUrl, nearbyPlaces, placeMoments } from "@/lib/place-moments";
+import { contextPlaces, divisionOf, chaptersAround, chapterUrl, nearbyPlaces, placeChapters } from "@/lib/place-chapters";
 
 const BETHEL = "a64f355";
 const JERUSALEM = "a15257a";
 
-describe("a place's moments", () => {
+describe("a place's chapters", () => {
   it("lists each chapter that names the place once, in Bible order, with its first verse and count", () => {
-    const moments = placeMoments(BETHEL);
-    expect(moments).toHaveLength(35);
-    expect(moments.reduce((sum, moment) => sum + moment.verses, 0)).toBe(69);
-    const refs = moments.map((moment) => `${moment.book} ${moment.chapter}:${moment.verse}`);
+    const chapters = placeChapters(BETHEL);
+    expect(chapters).toHaveLength(35);
+    expect(chapters.reduce((sum, named) => sum + named.verses, 0)).toBe(69);
+    const refs = chapters.map((named) => `${named.book} ${named.chapter}:${named.verse}`);
     expect(refs.slice(0, 5)).toEqual(["Genesis 12:8", "Genesis 13:3", "Genesis 28:19", "Genesis 31:13", "Genesis 35:1"]);
-    expect(moments[4].verses).toBe(8);
+    expect(chapters[4].verses).toBe(8);
     expect(refs.at(-1)).toBe("Amos 7:10");
   });
 
-  it("finds the moments either side of the chapter being read", () => {
-    const around = momentsAround(BETHEL, "genesis", 28);
+  it("finds the chapters either side of the chapter being read", () => {
+    const around = chaptersAround(BETHEL, "genesis", 28);
     expect(around.current).toMatchObject({ chapter: 28, verse: 19 });
     expect(around.before).toMatchObject({ book: "Genesis", chapter: 13, verse: 3 });
     expect(around.after).toMatchObject({ book: "Genesis", chapter: 31, verse: 13 });
-    const first = momentsAround(BETHEL, "genesis", 12);
+    const first = chaptersAround(BETHEL, "genesis", 12);
     expect(first.before).toBeNull();
     // A chapter that does not name the place still has neighbours.
-    const between = momentsAround(BETHEL, "exodus", 3);
+    const between = chaptersAround(BETHEL, "exodus", 3);
     expect(between.current).toBeNull();
     expect(between.before).toMatchObject({ chapter: 35 });
     expect(between.after).toMatchObject({ book: "Joshua" });
   });
 
-  it("links a moment to its verse", () => {
-    expect(momentUrl(placeMoments(BETHEL)[2])).toBe("/genesis/28/19");
+  it("links a named to its verse", () => {
+    expect(chapterUrl(placeChapters(BETHEL)[2])).toBe("/genesis/28/19");
   });
 
   it("has none for an unknown place", () => {
-    expect(placeMoments("nowhere")).toEqual([]);
+    expect(placeChapters("nowhere")).toEqual([]);
   });
 
   it("groups books into the parts of the Bible", () => {
