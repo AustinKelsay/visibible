@@ -137,6 +137,9 @@ beforeEach(async () => {
         if (job?.status !== "active") return { updated: false };
         publish({ status: "paused", pausedReason: args.reason });
         return { updated: true };
+      case "create":
+        publish({ _id: "bulk-2", status: "active" });
+        return { ...job, bulkId: "bulk-2", created: true };
       case "cancel":
         publish({ status: "cancelled" });
         return { updated: true };
@@ -404,4 +407,96 @@ it("a dismissed job's late reconciliation failure cannot charge its successor's 
   for (let i = 0; i < 3 && retries.size > 0; i++) await nextRetry();
 
   expect(writes("updateVerseStatus").filter((args) => args.bulkGenerationId === "bulk-2")).toHaveLength(4);
+});
+
+function withdraw() {
+  job = undefined;
+  subscribers.forEach((listener) => listener());
+}
+
+async function startSuccessor() {
+  await act(async () => {
+    await bulk.startBulkGeneration({
+      scope: { type: "chapters", count: 1 },
+      scopeLabel: "Genesis 1",
+      queue: rows,
+      estimatedTotalCredits: 2,
+      translation: "web",
+    });
+  });
+}
+
+it.each(["reader start", "active subscription"])("a dismissed reconciliation cannot spend the next job's retry budget on %s", async (entry) => {
+  const oldSettlement = deferred();
+  rows[0].status = "generating";
+  beforeWrite = async (name, args) => {
+    if (name === "reconcileInterrupted") {
+      await oldSettlement.promise;
+      throw new Error("old reconciliation failed");
+    }
+    if (name === "updateVerseStatus" && args.bulkGenerationId === "bulk-2") {
+      throw new Error("new claim failed");
+    }
+  };
+
+  await act(async () => publish());
+  expect(writes("reconcileInterrupted")).toHaveLength(1);
+  await act(async () => publish({ status: "cancelled" }));
+  expect(bulk.state.status).toBe("cancelled");
+  await act(async () => {
+    bulk.dismissBulkGeneration();
+    withdraw(); // With the finished job's subscription gone, getActive has no job.
+  });
+  expect(bulk.state.status).toBe("idle");
+
+  await act(async () => oldSettlement.resolve());
+  rows = [{ ...rows[0], status: "queued" }];
+  if (entry === "reader start") {
+    await startSuccessor();
+  } else {
+    await act(async () => publish({ _id: "bulk-2", status: "active" }));
+  }
+  const claims = () => writes("updateVerseStatus").filter((args) => args.bulkGenerationId === "bulk-2").length;
+  const claimsBeforeFiringTimers = claims();
+  for (let i = 0; i < 5 && retries.size > 0; i++) await nextRetry();
+
+  expect({ claimsBeforeFiringTimers, claimsTotal: claims() })
+    .toEqual({ claimsBeforeFiringTimers: 1, claimsTotal: 4 });
+});
+
+it("a cancelled settlement's unnecessary follow-up read cannot kill the successor's heartbeat", async () => {
+  const oldSettlement = deferred();
+  const oldFollowUpRead = deferred();
+  let oldReads = 0;
+  rows[0].status = "generating";
+  mocks.query.mockImplementation(async (_ref: unknown, args: { bulkGenerationId?: string }) => {
+    if (args.bulkGenerationId === "bulk-1" && ++oldReads > 1) {
+      await oldFollowUpRead.promise;
+      return [];
+    }
+    return rows.map((row) => ({ ...row }));
+  });
+  beforeWrite = (name) => {
+    if (name === "reconcileInterrupted") return oldSettlement.promise;
+  };
+
+  await act(async () => publish());
+  expect(writes("reconcileInterrupted")).toHaveLength(1);
+  await act(async () => publish({ status: "cancelled" }));
+  expect(bulk.state.status).toBe("cancelled");
+  await act(async () => {
+    bulk.dismissBulkGeneration();
+    withdraw();
+  });
+  await act(async () => oldSettlement.resolve());
+
+  rows = [{ ...rows[0], status: "queued" }];
+  await startSuccessor();
+  expect(fetchSpy).toHaveBeenCalledTimes(1);
+  expect(localStorage.getItem("bulk-gen-lock-bulk-2")).toBeTruthy();
+  const clearIntervalSpy = vi.spyOn(window, "clearInterval");
+  await act(async () => oldFollowUpRead.resolve());
+
+  // Only the active successor owns heartbeat timers at this point.
+  expect(clearIntervalSpy).not.toHaveBeenCalled();
 });

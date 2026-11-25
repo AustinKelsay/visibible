@@ -163,6 +163,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const pausingRef = useRef(false);
   // The job Convex last reported, and its status: only that job's failed saves are retried, and only while active.
   const bulkJobRef = useRef<{ id: Id<"bulkGenerations">; status: string } | null>(null);
+  // Bumped by Dismiss: a reply that arrives for work begun before it leaves the next job's recovery and lock alone.
+  const dismissalsRef = useRef(0);
   // The settlement of interrupted verses now in flight: one at a time holds the run lock. A sync that finds it in
   // flight marks it, and that settlement starts a fresh sync once it gives the lock back.
   const reconcilingRef = useRef<{ bulkId: Id<"bulkGenerations">; skippedSync: boolean } | null>(null);
@@ -540,11 +542,17 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
   // A Convex write failed (a claim, an outcome, progress, reconciliation): the job starts again shortly, a few times
   // in a row, then shows why it stopped. The server job is paused too if that write gets through (#552).
-  const scheduleSaveRetry = useCallback((bulkId: Id<"bulkGenerations">) => {
+  const scheduleSaveRetry = useCallback((bulkId: Id<"bulkGenerations">, dismissals: number) => {
     // A job the reader stopped or paused stays as they left it.
     // A reply from a dismissed job leaves its successor's recovery alone.
     const job = bulkJobRef.current;
-    if (!sid || isCancelledRef.current || pausingRef.current || (job !== null && (job.id !== bulkId || job.status !== "active"))) return;
+    if (
+      !sid ||
+      dismissals !== dismissalsRef.current ||
+      isCancelledRef.current ||
+      pausingRef.current ||
+      (job !== null && (job.id !== bulkId || job.status !== "active"))
+    ) return;
     saveFailuresRef.current++;
     if (saveFailuresRef.current <= SAVE_RETRY_LIMIT) {
       // A claim whose reply was lost may still have landed: the next run settles such verses from their request
@@ -580,6 +588,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (isRunningRef.current) return;
       isRunningRef.current = true;
       const generation = ++runGenerationRef.current;
+      const dismissals = dismissalsRef.current;
       // A Convex write (a claim, an outcome, progress) failed: the run ends, then starts again (#552).
       let saveFailed = false;
 
@@ -924,7 +933,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           if (resumed && !isPausedRef.current && !isCancelledRef.current) {
             setRunLoopTrigger((value) => value + 1);
           } else if (saveFailed && !lostLock && !isPausedRef.current && !isCancelledRef.current) {
-            scheduleSaveRetry(bulkId);
+            scheduleSaveRetry(bulkId, dismissals);
           }
         }
       }
@@ -949,6 +958,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
     const syncRunnerQueue = async () => {
       const bulkId = bulkForState._id;
+      const dismissals = dismissalsRef.current;
       // Nothing is written or started while a failed save waits out its delay, while the reader's Pause or Stop is on
       // its way, or while a settlement of this job is in flight; each of those starts a fresh sync when it ends. Checked
       // again after every read, since each can outlast the start of any of them (#552).
@@ -984,11 +994,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             await reconcileInterrupted({ sid, id: bulkId });
           } catch (error) {
             // Not settled: the job tries again like any failed save (#552).
-            scheduleSaveRetry(bulkId);
+            scheduleSaveRetry(bulkId, dismissals);
             throw error;
           }
           reconciledBulkIdRef.current = bulkId;
-          verses = await loadAllVerses(bulkId);
+          if (!cancelled) verses = await loadAllVerses(bulkId);
           // A newer snapshot met this settlement in flight: the fresh sync it is owed picks the job up.
           if (cancelled || settlement.skippedSync) return;
         }
@@ -1033,7 +1043,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           try {
             await updateProgress({ sid, id: bulkId, ...counters });
           } catch (error) {
-            if (!cancelled) scheduleSaveRetry(bulkId);
+            if (!cancelled) scheduleSaveRetry(bulkId, dismissals);
             throw error;
           }
         }
@@ -1067,7 +1077,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       } finally {
         if (settlement) {
           if (reconcilingRef.current === settlement) reconcilingRef.current = null;
-          if (!launched) releaseRunLock(bulkId);
+          // Dismiss gave this lock back already; the lease held now may be the next job's.
+          if (!launched && dismissals === dismissalsRef.current && runLockBulkIdRef.current === bulkId) releaseRunLock(bulkId);
           if (!launched && settlement.skippedSync) setRunLoopTrigger((value) => value + 1);
         }
       }
@@ -1271,6 +1282,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
   const dismissBulkGeneration = useCallback(() => {
     runGenerationRef.current++;
+    dismissalsRef.current++;
     if (saveRetryTimeoutRef.current !== null) window.clearTimeout(saveRetryTimeoutRef.current);
     saveRetryTimeoutRef.current = null;
     saveFailuresRef.current = 0;
