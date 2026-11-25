@@ -349,9 +349,9 @@ describe("the map", () => {
     expect(container.querySelector("[data-pin]")).toBeNull();
   });
 
-  it("credits its places data and is marked experimental", async () => {
+  it("credits its places data, with no Experimental tag", async () => {
     await view(setting("JHN", 1, 19));
-    expect(container.textContent).toContain("Experimental");
+    expect(container.textContent).not.toContain("Experimental");
     expect(container.querySelector('a[href="https://www.openbible.info/geo/"]')?.textContent).toBe("Places: OpenBible.info, CC BY 4.0");
   });
 });

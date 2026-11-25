@@ -303,7 +303,7 @@ export function freeBand({ height, controlsBottom, footerTop }: { height: number
   return { top: Math.max(0, Math.min(wanted, height - bottom - MIN_BAND)), bottom, clear: wanted };
 }
 
-/** The map's free band: below the tag and close button, above the note, in screen pixels. */
+/** The map's free band: below the controls, above the note, in screen pixels. */
 interface MapBox {
   width: number;
   height: number;
@@ -341,7 +341,7 @@ const CARD_WIDTH = 264;
 /**
  * Where a marker's card goes, in screen pixels, and how tall it may grow before it scrolls: beside the marker (right,
  * else left), or where the box is too narrow for that (a phone), above or below it, whichever has room, and no taller
- * than that side, so it never covers the marker it describes. It stays below the box's `top` (the zoom steps, tag and
+ * than that side, so it never covers the marker it describes. It stays below the box's `top` (the zoom steps and
  * close button) and above its `bottom` (the note, its credit and the way back to the picture), unless that would leave
  * a card too short to read: then it may reach over the footer, down to the box's edge or, on a computer, the dock.
  */
@@ -418,7 +418,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     if (!node) return;
     const measure = () => {
       // Below the lower of the two control groups: the steps and Then · Today on the left (wrapped to two rows where the
-      // map is too narrow for one), the tag and close button on the right.
+      // map is too narrow for one), the close button on the right.
       // A put-away group is invisible, not removed, so it is still measured here and comes back when there is room.
       const bottomOf = (node: HTMLElement | null) => (node && node.offsetHeight > 0 ? node.offsetTop + node.offsetHeight : 0);
       const right = bottomOf(controls.current);
@@ -499,7 +499,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     if (next !== step) onExplore?.({ action: "zoom", step: next });
   };
   // A narrow map (a phone, or a computer's window beside the words page) has the short names and no − and +, so the
-  // steps stay clear of the tag and close button on the same row.
+  // steps stay clear of the close button on the same row.
   const compact = size.width < COMPACT_WIDTH;
   const stepIndex = ZOOM_STEPS.indexOf(step);
   const closer = ZOOM_STEPS.slice(0, stepIndex).reverse().find((candidate) => usable[candidate]) ?? null;
@@ -835,15 +835,15 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </svg>
 
       {/*
-        The zoom steps, named, and Then · Today, under the Visibible name. On a computer they share a row with the tag and
-        close button, and Then · Today wraps under the steps where that row is too narrow; on a phone the tag and close
-        button sit level with the name instead, so the steps and Then · Today keep one row. A phone with Ask open leaves
-        the map a thin strip, so they go.
+        The zoom steps, named, and Then · Today, under the Visibible name. On a computer they share a row with the close
+        button, and Then · Today wraps under the steps where that row is too narrow; on a phone the close button sits
+        level with the name instead, so the steps and Then · Today keep one row. A phone with Ask open leaves the map a
+        thin strip, so they go.
       */}
       <div
         ref={leftControls}
         inert={size.squeezed || undefined}
-        className={`absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-16rem)] max-md:[main:has([data-ask-page])_&]:hidden ${size.squeezed ? "invisible" : ""}`}
+        className={`absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-6rem)] max-md:[main:has([data-ask-page])_&]:hidden ${size.squeezed ? "invisible" : ""}`}
       >
       <div role="group" aria-label="Zoom" className="flex items-center gap-2">
         <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
@@ -897,10 +897,6 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </div>
 
       <div ref={controls} className="absolute right-3 top-6 flex items-center gap-2 md:right-6 md:top-[5.5rem]">
-        {/* Under 360 px the account chip and its balance reach it, level with the name. */}
-        <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70 max-[360px]:hidden">
-          Experimental
-        </span>
         <button
           type="button"
           onClick={onClose}
