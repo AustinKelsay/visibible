@@ -288,33 +288,42 @@ const CARD_WIDTH = 264;
  * Where a marker's card goes, in screen pixels, and how tall it may grow before it scrolls: beside the marker (right,
  * else left), or where the box is too narrow for that (a phone), above or below it, whichever has room, and no taller
  * than that side, so it never covers the marker it describes. It stays below the box's `top` (the zoom steps, tag and
- * close button).
+ * close button) and above its `bottom` (the note, its credit and the way back to the picture), unless that would leave
+ * a card too short to read: then it may reach over the footer to the box's edge.
  */
-export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number }, height: number) {
+export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number; bottom?: number }, height: number) {
   const edge = 12;
   const ceiling = Math.max(edge, box.top ?? 0);
-  const tallest = box.height - ceiling - edge;
-  const fitsRight = at.left + gap + CARD_WIDTH <= box.width - edge;
-  const fitsLeft = at.left - gap - CARD_WIDTH >= edge;
-  if (fitsRight || fitsLeft) {
-    const shown = Math.min(height, tallest);
-    return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, box.height - shown - edge), maxHeight: tallest };
-  }
-  const left = clamp(at.left - CARD_WIDTH / 2, edge, box.width - CARD_WIDTH - edge);
-  const roomBelow = box.height - edge - (at.top + gap);
-  const roomAbove = at.top - gap - ceiling;
-  const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
-  // The room on that side, so it scrolls rather than cover the marker; only a map too short for two lines (under the
-  // controls, a phone's strip beside Ask) lets it reach over.
-  const maxHeight = Math.max(Math.min(below ? roomBelow : roomAbove, tallest), Math.min(48, tallest));
-  const shown = Math.min(height, maxHeight);
-  return { left, top: clamp(below ? at.top + gap : at.top - gap - shown, ceiling, box.height - shown - edge), maxHeight };
+  const place = (floor: number) => {
+    const tallest = floor - ceiling;
+    const fitsRight = at.left + gap + CARD_WIDTH <= box.width - edge;
+    const fitsLeft = at.left - gap - CARD_WIDTH >= edge;
+    if (fitsRight || fitsLeft) {
+      const shown = Math.min(height, tallest);
+      return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, floor - shown), maxHeight: tallest };
+    }
+    const left = clamp(at.left - CARD_WIDTH / 2, edge, box.width - CARD_WIDTH - edge);
+    const roomBelow = floor - (at.top + gap);
+    const roomAbove = at.top - gap - ceiling;
+    const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
+    // The room on that side, so it scrolls rather than cover the marker; only a map too short for two lines (under the
+    // controls, a phone's strip beside Ask) lets it reach over.
+    const maxHeight = Math.max(Math.min(below ? roomBelow : roomAbove, tallest), Math.min(48, tallest));
+    const shown = Math.min(height, maxHeight);
+    return { left, top: clamp(below ? at.top + gap : at.top - gap - shown, ceiling, floor - shown), maxHeight };
+  };
+  const clear = place(box.height - Math.max(edge, box.bottom ?? 0));
+  // About six lines: the place, its site and a chapter or two.
+  return clear.maxHeight >= Math.min(height, READABLE_CARD) ? clear : place(box.height - edge);
 }
+
+/** The least height a card keeps above the footer before it may reach over it. */
+const READABLE_CARD = 140;
 
 /** What a reader did on the map, for analytics. */
 export type MapExploration =
   | { action: "zoom"; step: ZoomStep }
-  | { action: "chapter"; direction: "before" | "after" | "list" }
+  | { action: "chapter"; direction: "before" | "after" | "current" | "list" }
   | { action: "all_chapters" };
 
 /** The verse being read: its book's slug, chapter and verse. */
@@ -369,11 +378,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   // The marker under the pointer or keyboard focus, which previews its card, and the one opened by a click, tap or
   // Enter, whose card stays and can be used.
   const [preview, setPreview] = useState<string | null>(null);
-  const [opened, setOpenedState] = useState<string | null>(() => remembered.opened);
-  const setOpened = (key: string | null) => {
-    remember({ opened: key });
-    setOpenedState(key);
-  };
+  const [opened, setOpened] = useState<string | null>(() => remembered.opened);
+  // Kept for the next page once this render commits, so a render React discards changes nothing.
+  useEffect(() => {
+    remember({ opened });
+  }, [opened]);
   const focused = useRef<string | null>(null);
   // The marker with keyboard focus, drawn lit: with a card open, focus moving to another marker does not swap the card.
   const [keyFocus, setKeyFocus] = useState<string | null>(null);
@@ -395,10 +404,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   // A step this setting cannot show (Here for a setting of only regions) falls back to the land.
   const step = usable[chosenStep] ? chosenStep : "land";
   const zoomTo = (next: ZoomStep) => {
-    if (!usable[next] || next === step) return;
+    if (!usable[next] || next === chosenStep) return;
+    // Choosing the land while it stands in for an unusable Here keeps the land for later pages, without moving the map.
     remember({ step: next });
     setChosenStep(next);
-    onExplore?.({ action: "zoom", step: next });
+    if (next !== step) onExplore?.({ action: "zoom", step: next });
   };
   // A narrow map (a phone, or a computer's window beside the words page) has the short names and no − and +, so the
   // steps stay clear of the tag and close button on the same row.
@@ -785,7 +795,7 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   entries: MarkerEntry[];
   at: { left: number; top: number };
   gap: number;
-  box: { width: number; height: number; top?: number };
+  box: { width: number; height: number; top?: number; bottom?: number };
   opened: boolean;
   here: MapHere;
   reference: string;
@@ -922,7 +932,7 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
   reference: string;
   all: boolean;
   onAll: () => void;
-  onChapter: (direction: "before" | "after" | "list") => void;
+  onChapter: (direction: "before" | "after" | "current" | "list") => void;
 }) {
   const { chapters, current, before, after } = chaptersAround(place.id, here.slug, here.chapter);
   const verses = chapters.reduce((sum, named) => sum + named.verses, 0);
@@ -939,6 +949,17 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
             {reference} <span className="font-sans text-[11px] not-italic text-white/55">· this verse{current && current.verses > 1 ? ` · ${current.verses} in the chapter` : ""}</span>
           </span>
         </li>
+        {current && current.verse !== here.verse ? (
+          // A setting carried from an earlier verse: the way to the verse in this chapter that names the place.
+          <li className="flex items-baseline gap-2 pb-0.5 pl-5 text-[11px] text-white/55">
+            <span>
+              named in{" "}
+              <Link href={chapterUrl(current)} aria-label={`Named in ${chapterReference(current)}`} onClick={() => onChapter("current")} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-white">
+                {chapterReference(current)}
+              </Link>
+            </span>
+          </li>
+        ) : null}
         {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
       </ol>
       {chapters.length === 0 || (chapters.length === 1 && current) ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}

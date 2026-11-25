@@ -101,16 +101,19 @@ describe("the map link", () => {
   });
 
   it("is not counted as shown until the link comes into view", async () => {
-    let report: ((entries: { isIntersecting: boolean }[]) => void) | undefined;
+    let report: ((entries: { isIntersecting: boolean; intersectionRatio: number }[]) => void) | undefined;
     vi.stubGlobal("IntersectionObserver", class {
-      constructor(callback: (entries: { isIntersecting: boolean }[]) => void) { report = callback; }
+      constructor(callback: (entries: { isIntersecting: boolean; intersectionRatio: number }[]) => void) { report = callback; }
       observe() {}
       disconnect() {}
     });
     try {
       await renderReader(setting("EXO", 14, 2));
       expect(trackMapLinkShown).not.toHaveBeenCalled();
-      await act(async () => report!([{ isIntersecting: true }]));
+      // Touching the scroll area's edge is intersecting with no area: not yet in view.
+      await act(async () => report!([{ isIntersecting: true, intersectionRatio: 0 }]));
+      expect(trackMapLinkShown).not.toHaveBeenCalled();
+      await act(async () => report!([{ isIntersecting: true, intersectionRatio: 1 }]));
       expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
     } finally {
       vi.unstubAllGlobals();
@@ -178,6 +181,19 @@ describe("the map link", () => {
     await act(async () => button("Back to the picture")!.click());
     await act(async () => button("See where this happened")!.dispatchEvent(new MouseEvent("click", { bubbles: true, detail: 1 })));
     expect(document.activeElement).not.toBe(map());
+  });
+
+  it("does not take focus from a control the reader moved to before the map appeared", async () => {
+    // Opened from the keyboard while the whole-picture view keeps the map from showing, as a slow load would.
+    await renderReader(setting("EXO", 14, 2), true);
+    await act(async () => button("See where this happened")!.dispatchEvent(new MouseEvent("click", { bubbles: true, detail: 0 })));
+    const field = document.createElement("input");
+    document.body.appendChild(field);
+    field.focus();
+    await renderReader(setting("EXO", 14, 2), false);
+    expect(map()).not.toBeNull();
+    expect(document.activeElement).toBe(field);
+    field.remove();
   });
 
   it("leaves Escape to a field the reader is typing in", async () => {
@@ -418,6 +434,20 @@ describe("the map's zoom", () => {
     }
   });
 
+  it("keeps the land for later pages when it is chosen while standing in for Here", async () => {
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => steps()[0].click());
+    // A setting of only regions shows the land for Here; choosing the land there is the reader's choice.
+    await renderReader(setting("EXO", 14, 20), false, { book: "Exodus", slug: "exodus", chapter: 14, verse: 20 });
+    expect(pressed()).toContain("The land");
+    vi.mocked(trackMapExplored).mockClear();
+    await act(async () => steps()[1].click());
+    expect(trackMapExplored).not.toHaveBeenCalled();
+    await renderReader(setting("GEN", 28, 19), false, bethel);
+    expect(pressed()).toContain("The land");
+  });
+
   it("cannot choose a step that would show nothing new", async () => {
     await renderReader(setting("EXO", 14, 20), false, { book: "Exodus", slug: "exodus", chapter: 14, verse: 20 });
     await act(async () => button("See where this happened")!.click());
@@ -616,6 +646,17 @@ describe("the place card", () => {
 
   it("opens the activated marker's card even while the pointer still previews another", async () => {
     await openMap();
+    // Focus on one marker, the pointer previewing another, nothing open: Enter opens the focused one.
+    const alBira = container.querySelectorAll<SVGGElement>('[data-rings="Bethel · Luz"]')[1];
+    await act(async () => alBira.focus());
+    await act(async () => pin().dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    expect(cardInfo()).toContain("Beitin");
+    expect(card()?.hasAttribute("data-opened")).toBe(false);
+    await act(async () => alBira.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(cardInfo()).toContain("Al Bira");
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    await act(async () => button("Close the card")!.click());
+    // And with a card already open from the pointer.
     await act(async () => pin().dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
     const other = container.querySelectorAll<SVGGElement>('[data-rings="Bethel · Luz"]')[1];
@@ -623,6 +664,14 @@ describe("the place card", () => {
     await act(async () => other.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
     expect(cardInfo()).toContain("Al Bira");
     expect(card()?.hasAttribute("data-opened")).toBe(true);
+  });
+
+  it("links a carried setting to the verse in this chapter that names the place", async () => {
+    await openMap({ ...bethel, chapter: 35, verse: 2 });
+    await act(async () => container.querySelector<SVGGElement>("[data-pin], [data-rings]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(link("Named in Genesis 35:1")?.getAttribute("href")).toBe("/genesis/35/1");
+    await act(async () => link("Named in Genesis 35:1")!.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
+    expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "chapter", direction: "current" }));
   });
 
   it("counts this chapter's verses naming the place beside this verse", async () => {
@@ -686,6 +735,13 @@ describe("the map's layout", () => {
     const tall = cardPosition(middle, 20, { width: 390, height: 390, top: 60 }, 286);
     const shown = Math.min(286, tall.maxHeight);
     expect(middle.top >= tall.top && middle.top <= tall.top + shown).toBe(false);
+    // Nor over the footer (the note, its credit and the way back to the picture) while that leaves a readable card...
+    const footed = cardPosition({ left: 195, top: 120 }, 20, { width: 390, height: 500, top: 60, bottom: 72 }, 400);
+    expect(footed.top + Math.min(400, footed.maxHeight)).toBeLessThanOrEqual(428);
+    expect(footed.maxHeight).toBeGreaterThanOrEqual(140);
+    // ...but a phone's short map would leave only a sliver there, so the card may reach over the footer.
+    const sliver = cardPosition({ left: 195, top: 200 }, 32, { width: 390, height: 390, top: 92, bottom: 72 }, 400);
+    expect(sliver.maxHeight).toBeGreaterThan(100);
     // In the strip a phone leaves the map beside Ask, the card scrolls in what room there is, clear of the whole ring.
     const strip = { left: 195, top: 141 };
     const gap = 32;

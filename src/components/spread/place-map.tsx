@@ -39,18 +39,25 @@ function subscribe(listener: () => void) {
 
 // Opened from the keyboard, so the map takes focus as it appears: it comes before the words page in the page order.
 let focusPending = false;
+// Where focus was when the map was opened: the map takes it only from there (or from nowhere), not from a control the
+// reader moved to while the map loaded.
+let focusFrom: Element | null = null;
 const openMap = (fromKeyboard = false) => {
   focusPending = fromKeyboard;
+  focusFrom = fromKeyboard && typeof document !== "undefined" ? document.activeElement : null;
   setMapOn(true);
 };
 const closeMap = () => {
   focusPending = false;
+  focusFrom = null;
   setMapOn(false);
 };
 /** Whether the map should take focus as it appears, asked once. */
 const takeMapFocus = () => {
-  const pending = focusPending;
+  const active = document.activeElement;
+  const pending = focusPending && (active === null || active === document.body || active === focusFrom);
   focusPending = false;
+  focusFrom = null;
   return pending;
 };
 
@@ -102,7 +109,8 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
     const node = link.current;
     if (seen || on || !node) return;
     const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) setSeen(true);
+      // Whole in view; a zero-area touch at the scroll area's edge is reported as intersecting too.
+      if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.99)) setSeen(true);
     }, { threshold: 1 });
     observer.observe(node);
     return () => observer.disconnect();
