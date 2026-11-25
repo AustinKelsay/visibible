@@ -44,6 +44,7 @@ describe("lean cast", () => {
     expect(refs.map((r) => r.kind === "sheet" ? r.entryId : "style")).toEqual(["style", "jesus", "golgotha", "simon", "soldiers"]);
     expect(refs.filter((r) => r.kind === "sheet")).toHaveLength(Math.min(4, LEAN_MAX_SHEETS));
     expect(refs[1].caption).toContain("Jesus's reference sheet");
+    expect(refs[1].caption).toContain("If the scene shows Jesus, keep Jesus's identity exactly");
   });
 
   it("expects an image to show the passage's places and the members the text names, never a subject without form", () => {
@@ -100,6 +101,52 @@ describe("lean prompt", () => {
     const result = buildLeanRendering(input("Jesus walked.", [jesus]));
     expect(result.ok && result.prompt).not.toContain("IMAGERY, NOT FORM");
     expect(result.ok && result.prompt).not.toContain("UNSEEN PRESENCE");
+  });
+
+  it("applies work-wide no-form renaming and imagery blocks when a human-only section names God or Yahweh", () => {
+    const acts = buildLeanRendering(input("The God of this people chose our fathers, and with an uplifted arm, he led them out of it.", [simon, golgotha]));
+    expect(acts.ok).toBe(true);
+    if (!acts.ok) return;
+    expect(acts.prompt).toContain('MOMENT (Fixture 1:1): "the presence of this people chose our fathers, and with an uplifted arm, he led them out of it."');
+    expect(acts.prompt).not.toMatch(/\bGod\b/);
+    expect(acts.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(acts.prompt).toContain("IMAGERY, NOT FORM (binding)");
+
+    const throne = buildLeanRendering(input("I saw Yahweh sitting on his throne.", [simon]));
+    expect(throne.ok).toBe(true);
+    if (!throne.ok) return;
+    expect(throne.prompt).toContain('MOMENT (Fixture 1:1): "I saw the presence sitting on his throne."');
+    expect(throne.prompt).not.toMatch(/\bYahweh\b/);
+    expect(throne.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(throne.prompt).toContain("IMAGERY, NOT FORM (binding)");
+  });
+
+  it("matches work-wide no-form names case-sensitively so lowercase idols stay untouched", () => {
+    const idol = buildLeanRendering(input("They offered a great sacrifice to their god Dagon.", [simon]));
+    expect(idol.ok).toBe(true);
+    if (!idol.ok) return;
+    expect(idol.prompt).toContain("their god Dagon.");
+    expect(idol.prompt).not.toContain("UNSEEN PRESENCE");
+    expect(idol.prompt).not.toContain("IMAGERY, NOT FORM");
+  });
+
+  it("renames work-wide no-form names inside another entry's canon and caption even without a section effects entry", () => {
+    const temple = member("temple", "Yahweh's house in Jerusalem", "location", "Yahweh's house in Jerusalem: a stone temple where Yahweh is worshipped.");
+    const result = buildLeanRendering(input("Smoke filled the house.", [temple], [sheet(temple)]));
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.prompt).not.toMatch(/\bYahweh\b/);
+    expect(result.prompt).toContain("the presence's house in Jerusalem: a stone temple");
+    expect(result.references[0].caption).toContain("the presence's house in Jerusalem's reference sheet");
+    expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(result.prompt).not.toContain("IMAGERY, NOT FORM");
+  });
+
+  it("allows the setting block to yield when a moment's words tell of another place", () => {
+    const result = buildLeanRendering(input("He spoke of distant lands.", [simon, golgotha]));
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.prompt).toContain("unless the moment, or what its words tell of, is somewhere else");
   });
 
   it("refuses a prompt over its cap before any paid call", () => {

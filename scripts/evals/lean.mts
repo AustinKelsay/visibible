@@ -51,10 +51,14 @@ import {
   drawFraction, evaluateSuiteGate, expectedHoldoutKeys, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, settleScores, suiteCases, summarizeBy,
   type JudgedItem, type ScoreFile, type SuiteCase,
 } from "@/lib/image-evals/suite";
-import { createLedger, modelPricing, requestCeilingUsd, scrubForLog, type ModelPricing } from "@/lib/image-evals/suite-run";
+import { createLedger, GEMINI_BATCH_DISCOUNT, geminiUsageUsd, modelPricing, requestCeilingUsd, scrubForLog, type LedgerState, type ModelPricing } from "@/lib/image-evals/suite-run";
 import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
-import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
+import { createGeminiEvalImageProvider, createOpenRouterEvalImageProvider, geminiGenerateUrl } from "@/lib/image-evals/adapters";
+import {
+  buildGeminiBatchLine, deleteGeminiFile, downloadGeminiFile, GEMINI_SAFETY_REASONS, geminiBatchJobBoundUsd,
+  isGeminiBatchSucceeded, parseGeminiBatchOutputLine, pollGeminiBatch, submitGeminiBatch, uploadGeminiFile,
+} from "@/lib/image-evals/gemini-batch";
 import type { ReferenceRecord } from "@/lib/engine/lean-assemble";
 import { analysisAccess, listAnalysisRecords, type AnalysisRecord } from "@/lib/engine/analysis-records";
 import { applicableRules } from "@/lib/engine/prompt";
@@ -73,7 +77,7 @@ const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   execute: { type: "boolean", default: false }, offline: { type: "boolean", default: false }, resume: { type: "boolean", default: false },
   baseline: { type: "string" }, "baseline-images": { type: "string" }, batches: { type: "string", default: "1" },
   scores: { type: "string" }, operator: { type: "string" }, out: { type: "string" }, concurrency: { type: "string", default: String(DEFAULT_CONCURRENCY) },
-  cases: { type: "string" }, styles: { type: "string" },
+  cases: { type: "string" }, styles: { type: "string" }, provider: { type: "string", default: "openrouter" },
 } });
 const command = positionals[0];
 const sha256 = (value: string | Uint8Array) => createHash("sha256").update(value).digest("hex");
@@ -92,7 +96,7 @@ const RESERVE = { text: 0, image: 0.08, check: 0 };
 const IMAGE_TOKENS_1K: Record<string, number> = { "google/gemini-nano-banana-2.1": 1120 };
 const PRODUCTION_HEADROOM_USD = 5;
 const SOURCES = ["src/lib/engine/lean.ts", "src/lib/engine/lean-assemble.ts", "src/lib/engine/prompt.ts", "src/lib/engine/depiction.ts", "src/lib/engine/work-inputs.ts", "src/lib/image-evals/adapters.ts",
-  "src/lib/image-evals/suite-run.ts", "scripts/evals/lean.mts", "evals/images/suite.json", "evals/images/cases.json", "evals/images/faults.json"];
+  "src/lib/image-evals/gemini-batch.ts", "src/lib/image-evals/suite-run.ts", "scripts/evals/lean.mts", "evals/images/suite.json", "evals/images/cases.json", "evals/images/faults.json"];
 
 type Snapshot = {
   /** Set by `snapshot`; a full-engine text run's snapshot has neither and is checked through its plan. */
@@ -284,8 +288,11 @@ async function plan() {
     .map((c) => ({ ...c, styles: c.styles.filter((s) => !styles.size || styles.has(s)) })).filter((c) => c.styles.length);
   const cases = [...all.filter((c) => c.split === "holdout"), ...all.filter((c) => c.split === "dev")];
   const shown = cases.reduce((n, c) => n + c.styles.length, 0);
-  const estimatedUsd = Math.round(shown * 0.037 * 1e4) / 1e4;
-  const capUsd = values.cap ? Number(values.cap) : Math.ceil((estimatedUsd * 1.25 + DEFAULT_CONCURRENCY * CEILING_HEADROOM_USD) * 100) / 100;
+  const isBatch = values.provider === "gemini-batch";
+  const estimatedUsd = Math.round(shown * (isBatch ? 0.0215 : 0.037) * 1e4) / 1e4;
+  const capUsd = values.cap ? Number(values.cap)
+    : isBatch ? Math.ceil((estimatedUsd * 1.65 + 0.5) * 100) / 100
+    : Math.ceil((estimatedUsd * 1.25 + DEFAULT_CONCURRENCY * CEILING_HEADROOM_USD) * 100) / 100;
   assert.ok(Number.isFinite(capUsd) && capUsd > 0);
   const out: Plan = { kind: "lean", suite: config.version, faults: faults.version, from: values.from, promptVersion: LEAN_PROMPT_VERSION, maxSheets: LEAN_MAX_SHEETS,
     image: { model: values.model, aspectRatio: "16:9", resolution: "1K" }, cases,
@@ -304,14 +311,25 @@ async function run() {
   const outDir = values.offline ? mkdtempSync(path.join(os.tmpdir(), `lean-${values.run}-`)) : runDir;
   // A resumed run continues a stopped one: it renders only the images the run has not made, under what is left of the
   // cap after the earlier parts' measured and uncertain spend, and writes numbered ledger files beside the first.
+  const useGemini = values.provider === "gemini";
+  const useGeminiBatch = values.provider === "gemini-batch";
+  assert.ok(values.provider === "openrouter" || useGemini || useGeminiBatch, `--provider must be openrouter, gemini or gemini-batch (got ${values.provider})`);
+  const parts = ["", "-2", "-3", "-4"];
   let part = "";
   let capUsd = p.evaluation.capUsd;
+  let attachBatchFile: string | null = null;
   if (values.resume) {
     assert.ok(values.execute, "--resume continues a paid run");
-    const parts = ["", "-2", "-3", "-4"];
     const done = parts.filter((x) => existsSync(path.join(runDir, `run-finished${x}.json`)));
-    assert.ok(done.length && done.length < parts.length, "Nothing to resume");
-    part = parts[done.length];
+    const nextPart = parts[done.length];
+    if (nextPart !== undefined && existsSync(path.join(runDir, `batch-job${nextPart}.json`))) {
+      assert.ok(useGeminiBatch, `Unfinished batch job batch-job${nextPart}.json exists; resume with --provider gemini-batch`);
+      part = nextPart;
+      attachBatchFile = path.join(runDir, `batch-job${nextPart}.json`);
+    } else {
+      assert.ok(done.length && done.length < parts.length, "Nothing to resume");
+      part = nextPart;
+    }
     for (const x of done) { const f = readJson(path.join(runDir, `run-finished${x}.json`)); capUsd = Math.round((capUsd - f.measuredUsd - f.uncertainUsd) * 1e6) / 1e6; }
   }
   const imageDir = path.join(root, "evals/images/runs", values.run, values.offline ? "offline" : "images");
@@ -320,26 +338,264 @@ async function run() {
   let pricing: ModelPricing | undefined;
   if (values.offline) fetchImpl = createOfflineOpenRouter().fetch;
   else {
-    for (const name of [`run-started${part}.json`, `ledger${part}.json`, ...(part ? [] : ["results.ndjson"])]) assert.ok(!existsSync(path.join(runDir, name)), `One-shot artifact exists: ${name}`);
-    const grant = readJson(path.join(runDir, "funding.json")) as { authorization: string; operationCapUsd: number };
-    assert.ok(grant.authorization?.trim(), "funding.json needs an authorization"); assert.equal(grant.operationCapUsd, p.evaluation.capUsd, "funding.json must fund the plan's cap");
-    assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit the plan, funding and code before calls");
+    if (!attachBatchFile) {
+      for (const name of [`run-started${part}.json`, `ledger${part}.json`, ...(part ? [] : ["results.ndjson"])]) assert.ok(!existsSync(path.join(runDir, name)), `One-shot artifact exists: ${name}`);
+      const grant = readJson(path.join(runDir, "funding.json")) as { authorization: string; operationCapUsd: number };
+      assert.ok(grant.authorization?.trim(), "funding.json needs an authorization"); assert.equal(grant.operationCapUsd, p.evaluation.capUsd, "funding.json must fund the plan's cap");
+      assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit the plan, funding and code before calls");
+    }
     const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
-    const env = parseEnv(readFileSync(process.env.VISIBIBLE_EVAL_ENV_FILE ?? "", "utf8"));
-    apiKey = env.OPENROUTER_API_KEY!; assert.ok(apiKey, "OPENROUTER_API_KEY is missing from the eval env file");
+    const env = process.env.VISIBIBLE_EVAL_ENV_FILE ? parseEnv(readFileSync(process.env.VISIBIBLE_EVAL_ENV_FILE, "utf8")) : {};
     const catalog = (await (await fetch("https://openrouter.ai/api/v1/models")).json()).data as Array<{ id: string } & Parameters<typeof modelPricing>[0]>;
     pricing = modelPricing(catalog.find((m) => m.id === p.image.model));
     assert.ok(pricing && pricing.imageOutput !== null && (imageCapabilities(p.image.model)?.outputTokens["1K"] ?? IMAGE_TOKENS_1K[p.image.model]),
       `${p.image.model} has no catalog price or known image size, so its calls cannot be bounded`);
-    const credits = (await (await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
-    const balanceUsd = credits.total_credits - credits.total_usage;
-    assert.ok(balanceUsd >= capUsd + PRODUCTION_HEADROOM_USD, `The account holds $${balanceUsd.toFixed(2)}; this run needs $${capUsd} plus $${PRODUCTION_HEADROOM_USD} for readers`);
-    const key = (await (await fetch("https://openrouter.ai/api/v1/key", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
-    assert.ok(key.limit_remaining === null || key.limit_remaining >= capUsd + 1, `The key has $${key.limit_remaining} of its limit left; this run needs $${capUsd} plus $1`);
-    saveOnce(path.join(runDir, `run-started${part}.json`), { at: new Date().toISOString(), commit, grant, capUsd, balanceUsd, keyLimitRemaining: key.limit_remaining,
-      sources: Object.fromEntries(SOURCES.map((f) => [f, sha256(readFileSync(path.join(root, f)))])) });
+    if (useGemini || useGeminiBatch) {
+      const defaultKeyFile = path.join(os.homedir(), ".config/fragment/secrets/gemini-eval-key");
+      apiKey = (env.GEMINI_API_KEY ?? process.env.GEMINI_API_KEY ?? (existsSync(defaultKeyFile) ? readFileSync(defaultKeyFile, "utf8") : "")).trim();
+      assert.ok(apiKey, "GEMINI_API_KEY is missing (set in VISIBIBLE_EVAL_ENV_FILE, env, or ~/.config/fragment/secrets/gemini-eval-key)");
+      if (!attachBatchFile) {
+        const grant = readJson(path.join(runDir, "funding.json")) as { authorization: string; operationCapUsd: number };
+        saveOnce(path.join(runDir, `run-started${part}.json`), { at: new Date().toISOString(), provider: values.provider, commit, grant, capUsd,
+          sources: Object.fromEntries(SOURCES.map((f) => [f, sha256(readFileSync(path.join(root, f)))])) });
+      }
+    } else {
+      const grant = readJson(path.join(runDir, "funding.json")) as { authorization: string; operationCapUsd: number };
+      apiKey = env.OPENROUTER_API_KEY!; assert.ok(apiKey, "OPENROUTER_API_KEY is missing from the eval env file");
+      const credits = (await (await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
+      const balanceUsd = credits.total_credits - credits.total_usage;
+      assert.ok(balanceUsd >= capUsd + PRODUCTION_HEADROOM_USD, `The account holds $${balanceUsd.toFixed(2)}; this run needs $${capUsd} plus $${PRODUCTION_HEADROOM_USD} for readers`);
+      const key = (await (await fetch("https://openrouter.ai/api/v1/key", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
+      assert.ok(key.limit_remaining === null || key.limit_remaining >= capUsd + 1, `The key has $${key.limit_remaining} of its limit left; this run needs $${capUsd} plus $1`);
+      saveOnce(path.join(runDir, `run-started${part}.json`), { at: new Date().toISOString(), provider: "openrouter", commit, grant, capUsd, balanceUsd, keyLimitRemaining: key.limit_remaining,
+        sources: Object.fromEntries(SOURCES.map((f) => [f, sha256(readFileSync(path.join(root, f)))])) });
+    }
   }
   mkdirSync(imageDir, { recursive: true });
+  const record = (row: Record<string, unknown>) => appendFileSync(path.join(outDir, "results.ndjson"), `${JSON.stringify(row)}\n`);
+  const made = new Set(ndjson(path.join(outDir, "results.ndjson")).filter((r) => r.outcome === "image").map((r) => r.key));
+  const jobs = p.cases.flatMap((c) => c.styles.map((style) => ({ c, style }))).filter(({ c, style }) => !made.has(`${c.caseId}/${style}`));
+
+  if (useGeminiBatch) {
+    type BatchJobRecord = { batchName: string; inputFileName: string; refFileNames: string[]; keys: string[]; keyBounds: Record<string, number>; submittedAt: string; boundUsd: number };
+    type AssembledJob = {
+      key: string;
+      base: Record<string, unknown>;
+      sc: { momentId: string; sectionId: string };
+      context: Awaited<ReturnType<typeof caseInputs>>["context"];
+      rendering: Extract<Awaited<ReturnType<typeof assembleLean>>, { ok: true }>;
+    };
+    const attachedRecord = attachBatchFile ? (readJson(attachBatchFile) as BatchJobRecord) : null;
+    const attachedKeySet = attachedRecord ? new Set(attachedRecord.keys) : null;
+    const allJobs = p.cases.flatMap((c) => c.styles.map((style) => ({ c, style })));
+    // On batch attachment, re-assemble every submitted key (including any already saved before an interruption)
+    // so the ledger accounts for the entire batch's spend; `made` skips duplicate image/result writes.
+    const batchJobs = attachedKeySet
+      ? allJobs.filter(({ c, style }) => attachedKeySet.has(`${c.caseId}/${style}`))
+      : jobs;
+    const assembled: AssembledJob[] = [];
+    const uniqueRefs = new Map<string, Uint8Array>();
+    for (const { c, style } of batchJobs) {
+      const key = `${c.caseId}/${style}`;
+      const base = { tier: "image", case: c.unitId, caseId: c.caseId, work: c.work, split: c.split, key, style };
+      const { inputs, w, sc, context } = await caseInputs(snap, c);
+      const rendering = await assembleLean({
+        inputs,
+        getRecord: async (kind, recordId) => w.records[`${kind}:${recordId}`] ?? null,
+        listMoments: async () => Object.values(w.records).filter((r) => r.kind === "moment").map((r) => ({ id: r.recordId, firstUnit: String(r.payload.firstUnit), lastUnit: String(r.payload.lastUnit) })),
+        getReference: async (kind, recordId) => w.references[`${kind}:${recordId}`] ?? null,
+        loadReference: async (storageId) => {
+          const bytes = new Uint8Array(readFileSync(path.join(refDir, `${storageId}.jpg`)));
+          assert.equal(sha256(bytes), w.files[storageId].sha256, `Reference ${storageId} changed since the snapshot`);
+          uniqueRefs.set(storageId, bytes);
+          return bytes;
+        },
+        onReferenceUnavailable: (_kind, _id, error) => { throw error; },
+      }, { workId: c.work, unitId: c.unitId, styleId: style, aspectRatio: p.image.aspectRatio });
+      if (!rendering.ok) {
+        if (!attachBatchFile) record({ ...base, outcome: "refused", stage: "lean", reason: rendering.reason, message: rendering.message });
+        continue;
+      }
+      assert.equal(rendering.momentId, sc.momentId, `${key}: the snapshot names another moment`);
+      assembled.push({ key, base, sc, context, rendering });
+    }
+    const byKey = new Map(assembled.map((j) => [j.key, j]));
+    assert.ok(assembled.length <= p.evaluation.limits.image, `Batch has ${assembled.length} images, above limit ${p.evaluation.limits.image}`);
+
+    const outputTokens1K = imageCapabilities(p.image.model)?.outputTokens["1K"] ?? IMAGE_TOKENS_1K[p.image.model];
+    const keyBounds: Record<string, number> = attachedRecord?.keyBounds ? { ...attachedRecord.keyBounds } : {};
+    if (!attachedRecord?.keyBounds) {
+      for (const j of assembled) {
+        const bound = pricing
+          ? geminiBatchJobBoundUsd({ promptChars: j.rendering.prompt.length, referenceCount: j.rendering.sentReferences.length, outputTokens1K, pricing })
+          : Math.round((p.evaluation.reserves.image * GEMINI_BATCH_DISCOUNT) * 1e6) / 1e6;
+        assert.ok(bound !== null, `${p.image.model}: unable to bound batch job ${j.key}`);
+        keyBounds[j.key] = bound;
+      }
+    }
+    const totalBoundUsd = Math.round(Object.values(keyBounds).reduce((sum, b) => sum + b, 0) * 1e9) / 1e9;
+    if (!values.offline && !attachBatchFile) {
+      assert.ok(totalBoundUsd <= capUsd, `Batch pre-flight bound $${totalBoundUsd.toFixed(2)} exceeds cap $${capUsd.toFixed(2)}`);
+    }
+
+    const ledgerState: LedgerState = { capUsd, calls: [], measuredUsd: 0, uncertainUsd: totalBoundUsd, counts: { text: 0, image: 0, check: 0 }, blocked: null };
+    const saveLedger = () => writeFileSync(path.join(outDir, `ledger${part}.json`), `${JSON.stringify(ledgerState, null, 2)}\n`);
+    const logProvider = (entry: Record<string, unknown>) => appendFileSync(path.join(outDir, `provider${part}.ndjson`), `${JSON.stringify(entry)}\n`);
+    saveLedger();
+
+    const started = Date.now();
+    let jsonlOutput = "";
+    let batchName = "offline/batch-1";
+    let uploadedToCleanup: string[] = [];
+
+    if (values.offline) {
+      // Exercise JSONL construction and batch response parsing with a tiny valid 1x1 JPEG.
+      const tinyJpegB64 = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=";
+      const lines = assembled.map((j) => {
+        const reqLine = buildGeminiBatchLine({
+          key: j.key, prompt: j.rendering.prompt, model: p.image.model, aspectRatio: p.image.aspectRatio, resolution: p.image.resolution,
+          references: j.rendering.sentReferences.map((r) => ({ kind: "file" as const, mimeType: "image/jpeg", fileUri: `https://generativelanguage.googleapis.com/v1beta/files/offline-${r.storageId}` })),
+        });
+        assert.ok(reqLine.key === j.key);
+        return JSON.stringify({
+          key: j.key,
+          response: {
+            responseId: `offline-${j.key}`,
+            usageMetadata: { promptTokenCount: 3000, candidatesTokenCount: 1600, thoughtsTokenCount: 480, candidatesTokensDetails: [{ modality: "IMAGE", tokenCount: 1120 }] },
+            candidates: [{ finishReason: "STOP", content: { parts: [{ inlineData: { mimeType: "image/jpeg", data: tinyJpegB64 } }] } }],
+          },
+        });
+      });
+      jsonlOutput = lines.join("\n");
+    } else {
+      let jobRecord: BatchJobRecord;
+      if (attachedRecord) {
+        jobRecord = attachedRecord;
+        batchName = jobRecord.batchName;
+        uploadedToCleanup = [jobRecord.inputFileName, ...jobRecord.refFileNames];
+        console.log(JSON.stringify({ batchAttach: batchName, keys: jobRecord.keys.length, boundUsd: jobRecord.boundUsd }));
+      } else {
+        // Upload each unique reference JPEG once via the Files API so JSONL stays small (~1.5 MB instead of ~185 MB).
+        const refEntries = [...uniqueRefs.entries()];
+        const refUriById = new Map<string, { name: string; uri: string }>();
+        const refQueue = [...refEntries];
+        await Promise.all(Array.from({ length: Math.min(4, Math.max(1, refQueue.length)) }, async () => {
+          for (let item = refQueue.shift(); item; item = refQueue.shift()) {
+            const [storageId, bytes] = item;
+            const uploaded = await uploadGeminiFile({ apiKey, bytes, mimeType: "image/jpeg", displayName: `ref-${storageId}` });
+            refUriById.set(storageId, uploaded);
+          }
+        }));
+        const refFileNames = [...refUriById.values()].map((f) => f.name);
+        console.log(JSON.stringify({ uploadedReferences: refFileNames.length, boundUsd: Math.round(totalBoundUsd * 100) / 100 }));
+
+        const jsonlLines = assembled.map((j) => JSON.stringify(buildGeminiBatchLine({
+          key: j.key, prompt: j.rendering.prompt, model: p.image.model, aspectRatio: p.image.aspectRatio, resolution: p.image.resolution,
+          references: j.rendering.sentReferences.map((r) => ({ kind: "file" as const, mimeType: "image/jpeg", fileUri: refUriById.get(r.storageId)!.uri })),
+        })));
+        const jsonlBytes = new Uint8Array(Buffer.from(`${jsonlLines.join("\n")}\n`, "utf8"));
+        const inputFile = await uploadGeminiFile({ apiKey, bytes: jsonlBytes, mimeType: "application/jsonl", displayName: `lean-${values.run}${part}` });
+        const submitted = await submitGeminiBatch({ apiKey, model: p.image.model, inputFileName: inputFile.name, displayName: `lean-${values.run}${part}` });
+        batchName = submitted.name;
+        uploadedToCleanup = [inputFile.name, ...refFileNames];
+        jobRecord = { batchName, inputFileName: inputFile.name, refFileNames, keys: assembled.map((j) => j.key), keyBounds, submittedAt: new Date().toISOString(), boundUsd: Math.round(totalBoundUsd * 1e4) / 1e4 };
+        saveOnce(path.join(outDir, `batch-job${part}.json`), jobRecord);
+        console.log(JSON.stringify({ batchSubmitted: batchName, state: submitted.state, images: assembled.length, boundUsd: jobRecord.boundUsd }));
+      }
+
+      const finalStatus = await pollGeminiBatch({
+        apiKey, batchName, pollIntervalMs: 15_000,
+        onPoll: (status, attempt) => {
+          if (attempt === 1 || attempt % 4 === 0 || (status.state !== "BATCH_STATE_RUNNING" && status.state !== "JOB_STATE_RUNNING")) {
+            console.log(JSON.stringify({ batchPoll: batchName, attempt, state: status.state, elapsedSec: Math.round((Date.now() - started) / 1000) }));
+          }
+        },
+      });
+      if (!isGeminiBatchSucceeded(finalStatus.state) || !finalStatus.responsesFile) {
+        const reason = !isGeminiBatchSucceeded(finalStatus.state)
+          ? `Gemini batch ${batchName} ended in ${finalStatus.state}: ${JSON.stringify(finalStatus.error ?? finalStatus.raw).slice(0, 300)}`
+          : `Gemini batch ${batchName} succeeded without a responsesFile`;
+        ledgerState.blocked = reason;
+        for (const job of assembled) {
+          ledgerState.counts.image++;
+          ledgerState.calls.push({ phase: job.key, kind: "image", status: "uncertain", measuredUsd: null });
+          if (!made.has(job.key)) record({ ...job.base, outcome: "failed", stage: "image", message: reason.slice(0, 400), elapsedMs: Date.now() - started });
+        }
+        saveLedger();
+        if (uploadedToCleanup.length) await Promise.all(uploadedToCleanup.map((fileName) => deleteGeminiFile({ apiKey, fileName })));
+        const finished = { at: new Date().toISOString(), batchName, measuredUsd: ledgerState.measuredUsd, uncertainUsd: ledgerState.uncertainUsd, counts: ledgerState.counts, blocked: ledgerState.blocked,
+          outcomes: { failed: assembled.filter((j) => !made.has(j.key)).length }, imageMs: null, batchElapsedMs: Date.now() - started, productionMutations: 0 };
+        writeFileSync(path.join(outDir, `run-finished${part}.json`), `${JSON.stringify(finished, null, 2)}\n`, { flag: "wx" });
+        throw new Error(reason);
+      }
+      jsonlOutput = await downloadGeminiFile({ apiKey, fileName: finalStatus.responsesFile });
+    }
+
+    const parsedLines = jsonlOutput.split("\n").map((l) => l.trim()).filter(Boolean);
+    const seenKeys = new Set<string>();
+    const elapsedTotalMs = Date.now() - started;
+    for (const line of parsedLines) {
+      const item = parseGeminiBatchOutputLine(line, pricing);
+      const job = byKey.get(item.key);
+      if (!job) continue;
+      seenKeys.add(item.key);
+      const reserve = keyBounds[item.key] ?? 0;
+      const costUsd = values.offline ? Math.round((p.evaluation.reserves.image * GEMINI_BATCH_DISCOUNT) * 1e6) / 1e6 : item.costUsd;
+      ledgerState.counts.image++;
+      ledgerState.calls.push({ phase: item.key, kind: "image", status: item.ok ? "200" : item.moderated ? "403" : "500", measuredUsd: costUsd });
+      if (costUsd !== null) {
+        ledgerState.uncertainUsd = Math.max(0, Math.round((ledgerState.uncertainUsd - reserve) * 1e9) / 1e9);
+        ledgerState.measuredUsd = Math.round((ledgerState.measuredUsd + costUsd) * 1e9) / 1e9;
+      }
+      logProvider({
+        phase: item.key, kind: "image", batchName, at: new Date().toISOString(),
+        status: item.ok ? 200 : item.moderated ? 403 : 500,
+        reservedUsd: reserve,
+        response: scrubForLog(item.response, apiKey, sha256),
+        measuredUsageUsd: costUsd,
+      });
+      if (made.has(item.key)) continue;
+      if (item.ok) {
+        const extension = item.mimeType === "image/jpeg" ? "jpg" : item.mimeType.split("/")[1] ?? "png";
+        const file = path.join(imageDir, `${item.key.replaceAll("/", "__")}__a1.${extension}`);
+        writeFileSync(file, item.bytes);
+        const present = job.rendering.present.map((m) => m.entryId);
+        record({
+          ...job.base, outcome: "image", momentId: job.sc.momentId, sectionId: job.sc.sectionId, context: job.context,
+          prompt: job.rendering.prompt, packet: job.rendering.packet,
+          references: job.rendering.references.map((r) => ({ kind: r.kind, storageId: r.storageId, caption: r.caption })),
+          prepared: { present: job.rendering.present.map((m) => ({ entryId: m.entryId, stageId: m.stageId })), plan: { present, primarySubject: `${job.context.moment.reference}: ${job.context.moment.text.slice(0, 200)}`, secondaryElements: "" } },
+          attempts: [{ n: 1, file: path.relative(root, file), sha256: sha256(item.bytes), bytes: item.bytes.length, mimeType: item.mimeType, costUsd, elapsedMs: elapsedTotalMs, providerRequestId: item.providerRequestId }],
+          chosen: 1, elapsedMs: elapsedTotalMs,
+        });
+      } else {
+        record({ ...job.base, outcome: "failed", stage: "image", message: item.error.slice(0, 400), elapsedMs: elapsedTotalMs });
+      }
+    }
+    for (const job of assembled) {
+      if (!seenKeys.has(job.key)) {
+        ledgerState.counts.image++;
+        ledgerState.calls.push({ phase: job.key, kind: "image", status: "uncertain", measuredUsd: null });
+        if (!made.has(job.key)) record({ ...job.base, outcome: "failed", stage: "image", message: `Missing from batch ${batchName} output`, elapsedMs: elapsedTotalMs });
+      }
+    }
+    saveLedger();
+
+    // Best-effort cleanup of uploaded temporary files.
+    if (!values.offline && uploadedToCleanup.length) {
+      await Promise.all(uploadedToCleanup.map((fileName) => deleteGeminiFile({ apiKey, fileName })));
+    }
+
+    const rows = ndjson(path.join(outDir, "results.ndjson")).filter((r) => !made.has(r.key));
+    const outcomes: Record<string, number> = {};
+    for (const r of rows) outcomes[r.outcome] = (outcomes[r.outcome] ?? 0) + 1;
+    const finished = { at: new Date().toISOString(), batchName, measuredUsd: ledgerState.measuredUsd, uncertainUsd: ledgerState.uncertainUsd, counts: ledgerState.counts, blocked: ledgerState.blocked, outcomes,
+      imageMs: null, batchElapsedMs: elapsedTotalMs, productionMutations: 0 };
+    writeFileSync(path.join(outDir, `run-finished${part}.json`), `${JSON.stringify(finished, null, 2)}\n`, { flag: values.offline ? "w" : "wx" });
+    console.log(JSON.stringify({ done: true, outDir: values.offline ? outDir : path.relative(root, outDir), ...finished }));
+    return;
+  }
+
   // A content-filter refusal returns 200 with no image and zero or no usage; it is that image's failure at no cost, not
   // the run's, so it reaches the ledger as the moderation refusal it is.
   const upstream = fetchImpl;
@@ -348,25 +604,34 @@ async function run() {
     if (!response.ok) return response;
     const body = await response.text();
     try {
-      const payload = JSON.parse(body) as { choices?: Array<{ finish_reason?: string }>; usage?: { cost?: number } };
-      if (payload.choices?.[0]?.finish_reason === "content_filter" && !payload.usage?.cost)
+      const payload = JSON.parse(body) as {
+        choices?: Array<{ finish_reason?: string }>; usage?: { cost?: number };
+        promptFeedback?: { blockReason?: string };
+        candidates?: Array<{ finishReason?: string; content?: { parts?: Array<{ inlineData?: { data?: string } }> } }>;
+      };
+      if (useGemini) {
+        const hasImage = (payload.candidates ?? []).some((c) => c.content?.parts?.some((pt) => Boolean(pt?.inlineData?.data)));
+        const reason = payload.promptFeedback?.blockReason ?? payload.candidates?.[0]?.finishReason ?? "";
+        if (!hasImage && GEMINI_SAFETY_REASONS.test(reason))
+          return new Response(JSON.stringify({ error: { message: "flagged: provider content filter", provider: payload } }), { status: 403, headers: { "Content-Type": "application/json" } });
+      } else if (payload.choices?.[0]?.finish_reason === "content_filter" && !payload.usage?.cost) {
         return new Response(JSON.stringify({ error: { message: "flagged: provider content filter", provider: payload } }), { status: 403, headers: { "Content-Type": "application/json" } });
+      }
     } catch { /* a non-JSON body is the ledger's to judge */ }
     return new Response(body, { status: response.status, headers: response.headers });
   };
   // The most a call can cost: its text at the suite's ceiling, plus the output image at the model's image price. Reserved
   // before the call is sent, so spend cannot pass the cap whatever the model.
   const ceiling = pricing ? (_kind: string, request: Record<string, unknown>) => {
-    const text = requestCeilingUsd("text", request, pricing);
+    const text = requestCeilingUsd("text", { model: p.image.model, ...request }, pricing);
     return text === null ? null : text + (imageCapabilities(p.image.model)?.outputTokens["1K"] ?? IMAGE_TOKENS_1K[p.image.model]) * pricing!.imageOutput!;
   } : undefined;
   const ledger = createLedger({ capUsd, reserves: p.evaluation.reserves, limits: p.evaluation.limits, fetch: filtered, ceiling,
+    url: useGemini && !values.offline ? geminiGenerateUrl(p.image.model) : undefined,
+    extractCost: useGemini && !values.offline ? (payload) => geminiUsageUsd(payload, pricing!) : undefined,
     save: (state) => writeFileSync(path.join(outDir, `ledger${part}.json`), `${JSON.stringify(state, null, 2)}\n`),
     log: (entry) => appendFileSync(path.join(outDir, `provider${part}.ndjson`), `${JSON.stringify(entry)}\n`),
     scrub: (value) => scrubForLog(value, apiKey, sha256) });
-  const record = (row: Record<string, unknown>) => appendFileSync(path.join(outDir, "results.ndjson"), `${JSON.stringify(row)}\n`);
-  const made = new Set(ndjson(path.join(outDir, "results.ndjson")).filter((r) => r.outcome === "image").map((r) => r.key));
-  const jobs = p.cases.flatMap((c) => c.styles.map((style) => ({ c, style }))).filter(({ c, style }) => !made.has(`${c.caseId}/${style}`));
   const runOne = async ({ c, style }: (typeof jobs)[number]) => {
     const key = `${c.caseId}/${style}`;
     const base = { tier: "image", case: c.unitId, caseId: c.caseId, work: c.work, split: c.split, key, style };
@@ -390,7 +655,9 @@ async function run() {
       if (!rendering.ok) { record({ ...base, outcome: "refused", stage: "lean", reason: rendering.reason, message: rendering.message }); return; }
       assert.equal(rendering.momentId, sc.momentId, `${key}: the snapshot names another moment`);
       const references = rendering.sentReferences.map((r) => ({ bytes: r.bytes, mimeType: "image/jpeg" }));
-      const provider = createOpenRouterEvalImageProvider({ apiKey, timeoutMs: 180_000, fetch: ledger.fetchFor("image", () => key) });
+      const provider = useGemini && !values.offline
+        ? createGeminiEvalImageProvider({ apiKey, pricing, timeoutMs: 180_000, fetch: ledger.fetchFor("image", () => key) })
+        : createOpenRouterEvalImageProvider({ apiKey, timeoutMs: 180_000, fetch: ledger.fetchFor("image", () => key) });
       const image = await provider.generate({ label: key, prompt: rendering.prompt, model: p.image.model, aspectRatio: p.image.aspectRatio, resolution: p.image.resolution, references });
       const extension = image.mimeType === "image/jpeg" ? "jpg" : image.mimeType.split("/")[1] ?? "png";
       const file = path.join(imageDir, `${key.replaceAll("/", "__")}__a1.${extension}`);

@@ -25,6 +25,7 @@ describe("the repo's depiction profiles", () => {
     expect(works.sort()).toEqual(["alice-in-wonderland", "bible-web", "holmes-adventures"]);
     for (const workId of works) expect(readDepictionProfile(workId).workId).toBe(workId);
     expect(readDepictionProfile("bible-web").modes.effects).toBeDefined();
+    expect(readDepictionProfile("bible-web").modes.effects?.names).toEqual(expect.arrayContaining(["God", "Yahweh"]));
     expect(readDepictionProfile("holmes-adventures").modes).toEqual({});
     expect(readDepictionProfile("alice-in-wonderland").modes).toEqual({});
   });
