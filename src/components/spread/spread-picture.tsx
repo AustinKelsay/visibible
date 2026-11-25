@@ -27,7 +27,7 @@ interface SpreadPictureProps {
   onPlayOn?: () => boolean;
   /** Continuous play turned to this spread: its picture's video starts at once and Continuous play stays on. */
   arrivesPlaying?: boolean;
-  /** The map (#532) covers the picture: its video stops, and Continuous play with it. */
+  /** The map (#532) covers the picture: its video stops, Continuous play with it, and automatic painting waits. */
   covered?: boolean;
 }
 
@@ -301,7 +301,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
 
   if (rulePicture === undefined) return null;
   // An unpainted verse offers painting first: no Play and no video (#480).
-  if (!rulePicture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />;
+  if (!rulePicture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} behindMap={covered} />;
   const ruleRecord = (otherStyle ? otherStylePictures : pictures)?.find((picture) => picture.id === rulePicture.id);
   const picture = chosen ?? ruleRecord ?? rulePicture;
   const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;
@@ -400,7 +400,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       {otherStyle ? (
         // Kept mounted in the whole-picture view and while a video is pressed, so a paint it started carries on: hidden in
         // that view, and on a phone giving way to Play's controls.
-        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} covered={phase !== null} concealed={wholeIsOpen} />
+        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} covered={phase !== null} concealed={wholeIsOpen} behindMap={covered} />
       ) : null}
     </>
   );
@@ -455,8 +455,19 @@ const NOTE_BUTTON = `${PILL} min-h-[40px] px-4 bg-ink text-paper hover:bg-ink/90
  * A verse painted only in another style: a note naming the style shown, and an offer to paint the verse in the chosen
  * style, priced like the paint button. The new picture replaces this one once saved, and the note goes with it.
  */
-function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered = false, concealed = false }: { verseId: string; reference: string; shownStyle: string; chosenStyle: string; covered?: boolean; concealed?: boolean }) {
-  const paint = usePaintVerse({ verseId, reference });
+function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered = false, concealed = false, behindMap = false }: {
+  verseId: string;
+  reference: string;
+  shownStyle: string;
+  chosenStyle: string;
+  /** A video plays over the picture. */
+  covered?: boolean;
+  /** The whole-picture view is open. */
+  concealed?: boolean;
+  /** The map covers the picture: automatic painting in the chosen style waits until it closes. */
+  behindMap?: boolean;
+}) {
+  const paint = usePaintVerse({ verseId, reference, autoGenerateBlocked: behindMap });
   const { generation } = paint;
   const chosenLabel = artStyleLabel(chosenStyle);
   const word = useMomentWord();

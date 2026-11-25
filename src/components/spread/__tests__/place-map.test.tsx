@@ -8,7 +8,8 @@ import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { cardPosition, fitView, freeBand, frameSetting, locatorSpot, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import PlaceMapView, { fitView, freeBand, frameSetting, locatorSpot, placeNames, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import { cardPosition, rank } from "../place-card";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -715,6 +716,146 @@ describe("the place card", () => {
 
     await act(async () => link("After: Genesis 31:13")!.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
     expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "chapter", direction: "after" }));
+  });
+
+  /**
+   * A phone map `height` px tall and 390 wide: the steps end at 112, a 60 px note sits 12 px above the bottom, and the
+   * card's full view is 320 px tall (150 compact).
+   */
+  const phoneMap = (height: number) => {
+    const footer = (element: HTMLElement) => element.className.includes("bottom-3");
+    const steps = (element: HTMLElement) => element.className.includes("top-[4.75rem]") && !element.className.includes("right-3");
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(390);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(height);
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? height - 12 - 60 : steps(this) ? 76 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? 60 : steps(this) ? 36 : 0;
+    });
+    vi.spyOn(Element.prototype, "scrollHeight", "get").mockImplementation(function (this: Element) {
+      if (!this.hasAttribute("data-marker-card")) return 0;
+      return this.hasAttribute("data-compact") ? 150 : 320;
+    });
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+    });
+  };
+
+  it("opens compact where its full view would not fit, so the chapter rows show without a scroll", async () => {
+    // Neither side of the marker leaves 320 px on a 390×390 map.
+    phoneMap(390);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    // The place chips name the places there, with their site; no ranks, no count, no nearby places.
+    expect(cardInfo()).toBe("");
+    expect(card()!.textContent).toMatch(/^BethelLuzproposed at Beitin/);
+    expect(card()!.textContent).not.toContain("favoured");
+    expect(card()!.textContent).not.toContain("verses in");
+    expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
+    // The chapters before and after share one row, without this verse's row between them (whether they fit is
+    // measured in a browser: jsdom lays nothing out).
+    expect(link("Before: Genesis 13:3")).not.toBeNull();
+    expect(link("After: Genesis 31:13")).not.toBeNull();
+    expect(card()!.querySelector('[aria-current="true"]')!.className).toContain("hidden");
+    expect(button("Luz")).toBeDefined();
+    // The chips scroll sideways, so a swipe across them does not turn the page.
+    expect(button("Luz")!.closest("[data-scrolls-sideways]")).not.toBeNull();
+    // The full list still opens, and the card scrolls for it as before.
+    await act(async () => button("All 35 chapters naming Bethel")!.click());
+    expect(card()!.querySelector("[data-all-chapters]")).not.toBeNull();
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+  });
+
+  it("names the chosen place's site in a compact card whose places stand at different sites", async () => {
+    phoneMap(390);
+    // Matthew 21:1: Bethphage, proposed at Et Tur, shares a marker with the Mount of Olives.
+    await renderReader(setting("MAT", 21, 1), false, { book: "Matthew", slug: "matthew", chapter: 21, verse: 1 });
+    await act(async () => button("See where this happened")!.click());
+    for (const ring of container.querySelectorAll('[data-rings="Bethphage"]')) {
+      await act(async () => ring.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+      if (button("Mount of Olives")) break;
+    }
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(button("Bethphage")!.getAttribute("aria-pressed")).toBe("true");
+    expect(card()!.textContent).toContain("proposed at Et Tur");
+    await act(async () => button("Mount of Olives")!.click());
+    expect(card()!.textContent).not.toContain("Et Tur");
+    expect(card()!.textContent).toContain("settled");
+  });
+
+  it("keeps keyboard focus on a chapter link as the card turns compact", async () => {
+    let height = 900;
+    const observers: (() => void)[] = [];
+    vi.stubGlobal("ResizeObserver", class {
+      constructor(callback: () => void) {
+        observers.push(callback);
+      }
+      observe() {}
+      disconnect() {}
+    });
+    onTestFinished(() => {
+      vi.unstubAllGlobals();
+    });
+    phoneMap(900);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockImplementation(() => height);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(false);
+    const before = link("Before: Genesis 13:3")!;
+    act(() => before.focus());
+    // The window shortens to a phone's map.
+    height = 390;
+    await act(async () => observers.forEach((measure) => measure()));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(document.activeElement).toBe(before);
+    expect(before.isConnected).toBe(true);
+  });
+
+  it("shortens a compact card's long references in this verse's book, keeping their full names for a screen reader", async () => {
+    phoneMap(390);
+    const song = { book: "Song of Solomon", slug: "song-of-solomon", chapter: 6, verse: 4 };
+    await renderReader(setting("SNG", 6, 4), false, song);
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => container.querySelector("[data-pin], [data-rings]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    expect(link("Before: Song of Solomon 5:8")?.textContent).toBe("5:8");
+    expect(link("After: Song of Solomon 8:4")?.textContent).toBe("8:4");
+  });
+
+  it("shortens long references in other books to their short names in a compact card", async () => {
+    phoneMap(390);
+    // 2 Kings 23:12: the Kidron, named before in 1 Kings 15:13 and after in 2 Chronicles 15:16.
+    const kings = { book: "2 Kings", slug: "2-kings", chapter: 23, verse: 12 };
+    await renderReader(setting("2KI", 23, 12), false, kings);
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => container.querySelector("[data-marker]")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    // The name holds what shows, for voice control, and the whole reference.
+    expect(link("Before: 1 Kgs 15:13 (1 Kings 15:13)")?.textContent).toBe("1 Kgs 15:13");
+    expect(link("After: 2 Chr 15:16 (2 Chronicles 15:16)")?.textContent).toBe("2 Chr 15:16");
+  });
+
+  it("tabs through a compact card's chapters in the order they show", async () => {
+    phoneMap(390);
+    // Genesis 35:2 carries Bethel from 35:1.
+    await openMap({ ...bethel, chapter: 35, verse: 2 });
+    await act(async () => container.querySelector('[data-rings="Bethel"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    const order = [...card()!.querySelectorAll("[data-chapters] ol a")].map((anchor) => anchor.getAttribute("aria-label"));
+    expect(order).toEqual(["Before: Genesis 31:13", "After: Joshua 7:2", "Named in Genesis 35:1"]);
+    // Short enough to share the row whole.
+    expect(link("Before: Genesis 31:13")?.textContent).toBe("Genesis 31:13");
+  });
+
+  it("keeps its full view where it fits", async () => {
+    phoneMap(900);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(false);
+    expect(cardInfo()).toContain("most favoured");
+    expect(card()!.querySelector("[data-nearby-places]")).not.toBeNull();
   });
 
   it("lists every chapter that names the place, by part of the Bible", async () => {

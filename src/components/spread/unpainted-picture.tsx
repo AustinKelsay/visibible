@@ -16,6 +16,8 @@ interface UnpaintedPictureProps {
   reference: string;
   /** The picture rule's style order (`usePictureStyles().order`): the glow is chosen by the same rule as the spread. */
   styles: string[];
+  /** The map (#532) covers the picture: automatic painting waits until it closes, so nothing is painted unseen. */
+  behindMap?: boolean;
 }
 
 /**
@@ -27,7 +29,7 @@ interface UnpaintedPictureProps {
  *
  * Mount it with `key={verseId}`, so turning the page starts it afresh.
  */
-export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictureProps) {
+export function UnpaintedPicture({ verseId, reference, styles, behindMap = false }: UnpaintedPictureProps) {
   const scope = useWorkScope();
   const word = useMomentWord();
   // A prose moment's id says nothing of its place, so it names its division's earlier moments, nearest first.
@@ -41,7 +43,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   const { autoGenerate, setAutoGenerate } = usePreferences();
   // Turning the switch on here paints from the next page on, never the verse on screen by surprise.
   const [switchedHere, setSwitchedHere] = useState(false);
-  const paint = usePaintVerse({ verseId, reference, autoGenerateBlocked: switchedHere });
+  const paint = usePaintVerse({ verseId, reference, autoGenerateBlocked: switchedHere || behindMap });
   const { generation, made } = paint;
 
   if (made && !made.saved) {

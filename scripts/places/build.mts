@@ -14,7 +14,7 @@ import { createInterface } from "node:readline";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { MAP_BOUNDS } from "../../src/lib/bible-map-projection";
-import { area, clipRing, inside, insideRuns, lines, pathData, polygons, readFeatures, simplify } from "./geo";
+import { area, clipLine, clipRing, inside, lines, pathData, polygons, readFeatures, simplify } from "./geo";
 
 const { values } = parseArgs({ options: { openbible: { type: "string" }, "natural-earth": { type: "string" } } });
 if (!values.openbible || !values["natural-earth"]) {
@@ -105,7 +105,8 @@ let rivers = "";
 for (const feature of await features("ne_10m_rivers_lake_centerlines")) {
   const name = String(feature.properties.name ?? "");
   if (Number(feature.properties.scalerank) > 6 || /canal/i.test(name)) continue;
-  for (const line of lines(feature.geometry!)) rivers += insideRuns(line, 0.02);
+  // Cut where they cross the bounds, so a river leaving the Bible world runs to the map's edge.
+  for (const line of lines(feature.geometry!)) rivers += clipLine(line).map((run) => pathData(simplify(run, 0.02), false)).join("");
 }
 
 const outline = {
