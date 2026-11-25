@@ -423,16 +423,24 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       const bottomOf = (node: HTMLElement | null) => (node && node.offsetHeight > 0 ? node.offsetTop + node.offsetHeight : 0);
       const right = bottomOf(controls.current);
       const left = bottomOf(leftControls.current);
-      const footerTop = footer.current ? footer.current.offsetTop : null;
       const both = Math.max(left, right);
+      const dock = footer.current ? node.clientHeight - footer.current.offsetTop - footer.current.offsetHeight : 0;
+      // The note scrolls past three tenths of the map, or sooner where the controls and the setting need the room.
+      const noteCap = Math.max(34, Math.min(Math.round(node.clientHeight * 0.3), node.clientHeight - dock - 8 - MIN_BAND - (both > 0 ? both + 8 : 0)));
+      // Where the note's top will be once that cap applies (its text, inside its border, or the picture beside it), so a
+      // resize never puts the steps away for a note about to shrink.
+      const note = footer.current?.querySelector("p") ?? null;
+      const settled = footer.current
+        ? note
+          ? Math.max(...Array.from(footer.current.children, (child) => (child === note ? 0 : (child as HTMLElement).offsetHeight)), Math.min(note.scrollHeight + 2, noteCap))
+          : footer.current.offsetHeight
+        : 0;
+      const footerTop = footer.current ? node.clientHeight - dock - settled : null;
       // Too short for the steps and the places (a short window): the steps go, as beside Ask on a phone.
       const squeezed = left > 0 && freeBand({ height: node.clientHeight, controlsBottom: both, footerTop }).top < both + 8;
       // Focus there would fall to the page as they go: the map keeps it, and Tab walks on from there.
       if (squeezed && leftControls.current?.contains(document.activeElement)) map.current?.focus();
       const { top, bottom, clear } = freeBand({ height: node.clientHeight, controlsBottom: squeezed ? right : both, footerTop });
-      const dock = footer.current ? node.clientHeight - footer.current.offsetTop - footer.current.offsetHeight : 0;
-      // The note scrolls past three tenths of the map, or sooner where the controls and the setting need the room.
-      const noteCap = Math.max(34, Math.min(Math.round(node.clientHeight * 0.3), node.clientHeight - dock - 8 - MIN_BAND - (both > 0 ? both + 8 : 0)));
       setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed, dock, noteCap } : null);
     };
     measure();

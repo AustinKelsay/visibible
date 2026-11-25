@@ -606,11 +606,17 @@ describe("today's map", () => {
     vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
       return footer(this) ? noteHeight(this) : steps(this) ? 36 : 0;
     });
+    // The note's text, whatever its cap: 118 px inside its 1 px border.
+    vi.spyOn(Element.prototype, "scrollHeight", "get").mockImplementation(function (this: Element) {
+      return this.tagName === "P" && this.querySelector("a[href*='openbible']") ? 118 : 0;
+    });
     onTestFinished(() => {
       vi.restoreAllMocks();
       vi.unstubAllGlobals();
     });
     await openMap();
+    // Even the first measure, with the note still at its old height, reckons with the cap: the steps never blink away.
+    expect(container.querySelector('[aria-label="Zoom"]')!.parentElement!.hasAttribute("inert")).toBe(false);
     // Measured again as the note settles, as the browser's observer would.
     for (let round = 0; round < 3; round++) await act(async () => observers.forEach((measure) => measure()));
     const note = container.querySelector("a[href*='openbible']")!.closest("p")!;
