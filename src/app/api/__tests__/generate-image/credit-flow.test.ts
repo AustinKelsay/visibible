@@ -138,7 +138,7 @@ vi.mock("@/lib/convex-client", () => ({
         return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
       }
       // Rate limit passes unless a test spends the allowance
-      if ("endpoint" in args) rateLimitChecks.push(args.endpoint as string);
+      if ("endpoint" in args) rateLimitChecks.push(args.sid ? `${args.endpoint} for ${args.sid}` : args.endpoint as string);
       return rateLimited ? { allowed: false, retryAfter: 42 } : { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
@@ -1657,12 +1657,12 @@ describe("Image Generation API Credit Flow", () => {
         await prepareWork();
         const { POST } = await import("../../generate-image/route");
         expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-        expect(rateLimitChecks).toEqual(["generate-image"]);
+        expect(rateLimitChecks).toEqual(["generate-image for test-session"]);
         rateLimited = true;
         const replay = await POST(createGenerateImageRequest(body));
         expect(replay.status).toBe(200);
         expect(await replay.json()).toMatchObject({ reused: true });
-        expect(rateLimitChecks).toEqual(["generate-image"]);
+        expect(rateLimitChecks).toEqual(["generate-image for test-session"]);
         const fresh = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2" }));
         expect(fresh.status).toBe(429);
         expect(fresh.headers.get("Retry-After")).toBe("42");

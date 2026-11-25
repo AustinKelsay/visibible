@@ -21,7 +21,7 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { scrubForLog } from "@/lib/image-evals/suite-run";
 import { BIBLE_WORK_ID } from "../../../convex/lib/proseWorks";
 import { SEED_CHAPTERS, type SeedChapterEntry } from "./chapters";
-import { IMAGES_UNAVAILABLE } from "@/lib/image-errors";
+import { DAILY_LIMIT_EXCEEDED, IMAGES_UNAVAILABLE } from "@/lib/image-errors";
 
 /** What the dry run projects per image: the provider's measured price for one image is about $0.043 (ADR 0012). */
 export const ESTIMATE_USD_PER_IMAGE = 0.045;
@@ -203,7 +203,7 @@ export function classifyGenerateResponse(status: number, json: Json | null): Att
   if (status >= 200 && status < 300) return unresolved();
   if (status === 401 || status === 403) return failed({ stop: "not-authorized" });
   if (status === 402) return failed({ stop: "insufficient-credits" });
-  if (status === 429) return failed({ stop: body.error === "Daily spending limit exceeded" ? "daily-limit" : "rate-limited" });
+  if (status === 429) return failed({ stop: body.error === DAILY_LIMIT_EXCEEDED ? "daily-limit" : "rate-limited" });
   // A replay of a request that was admitted and ended without a saved image: no image exists, and its cost is unknown.
   if (status === 409 && body.reused === true) return failed(held);
   // The provider failed after admission: the reader's hold was released, but a provider 5xx does not prove nothing was
@@ -445,7 +445,7 @@ async function seedLocked(options: SeedOptions, deps: SeedDeps, chapters: SeedCh
       }
       let reply: Reply | null = null; let thrown = "";
       try { reply = await client.post("/api/generate-image", body); } catch (error) { thrown = error instanceof Error ? error.message : String(error); }
-      if (reply?.status === 429 && reply.json?.error !== "Daily spending limit exceeded" && ++waits <= MAX_RATE_LIMIT_WAITS) {
+      if (reply?.status === 429 && reply.json?.error !== DAILY_LIMIT_EXCEEDED && ++waits <= MAX_RATE_LIMIT_WAITS) {
         pausedUntil = Math.max(pausedUntil, deps.now() + reply.retryAfterMs);
         deps.log(`[rate limited] ${verse.reference}: waiting ${reply.retryAfterMs / 1000}s`);
         continue;

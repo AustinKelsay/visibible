@@ -23,7 +23,7 @@ import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { analysisAccess, listAnalysisRecords } from "./analysis-records";
 import { makeThumbnail as makeThumbnailFromBytes } from "../thumbnails";
-import { IMAGES_UNAVAILABLE } from "../image-errors";
+import { ART_STYLE_UNAVAILABLE, DAILY_LIMIT_EXCEEDED, IMAGES_UNAVAILABLE } from "../image-errors";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 type Runtime = GenericGenerationInput["runtime"];
@@ -253,7 +253,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       }
       if (!assembled.ok) {
         switch (assembled.reason) {
-          case "style": return decline(503, "Art style unavailable", assembled.message, false);
+          case "style": return decline(503, ART_STYLE_UNAVAILABLE, assembled.message, false);
           case "unit": return decline(400, "Invalid or unavailable reference", assembled.message, false);
           case "moment": return preparing(assembled.message);
           case "canon":
@@ -307,7 +307,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const reservationCreditsCost = maximumCredits;
       const reservationCostUsd = reservationCreditsCost * CREDIT_USD;
       if (!input.isOwner && input.session.dailySpendUsd + reservationCostUsd > input.session.dailySpendLimitUsd) {
-        return respond(429, { error: "Daily spending limit exceeded", dailyLimit: input.session.dailySpendLimitUsd, dailySpent: input.session.dailySpendUsd, requestId, remaining: Math.max(0, input.session.dailySpendLimitUsd - input.session.dailySpendUsd) });
+        return respond(429, { error: DAILY_LIMIT_EXCEEDED, dailyLimit: input.session.dailySpendLimitUsd, dailySpent: input.session.dailySpendUsd, requestId, remaining: Math.max(0, input.session.dailySpendLimitUsd - input.session.dailySpendUsd) });
       }
 
       // 8b. The quote. Its terms are recomputed here from the request about to be made, so a quote issued for another
@@ -397,8 +397,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           const withdrawn = await convex.mutation(api.verseImages.withdrawRefusedRequest, { requestId, generationId, serverSecret })
             .then((result) => result.withdrawn, () => false);
           if ("dailyLimit" in reserve) {
-            if (!withdrawn) await update("failed", { error: "Daily spending limit exceeded", generationId }).catch(() => {});
-            return respond(429, { error: "Daily spending limit exceeded", dailyLimit: reserve.dailyLimit, dailySpent: reserve.dailySpent, requestId, remaining: reserve.remaining });
+            if (!withdrawn) await update("failed", { error: DAILY_LIMIT_EXCEEDED, generationId }).catch(() => {});
+            return respond(429, { error: DAILY_LIMIT_EXCEEDED, dailyLimit: reserve.dailyLimit, dailySpent: reserve.dailySpent, requestId, remaining: reserve.remaining });
           }
           if (!withdrawn) await update("failed", { error: "Insufficient credits", generationId }).catch(() => {});
           return respond(402, { error: "Insufficient credits", requestId, required: estimatedCreditsCost, available: "available" in reserve ? reserve.available : 0 });

@@ -13,6 +13,7 @@ import { BulkGenerationProvider, useBulkGeneration } from "@/context/bulk-genera
 const mocks = vi.hoisted(() => ({
   mutation: vi.fn(),
   client: { query: vi.fn() },
+  tier: "paid" as "paid" | "admin",
 }));
 vi.mock("convex/react", () => ({
   useConvex: () => mocks.client,
@@ -20,7 +21,7 @@ vi.mock("convex/react", () => ({
   useMutation: () => mocks.mutation,
   useQuery: () => useSyncExternalStore(subscribe, getServerJob),
 }));
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ sid: "guest", credits: 100 }) }));
+vi.mock("@/context/session-context", () => ({ useSession: () => ({ sid: "guest", credits: 100, tier: mocks.tier }) }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 
 let serverJob: Record<string, unknown> | undefined;
@@ -90,6 +91,7 @@ beforeEach(() => {
     removeItem: (key: string) => storage.delete(key),
   });
   sent.length = 0;
+  mocks.tier = "paid";
   onMutation = () => {};
   persistedStatus = "active";
   persistedReason = null;
@@ -546,4 +548,136 @@ it("wakes a worker that parked for a Pause the server did not take", async () =>
   await act(async () => { pause.resolve(); await pausing; });
   await wait(() => expect(orders()).toEqual([0, 1, 2]));
   await act(async () => root.unmount());
+});
+
+it("carries each verse's claim number on every write that follows the claim (#552)", async () => {
+  const base = mocks.mutation.getMockImplementation()!;
+  const claims = new Map<unknown, number>();
+  const writes: Record<string, unknown>[] = [];
+  mocks.mutation.mockImplementation(async (args) => {
+    if (args.verseId && args.status === "generating" && args.expectedCurrentStatus === "queued") {
+      await base(args);
+      const claim = (claims.get(args.verseId) ?? 40) + 1;
+      claims.set(args.verseId, claim);
+      return { updated: true, claim };
+    }
+    if (args.verseId) writes.push(args);
+    return base(args);
+  });
+  // The second verse is refused once by the site's limit, so it is put back and claimed again.
+  const rateWait = holdTimer(1000);
+  spyFetch((order) => order === 1 && orders().filter((seen) => seen === 1).length === 1
+    ? refuse(429, "Rate limit exceeded", { retryAfter: 1 })
+    : success());
+  const root = await started(3);
+  await act(async () => rateWait.started);
+  await act(async () => bulk.pauseBulkGeneration());
+  await act(async () => rateWait.fire());
+  await act(async () => bulk.resumeBulkGeneration());
+  await act(async () => publishServerJob({ status: "active", totalVerses: 3, completedCount: 2, failedCount: 0, totalCreditsUsed: 4, pausedReason: undefined }));
+  await wait(() => expect(writes.filter((write) => write.status === "completed")).toHaveLength(3));
+  expect(writes.map(({ verseId, status, claim }) => [verseId, status, claim])).toEqual(expect.arrayContaining([
+    ["verse-0", "completed", 41],
+    ["verse-1", "queued", 41],
+    ["verse-1", "completed", 42],
+    ["verse-2", "completed", 41],
+  ]));
+  expect(writes.every((write) => write.claim === claims.get(write.verseId) || write.status === "queued")).toBe(true);
+  await act(async () => root.unmount());
+});
+
+it("ends a job dismissed during its first claim instead of spinning on the unbound verses (#540)", async () => {
+  const claim = deferred<void>();
+  onMutation = (args) => {
+    if (args.verseId === "verse-0" && args.status === "generating") return claim.promise;
+  };
+  spyFetch(() => success());
+  const root = await started(3);
+  await act(async () => bulk.dismissBulkGeneration());
+  await act(async () => claim.resolve());
+  // A run that kept looping here would never yield, and this timer would never fire.
+  await act(async () => new Promise((resolve) => setTimeout(resolve, 20)));
+  expect(sent).toEqual([]);
+  await act(async () => root.unmount());
+});
+
+it("paints eight at once for the owner (#552)", async () => {
+  mocks.tier = "admin";
+  const held = deferred<Response>();
+  spyFetch((order) => order === 0 ? success() : held.promise);
+  const root = await started(12);
+  // The first verse binds the engine alone; then eight go out together.
+  await wait(() => expect(orders()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]));
+  await act(async () => held.resolve(success()));
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  await act(async () => root.unmount());
+});
+
+it("shows a reloaded job's pause message from its stored reason (#552)", async () => {
+  const root = createRoot(document.createElement("div"));
+  await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));
+  await act(async () => publishServerJob({ status: "paused", pausedReason: "daily_limit" }));
+  expect(bulk.state.errorMessage).toBe("This session has reached today's spending limit. Resume tomorrow to paint the rest.");
+  await act(async () => publishServerJob({ status: "paused", pausedReason: undefined }));
+  await act(async () => root.unmount());
+});
+
+it("starts the run again after a failed save, and paints the verse whose claim failed (#552)", async () => {
+  const retry = holdTimer(5000);
+  const statuses = new Map([0, 1, 2].map((order) => [`verse-${order}`, "queued"]));
+  let failClaim = true;
+  onMutation = (args) => {
+    const verseId = args.verseId as string | undefined;
+    if (!verseId) return;
+    if (verseId === "verse-1" && args.status === "generating" && failClaim) {
+      failClaim = false;
+      throw new Error("Network error");
+    }
+    statuses.set(verseId, String(args.status));
+  };
+  mocks.client.query.mockImplementation(async () => [...statuses].map(([verseId, status]) => ({
+    verseId, reference: `Genesis 1:${Number(verseId.at(-1)) + 1}`, order: Number(verseId.at(-1)), status,
+  })));
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  const first = deferred<Response>();
+  spyFetch((order) => order === 0 && orders().length === 1 ? first.promise : success());
+  const root = await started(3);
+  await act(async () => publishServerJob({ status: "active", totalVerses: 3, completedCount: 0, failedCount: 0, totalCreditsUsed: 0, pausedReason: undefined }));
+  await act(async () => first.resolve(success()));
+  await act(async () => retry.started);
+  expect(statuses.get("verse-1")).toBe("queued");
+  await act(async () => retry.fire());
+  await wait(() => expect([...statuses.values()]).toEqual(["completed", "completed", "completed"]));
+  expect(orders()).toEqual(expect.arrayContaining([0, 1, 2]));
+  await act(async () => root.unmount());
+  mocks.client.query.mockReset();
+});
+
+it("shows the job blocked after three restarts that each failed to save (#552)", async () => {
+  const retries: Array<() => void> = [];
+  const originalTimeout = window.setTimeout.bind(window);
+  vi.spyOn(window, "setTimeout").mockImplementation(((fn: () => void, ms?: number, ...args: unknown[]) => {
+    if (ms === 5000) { retries.push(fn); return 0; }
+    return originalTimeout(fn, ms, ...args);
+  }) as typeof window.setTimeout);
+  onMutation = (args) => {
+    if (args.verseId === "verse-1" && args.status === "generating") throw new Error("Network error");
+  };
+  mocks.client.query.mockImplementation(async () => [{ verseId: "verse-1", reference: "Genesis 1:2", order: 1, status: "queued" }]);
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  const first = deferred<Response>();
+  spyFetch((order) => order === 0 ? first.promise : success());
+  const root = await started(2);
+  await act(async () => publishServerJob({ status: "active", totalVerses: 2, completedCount: 0, failedCount: 0, totalCreditsUsed: 0, pausedReason: undefined }));
+  await act(async () => first.resolve(success()));
+  for (let restart = 1; restart <= 3; restart++) {
+    await wait(() => expect(retries).toHaveLength(restart));
+    await act(async () => retries[restart - 1]());
+  }
+  await wait(() => expect(bulk.state.status).toBe("blocked"));
+  expect(bulk.state.errorMessage).toBe("Couldn't save progress. Resume to try again.");
+  expect(persistedReason).toBe("save_failed");
+  expect(retries).toHaveLength(3);
+  await act(async () => root.unmount());
+  mocks.client.query.mockReset();
 });

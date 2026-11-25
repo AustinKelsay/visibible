@@ -1,3 +1,4 @@
+import { ART_STYLE_UNAVAILABLE, ENGINE_BINDING_CHANGED, RATE_LIMIT_EXCEEDED } from "@/lib/image-errors";
 import type { FunctionReturnType } from "convex/server";
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
@@ -364,6 +365,8 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     identifier: rateLimitIdentifier,
     endpoint: rateLimitEndpoint,
     serverSecret,
+    // The owner's image allowance is decided in Convex from this session's tier (#552).
+    sid,
   });
 
   if (!rateLimitResult.allowed) {
@@ -379,7 +382,7 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     });
     return jsonWithSessionRefresh(
       {
-        error: "Rate limit exceeded",
+        error: RATE_LIMIT_EXCEEDED,
         message: "Too many image generation requests. Please wait before generating more.",
         retryAfter: rateLimitResult.retryAfter,
       },
@@ -495,13 +498,13 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
   }
   if (engineDecision.engine === null) {
-    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
+    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? ART_STYLE_UNAVAILABLE : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
   }
   // A bound job never silently continues on another engine; nothing is reserved or recorded. A job bound to the removed
   // legacy engine is refused here, so it pauses.
   if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
     incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
-    return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
+    return jsonWithSessionRefresh({ error: ENGINE_BINDING_CHANGED, message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
   }
   // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
   if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });

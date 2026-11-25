@@ -701,6 +701,8 @@ export default defineSchema({
     error: v.optional(v.string()),
     // Request ids spent on provider outages; the item's request id carries it after the first (convex/_helpers/bulkRequestId.ts).
     attempt: v.optional(v.number()),
+    // Counts the claims of this item (queued → generating); writes from a replaced claim are refused (#552).
+    claim: v.optional(v.number()),
     updatedAt: v.number(),
   })
     .index("by_bulk_order", ["bulkGenerationId", "order"])

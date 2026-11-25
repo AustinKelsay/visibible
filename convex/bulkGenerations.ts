@@ -332,6 +332,8 @@ export const updateVerseStatus = mutation({
     error: v.optional(v.string()),
     /** With a requeue: the item's request id was spent (the provider could not take it), so its next one is new. */
     spentRequest: v.optional(v.boolean()),
+    /** The claim number this write belongs to, as the claim returned it. A write from a replaced claim is refused. */
+    claim: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const bulkGeneration = await requireOwnedBulkGeneration(
@@ -346,6 +348,8 @@ export const updateVerseStatus = mutation({
       )
       .unique();
     if (!verse) return { updated: false };
+    // Another tab may have reconciled and claimed this item since the writer's claim (#552).
+    if (args.claim !== undefined && (verse.claim ?? 0) !== args.claim) return { updated: false };
     if (
       args.expectedCurrentStatus !== undefined &&
       verse.status !== args.expectedCurrentStatus
@@ -384,6 +388,7 @@ export const updateVerseStatus = mutation({
       error?: string;
       updatedAt?: number;
       attempt?: number;
+      claim?: number;
     } = {};
 
     patch.status = args.status;
@@ -400,9 +405,12 @@ export const updateVerseStatus = mutation({
       patch.attempt = (verse.attempt ?? 0) + 1;
     }
 
+    const isClaim = verse.status === "queued" && args.status === "generating";
+    if (isClaim) patch.claim = (verse.claim ?? 0) + 1;
+
     if (Object.keys(patch).length === 0) return { updated: false };
     await ctx.db.patch(verse._id, patch);
-    return { updated: true };
+    return isClaim ? { updated: true, claim: patch.claim } : { updated: true };
   },
 });
 
