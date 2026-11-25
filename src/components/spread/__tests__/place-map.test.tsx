@@ -2,13 +2,13 @@
 
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 import { trackMapExplored, trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { cardPosition, fitView, frameSetting, locatorSpot, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
+import PlaceMapView, { cardPosition, fitView, freeBand, frameSetting, locatorSpot, placeNames, rank, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -468,6 +468,7 @@ describe("today's map", () => {
   const bethel = { book: "Genesis", slug: "genesis", chapter: 28, verse: 19 };
   const views = () => Array.from(container.querySelectorAll<HTMLButtonElement>('[aria-label="Map"] [aria-pressed]'));
   const shownView = () => views().find((view) => view.getAttribute("aria-pressed") === "true")?.textContent;
+  const steps = () => Array.from(container.querySelectorAll<HTMLButtonElement>('[aria-label="Zoom"] [aria-pressed]'));
   const openMap = async () => {
     await renderReader(setting("GEN", 28, 19), false, bethel);
     await act(async () => button("See where this happened")!.click());
@@ -484,13 +485,57 @@ describe("today's map", () => {
     expect(map()!.getAttribute("data-view")).toBe("today");
     expect(container.querySelector("[data-today] path")?.getAttribute("d")).toMatch(/^M/);
     const cities = Array.from(container.querySelectorAll("[data-today-city]"), (city) => city.getAttribute("data-today-city"));
-    expect(cities).toEqual(expect.arrayContaining(["Jerusalem", "Tel Aviv", "Damascus"]));
+    expect(cities).toEqual(expect.arrayContaining(["Tel Aviv", "Damascus", "Haifa"]));
+    // Jerusalem, 17 km from Bethel, sits inside its ring at the land; closer in, it clears it.
+    expect(cities).not.toContain("Jerusalem");
+    await act(async () => steps()[0].click());
+    expect(Array.from(container.querySelectorAll("[data-today-city]"), (city) => city.getAttribute("data-today-city"))).toContain("Jerusalem");
     expect(container.querySelectorAll("[data-today-country]").length).toBeGreaterThan(0);
     // The setting stays, and the ancient context names give way to today's cities.
     expect(container.querySelector('[data-rings="Bethel · Luz"]')).not.toBeNull();
     expect(container.querySelectorAll("[data-nearby] text")).toHaveLength(0);
     expect(container.textContent).toContain("Today: Natural Earth");
     expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "view", view: "today" }));
+  });
+
+  it("keeps today's city dots out of the verse's rings, at every step, on a phone", async () => {
+    // A 390 px square map with its note from 315 px, where Tel Aviv and Cairo once sat inside Bethel's ring.
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(390);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(390);
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return this.className.includes("bottom-3") ? 315 : 0;
+    });
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+    });
+    await openMap();
+    await act(async () => views()[1].click());
+    for (const step of [0, 1, 2]) {
+      await act(async () => steps()[step].click());
+      const rings = Array.from(container.querySelectorAll("[data-rings] > circle:first-child, [data-pin] > circle:first-child"), (circle) => ({
+        x: Number(circle.getAttribute("cx")),
+        y: Number(circle.getAttribute("cy")),
+        r: Number(circle.getAttribute("r")),
+      }));
+      const dots = Array.from(container.querySelectorAll("[data-today] rect"), (rect) => ({
+        x: Number(rect.getAttribute("x")) + Number(rect.getAttribute("width")) / 2,
+        y: Number(rect.getAttribute("y")) + Number(rect.getAttribute("height")) / 2,
+        half: Number(rect.getAttribute("width")) / 2,
+      }));
+      expect(rings.length).toBeGreaterThan(0);
+      for (const dot of dots) for (const ring of rings) expect(Math.hypot(dot.x - ring.x, dot.y - ring.y)).toBeGreaterThan(ring.r + dot.half);
+    }
+  });
+
+  it("dashes disputed borders the same on screen at every step", async () => {
+    await openMap();
+    await act(async () => views()[1].click());
+    const dashes: (string | null | undefined)[] = [];
+    for (const step of [0, 2]) {
+      await act(async () => steps()[step].click());
+      dashes.push(container.querySelector("[data-today] path[stroke-dasharray]")?.getAttribute("stroke-dasharray"));
+    }
+    expect(dashes).toEqual(["3 3", "3 3"]);
   });
 
   it("keeps Today while turning pages, and the place card works on it", async () => {
@@ -503,6 +548,24 @@ describe("today's map", () => {
     await act(async () => views()[0].click());
     expect(map()!.getAttribute("data-view")).toBe("then");
     expect(card()?.hasAttribute("data-opened")).toBe(true);
+  });
+});
+
+describe("freeBand", () => {
+  it("keeps the map below the controls and above the note where there is room", () => {
+    expect(freeBand({ height: 390, controlsBottom: 112, footerTop: 315 })).toEqual({ top: 120, bottom: 83, clear: 120 });
+  });
+
+  it("lets a short map reach up under the controls rather than squeeze its places under the note", () => {
+    // 113 px tall beside Ask: the note starts at 67, so the controls give up their reserve first.
+    const band = freeBand({ height: 113, controlsBottom: 60, footerTop: 67 });
+    expect(band.bottom).toBe(54);
+    expect(113 - band.top - band.bottom).toBeGreaterThanOrEqual(Math.min(72, 113 - 54));
+    expect(band.top).toBe(0);
+    // Faint names still keep below the controls.
+    expect(band.clear).toBe(68);
+    const tight = freeBand({ height: 295, controlsBottom: 164, footerTop: 212 });
+    expect(295 - tight.top - tight.bottom).toBe(72);
   });
 });
 

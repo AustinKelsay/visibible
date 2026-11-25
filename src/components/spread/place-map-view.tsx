@@ -198,6 +198,8 @@ const clamp = (value: number, low: number, high: number) => Math.min(Math.max(va
 
 /** About how wide a name is in the serif face (no layout pass to measure it). */
 const nameWidth = (text: string, size: number, spacing = 0, capitals = false) => text.length * (size * (capitals ? 0.72 : 0.5) + spacing);
+/** About how wide a city's name is in the sans face, with its outline: wider than the serif reckoning. */
+const sansNameWidth = (text: string, size: number) => text.length * size * 0.6 + 3;
 
 /** A name placed on the map, in screen pixels: its anchor point, alignment and size. */
 export interface PlacedName {
@@ -219,8 +221,15 @@ export function placeNames(
   regions: Box[],
   band: Box,
   size: number,
-  /** How many of the spots to try: all eight, or only the four beside, above and below (no corners). */
-  spots = 8,
+  {
+    spots = 8,
+    widthOf = nameWidth,
+  }: {
+    /** How many of the spots to try: all eight, or only the four beside, above and below (no corners). */
+    spots?: number;
+    /** How wide a name is reckoned, for a face other than the serif. */
+    widthOf?: (text: string, size: number) => number;
+  } = {},
 ): PlacedName[] {
   const taken: Box[] = [...regions];
   const centres = markers.map((marker) => ({ key: marker.key, box: { left: marker.left - 6, top: marker.top - 6, right: marker.left + 6, bottom: marker.top + 6 } }));
@@ -246,7 +255,7 @@ export function placeNames(
     ];
     const others = centres.filter((centre) => centre.key !== marker.key).map((centre) => centre.box);
     const fit = texts.flatMap((text) => candidates.slice(0, spots).map((candidate) => ({ text, candidate }))).find(({ text, candidate }) => {
-      const width = nameWidth(text, size);
+      const width = widthOf(text, size);
       const left = candidate.anchor === "start" ? candidate.x : candidate.anchor === "end" ? candidate.x - width : candidate.x - width / 2;
       const box = { left, top: candidate.y - ascent, right: left + width, bottom: candidate.y + descent };
       if (!inside(box, band) || taken.some((other) => overlaps(box, other)) || others.some((other) => overlaps(box, other))) return false;
@@ -276,12 +285,28 @@ export function locatorSpot(box: MapBox, avoid: Box[]): Box | null {
   return avoid.some((other) => overlaps(margin, other)) ? null : spot;
 }
 
+/** The least height of map kept clear for the verse's places between the controls and the note. */
+const MIN_BAND = 72;
+
+/**
+ * How far the map's free band stays from the box's top and bottom, in screen pixels: below the lowest control and
+ * above the note. A map too short for that (a phone's strip beside Ask) reaches up under the controls, which sit at
+ * its sides, so its places are never framed under the note.
+ */
+export function freeBand({ height, controlsBottom, footerTop }: { height: number; controlsBottom: number; footerTop: number | null }) {
+  const bottom = footerTop === null ? 0 : height - footerTop + 8;
+  const wanted = controlsBottom > 0 ? controlsBottom + 8 : 0;
+  return { top: Math.max(0, Math.min(wanted, height - bottom - MIN_BAND)), bottom, clear: wanted };
+}
+
 /** The map's free band: below the tag and close button, above the note, in screen pixels. */
 interface MapBox {
   width: number;
   height: number;
   top: number;
   bottom: number;
+  /** Where the controls end, when a short map's `top` reaches above it: faint names stay below it. */
+  clear?: number;
 }
 
 /**
@@ -382,19 +407,22 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     const node = box.current;
     if (!node) return;
     const measure = () => {
-      // Below the lower of the two control rows: the steps and Then · Today on the left (two rows on a narrow map), the
-      // tag and close button on the right.
+      // Below the lower of the two control groups: the steps and Then · Today on the left (wrapped to two rows where the
+      // map is too narrow for one), the tag and close button on the right.
       const bottomOf = (node: HTMLElement | null) => (node && node.offsetHeight > 0 ? node.offsetTop + node.offsetHeight : 0);
-      const lowest = Math.max(bottomOf(controls.current), bottomOf(leftControls.current));
-      const top = lowest > 0 ? lowest + 8 : 0;
-      const bottom = footer.current ? node.clientHeight - footer.current.offsetTop + 8 : 0;
-      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom } : null);
+      const { top, bottom, clear } = freeBand({
+        height: node.clientHeight,
+        controlsBottom: Math.max(bottomOf(controls.current), bottomOf(leftControls.current)),
+        footerTop: footer.current ? footer.current.offsetTop : null,
+      });
+      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(node);
     if (footer.current) observer.observe(footer.current);
     if (leftControls.current) observer.observe(leftControls.current);
+    if (controls.current) observer.observe(controls.current);
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -457,6 +485,9 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const toScreen = (x: number, y: number) => ({ left: (x - view.x) / view.unit, top: (y - view.y) / view.unit });
 
   const band = { left: 4, top: Math.max(4, size.top - 8), right: size.width - 4, bottom: size.height - Math.max(4, size.bottom - 8) };
+  // Context (the faint ancient places, today's countries and cities) never reaches under the controls or the header,
+  // even where a short map lets the setting.
+  const contextBand = { ...band, top: Math.max(band.top, (size.clear ?? size.top) - 8) };
   const rings = markers.map((marker) => {
     const at = toScreen(marker.x, marker.y);
     const reach = Math.max(marker.radius, 8);
@@ -495,14 +526,14 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const nearbyDots = mapView === "today" ? [] : contextPlaces()
     .filter((place) => !settingNames.has(place.name))
     .map((place) => ({ place, at: toScreen(...project(place.lon, place.lat)) }))
-    .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
+    .filter(({ at }) => at.left > contextBand.left + 8 && at.left < contextBand.right - 8 && at.top > contextBand.top + 8 && at.top < contextBand.bottom - 8)
     .filter(({ at }) => centres.every((centre) => Math.hypot(centre.left - at.left, centre.top - at.top) > 16))
     .filter(({ at }) => !locatorBox || !overlaps({ left: at.left - 4, top: at.top - 4, right: at.left + 4, bottom: at.top + 4 }, locatorBox))
     .slice(0, 40);
   const faint = placeNames(
     nearbyDots.map(({ place, at }) => ({ key: place.id, ...at, radius: 0, names: [place.name] })),
     [...regionBoxes, ...rings, ...names.map(nameBox), ...(locatorBox ? [locatorBox] : [])],
-    band,
+    contextBand,
     12,
   ).slice(0, 10);
 
@@ -519,16 +550,17 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       const at = toScreen(x, y);
       const width = nameWidth(name, 11, 3, true);
       const spot = { left: at.left - width / 2, top: at.top - 9, right: at.left + width / 2, bottom: at.top + 3 };
-      if (!inside(spot, band) || taken.some((other) => overlaps(spot, other))) continue;
+      if (!inside(spot, contextBand) || taken.some((other) => overlaps(spot, other))) continue;
       taken.push(spot);
       lettering.push(spot);
       countryLabels.push({ name, left: at.left, top: at.top });
     }
+    const reaches = markers.map((marker) => ({ ...toScreen(marker.x, marker.y), reach: Math.max(marker.radius, 14) + 4 }));
     const candidates = todayCities
       .map(([name, x, y], index) => ({ key: `city-${index}`, name, at: toScreen(x, y) }))
-      .filter(({ at }) => at.left > band.left + 8 && at.left < band.right - 8 && at.top > band.top + 8 && at.top < band.bottom - 8)
-      // A city's dot may sit inside a faint ring (Jerusalem beside Bethel's), but not on a marker's centre or any lettering.
-      .filter(({ at }) => centres.every((centre) => Math.hypot(centre.left - at.left, centre.top - at.top) > 8))
+      .filter(({ at }) => at.left > contextBand.left + 8 && at.left < contextBand.right - 8 && at.top > contextBand.top + 8 && at.top < contextBand.bottom - 8)
+      // Never in a marker's ring or a pin's tap target, where it would read as a proposed site, nor on any lettering.
+      .filter(({ at }) => reaches.every((marker) => Math.hypot(marker.left - at.left, marker.top - at.top) > marker.reach))
       .filter(({ at }) => !lettering.some((other) => overlaps({ left: at.left - 3, top: at.top - 3, right: at.left + 3, bottom: at.top + 3 }, other)))
       // The most important first, and none crowding one already kept, so a small town's dot never costs a capital its name.
       .reduce<{ key: string; name: string; at: { left: number; top: number } }[]>((kept, city) => {
@@ -536,7 +568,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         return kept;
       }, []);
     // A city's name sits beside, above or below its dot, never at a corner, where it could be read as another dot's.
-    cityNames = placeNames(candidates.map(({ key, name, at }) => ({ key, ...at, radius: 0, names: [name] })), taken, band, 12, 4).slice(0, compact ? 8 : 14);
+    cityNames = placeNames(candidates.map(({ key, name, at }) => ({ key, ...at, radius: 0, names: [name] })), taken, contextBand, 12, { spots: 4, widthOf: sansNameWidth }).slice(0, compact ? 8 : 14);
     for (const placed of cityNames) cityDots.push({ key: placed.key, ...candidates.find((city) => city.key === placed.key)!.at });
   }
 
@@ -603,7 +635,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           // Today's borders (disputed and indefinite lines dashed), countries and cities: quiet, under the setting.
           <g aria-hidden="true" pointerEvents="none" data-today>
             <path d={today.borders} fill="none" stroke={BORDER} strokeOpacity={0.5} strokeWidth={1} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-            <path d={today.disputed} fill="none" stroke={BORDER} strokeOpacity={0.45} strokeWidth={1} strokeDasharray={`${px(3)} ${px(3)}`} vectorEffect="non-scaling-stroke" />
+            <path d={today.disputed} fill="none" stroke={BORDER} strokeOpacity={0.45} strokeWidth={1} strokeDasharray="3 3" vectorEffect="non-scaling-stroke" />
             {countryLabels.map(({ name, left, top }) => (
               <text
                 key={name}
@@ -769,10 +801,12 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </svg>
 
       {/*
-        The zoom steps, named, and Then · Today, level with the tag and close button and clear of the Visibible name above.
-        A narrow map puts Then · Today on a second row; a phone with Ask open leaves the map a thin strip, so they go.
+        The zoom steps, named, and Then · Today, under the Visibible name. On a computer they share a row with the tag and
+        close button, and Then · Today wraps under the steps where that row is too narrow; on a phone the tag and close
+        button sit level with the name instead, so the steps and Then · Today keep one row. A phone with Ask open leaves
+        the map a thin strip, so they go.
       */}
-      <div ref={leftControls} className={`absolute left-3 top-[4.75rem] flex gap-2 md:left-6 md:top-[5.5rem] max-md:[main:has([data-ask-page])_&]:hidden ${compact ? "flex-col items-start" : "items-center"}`}>
+      <div ref={leftControls} className="absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-16rem)] max-md:[main:has([data-ask-page])_&]:hidden">
       <div role="group" aria-label="Zoom" className="flex items-center gap-2">
         <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
           {ZOOM_STEPS.map((candidate) => (
@@ -824,7 +858,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </div>
       </div>
 
-      <div ref={controls} className="absolute right-3 top-[4.75rem] flex items-center gap-2 md:right-6 md:top-[5.5rem]">
+      <div ref={controls} className="absolute right-3 top-6 flex items-center gap-2 md:right-6 md:top-[5.5rem]">
         <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
           Experimental
         </span>
@@ -847,7 +881,12 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           <a href="https://www.openbible.info/geo/" target="_blank" rel="noreferrer" className="whitespace-nowrap text-white/55 underline decoration-white/25 underline-offset-2 hover:text-white/80">
             Places: OpenBible.info, CC BY 4.0
           </a>
-          {mapView === "today" ? <span className="whitespace-nowrap text-white/55"> · Today: Natural Earth</span> : null}
+          {mapView === "today" ? (
+            <span className="text-white/55">
+              {" · "}
+              <span className="whitespace-nowrap">Today: Natural Earth</span>
+            </span>
+          ) : null}
         </p>
       </div>
       {/* Where the view sits in the Bible world, on a computer. */}

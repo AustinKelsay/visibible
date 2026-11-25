@@ -120,3 +120,46 @@ export function insideRuns(line: Point[], tolerance: number): string {
   }
   return d;
 }
+
+/** Liang–Barsky: the part of segment a→b inside the outline's bounds, as fractions along it, or null. */
+function clipSegment([ax, ay]: Point, [bx, by]: Point): [number, number] | null {
+  let enter = 0;
+  let leave = 1;
+  const dx = bx - ax;
+  const dy = by - ay;
+  for (const [p, q] of [[-dx, ax - west], [dx, east - ax], [-dy, ay - south], [dy, north - ay]]) {
+    if (p === 0) {
+      if (q < 0) return null;
+      continue;
+    }
+    const t = q / p;
+    if (p < 0) enter = Math.max(enter, t);
+    else leave = Math.min(leave, t);
+    if (enter > leave) return null;
+  }
+  return [enter, leave];
+}
+
+/** A line cut to the outline's bounds: its runs inside them, ending where it crosses the edge rather than short of it. */
+export function clipLine(line: Point[]): Point[][] {
+  const runs: Point[][] = [];
+  let run: Point[] = [];
+  const along = ([ax, ay]: Point, [bx, by]: Point, t: number): Point => [ax + (bx - ax) * t, ay + (by - ay) * t];
+  for (let i = 1; i < line.length; i++) {
+    const [a, b] = [line[i - 1], line[i]];
+    const kept = clipSegment(a, b);
+    if (!kept) continue;
+    const [start, end] = [along(a, b, kept[0]), along(a, b, kept[1])];
+    if (kept[0] > 0 || run.length === 0) {
+      if (run.length >= 2) runs.push(run);
+      run = [start];
+    }
+    run.push(end);
+    if (kept[1] < 1) {
+      runs.push(run);
+      run = [];
+    }
+  }
+  if (run.length >= 2) runs.push(run);
+  return runs.filter((points) => points.length >= 2);
+}

@@ -10,7 +10,7 @@
 import { writeFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 import { MAP_BOUNDS, project } from "../../src/lib/bible-map-projection";
-import { inside, insideRuns, lines, readFeatures, type Point } from "./geo";
+import { clipLine, inside, lines, pathData, readFeatures, simplify, type Point } from "./geo";
 
 const { values } = parseArgs({ options: { "natural-earth": { type: "string" } } });
 const folder = values["natural-earth"];
@@ -35,7 +35,8 @@ for (const feature of await readFeatures(folder, "ne_10m_admin_0_boundary_lines_
   const kind = String(feature.properties.FEATURECLA ?? "");
   const settled = kind.startsWith("International boundary");
   for (const line of lines(feature.geometry!)) {
-    const d = insideRuns(line, 0.01);
+    // Cut at the map's edge, so a border crossing it runs to the edge.
+    const d = clipLine(line).map((run) => pathData(simplify(run, 0.01), false)).join("");
     if (settled) borders += d;
     else disputed += d;
   }
