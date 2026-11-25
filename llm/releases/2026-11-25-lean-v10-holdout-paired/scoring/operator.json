@@ -1,0 +1,292 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j002",
+      "faults": {
+        "incoherent": "yes",
+        "rule_violation": "yes"
+      },
+      "notes": "The playing-card guard left of the King has a 3D human head and hat atop a card torso duplicating the King of Hearts with corner 'K' indices, Alice is child-sized instead of giant, and the Rabbit's trumpet floats across his forearm.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j009",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "A prominent standing prophet with staff lectures weary listeners on the right, inserting the speaker inside his own prophetic words.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j017",
+      "faults": {
+        "anatomy": "yes"
+      },
+      "notes": "An extra fifth speckled sea-turtle flipper protrudes horizontally behind the Mock Turtle's right hind leg.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j026",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "Paul (with scroll quiver at his waist) sits lecturing five listeners while holding up a mirror as a teaching prop, inserting the epistle's speaker and an audience into the verse's imagery.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j032",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "A prominent standing prophet with staff gestures rhetorically on the right, inserting the speaker inside his own prophetic words.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j033",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "A prominent standing prophet with staff gestures toward the rising old man on the left, inserting the speaker inside his own prophetic words.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j039",
+      "faults": {
+        "incoherent": "no"
+      },
+      "notes": "The priest casts feathers onto the ash pile beside the altar while holding an unbloodied pigeon to honor the brief's no-gore depiction rule; staging and anatomy are clean.",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j042",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Zoom crop confirms faint horizontal rows of unreadable pseudo-script lines on the left side of the parchment sheet on the table.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j051",
+      "faults": {
+        "anatomy": "yes"
+      },
+      "notes": "In addition to the human face, waistcoat, and bowler hat, the Caterpillar has five asymmetric human arms (two crossed pairs plus a fifth arm sprouting behind its left elbow to hold the hookah).",
+      "overall": "flawed"
+    },
+    {
+      "id": "j057",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "The round stone slab is shifted back leaving a wide open crescent into the pit while the king presses his signet into a loose mound of mud on top of the slab rather than sealing a closed stone to the rim.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j059",
+      "faults": {
+        "incoherent": "yes",
+        "anatomy": "yes"
+      },
+      "notes": "Card soldiers are human men wearing curved cards as sandwich boards, and the far-left 6-of-spades figure has tangled inverted anatomy with black legs and a red cap underneath and headless arms emerging at the top.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j060",
+      "faults": {
+        "extra_figures": "yes"
+      },
+      "notes": "Shows Paul with scroll and stylus lecturing eight seated listeners on a terrace with no mirror imagery, inserting both speaker and audience.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j064",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "Holmes, Watson, and the station-master stride directly away from the burning house behind them while Hatherley points back toward it, and a water jet sprays into a left window out of empty grass with no nozzle or hoseman.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j065",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Visible rows of wavy unreadable pseudo-script appear on the desk sheets beside the magnifying glass and on the slip Holmes holds.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j067",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Zoom crop confirms unreadable gold glyph-like pseudo-lettering painted across the red side panel of the rightmost fire-engine.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j069",
+      "faults": {
+        "lettering": "yes",
+        "unpainted_edge": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Rows of unreadable wavy pseudo-script appear on Watson's slip, Holmes's letters, and table papers; slight unpainted white paper shows at the bottom-right corner (accepted).",
+      "overall": "flawed"
+    },
+    {
+      "id": "j072",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Clear rows of wavy unreadable pseudo-script appear on the top sheet of paper on the foreground desk at bottom left.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j073",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Slight unpainted white watercolor paper shows at the bottom-left and top-left corners (accepted).",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j074",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Slight unpainted white watercolor paper shows at the bottom-right corner (accepted).",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j075",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Unpainted white watercolor paper vignettes at the left and right edges (accepted).",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j076",
+      "faults": {
+        "lettering": "yes",
+        "unpainted_edge": "no",
+        "incoherent": "yes",
+        "anatomy": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Both foreground arched card soldiers have upside-down numeral/glyph scribbles ('7', circles, dashes) printed where faces should be, the background-left flamingo has a double-looped neck, and the artwork runs full-bleed to all edges.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j077",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "All five men march briskly downhill away from the burning house behind their backs while one man gestures backward over his shoulder.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j079",
+      "faults": {
+        "lettering": "yes",
+        "incoherent": "yes",
+        "readable_text": "no"
+      },
+      "notes": "A rooster head merges incoherently onto a playing-card body at bottom left alongside duplicate miniature crowned kings and a garbled dark shape in Alice's hand; zoom crop also confirms wavy unreadable pseudo-script on the floor paper at bottom left.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j080",
+      "faults": {
+        "lettering": "yes",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "notes": "Watson matches the work's own character sheet rather than a screen actor, while the printed slip he holds up shows a heading bar and neat rows of unreadable tiny pseudo-text.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j082",
+      "faults": {
+        "incoherent": "yes"
+      },
+      "notes": "In the bottom-left foreground, a headless brown bird's wing and tail are fused directly into the back of a playing-card courtier's head.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j084",
+      "faults": {
+        "rule_violation": "yes"
+      },
+      "notes": "The blue Caterpillar is drawn with an overtly human old-man face plus a bowler hat and waistcoat not in the text, violating the animal-face depiction rule.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j085",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Slight unpainted white watercolor paper shows at the bottom-left and top-right corners (accepted).",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j086",
+      "faults": {
+        "unpainted_edge": "yes"
+      },
+      "notes": "Slight unpainted white watercolor paper shows at the bottom-right corner (accepted).",
+      "overall": "acceptable"
+    },
+    {
+      "id": "j089",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "Clear rows of unreadable wavy cursive pseudo-script appear on the two white sheets of paper on the foreground table.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j090",
+      "faults": {
+        "rule_violation": "yes"
+      },
+      "notes": "The blue Caterpillar is drawn with an overtly human old-man face plus a bowler hat and waistcoat not in the text, violating the animal-face depiction rule.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j093",
+      "faults": {
+        "lettering": "yes",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "notes": "Watson matches the work's own character sheet rather than a screen actor, while rows of unreadable wavy pseudo-script appear on the letters in Holmes's and Watson's hands and on the table papers.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j094",
+      "faults": {
+        "lettering": "yes",
+        "unpainted_edge": "no",
+        "readable_text": "no"
+      },
+      "notes": "The unrolled scroll on the foreground bottom-right table shows clear horizontal lines of unreadable wavy pseudo-script; artwork runs full-bleed to all edges.",
+      "overall": "flawed"
+    },
+    {
+      "id": "j097",
+      "faults": {
+        "lettering": "yes",
+        "readable_text": "no"
+      },
+      "notes": "The unrolled scroll across Paul's lap shows clear horizontal lines of unreadable wavy pseudo-script.",
+      "overall": "flawed"
+    }
+  ]
+}
