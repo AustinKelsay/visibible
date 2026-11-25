@@ -1079,7 +1079,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           if (reconcilingRef.current === settlement) reconcilingRef.current = null;
           // Dismiss gave this lock back already; the lease held now may be the next job's.
           if (!launched && dismissals === dismissalsRef.current && runLockBulkIdRef.current === bulkId) releaseRunLock(bulkId);
-          if (!launched && settlement.skippedSync) setRunLoopTrigger((value) => value + 1);
+          // A sync this settlement held belonged to its job: after Done there is none to owe.
+          if (!launched && settlement.skippedSync && dismissals === dismissalsRef.current) setRunLoopTrigger((value) => value + 1);
         }
       }
     };
