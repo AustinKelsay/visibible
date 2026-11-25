@@ -1,0 +1,37 @@
+{
+  "authorization": [
+    "The owner asked \"Ok lets full send these followups and then ship it all!\" about the follow-ups listed after the place card release."
+  ],
+  "release": {
+    "pullRequests": [567],
+    "issues": [561],
+    "commit": "6297a059 (main)",
+    "summary": "Verse map follow-ups. Automatic painting waits while the map covers the picture, so turning pages with it open paints nothing behind it; closing it paints the verse then in view once. On a short phone map the place card opens compact, so the chapters before and after show without a scroll: the place chips on one sideways-scrolling row with the chosen place's site, then ‹ before · after › on one row (long references shortened, link names keep what shows and the whole reference), and the full list's link. A swipe across the chips does not turn the page. The card steps aside on a phone while Ask is open. Rivers run to the map's edge (bible-map-outline.json rebuilt with clipLine). The card moved to place-card.tsx, chapter order compares (book, chapter) pairs, and one MapExploration type serves the map and analytics. Spec #556's body now says chapters.",
+    "leftOut": "Nothing else was waiting: production was main d0078aa3 (#564), released by another session at 19:44 UTC; main since then held only release records (#565)."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-25T20:07:19Z",
+        "convex": "Not pushed: no convex/ change since production d0078aa3."
+      },
+      {
+        "commit": "6297a059",
+        "vercel": "dpl_AtZwjVZKbexyeYFrCmmmEz7JpXMN",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/map-link"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com in headless Chrome. Genesis 28:19 at 390×844: Bethel's card opens compact (100 px) with Before and After inside it and no Nearby; with Ask open it is hidden, and it returns compact when Ask closes. Nehemiah 12:39 at 320×568 with Fish Gate chosen: compact, both links inside the card. Genesis 28:19 at 1440×900: the full card (310 px) with Nearby. No paint requests were sent; nothing was painted.",
+    "beforeRelease": "npm test 1719/1719, tsc, lint (0 errors, 14 warnings as before), CI quality-gates on 9bc1f60b. Sol (gpt-6.2-sol, xhigh) ran 5 review rounds; rounds 1–4 raised 9 findings, all fixed with tests, and round 5 returned APPROVE. CodeRabbit hit its review limit; the paid on-demand review was not run."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_8eSHq556mttkVMHPRg7BUrmXxSb9 (d0078aa3, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}

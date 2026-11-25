@@ -1,5 +1,11 @@
 # Generic engine release status
 
+**Verse map follow-ups (25 November 2026, 20:07 UTC).** On the owner's "full send these followups and then ship it all!", `main` at `6297a059` (#567, spec #561) went out as Vercel `dpl_AtZwjVZKbexyeYFrCmmmEz7JpXMN`, frontend only.
+- Automatic painting waits while the map covers the picture, and closing the map paints the verse then in view once.
+- On a short phone map the place card opens compact, so its chapters before and after show without a scroll. It steps aside while Ask is open on a phone, and a swipe across its chips does not turn the page.
+- Rivers run to the map's edge. The card moved to its own module.
+- Smoke: Genesis 28:19 and Nehemiah 12:39 at phone sizes show the compact card's links, Ask hides it, and the desktop card is unchanged. Nothing painted, no spend ([deployment](2026-11-25-map-follow-ups/deployment.json)).
+
 **Chapter painting retries and spent requests (25 November 2026, 19:44 UTC).** On the owner's "yes", `main` at `d0078aa3` (#564) went out Convex first, then Vercel `dpl_8eSHq556mttkVMHPRg7BUrmXxSb9`.
 - A verse's waits follow the latest answer, so a rate-limit retry answered by a scene still preparing is waited out instead of pausing the job.
 - A verse refused for credits or by the daily limit goes again under its next request id when the refused request was recorded failed, instead of replaying the failure and ending failed (#562).
