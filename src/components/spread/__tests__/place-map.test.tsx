@@ -718,6 +718,57 @@ describe("the place card", () => {
     expect(trackMapExplored).toHaveBeenCalledWith(expect.objectContaining({ action: "chapter", direction: "after" }));
   });
 
+  /**
+   * A phone map `height` px tall and 390 wide: the steps end at 112, a 60 px note sits 12 px above the bottom, and the
+   * card's full view is 320 px tall (150 compact).
+   */
+  const phoneMap = (height: number) => {
+    const footer = (element: HTMLElement) => element.className.includes("bottom-3");
+    const steps = (element: HTMLElement) => element.className.includes("top-[4.75rem]") && !element.className.includes("right-3");
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(390);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(height);
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? height - 12 - 60 : steps(this) ? 76 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return footer(this) ? 60 : steps(this) ? 36 : 0;
+    });
+    vi.spyOn(Element.prototype, "scrollHeight", "get").mockImplementation(function (this: Element) {
+      if (!this.hasAttribute("data-marker-card")) return 0;
+      return this.hasAttribute("data-compact") ? 150 : 320;
+    });
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+    });
+  };
+
+  it("opens compact where its full view would not fit, so the chapter rows show without a scroll", async () => {
+    // Neither side of the marker leaves 320 px on a 390×390 map.
+    phoneMap(390);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+    // One line for the places there; no ranks and no nearby places.
+    expect(cardInfo()).toBe("At BeitinBethel · Luz");
+    expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
+    expect(link("Before: Genesis 13:3")).not.toBeNull();
+    expect(link("After: Genesis 31:13")).not.toBeNull();
+    expect(button("Luz")).toBeDefined();
+    // The full list still opens, and the card scrolls for it as before.
+    await act(async () => button("All 35 chapters naming Bethel")!.click());
+    expect(card()!.querySelector("[data-all-chapters]")).not.toBeNull();
+    expect(card()!.hasAttribute("data-compact")).toBe(true);
+  });
+
+  it("keeps its full view where it fits", async () => {
+    phoneMap(900);
+    await openMap();
+    await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.hasAttribute("data-compact")).toBe(false);
+    expect(cardInfo()).toContain("most favoured");
+    expect(card()!.querySelector("[data-nearby-places]")).not.toBeNull();
+  });
+
   it("lists every chapter that names the place, by part of the Bible", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));

@@ -115,12 +115,24 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
   const choices = entries.filter((entry, row) => entries.findIndex((other) => other.place.id === entry.place.id) === row);
   // Placed by its whole height, measured before it paints (its content's, not the height a scroll limit clips it to,
   // so the placement can tell a card cut short); a guess until then (and where nothing is laid out).
-  const [drawn, setDrawn] = useState(0);
   const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
-  useLayoutEffect(() => setDrawn(cardRef.current?.scrollHeight ?? 0), [cardRef, id, box.width, box.height, place.id, all, opened]);
+  // Compact for this marker at this map size once its full first view proves too tall for its side of the marker (a
+  // short phone map): a line for each place, so the chapter rows show without a scroll. Being compact only takes lines
+  // away, so it never flips back; another marker or a resized map measures the full view afresh.
+  const fit = `${id} ${box.width}x${box.height}`;
+  const [compactFor, setCompactFor] = useState<string | null>(null);
+  const compact = compactFor === fit;
+  // A height counts only for what was measured, so a card just switched to another marker is not judged by the last.
+  const measuring = `${fit} ${place.id} ${all} ${opened} ${compact}`;
+  const [drawn, setDrawn] = useState({ of: "", height: 0 });
+  useLayoutEffect(() => setDrawn({ of: measuring, height: cardRef.current?.scrollHeight ?? 0 }), [cardRef, measuring]);
+  const measured = drawn.of === measuring ? drawn.height : 0;
   // As tall as its side of the marker allows; a longer card scrolls.
   // Below the controls even where a short map's places reach up beside them.
-  const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, drawn || 24 + entries.length * (shared ? 22 : 56) + 110);
+  const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, measured || 24 + entries.length * (shared ? 22 : 56) + 110);
+  useLayoutEffect(() => {
+    if (!compact && !all && measured > maxHeight) setCompactFor(fit);
+  }, [compact, all, measured, maxHeight, fit]);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (
@@ -132,13 +144,16 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
       aria-label={opened ? `${listNames(entries.map((entry) => entry.place))}: the card` : undefined}
       data-marker-card
       data-opened={opened ? "" : undefined}
+      data-compact={compact ? "" : undefined}
       // Escape in the card puts it away and goes back to its marker; it does not close the map.
       onKeyDown={(event) => {
         if (event.key !== "Escape" || event.nativeEvent.isComposing) return;
         event.preventDefault();
         onEscape();
       }}
-      className={`absolute z-10 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
+      // A phone with Ask open leaves the map a thin strip, so the card steps aside with the steps and comes back as Ask
+      // closes.
+      className={`absolute z-10 overflow-y-auto overscroll-contain max-md:[main:has([data-ask-page])_&]:hidden rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
       style={{ left, top, width: CARD_WIDTH, maxHeight }}
     >
       {opened ? (
@@ -155,14 +170,25 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
         <>
           {/* A described site ("south of the Lisan") reads as its own heading. */}
           <p className="pr-6 text-xs leading-snug text-white/70">{/^[a-z]/.test(site(entries[0])) ? site(entries[0]).replace(/^./, (c) => c.toUpperCase()) : `At ${site(entries[0])}`}</p>
-          {/* One line for each place there. */}
-          {entries.map(({ place: each, index }) => (
+          {/* One line for each place there; compact, one line for them all. */}
+          {compact ? (
+            <p className="mt-1 font-serif text-[15px] leading-snug text-white">{entries.map(({ place: each }) => each.name).join(" · ")}</p>
+          ) : entries.map(({ place: each, index }) => (
             <p key={`${each.id}:${index}`} className="mt-1 text-[11px] leading-snug text-white/55">
               <span className="font-serif text-[15px] text-white">{each.name}</span>{" "}
               {each.debated ? rank(each, index, true) : "settled"}
             </p>
           ))}
         </>
+      ) : compact ? (
+        entries.map(({ place: each, index }, row) => (
+          <p key={`${each.id}:${index}`} className={`leading-snug ${row > 0 ? "mt-1" : "pr-6"}`}>
+            <span className="font-serif text-base text-white">{each.name}</span>{" "}
+            <span className="text-[11px] text-white/55">
+              {each.debated ? `proposed at ${each.sites[index].name}` : each.sites[index].name === each.name ? "settled" : `at ${each.sites[index].name}`}
+            </span>
+          </p>
+        ))
       ) : (
         entries.map(({ place: each, index }, row) => (
           <div key={`${each.id}:${index}`} className={row > 0 ? "mt-2 border-t border-white/10 pt-2" : "pr-6"}>
@@ -208,7 +234,7 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
           setChosen(place.id);
           onExplore?.({ action: "chapter", direction });
         }} />
-        {nearby.length > 0 ? (
+        {nearby.length > 0 && !compact ? (
           <p data-nearby-places className="mt-1.5 text-[11px] leading-snug text-white/55">
             Nearby · {nearby.map((other) => `${other.name} ${other.km} km`).join(" · ")}
           </p>
