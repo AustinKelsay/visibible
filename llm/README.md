@@ -6,7 +6,7 @@ These guides describe the repository's current behavior. Source links identify t
 | --- | --- |
 | Scripture fetching, translations, lookup errors | [Bible API](context/BIBLE-API.md) |
 | Imported reference works, unit identities, moment ranges or source refreshes | [Work input](context/WORK-INPUT.md) |
-| Reader (the spread), Contents, Look, the picture and corner menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
+| Reader (the spread), Contents, Look, the picture and corner menus, the map experiment, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
 | Advanced: image settings, answering model, passage details, welcome, feedback prompts, and how to cut them | [Advanced](context/ADVANCED.md) |
 | Verse videos, durable jobs, public history or video rollout | [Video generation](context/VIDEO-GENERATION.md) |

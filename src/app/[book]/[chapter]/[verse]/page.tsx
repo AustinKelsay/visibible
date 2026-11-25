@@ -7,6 +7,7 @@ import { Spread } from "@/components/spread/spread";
 import { BibleApiLookupError, TRANSLATIONS } from "@/lib/bible-api";
 import { getChapter, getVerse } from "@/lib/scripture";
 import { getTranslationFromCookies } from "@/lib/get-translation";
+import { verseSetting } from "@/lib/verse-setting";
 import {
   parseVerseUrl,
   getNavigationUrls,
@@ -122,6 +123,7 @@ export default async function VersePage({ params }: VersePageProps) {
         prevUrl={prevUrl ?? undefined}
         nextUrl={nextUrl ?? undefined}
         nextVerseId={nextVerse ? verseLocationToId(nextVerse) : undefined}
+        setting={verseSetting(bookData.id, location.chapter, location.verse)}
       />
     </>
   );
