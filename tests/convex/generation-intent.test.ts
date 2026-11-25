@@ -23,6 +23,20 @@ describe("generation intent invariants", () => {
       expect.objectContaining({ executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1" }),
     ]);
   });
+  it("withdraws a request whose hold was refused only for the admission that made it, and only before any provider attempt (#530)", async () => {
+    const t = convexTest(schema, modules);
+    const withdraw = (generationId: string) => t.mutation(api.verseImages.withdrawRefusedRequest, { requestId: intent.requestId, generationId, serverSecret: intent.serverSecret });
+    await t.mutation(api.verseImages.createGenerationRequest, intent);
+    await t.mutation(api.verseImages.updateGenerationRequest, { requestId: intent.requestId, serverSecret: intent.serverSecret, status: "generating" });
+    expect(await withdraw("another-admission")).toEqual({ withdrawn: false });
+    expect(await withdraw(intent.generationId)).toEqual({ withdrawn: true });
+    // The id is usable again.
+    expect((await t.mutation(api.verseImages.createGenerationRequest, { ...intent, generationId: "billing-two" })).alreadyExists).toBe(false);
+    await t.mutation(api.verseImages.updateGenerationRequest, { requestId: intent.requestId, serverSecret: intent.serverSecret, status: "generating", providerRequestId: "gen-1" });
+    expect(await withdraw("billing-two")).toEqual({ withdrawn: false });
+    await expect(t.mutation(api.verseImages.withdrawRefusedRequest, { requestId: intent.requestId, generationId: "billing-two", serverSecret: "wrong" })).rejects.toThrow();
+    expect(await t.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(1);
+  });
   it("does not expose or reuse another owner's intent", async () => {
     const t = convexTest(schema, modules);
     await t.mutation(api.verseImages.createGenerationRequest, intent);

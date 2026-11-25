@@ -910,6 +910,28 @@ export const createGenerationRequest = mutation({
 /**
  * Secure action to update generation request lifecycle state.
  */
+/**
+ * Withdraw a request whose hold was refused (insufficient credits or the daily limit), so its id stays usable after a
+ * top-up, a reset or another verse's hold settling (#530): a refusal before any work leaves no request, as one refused
+ * before admission never had. Only the admission that made it can withdraw it, and only before any provider attempt.
+ */
+export const withdrawRefusedRequest = mutation({
+  args: { requestId: v.string(), generationId: v.string(), serverSecret: v.string() },
+  handler: async (ctx, args): Promise<{ withdrawn: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const request = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+    if (!request || request.generationId !== args.generationId) return { withdrawn: false };
+    if ((request.status !== "queued" && request.status !== "generating") || request.providerRequestId || request.actualCreditsCost !== undefined) {
+      return { withdrawn: false };
+    }
+    await ctx.db.delete(request._id);
+    return { withdrawn: true };
+  },
+});
+
 export const updateGenerationRequest = mutation({
   args: {
     requestId: v.string(),

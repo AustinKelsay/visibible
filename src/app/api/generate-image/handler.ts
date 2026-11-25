@@ -19,6 +19,7 @@ import {
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
+import { ART_STYLE_UNAVAILABLE, ENGINE_BINDING_CHANGED, RATE_LIMIT_EXCEEDED } from "@/lib/image-errors";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
 import { loadWorkInputs } from "@/lib/engine/work-inputs";
@@ -219,46 +220,6 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
   const jsonWithSessionRefresh = (...args: Parameters<typeof NextResponse.json>) =>
     withSessionRefresh(NextResponse.json(...args));
 
-  // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
-  // Combined with sid for granular tracking per IP+session pair
-  // Use currentIpHash from validation when available, otherwise compute it
-  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
-  const rateLimitIdentifier = `${ipHash}:${sid}`;
-
-  // Quotes have their own allowance, so reading prices never uses up the guest's generations.
-  const rateLimitEndpoint = quoteOnly ? "image-quote" : "generate-image";
-  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
-    identifier: rateLimitIdentifier,
-    endpoint: rateLimitEndpoint,
-    serverSecret,
-  });
-
-  if (!rateLimitResult.allowed) {
-    emitMetric("api_rate_limit_blocks_total", {
-      route: requestContext.route,
-      endpoint: rateLimitEndpoint,
-    });
-    logWarn("api.rate_limited", {
-      route: requestContext.route,
-      requestId: requestContext.requestId,
-      sid: redactSid(sid),
-      retryAfter: rateLimitResult.retryAfter,
-    });
-    return jsonWithSessionRefresh(
-      {
-        error: "Rate limit exceeded",
-        message: "Too many image generation requests. Please wait before generating more.",
-        retryAfter: rateLimitResult.retryAfter,
-      },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(rateLimitResult.retryAfter || 60),
-        },
-      }
-    );
-  }
-
   let requestBody: GenerateImageRequestBody;
   try {
     const parsed = await readJsonBodyWithLimit<unknown>(
@@ -390,6 +351,50 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     }
   }
 
+  // SECURITY: Rate limiting, after the replay lookup so it counts new work only: a replay of this session's own request
+  // (same id, same inputs) is answered from its record above (#530). Use IP hash as primary identifier to prevent
+  // multi-session bypass
+  // Combined with sid for granular tracking per IP+session pair
+  // Use currentIpHash from validation when available, otherwise compute it
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
+  // Quotes have their own allowance, so reading prices never uses up the guest's generations.
+  const rateLimitEndpoint = quoteOnly ? "image-quote" : "generate-image";
+  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: rateLimitIdentifier,
+    endpoint: rateLimitEndpoint,
+    serverSecret,
+    // The owner's image allowance is decided in Convex from this session's tier (#552).
+    sid,
+  });
+
+  if (!rateLimitResult.allowed) {
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: rateLimitEndpoint,
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid: redactSid(sid),
+      retryAfter: rateLimitResult.retryAfter,
+    });
+    return jsonWithSessionRefresh(
+      {
+        error: RATE_LIMIT_EXCEEDED,
+        message: "Too many image generation requests. Please wait before generating more.",
+        retryAfter: rateLimitResult.retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimitResult.retryAfter || 60),
+        },
+      }
+    );
+  }
+
   const parseGenerationNumber = (
     value: GenerateImageRequestBody["generation"]
   ): number | null => {
@@ -493,13 +498,13 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
   }
   if (engineDecision.engine === null) {
-    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
+    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? ART_STYLE_UNAVAILABLE : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
   }
   // A bound job never silently continues on another engine; nothing is reserved or recorded. A job bound to the removed
   // legacy engine is refused here, so it pauses.
   if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
     incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
-    return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
+    return jsonWithSessionRefresh({ error: ENGINE_BINDING_CHANGED, message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
   }
   // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
   if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });

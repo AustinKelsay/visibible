@@ -21,17 +21,18 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { scrubForLog } from "@/lib/image-evals/suite-run";
 import { BIBLE_WORK_ID } from "../../../convex/lib/proseWorks";
 import { SEED_CHAPTERS, type SeedChapterEntry } from "./chapters";
-import { IMAGES_UNAVAILABLE } from "@/lib/image-errors";
+import { DAILY_LIMIT_EXCEEDED, IMAGES_UNAVAILABLE } from "@/lib/image-errors";
 
 /** What the dry run projects per image: the provider's measured price for one image is about $0.043 (ADR 0012). */
 export const ESTIMATE_USD_PER_IMAGE = 0.045;
 /** What a request in flight, or one whose cost the provider did not report, is counted at: above any quote the engine admits (ten credits). An image reported above it stops the run. */
 export const CEILING_USD_PER_IMAGE = 0.1;
 /** The site admits this many image requests a minute for one session (convex/rateLimit.ts); the run paces itself to it. */
-export const GENERATE_REQUESTS_PER_MINUTE = 5;
+export const GENERATE_REQUESTS_PER_MINUTE = 20;
 /** A second longer than the site's minute, so a request held back for the window does not arrive just before it turns. */
 const PACE_WINDOW_MS = 61_000;
-const REQUEST_TIMEOUT_MS = 120_000;
+// Above the route's worst case: three provider calls of up to 45 s each, with up to 10 s between them.
+const REQUEST_TIMEOUT_MS = 180_000;
 /** How often one request waits out a rate limit before it is given up. */
 const MAX_RATE_LIMIT_WAITS = 5;
 /** How often a request with no definite answer is sent again under the same id, and the pause before each. */
@@ -202,7 +203,7 @@ export function classifyGenerateResponse(status: number, json: Json | null): Att
   if (status >= 200 && status < 300) return unresolved();
   if (status === 401 || status === 403) return failed({ stop: "not-authorized" });
   if (status === 402) return failed({ stop: "insufficient-credits" });
-  if (status === 429) return failed({ stop: body.error === "Daily spending limit exceeded" ? "daily-limit" : "rate-limited" });
+  if (status === 429) return failed({ stop: body.error === DAILY_LIMIT_EXCEEDED ? "daily-limit" : "rate-limited" });
   // A replay of a request that was admitted and ended without a saved image: no image exists, and its cost is unknown.
   if (status === 409 && body.reused === true) return failed(held);
   // The provider failed after admission: the reader's hold was released, but a provider 5xx does not prove nothing was
@@ -444,7 +445,7 @@ async function seedLocked(options: SeedOptions, deps: SeedDeps, chapters: SeedCh
       }
       let reply: Reply | null = null; let thrown = "";
       try { reply = await client.post("/api/generate-image", body); } catch (error) { thrown = error instanceof Error ? error.message : String(error); }
-      if (reply?.status === 429 && reply.json?.error !== "Daily spending limit exceeded" && ++waits <= MAX_RATE_LIMIT_WAITS) {
+      if (reply?.status === 429 && reply.json?.error !== DAILY_LIMIT_EXCEEDED && ++waits <= MAX_RATE_LIMIT_WAITS) {
         pausedUntil = Math.max(pausedUntil, deps.now() + reply.retryAfterMs);
         deps.log(`[rate limited] ${verse.reference}: waiting ${reply.retryAfterMs / 1000}s`);
         continue;
