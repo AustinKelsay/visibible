@@ -1,5 +1,10 @@
 # Generic engine release status
 
+**The map's place card and Then · Today (25 November 2026, 19:08 UTC).** On the owner's "Let's remove the experimental tab and ship it!", `main` at `1fec4365` went out as Vercel `dpl_HVAcqf1zqUA4ihSpQR8SABhzU9ES`, frontend only.
+- The verse map gets named zoom steps and a locator, and a marker's card shows the chapters naming its place around this verse, with nearby places (#557, spec #556; #554's polish inside).
+- Then · Today draws today's borders, countries and cities from Natural Earth under the verse's places. The Experimental tag is gone.
+- Smoke: on Genesis 28:19 at phone and desktop sizes, the map opens, Today draws its cities, a card opens and the map closes. Nothing painted, no spend ([deployment](2026-11-25-map-place-card/deployment.json)).
+
 **Map link and told-events wording (25 November 2026, about 14:45 UTC).** On the owner's "let's get the rest of this shipped and deployed", `main` at `69594448` went out as Vercel `dpl_6KkBb3C1PtkarnaWVTf1mZSeEZQh`, frontend only.
 - The image prompt moves to `2026-11-25-lean-v8` (#550): a teller is left out of what they tell. Told scenes went from 13/20 to 15/20 on real images, with speakers kept 8/8 ([climb](2026-11-25-told-events-2/README.md)).
 - The experimental "See where this happened" map link is live under verses with a known place (#537, #551).
