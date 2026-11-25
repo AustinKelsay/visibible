@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, Suspense, useEffect, useRef, useSyncExternalStore } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useQuery } from "convex/react";
 import { Image as ImageIcon, MapPin } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
@@ -35,8 +35,22 @@ function subscribe(listener: () => void) {
   };
 }
 
-const openMap = () => setMapOn(true);
-const closeMap = () => setMapOn(false);
+// Opened from the keyboard, so the map takes focus as it appears: it comes before the words page in the page order.
+let focusPending = false;
+const openMap = (fromKeyboard = false) => {
+  focusPending = fromKeyboard;
+  setMapOn(true);
+};
+const closeMap = () => {
+  focusPending = false;
+  setMapOn(false);
+};
+/** Whether the map should take focus as it appears, asked once. */
+const takeMapFocus = () => {
+  const pending = focusPending;
+  focusPending = false;
+  return pending;
+};
 
 /** Whether the map is on, and functions to turn it on and off. */
 export function useMapMode() {
@@ -78,19 +92,32 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
   // The words page is put aside in the whole-picture view, so the link is not offered there.
   const wordsAside = useLayer("whole-picture").isOpen;
   const props = { book: bookName, chapter, verse: verseNumber, ...settingKind(setting), tier, hasCredits: credits > 0 };
-  // Shown once per spread, when the link offers the map (not while it reads "Back to the picture"), and reported once the
-  // session is known, so its tier and credits are the reader's.
+  const link = useRef<HTMLButtonElement>(null);
+  // In view while it offers the map: on a phone a long verse puts the link below the words page's scroll area until the
+  // reader scrolls. Counted as seen where the browser cannot tell.
+  const [seen, setSeen] = useState(() => typeof IntersectionObserver === "undefined");
+  useEffect(() => {
+    const node = link.current;
+    if (seen || on || !node) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) setSeen(true);
+    }, { threshold: 1 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [seen, on]);
+
+  // Shown once per spread, when the link is in view and offers the map (not while it reads "Back to the picture"), and
+  // reported once the session is known, so its tier and credits are the reader's.
   const shown = useRef<"no" | "offered" | "reported">("no");
   useEffect(() => {
-    if (!on && !wordsAside && shown.current === "no") shown.current = "offered";
+    if (!on && !wordsAside && seen && shown.current === "no") shown.current = "offered";
     if (shown.current !== "offered" || isLoading) return;
     shown.current = "reported";
     trackMapLinkShown(props);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- reported once, with the props of that moment
-  }, [on, wordsAside, isLoading]);
+  }, [on, wordsAside, seen, isLoading]);
 
   // The map's close button and painting window leave with the map; focus comes back to this link rather than the page.
-  const link = useRef<HTMLButtonElement>(null);
   const wasOn = useRef(on);
   useEffect(() => {
     if (wasOn.current && !on && (document.activeElement === null || document.activeElement === document.body)) {
@@ -103,10 +130,11 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
     <button
       ref={link}
       type="button"
-      onClick={() => {
+      onClick={(event) => {
         if (on) return close();
         trackMapOpened(props);
-        open();
+        // A click with no pointer behind it (Enter or Space) came from the keyboard.
+        open(event.detail === 0);
       }}
       className={LINK}
     >
@@ -138,7 +166,10 @@ export function PlaceMapStage({ setting, verseId, reference, hidden }: {
   useEffect(() => {
     if (!shows || openLayer !== null) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || event.defaultPrevented) return;
+      if (event.key !== "Escape" || event.defaultPrevented || event.isComposing) return;
+      // Escape in the words page's question field is the field's, not the map's.
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
       event.preventDefault();
       close();
     };
@@ -150,7 +181,7 @@ export function PlaceMapStage({ setting, verseId, reference, hidden }: {
   return (
     <div className="absolute inset-0 bg-[#0f1a22] md:right-[var(--words-page-width)]">
       <Suspense fallback={null}>
-        <PlaceMapView setting={setting} reference={reference} onClose={close} picture={<PaintingWindow verseId={verseId} reference={reference} onBack={close} />} />
+        <PlaceMapView setting={setting} reference={reference} onClose={close} takeFocus={takeMapFocus} picture={<PaintingWindow verseId={verseId} reference={reference} onBack={close} />} />
       </Suspense>
     </div>
   );

@@ -8,7 +8,7 @@ import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
-import PlaceMapView, { frameSetting, settingNote } from "../place-map-view";
+import PlaceMapView, { cardPosition, fitView, frameSetting, placeNames, rank, settingNote } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -84,6 +84,23 @@ describe("the map link", () => {
     expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
   });
 
+  it("is not counted as shown until the link comes into view", async () => {
+    let report: ((entries: { isIntersecting: boolean }[]) => void) | undefined;
+    vi.stubGlobal("IntersectionObserver", class {
+      constructor(callback: (entries: { isIntersecting: boolean }[]) => void) { report = callback; }
+      observe() {}
+      disconnect() {}
+    });
+    try {
+      await renderReader(setting("EXO", 14, 2));
+      expect(trackMapLinkShown).not.toHaveBeenCalled();
+      await act(async () => report!([{ isIntersecting: true }]));
+      expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("is not counted as shown while the whole-picture view puts the words page aside", async () => {
     await act(async () =>
       root.render(
@@ -135,6 +152,26 @@ describe("the map link", () => {
     button("Close the map")!.focus();
     await act(async () => button("Close the map")!.click());
     expect(document.activeElement).toBe(button("See where this happened"));
+  });
+
+  it("takes focus into the map when opened from the keyboard", async () => {
+    await renderReader(setting("EXO", 14, 2));
+    // A click with no pointer behind it, as Enter or Space gives.
+    await act(async () => button("See where this happened")!.dispatchEvent(new MouseEvent("click", { bubbles: true, detail: 0 })));
+    expect(document.activeElement).toBe(map());
+    await act(async () => button("Back to the picture")!.click());
+    await act(async () => button("See where this happened")!.dispatchEvent(new MouseEvent("click", { bubbles: true, detail: 1 })));
+    expect(document.activeElement).not.toBe(map());
+  });
+
+  it("leaves Escape to a field the reader is typing in", async () => {
+    await renderReader(setting("EXO", 14, 2));
+    await act(async () => button("See where this happened")!.click());
+    const field = document.createElement("input");
+    document.body.appendChild(field);
+    await act(async () => field.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+    expect(map()).not.toBeNull();
+    field.remove();
   });
 
   it("shrinks the verse's picture to a window that brings it back", async () => {
@@ -231,6 +268,42 @@ describe("the map", () => {
     expect(card()).toBeNull();
   });
 
+  it("gives places that share a spot one marker, one name and one card", async () => {
+    // Isaiah 2:3: Zion and Jerusalem are the same place on the map.
+    await view(setting("ISA", 2, 3));
+    const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem · Zion"]')!;
+    expect(pin.getAttribute("aria-label")).toBe("Jerusalem; Zion, at Jerusalem");
+    expect(Array.from(container.querySelectorAll("svg text"), (text) => text.textContent)).toEqual(["Jerusalem · Zion"]);
+
+    // Exodus 14:2: Baal-zephon and Pi-hahiroth are both proposed at Al Mahamdiyah.
+    await view(setting("EXO", 14, 2));
+    const shared = Array.from(container.querySelectorAll<SVGGElement>('[data-rings="Baal-zephon · Pi-hahiroth"]')).find((ring) => ring.getAttribute("aria-label")!.includes("Al Mahamdiyah"))!;
+    await act(async () => shared.focus());
+    // The shared site is named once.
+    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("At Al MahamdiyahBaal-zephon less favoured (3 of 3)Pi-hahiroth less favoured (5 of 5)");
+  });
+
+  it("opens a marker's card from its name too", async () => {
+    await view(setting("JHN", 1, 19));
+    const name = Array.from(container.querySelectorAll("svg text")).find((text) => text.textContent === "Jerusalem")!;
+    await act(async () => name.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("JerusalemIts site is settled");
+  });
+
+  it("opens a marker's card with Enter", async () => {
+    await view(setting("JHN", 1, 19));
+    const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem"]')!;
+    await act(async () => pin.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(container.querySelector("[data-marker-card]")).not.toBeNull();
+  });
+
+  it("says when proposed sites are equally favoured", () => {
+    // Ezekiel 27:23: both sites proposed for Chilmad score the same.
+    const chilmad = setting("EZK", 27, 23).places.find((place) => place.name === "Chilmad")!;
+    expect(rank(chilmad, 0)).toBe("tied as the most favoured of 2 proposed sites");
+    expect(rank(chilmad, 1)).toBe("tied as the most favoured of 2 proposed sites");
+  });
+
   it("says a pinned place's site is settled", async () => {
     await view(setting("JHN", 1, 19));
     const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem"]')!;
@@ -249,6 +322,47 @@ describe("the map", () => {
     await view(setting("JHN", 1, 19));
     expect(container.textContent).toContain("Experimental");
     expect(container.querySelector('a[href="https://www.openbible.info/geo/"]')?.textContent).toBe("Places: OpenBible.info, CC BY 4.0");
+  });
+});
+
+describe("the map's layout", () => {
+  it("fits the setting between the controls and the note", () => {
+    const frame = frameSetting(setting("EXO", 14, 2));
+    const box = { width: 390, height: 390, top: 92, bottom: 90 };
+    const view = fitView(frame, box);
+    const top = (frame.y - view.y) / view.unit;
+    const bottom = (frame.y + frame.height - view.y) / view.unit;
+    expect(top).toBeGreaterThanOrEqual(box.top - 1e-6);
+    expect(bottom).toBeLessThanOrEqual(box.height - box.bottom + 1e-6);
+  });
+
+  it("never prints a name over another, and leaves out one with no room", () => {
+    const band = { left: 0, top: 0, right: 400, bottom: 400 };
+    const crowd = [0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => ({ key: String(i), left: 200 + (i % 3) * 4, top: 200 + Math.floor(i / 3) * 4, radius: 0, names: [`Place ${i}`] }));
+    const placed = placeNames(crowd, [], band, 15);
+    expect(placed.length).toBeGreaterThan(0);
+    expect(placed.length).toBeLessThan(crowd.length);
+    const boxes = placed.map((name) => {
+      const width = name.text.length * 7.5;
+      const left = name.anchor === "start" ? name.x : name.anchor === "end" ? name.x - width : name.x - width / 2;
+      return { left, right: left + width, top: name.y - 11.25, bottom: name.y + 3.75 };
+    });
+    for (const [i, a] of boxes.entries()) {
+      for (const b of boxes.slice(i + 1)) expect(a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom).toBe(false);
+    }
+  });
+
+  it("puts a card above or below its marker on a phone, never over it", () => {
+    const at = { left: 195, top: 150 };
+    const { left, top } = cardPosition(at, 20, { width: 390, height: 390 }, 74);
+    const coversMarker = at.left >= left && at.left <= left + 224 && at.top >= top && at.top <= top + 74;
+    expect(coversMarker).toBe(false);
+    // Low in the box, a tall card goes above.
+    const low = { left: 195, top: 250 };
+    const above = cardPosition(low, 20, { width: 390, height: 390 }, 130);
+    expect(above.top + 130).toBeLessThanOrEqual(low.top);
+    // A computer's box has room beside it.
+    expect(cardPosition(at, 20, { width: 900, height: 700 }, 74).left).toBe(215);
   });
 });
 
