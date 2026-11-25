@@ -142,6 +142,15 @@ describe("lean prompt", () => {
     expect(result.prompt).not.toContain("IMAGERY, NOT FORM");
   });
 
+  it("keeps IMAGERY, NOT FORM active whenever a section has a formless cast entry even if the verse only mentions its throne", () => {
+    const result = buildLeanRendering(input("Before the throne Simon saw something like a sea of glass.", [god, simon]));
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(result.prompt).toContain("IMAGERY, NOT FORM (binding)");
+    expect(result.prompt).toContain("carried props and action");
+  });
+
   it("allows the setting block to yield when a moment's words tell of another place", () => {
     const result = buildLeanRendering(input("He spoke of distant lands.", [simon, golgotha]));
     expect(result.ok).toBe(true);
