@@ -111,8 +111,9 @@ export default function PlaceMapView({ setting, reference, onClose, picture }: {
     role: "button" as const,
     "aria-label": markerLabel(place, index),
     onPointerEnter: () => setActive({ place, index }),
-    // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving.
-    onPointerLeave: () => setActive(focused.current),
+    // The card is the focus indicator, so a pointer passing over keeps the focused marker's card on leaving. A marker
+    // a page turn removed may never have sent blur (Firefox), so only one of this setting's places counts.
+    onPointerLeave: () => setActive(focused.current && setting.places.includes(focused.current.place) ? focused.current : null),
     onFocus: () => setActive(focused.current = { place, index }),
     onBlur: () => setActive(focused.current = null),
     onClick: () => setActive({ place, index }),
