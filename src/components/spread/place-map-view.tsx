@@ -813,10 +813,11 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   const place = entries.find((entry) => entry.place.id === chosen)?.place ?? entries[0].place;
   // A place proposed at two sites a marker joins (Anathoth at Ras el Kharruba and Anata) is one choice.
   const choices = entries.filter((entry, row) => entries.findIndex((other) => other.place.id === entry.place.id) === row);
-  // Placed by its drawn height, measured before it paints; a guess until then (and where nothing is laid out).
+  // Placed by its whole height, measured before it paints (its content's, not the height a scroll limit clips it to,
+  // so the placement can tell a card cut short); a guess until then (and where nothing is laid out).
   const [drawn, setDrawn] = useState(0);
   const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
-  useLayoutEffect(() => setDrawn(cardRef.current?.offsetHeight ?? 0), [cardRef, id, box.width, place.id, all, opened]);
+  useLayoutEffect(() => setDrawn(cardRef.current?.scrollHeight ?? 0), [cardRef, id, box.width, box.height, place.id, all, opened]);
   // As tall as its side of the marker allows; a longer card scrolls.
   const { left, top, maxHeight } = cardPosition(at, gap, box, drawn || 24 + entries.length * (shared ? 22 : 56) + 110);
   const spot = entries[0].place.sites[entries[0].index];
