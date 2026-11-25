@@ -754,25 +754,32 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             if (!stillWanted()) return await putBack();
             const overlappedAtSend = inFlight.size > 1;
             let response = await submit();
-            for (let attempt = 0; attempt < ITEM_RETRY_LIMIT && response.status === 503; attempt++) {
-              const body = await response.clone().json().catch(() => null);
-              if (!body?.retryable) break;
-              await sleep(ITEM_RETRY_DELAY_MS);
-              if (!stillWanted()) return await putBack();
-              response = await submit();
-            }
-            // The site's rate limit is waited out and the same request sent again; the daily limit is not.
-            for (let waits = 0; waits < RATE_LIMIT_WAIT_LIMIT && response.status === 429; waits++) {
-              const body = await response.clone().json().catch(() => null) as { error?: string; retryAfter?: number } | null;
-              if (body?.error === DAILY_LIMIT_EXCEEDED) break;
-              const seconds = Number(body?.retryAfter ?? response.headers.get("Retry-After"));
-              await sleep((Number.isFinite(seconds) && seconds > 0 ? seconds : 60) * 1000);
-              if (!stillWanted()) return await putBack();
-              response = await submit();
-            }
-            for (let waited = 0; waited < IN_FLIGHT_WAIT_LIMIT && response.status === 202; waited++) {
-              await sleep(IN_FLIGHT_WAIT_DELAY_MS);
-              // A poll is a fresh admission once the earlier attempt is gone, so it too waits for a run that wants it.
+            // Each wait follows the latest answer, so a retry answered by another kind of refusal is waited out in
+            // turn (#552). Each kind keeps its own budget. The site's rate limit is waited out and the same request
+            // sent again; the daily limit is not. A poll is a fresh admission once the earlier attempt is gone, so it
+            // too waits for a run that wants it.
+            const waits = { retryable: 0, rateLimit: 0, inFlight: 0 };
+            for (;;) {
+              let delayMs: number | null = null;
+              if (response.status === 503 && waits.retryable < ITEM_RETRY_LIMIT) {
+                const body = await response.clone().json().catch(() => null) as { retryable?: boolean } | null;
+                if (body?.retryable) {
+                  waits.retryable++;
+                  delayMs = ITEM_RETRY_DELAY_MS;
+                }
+              } else if (response.status === 429 && waits.rateLimit < RATE_LIMIT_WAIT_LIMIT) {
+                const body = await response.clone().json().catch(() => null) as { error?: string; retryAfter?: number } | null;
+                if (body?.error !== DAILY_LIMIT_EXCEEDED) {
+                  waits.rateLimit++;
+                  const seconds = Number(body?.retryAfter ?? response.headers.get("Retry-After"));
+                  delayMs = (Number.isFinite(seconds) && seconds > 0 ? seconds : 60) * 1000;
+                }
+              } else if (response.status === 202 && waits.inFlight < IN_FLIGHT_WAIT_LIMIT) {
+                waits.inFlight++;
+                delayMs = IN_FLIGHT_WAIT_DELAY_MS;
+              }
+              if (delayMs === null) break;
+              await sleep(delayMs);
               if (!stillWanted()) return await putBack();
               response = await submit();
             }
@@ -797,15 +804,19 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               // Still running server-side after the wait: leave it queued so resume replays it.
               return await pauseFor("in_flight");
             } else if (response.status === 402) {
-              // Other verses' holds may be what the balance lacked: this one is tried again, alone, once they settle.
+              // A refused hold whose request could not be withdrawn, or a refused final charge, left its request
+              // failed: the requeue marks it spent, and Convex gives the verse its next request id only then.
+              // Other verses' holds may be what the balance lacked: this one is tried again, alone, once they settle,
+              // under the id Convex now has for it.
               if (overlappedAtSend || inFlight.size > 1) {
-                if ((await requeue())?.updated) deferred.push(item);
+                const moved = await requeue(true);
+                if (moved?.updated) deferred.push("attempt" in moved ? { ...item, attempt: moved.attempt } : item);
                 return false;
               }
-              return await pauseFor("credits");
+              return await pauseFor("credits", { spentRequest: true });
             } else if (response.status === 429) {
               const daily = (await response.json().catch(() => null) as { error?: string } | null)?.error === DAILY_LIMIT_EXCEEDED;
-              return await pauseFor(daily ? "daily_limit" : "rate_limited");
+              return await pauseFor(daily ? "daily_limit" : "rate_limited", { spentRequest: daily });
             } else {
               const errData = await response.json().catch(() => null) as { error?: string; message?: string; retryable?: boolean } | null;
               const errorMsg = errData?.error || errData?.message || `HTTP ${response.status}`;

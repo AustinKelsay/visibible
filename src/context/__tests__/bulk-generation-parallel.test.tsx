@@ -81,6 +81,8 @@ function deferred<T>() {
 let onMutation: (args: Record<string, unknown>) => Promise<void> | void;
 let persistedStatus: string;
 let persistedReason: unknown;
+// As convex/bulkGenerations.ts updateVerseStatus: a requeue that marks its request spent answers with the verse's attempt.
+let attemptAfterSpend: (verseId: string) => number;
 beforeEach(() => {
   serverJob = undefined;
   document.cookie = "visibible_csrf=" + "a".repeat(64);
@@ -95,9 +97,11 @@ beforeEach(() => {
   onMutation = () => {};
   persistedStatus = "active";
   persistedReason = null;
+  attemptAfterSpend = () => 0;
   mocks.mutation.mockReset();
   mocks.mutation.mockImplementation(async (args) => {
     await onMutation(args);
+    if (args.spentRequest) return { updated: true, attempt: attemptAfterSpend(String(args.verseId)) };
     if ("verses" in args) {
       return { created: true, status: "active", bulkId: "bulk-1", totalVerses: args.verses.length,
         completedCount: 0, failedCount: 0, skippedCount: 0, totalCreditsUsed: 0 };
@@ -681,4 +685,61 @@ it("shows the job blocked after three restarts that each failed to save (#552)",
   expect(retries).toHaveLength(3);
   await act(async () => root.unmount());
   mocks.client.query.mockReset();
+});
+
+it("sends a deferred verse whose refused request ended failed under its next request id", async () => {
+  // The hold was refused while Genesis 1:3 painted, and the refused request could not be withdrawn, so it ended failed:
+  // Convex gives the verse its next attempt, and the deferred retry goes out under that id instead of replaying the failure.
+  const second = deferred<Response>();
+  const third = deferred<Response>();
+  attemptAfterSpend = (verseId) => verseId === "verse-1" ? 1 : 0;
+  vi.stubGlobal("fetch", vi.fn((_url: string, init?: RequestInit) => {
+    const request = JSON.parse(String(init?.body));
+    sent.push(request);
+    if (request.requestId === "bulk-bulk-1-0") return Promise.resolve(success());
+    if (request.requestId === "bulk-bulk-1-2") return third.promise;
+    if (request.requestId === "bulk-bulk-1-1-a1") return Promise.resolve(success());
+    // The spent id answers with its recorded failure, as the route's replay does.
+    return sent.filter((seen) => seen.requestId === "bulk-bulk-1-1").length === 1
+      ? second.promise
+      : Promise.resolve(refuse(409, "Insufficient credits", { status: "failed", reused: true }));
+  }));
+  const root = await started(3);
+  await wait(() => expect(sent).toHaveLength(3));
+  await act(async () => second.resolve(refuse(402, "Insufficient credits")));
+  await act(async () => third.resolve(success()));
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  expect(sent.map((request) => request.requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-1-1", "bulk-bulk-1-2", "bulk-bulk-1-1-a1"]);
+  expect(bulk.state).toMatchObject({ completedCount: 3, failedCount: 0 });
+  expect(mocks.mutation).toHaveBeenCalledWith(expect.objectContaining({ verseId: "verse-1", status: "queued", spentRequest: true }));
+  await act(async () => root.unmount());
+});
+
+it.each([
+  ["credits", 402, "Insufficient credits"],
+  ["daily_limit", 429, "Daily spending limit exceeded"],
+])("marks the request spent when a lone verse pauses the job for %s, so Resume does not replay a recorded failure", async (reason, status, error) => {
+  spyFetch(() => refuse(status, error));
+  const root = await started(2);
+  await wait(() => expect(persistedReason).toBe(reason));
+  expect(mocks.mutation).toHaveBeenCalledWith(expect.objectContaining({ verseId: "verse-0", status: "queued", spentRequest: true }));
+  await act(async () => root.unmount());
+});
+
+it("waits out each refusal in turn when a rate-limit retry is answered by a scene still preparing", async () => {
+  const preparing = holdTimer(2000);
+  const answers = [
+    refuse(429, "Rate limit exceeded", { retryAfter: 0.001 }),
+    refuse(503, "Scene unavailable", { retryable: true }),
+    refuse(429, "Rate limit exceeded", { retryAfter: 0.001 }),
+    success(),
+  ];
+  spyFetch(() => answers[sent.length - 1] ?? success());
+  const root = await started(1);
+  await act(async () => preparing.started);
+  preparing.fire();
+  await wait(() => expect(bulk.state.status).toBe("completed"));
+  expect(sent).toHaveLength(4);
+  expect(persistedReason).toBeNull();
+  await act(async () => root.unmount());
 });
