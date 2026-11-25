@@ -27,6 +27,8 @@ interface SpreadPictureProps {
   onPlayOn?: () => boolean;
   /** Continuous play turned to this spread: its picture's video starts at once and Continuous play stays on. */
   arrivesPlaying?: boolean;
+  /** The map (#532) covers the picture: its video stops, and Continuous play with it. */
+  covered?: boolean;
 }
 
 /**
@@ -71,7 +73,7 @@ function useReducedMotion() {
   return useSyncExternalStore(subscribeReducedMotion, () => window.matchMedia?.(REDUCED_MOTION).matches ?? false, () => false);
 }
 
-function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, arrivesPlaying = false }: SpreadPictureProps) {
+function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, arrivesPlaying = false, covered = false }: SpreadPictureProps) {
   const { chosen: chosenStyle, order } = usePictureStyles();
   // The picture rule. The next spread's prefetch reads the same query with the same arguments (prefetch-next.tsx).
   const rulePicture = useQuery(api.verseImages.getSpreadPicture, { verseId, styles: order });
@@ -120,6 +122,11 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     setPlayback(null);
     setPlayOn(false);
   };
+  if (covered && (playback !== null || playOn || arrivalPending)) {
+    setPlayback(null);
+    setPlayOn(false);
+    setArrivalPending(false);
+  }
 
   // Continuous play: offered while a video is pressed and the next verse's picture (by the same rule) has a video too.
   const offersPlayOn = phase !== null && !reducedMotion && Boolean(nextVerseId && onPlayOn);

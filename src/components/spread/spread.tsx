@@ -18,11 +18,13 @@ import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WORDS_PAGE_WIDTH_CSS } from "@/components/spread/words-page-width";
 import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
+import { PlaceMapStage, useMapShows } from "@/components/spread/place-map";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { useSession } from "@/context/session-context";
 import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
+import type { VerseSetting } from "@/lib/verse-setting";
 import { readableReference } from "@/lib/readable-reference";
 
 export interface SpreadProps {
@@ -54,6 +56,8 @@ export interface SpreadProps {
   nextUrl?: string;
   /** Where the next verse's (or moment's) pictures are kept, so the next spread can be fetched ahead. */
   nextVerseId?: string;
+  /** Where a Bible verse happens, for the map experiment (#532); null or absent when no place is known. */
+  setting?: VerseSetting | null;
 }
 
 /**
@@ -78,7 +82,7 @@ export function Spread(props: SpreadProps) {
 
 function SpreadScreen({
   verseId, path, bookSlug, bookName, chapter, chapterLabel, verseNumber, reference, verseText, paragraphs, totalVerses,
-  translationName, prevUrl, nextUrl, nextVerseId,
+  translationName, prevUrl, nextUrl, nextVerseId, setting,
 }: SpreadProps) {
   const scope = useWorkScope();
   const word = useMomentWord();
@@ -112,8 +116,11 @@ function SpreadScreen({
   const { tier, credits } = useSession();
   const words = {
     bookName, chapter, chapterLabel, reference, verseNumber, verseText, paragraphs, totalVerses, translationName,
-    prevUrl, nextUrl, onTurn,
+    prevUrl, nextUrl, onTurn, setting,
   };
+  // The map experiment (#532): while it shows, it takes the picture's place. The picture stays mounted (its painting
+  // state carries on) but is hidden with its controls, and its video stops.
+  const mapShows = useMapShows(setting, whole);
   const { openLayer, openLayerById } = useLayers();
   // The occasional feedback prompt, only when the reader turned it on in Advanced.
   const { feedbackPrompts } = useAdvancedSettings();
@@ -141,15 +148,19 @@ function SpreadScreen({
             : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
         }`}
       >
-        <SpreadPicture
-          key={verseId}
-          verseId={verseId}
-          reference={reference}
-          onShowWhole={onShowWhole}
-          nextVerseId={nextVerseId}
-          onPlayOn={onPlayOn}
-          arrivesPlaying={arrivesPlaying}
-        />
+        <div className={mapShows ? "hidden" : "contents"}>
+          <SpreadPicture
+            key={verseId}
+            verseId={verseId}
+            reference={reference}
+            onShowWhole={onShowWhole}
+            nextVerseId={nextVerseId}
+            onPlayOn={onPlayOn}
+            arrivesPlaying={arrivesPlaying}
+            covered={mapShows}
+          />
+        </div>
+        <PlaceMapStage setting={setting} verseId={verseId} reference={readableReference(reference)} hidden={whole} />
         {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />
         <WholePictureCaption

@@ -1,0 +1,36 @@
+{
+  "authorization": [
+    "The owner said \"Okay, let's get the rest of this shipped and deployed\" about the waiting lanes: the map link (#537), parallel chapter painting (#540) and the told-events climb-2 candidate. Later they said \"ok continue\"."
+  ],
+  "release": {
+    "pullRequests": [550, 537, 551],
+    "issues": [532],
+    "commit": "69594448 (main)",
+    "summary": "Three changes. Lean image prompt 2026-11-25-lean-v8 (#550): the four measured vF wordings, with \"a teller is left out of what they tell\" as the lever; on real images, told scenes went from 13/20 to 15/20 and speakers were kept 8/8. The experimental map link \"See where this happened\" under verses with a known place (#537), with OpenBible.info places (CC BY 4.0). A focused map marker's card returns when the pointer leaves (#551).",
+    "leftOut": "#540 (parallel chapter painting) is still open: another session is landing its follow-ups (spec #552), and it ships in a later release with its Convex push. The uncommitted work-wide God/Yahweh renaming in the told-events-2 worktree was not shipped."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-25T14:45:00Z",
+        "convex": "Not pushed: no convex/ change since production d6ce2dfa."
+      },
+      {
+        "commit": "69594448",
+        "vercel": "dpl_6KkBb3C1PtkarnaWVTf1mZSeEZQh"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com/exodus/15/4, /psalms/23/4 and /genesis/1/1 answer 200. The map link shows only on Exodus 15:4, and Psalm 23:4 keeps its title. In Chrome at 390 and 1280 wide, the link opens the map (\"Map of Red Sea, where Exodus 15:4 happened\"), and Escape closes it. Nothing was painted, so lean-v8 is covered by the golden fixture and engine tests, not by a production image.",
+    "beforeRelease": "Each PR: npm test (1525 to 1556 tests), tsc, CI quality-gates. CodeRabbit on #550 had no comments. #551 had a local CodeRabbit review; the paid on-demand review was not run."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_H2xMSp1Krc76LM1snWa7bZ46p9dw (d6ce2dfa, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None in this release. The told-events climb's $2.14 was spent on the dev key on 24 November."
+}

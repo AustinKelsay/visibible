@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-24-lean-v7";
+export const LEAN_PROMPT_VERSION = "2026-11-25-lean-v8";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -158,17 +158,17 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     prev || next ? ["CONTEXT (for understanding only; paint the moment above):", ...(prev ? [`- Before: ${prev}`] : []), ...(next ? [`- After: ${next}`] : [])].join("\n") : "",
     // Words that tell of another time or place are painted as what they tell; only words about the people present show
     // the speaker. A long speech otherwise repeats one speaker scene verse after verse (Acts 13:16-41).
-    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When the moment is someone's words, including a speech, prayer or story that began before it, judge what these words do, not their neighbours. If they tell of events, people or places away from where they are said (history, a memory, a story or parable, a dream, vision or prophecy), paint what they tell, in its own time and place and its own era's dress, even when the words also address the listeners; anyone quoted inside the telling belongs to the told scene. Leave the teller and listeners out unless the text puts them inside it. Paint the speaker and listeners where they are only when the words are about those people there (a greeting, question, reply, command, warning or appeal) or the moment only says that someone spoke. Never both in one picture: no inset, bubble or second scene beside the speaker. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
+    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When the moment is someone's words, including a speech, prayer or story that began before it, judge what these words do, not their neighbours. If they tell of events, people or places from another time or place than the telling (history, a memory, a story or parable, a dream, vision or prophecy), paint what they tell, in its own time and place and its own era's dress, even when the words also address the listeners; anyone quoted inside the telling belongs to the told scene. Leave the teller and listeners out unless the text puts them inside it. Paint the speaker and listeners where they are only when the words are about those people there (a greeting, question, reply, command, warning or appeal) or the moment only says that someone spoke. Never both in one picture: no inset, bubble or second scene beside the speaker. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
     alias ? nameless(brief_) : brief_,
     effects ? effects.renderBlock : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
     alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
     symbol ? `${symbol.renderBlock} ${symbols.map((m) => nameless(m.name)).join("; ")}.` : "",
-    canonBlock(`SETTING (where this passage happens; set the moment here and keep the place's fixed features, unless the moment is plainly somewhere else${places.length > 1 ? "; of several places, use the one the moment is in" : ""}):`, places),
+    canonBlock(`SETTING (where this passage happens; set the moment here and keep the place's fixed features, unless the moment, or what its words tell of, is somewhere else${places.length > 1 ? "; of several places, use the one the moment is in" : ""}):`, places),
     canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", cast.filter(isNamed)),
-    canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; otherwise leave them out):", cast.filter((m) => !isNamed(m))),
+    canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; a teller is left out of what they tell; otherwise leave them out):", cast.filter((m) => !isNamed(m))),
     `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nPalette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}\nNegatives: ${style.negatives}`,
-    references.length ? ["REFERENCE IMAGES (attached in this order; identity and rendering only, never composition):", ...references.map((r) => `- ${r.caption}`),
+    references.length ? ["REFERENCE IMAGES (attached in this order; identity and rendering only, never composition; a sheet never puts its figure in the scene):", ...references.map((r) => `- ${r.caption}`),
       "Render everything in the ART STYLE above, even where a reference is painted differently."].join("\n") : "",
     `FRAME: one continuous scene painted to every edge, ${input.aspectRatio} ${aspect} landscape.`,
   ].filter(Boolean).join("\n\n");

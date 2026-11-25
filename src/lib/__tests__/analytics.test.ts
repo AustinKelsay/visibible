@@ -27,6 +27,8 @@ import {
   trackPaymentCompleted,
   trackPaymentExpired,
   trackPreferenceChanged,
+  trackMapLinkShown,
+  trackMapOpened,
   trackVerseNavigation,
   trackVerseView,
   trackWholePictureOpened,
@@ -62,6 +64,8 @@ describe("analytics event wrappers", () => {
     [trackVerseNavigation, "verse_navigation"],
     [trackVerseView, "verse_view"],
     [trackWholePictureOpened, "whole_picture_opened"],
+    [trackMapLinkShown, "map_link_shown"],
+    [trackMapOpened, "map_opened"],
   ] as [(props: never) => void, string][])("%#: sends %s with its props", (wrapper, eventName) => {
     const props = { tier: "paid", hasCredits: true, marker: eventName };
     wrapper(props as never);
