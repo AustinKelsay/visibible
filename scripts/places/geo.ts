@@ -107,20 +107,6 @@ export async function readFeatures(folder: string, name: string) {
   return collection.features.filter((feature) => feature.geometry);
 }
 
-/** A line's runs inside the outline's bounds, simplified, as path data. */
-export function insideRuns(line: Point[], tolerance: number): string {
-  let d = "";
-  let run: Point[] = [];
-  for (const point of [...line, null]) {
-    if (point && inside(point)) run.push(point);
-    else {
-      if (run.length >= 2) d += pathData(simplify(run, tolerance), false);
-      run = [];
-    }
-  }
-  return d;
-}
-
 /** Liang–Barsky: the part of segment a→b inside the outline's bounds, as fractions along it, or null. */
 function clipSegment([ax, ay]: Point, [bx, by]: Point): [number, number] | null {
   let enter = 0;
