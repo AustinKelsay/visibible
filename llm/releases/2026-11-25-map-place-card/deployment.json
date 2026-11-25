@@ -1,0 +1,37 @@
+{
+  "authorization": [
+    "After the preview, the owner said \"This is awesome! Let's remove the experimental tab and ship it!\""
+  ],
+  "release": {
+    "pullRequests": [557, 554],
+    "issues": [556],
+    "commit": "1fec4365 (main)",
+    "summary": "The verse map grows. Named zoom steps (Here · The land · The Bible world, with − and +) and a locator. A marker's card shows the chapters naming its place around this verse, the full list by part of the Bible, and nearby places (#556). A Then · Today switch draws today's borders, countries and cities from Natural Earth (public domain) under the verse's places, and is described to screen readers. The controls sit below the site's name, and the Experimental tag is gone. #554's council polish ships inside #557.",
+    "leftOut": "Nothing else was waiting: production was main 83b80fa5 (#559), released by another session at 18:50 UTC."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-25T19:08:00Z",
+        "convex": "Not pushed: no convex/ change since production 83b80fa5."
+      },
+      {
+        "commit": "1fec4365",
+        "vercel": "dpl_HVAcqf1zqUA4ihSpQR8SABhzU9ES",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/map-link (the release worktree held another session's branch)"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com/genesis/28/19 in headless Chrome at 1440×900 and 390×844: the map opens, Today draws today's cities (Damascus, Tel Aviv, Gaza City, …), the credit reads \"Map: Natural Earth\", there is no Experimental tag, Bethel's card opens, and Close the map closes it. No page errors. Nothing was painted.",
+    "beforeRelease": "npm test 1705/1705, tsc, lint (0 errors), CI quality-gates on 1f1b0b8d. Sol (gpt-6.2-sol, xhigh) ran 10 review rounds; the last returned APPROVE. CodeRabbit reviewed through 6f8fcba8 and was rate-limited on the final commits; the paid on-demand review was not run. Vercel preview visibible-csaqwrjma checked by the owner."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_84ghzSpJUjsPp5yGiDSuQyJdwt3U (83b80fa5, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}
