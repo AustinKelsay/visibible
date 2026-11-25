@@ -1,0 +1,1628 @@
+{
+  "scorer": "scorer-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j001",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed illustration showing the king pressing his signet into the clay seal on the rope across the stone over the den mouth with lords, workmen, and guards; anatomy and props are clean with no lettering."
+    },
+    {
+      "id": "j002",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The playing-card guard left of the King bears corner indices 'K' and an inverted 'K' (playing-card indices only, not readable_text) and has a 3D human head atop a card torso with mid-side arms, violating the flat-card rule and creating a contradictory King-of-Hearts duplicate alongside the seated King; Alice is also drawn small rather than giant, and the White Rabbit's trumpet rests awkwardly unsupported across his right forearm."
+    },
+    {
+      "id": "j003",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Alice in a yellow dress and white pinafore with tea and bread-and-butter speaking to the Dormouse on the table while the March Hare and Hatter sit beside him under the tree; clean anatomy, no lettering, and follows all depiction rules."
+    },
+    {
+      "id": "j004",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor showing Alice indignantly seated in an armchair at one end of the long tea table while the March Hare, sleeping Dormouse, and Hatter crowd the opposite corner under the tree in front of the house; clean throughout."
+    },
+    {
+      "id": "j005",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Rephaiah in a purple ruler's robe placing a stone block onto Jerusalem's breached wall alongside other builders with the Temple in the background; coherent composition and clean anatomy."
+    },
+    {
+      "id": "j006",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Accurately portrays Holmes studying the slip of paper as Lestrade leans over the table shrieking and pointing while Watson watches by the fireplace; no readable lettering on papers, clean hands, and no screen-adaptation likenesses."
+    },
+    {
+      "id": "j007",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Golden sunbeams breaking through dark clouds over Jerusalem illuminate an elderly man rising with his staff among weary seated men; divine presence is shown solely as light, with clean anatomy and composition."
+    },
+    {
+      "id": "j008",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor of builders on wooden scaffolding setting a large stone block into Jerusalem's wall with the Temple visible behind; tools, scaffolding, and hands are coherent and clean."
+    },
+    {
+      "id": "j009",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the prophet with a staff gesturing upward to sunbeams while addressing weary, burdened Israelites and a bent old man before Jerusalem; limbs and hands check out cleanly with no lettering or rule violations."
+    },
+    {
+      "id": "j010",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Playing-card corner indices ('A' and 'U'/'J' with inverted corner marks) appear on the card figures in the center and bottom left (card indices only, not readable_text); the card soldiers violate the flat-card rule by having 3D human heads atop card torsos, the Queen wears a plain dark dress without crown or court-card dress, and two extra crowned court-card figures appear in the bottom-right corner duplicating royalty."
+    },
+    {
+      "id": "j011",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor depicting the king pressing his signet onto the rope-bound stone slab over the den mouth while lords hold their own signets ready and workmen stand by with levers; clean anatomy and no lettering."
+    },
+    {
+      "id": "j012",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although the scene captures Holmes inspecting the blue carbuncle by the window with Watson ready to leave and the strong box open, the singular jewel is duplicated three times: one in Holmes's raised right hand, a second tiny blue stone resting on the fingers of his left hand, and a third blue gem sitting on the desk beside the glass beaker."
+    },
+    {
+      "id": "j013",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Illustrates an ancient storehouse and treasury being filled with grain, produce, and chests of gold and silver by ordinary workers and householders, with no allegorical human figure of Wisdom and clean anatomy."
+    },
+    {
+      "id": "j014",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Torchlit night scene of the king kneeling to seal the rope across the stone over the den mouth with his signet while lords hold their signets and laborers steady the slab; coherent geometry and clean hands."
+    },
+    {
+      "id": "j015",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor showing Alice reaching for bread-and-butter while looking at the sleepy Dormouse, with the Hatter and March Hare at the table under the tree; clean anatomy, yellow dress, and no lettering."
+    },
+    {
+      "id": "j016",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor showing the billowing cloud resting upon the Tabernacle in the center of the settled Israelite encampment with families cooking and conversing in the foreground; clean and faithful."
+    },
+    {
+      "id": "j017",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "While the beach scene of the weeping Mock Turtle and Gryphon dancing solemnly around Alice matches the text, the Mock Turtle has an extra fifth limb—a speckled sea-turtle flipper protruding horizontally behind its right hind leg in addition to its two front flippers, two walking hind legs, and pointed tail."
+    },
+    {
+      "id": "j018",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Rephaiah in an embroidered blue-and-gold robe laying a stone block onto Jerusalem's broken wall alongside masons and rope-hoisting workers with the walled city behind; clean anatomy and coherent tools."
+    },
+    {
+      "id": "j019",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Hezekiah in Solomon's Temple courtyard conferring with a priest holding a blank scroll of the law while a scribe records offerings and workers bring produce and grain; no readable lettering and clean figures."
+    },
+    {
+      "id": "j020",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor of Moses on a rocky ridge beside cloud-capped Mount Horeb gesturing toward the distant hills as the Israelites break camp below; God is not depicted as a human figure and all details are clean."
+    },
+    {
+      "id": "j021",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the March Hare, sleeping Dormouse, and Hatter crowded at one end of the tea table under a tree in front of the house while Alice sits indignantly in a large armchair at the other end; clean anatomy and follows all rules."
+    },
+    {
+      "id": "j022",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Giant Alice kneels in the courtroom gently holding the dressed green Lizard beside the tipped-over jury box and sprawling animal jurymen while the King and Queen look on gravely; scale, anatomy, and rules are all clean."
+    },
+    {
+      "id": "j023",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor of a stone storehouse brimming with grain jars, treasure chests, and textiles as workers bring more goods and an elderly couple admires the abundance; no personification of Wisdom and clean anatomy."
+    },
+    {
+      "id": "j024",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor showing the weeping Mock Turtle singing and the Gryphon solemnly dancing around Alice on the pebbly shore; all limbs and tails are anatomically clean with no lettering."
+    },
+    {
+      "id": "j025",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Moses on a rocky outcrop before cloud-wreathed Mount Horeb gesturing onward while armed Israelites, families, donkeys, and sheep prepare to depart; God is not shown as a figure and anatomy is clean."
+    },
+    {
+      "id": "j026",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Paul seated in a Corinthian room overlooking the harbor and Acrocorinth, holding up a dim bronze hand-mirror while speaking to fellow believers; clean hands, props, and composition with no lettering."
+    },
+    {
+      "id": "j027",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Features a white paper margin around all four edges (recorded as unpainted_edge, which is accepted for this item) with a plain ink bounding line; depicts giant Alice, the spectacled White Rabbit reading blank verses, the King, Queen, and Knave in court-card dress, and animal jurors cleanly."
+    },
+    {
+      "id": "j028",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Vignettes into white unpainted paper at the upper-right and bottom edges (recorded as unpainted_edge, which is accepted for this item); shows a priest beside the smoking horned altar casting feathers onto the ash pile without graphic gore and with no depiction of God."
+    },
+    {
+      "id": "j029",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although Alice's tiny scale beside the mushroom and the brass hookah match the scene, the blue Caterpillar is given an unmistakably human old man's face (human eyes, eyebrows, fleshy nose, lips, and jowls), violating the depiction rule that talking animals are drawn with animal faces."
+    },
+    {
+      "id": "j030",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Duplicates the dressed green Lizard across two moments at once—one upside-down on the jury box and an identical one upright on the floor directly beneath it—and displays malformed, tangled miniature bodies and limbs around the brown mouse under Alice's right hand."
+    },
+    {
+      "id": "j031",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Hezekiah in Solomon's Temple courtyard speaking with three priests holding a blank scroll of the law while masons repair walls and workers carry timber and jars; clean anatomy and no lettering."
+    },
+    {
+      "id": "j032",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Dramatic sunbeams over Jerusalem illuminate weary, kneeling, and aged Israelites—including an elderly man stepping forward with two walking sticks and a prophet looking up in wonder; clean anatomy and faithful depiction."
+    },
+    {
+      "id": "j033",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Full-bleed watercolor showing a frail elderly man gripping his staff and rising with renewed strength beneath golden sunbeams over Jerusalem as the prophet gestures and onlookers marvel; clean anatomy and no lettering."
+    },
+    {
+      "id": "j034",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Giant Alice in a yellow dress kneels beside the tipped jury-box reaching toward the upside-down Lizard while the King points sternly from the bench; cards behind the bench show only heart pips with no letters or numerals."
+    },
+    {
+      "id": "j035",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A towering cloud rests directly on the tabernacle surrounded by the encamped tents, livestock, and people of Israel with clean anatomy and no lettering."
+    },
+    {
+      "id": "j036",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Two bearded men sit face-to-face on stone benches in a colonnaded courtyard overlooking Acrocorinth while the older man holds up a bronze mirror showing a dim face reflection."
+    },
+    {
+      "id": "j037",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The tearful Mock Turtle and waving Gryphon dance on the pebbled shore around Alice in a yellow dress, matching the text and depiction rules cleanly."
+    },
+    {
+      "id": "j038",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A dense cloud rests over the tabernacle while encamped Israelite families sit, converse, and cook around tents in the desert valley with no faults."
+    },
+    {
+      "id": "j039",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest beside the smoking horned bronze altar casts feathers and crop onto the ash pile while respectfully avoiding gore by holding an unbloodied bird, with no forbidden divine figure."
+    },
+    {
+      "id": "j040",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The station-master points down the hill toward the blazing whitewashed house and three fire-engines while leading Hatherley, Holmes, and Watson along the road."
+    },
+    {
+      "id": "j041",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses stands beneath clouded Mount Horeb gesturing toward the hill country as the Israelites pack donkeys and march out, with only natural sky light and no divine figure."
+    },
+    {
+      "id": "j042",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Two men sit face-to-face across a table with a dim reflection in a bronze mirror, but the parchment sheet on the right side of the table shows faint horizontal rows of unreadable pseudo-script squiggles."
+    },
+    {
+      "id": "j043",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The Gryphon and tearful Mock Turtle dance and wave their forepaws on the sandy shore around Alice in a yellow dress, with clean anatomy and no lettering."
+    },
+    {
+      "id": "j044",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes holds the sparkling blue carbuncle up to the window beside an open strongbox while Watson sits by the hearth with his bowler hat and medical bag; papers and clock face show no lettering."
+    },
+    {
+      "id": "j045",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Under golden rays from the clouds, townsfolk fill jars, sacks, and treasure chests with grain, olives, oil, and fine goods while a man gives thanks; Wisdom is not drawn as a figure."
+    },
+    {
+      "id": "j046",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Hezekiah confers with a priest holding a blank scroll in the Temple courtyard beside the bronze Sea and workers carrying timber, with no clear lettering or structural errors."
+    },
+    {
+      "id": "j047",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses points from a rocky ridge below clouded Mount Horeb toward the open valley as Israelite families pack donkeys and depart in a long column, with no divine figure drawn."
+    },
+    {
+      "id": "j048",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A family stands in a vaulted stone treasury overflowing with jars, grain sacks, folded textiles, and chests of gold vessels; Wisdom is not depicted as a figure."
+    },
+    {
+      "id": "j049",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Hezekiah oversees scribes consulting blank scrolls on a stone table and builders repairing the Temple courtyard beside the bronze Sea, with clean anatomy and no lettering."
+    },
+    {
+      "id": "j050",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The scene matches Watson reading the missing-person slip by the window while Holmes smokes by the fire, but unreadable pseudo-lettering and script lines appear on the bottom-left newspaper masthead, the right-side bottle labels, the slip, and the table papers."
+    },
+    {
+      "id": "j051",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The Caterpillar on the mushroom is drawn with a human middle-aged man's face plus an uncalled-for bowler hat and waistcoat, violating the depiction rule that talking animals have animal faces with dress only where the text gives it."
+    },
+    {
+      "id": "j052",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Three separate blue carbuncle stones appear simultaneously—one held up in Holmes's right hand, a second pinched in his left hand, and a third sitting on the windowsill—alongside two duplicate violins on the far left."
+    },
+    {
+      "id": "j053",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits indignantly in a large arm-chair at one end of the outdoor tea table while the March Hare leans his elbow on the sleeping Dormouse beside the Hatter, with clean anatomy and no lettering or film costume."
+    },
+    {
+      "id": "j054",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah and workers hoist and set cut stone blocks on scaffolding to repair Jerusalem's wall overlooking the city, with coherent rigging and clean anatomy."
+    },
+    {
+      "id": "j055",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A massive white cloud rests atop the tabernacle while encamped Israelites rest in tents, tend fires, converse, and prepare food across the desert plain."
+    },
+    {
+      "id": "j056",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice helps herself to tea and bread-and-butter at the outdoor table under the tree while looking toward the awake Dormouse, the gesturing Hatter, and the March Hare."
+    },
+    {
+      "id": "j057",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The king presses his signet into clay atop the round stone slab set over the mouth of the lions' den before his lords and guards, with no lettering or anatomical defects."
+    },
+    {
+      "id": "j058",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A towering cloud settles over the tabernacle surrounded by Israelite tents, livestock, and people gathered around campfires with no faults."
+    },
+    {
+      "id": "j059",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Queen's soldiers are drawn as full human men in medieval caps and clothes wearing cards like sandwich boards or shells instead of flat oblong cards with hands and feet at the corners, and corner numerals appear on the foreground-right and left cards."
+    },
+    {
+      "id": "j060",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Shows only a generic scene of Paul lecturing eight listeners on a terrace overlooking Acrocorinth with no mirror or visual depiction of seeing dimly versus face to face."
+    },
+    {
+      "id": "j061",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The stone covers less than half of the wide-open pit while a lord stamps wax onto the empty opposite rim far from the stone, and three background workers pull a rope tied to a loose pickaxe in empty dirt."
+    },
+    {
+      "id": "j062",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Sunbeams stream through a skylight onto a grateful couple inside a stone treasury packed with grain, jars, chests, and gold vessels, without depicting Wisdom as a figure."
+    },
+    {
+      "id": "j063",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits indignantly in a large arm-chair at the right end of the stained outdoor tea table while the Hatter rests his elbow on the sleeping Dormouse beside the gesturing March Hare, with no lettering."
+    },
+    {
+      "id": "j064",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Hatherley with his bandaged hand in a sling points back toward the burning whitewashed house and three horse-drawn fire-engines while hastening along the lane with Holmes, the station-master, Watson, and police."
+    },
+    {
+      "id": "j065",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes studies the note as Lestrade leans over pointing and Watson watches by the fire beside Lestrade's garment bag, but unreadable squiggles of pseudo-script are visible on the paper beside the magnifying glass and on the sheets on the table."
+    },
+    {
+      "id": "j066",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A huge white cloud rests on the tabernacle surrounded by the encamped tents and people of Israel in a clean ink-and-watercolor landscape with no faults."
+    },
+    {
+      "id": "j067",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The group hurries along the hilltop road toward the blazing whitewashed house with three horse-drawn fire-engines fighting the flames, matching the text, though tiny unreadable gold pseudo-lettering appears on the red side panel of the rightmost fire-engine."
+    },
+    {
+      "id": "j068",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah addresses weary, kneeling Israelites beneath rays of divine light streaming over Jerusalem, with clean anatomy, no lettering, and no human figure for God."
+    },
+    {
+      "id": "j069",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Watson holds the printed slip to the window light while Holmes examines the letters by the fireplace, matching the passage accurately, but rows of unreadable squiggled pseudo-script are visible on the letters in Holmes's hand, on the bottom-right table, on Watson's slip, and on the left-table newspaper."
+    },
+    {
+      "id": "j070",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Darius presses his signet ring into clay over the stone laid on the lions' den while his lords hold seals behind him and torch-bearing guards stand by; anatomy, setting, and action are coherent with no lettering."
+    },
+    {
+      "id": "j071",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest beside the burning bronze horned altar in the Tabernacle courtyard casts dark feathers onto the smoking ash heap while holding the bird without gore, with no lettering and no depiction of God."
+    },
+    {
+      "id": "j072",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes holds the faceted blue carbuncle up against the window light while Watson stands ready in his bowler hat with his medical bag, but wavy horizontal rows of unreadable pseudo-writing appear on the top sheet of paper on the foreground desk at bottom left."
+    },
+    {
+      "id": "j073",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Hezekiah oversees priests, scribes with blank scrolls, and Levites carrying vessels in the bustling courtyard of God's house, with clean anatomy and no visible lettering."
+    },
+    {
+      "id": "j074",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes studies the creased blank paper slip while Lestrade leans across the table beside the open bag of garments pointing indignantly and Watson watches from the armchair; anatomy, framing, and scene match the text with no lettering."
+    },
+    {
+      "id": "j075",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses gestures from a rocky rise beneath cloud-covered Mount Horeb as the Israelites break camp and march with flocks and pack animals toward the distant hills, with no lettering and no human form for God."
+    },
+    {
+      "id": "j076",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Both doubled-up arched card soldiers in the foreground have upside-down numeral-and-glyph inscriptions ('7', circles, and dashes) printed inside square panels where their faces should be, and the right-side checkered arch merges awkwardly with a half-arch behind it while the background left flamingo's neck loops incoherently."
+    },
+    {
+      "id": "j077",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although the burning whitewashed house and three fire-engines appear in the background, all five men in the foreground have their backs turned to the house and stride downhill away from the fire—contradicting the text's 'hastening in the direction of the fire' with a man on the right gesturing backward while marching forward."
+    },
+    {
+      "id": "j078",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Hezekiah confers with white-robed priests holding an unrolled blank scroll in the Temple courtyard while workers carry timber beams and priests prepare vessels; anatomy is clean and no lettering appears."
+    },
+    {
+      "id": "j079",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Oversized Alice in a yellow dress picks up the spilled animal jurors and the Lizard after tipping over the jury-box before the King and Queen, matching the text and rules well, except neat horizontal rows of tiny unreadable pseudo-writing are visible on the white paper sheet beneath the slate at bottom left."
+    },
+    {
+      "id": "j080",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Watson closely resembles screen actor Jude Law (breaking the no-screen-adaptation-likeness rule), and the printed slip he holds up to the window light shows a visible printed header and rows of unreadable tiny pseudo-text."
+    },
+    {
+      "id": "j081",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest beside the burning horned bronze altar in the Tabernacle courtyard drops handfuls of bird feathers beside the ash heap with clean anatomy, no gore, no lettering, and no human form for God."
+    },
+    {
+      "id": "j082",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The White Rabbit adjusts his spectacles while holding a blank unfolded paper before the King, Queen, Knave, tall yellow-dressed Alice, card guards with suit pips only, and animal jurors with blank slates; all details match the text with no lettering."
+    },
+    {
+      "id": "j083",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah in an embroidered ruler's tunic places a dressed stone onto Jerusalem's wall alongside laborers hauling blocks, mixing mortar, and prying stones with the Temple above; clean anatomy and no lettering."
+    },
+    {
+      "id": "j084",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "While Alice's small scale against the mushroom and the hookah conversation fit the passage, the blue Caterpillar is given an unmistakably human old-man face (human nose, jowls, eyelids, and lips) plus a bowler hat and waistcoat not in the text, violating the animal-face depiction rule."
+    },
+    {
+      "id": "j085",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah in a richly trimmed blue tunic helps set a large stone block into Jerusalem's damaged wall with scaffolding and fellow builders around him; anatomy and composition are clean with no lettering."
+    },
+    {
+      "id": "j086",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The prophet Isaiah speaks in a Jerusalem plaza while a shaft of golden sunlight breaks through dark clouds onto a seated weary man looking up in renewal; anatomy is sound and no lettering or human deity figure appears."
+    },
+    {
+      "id": "j087",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses points from a rocky rise toward the distant hills while Israelites below cloud-ringed Mount Horeb strike tents and load pack donkeys; no lettering and no human form for God."
+    },
+    {
+      "id": "j088",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a yellow dress laughs as her pink flamingo twists its neck back while a hedgehog crawls over the furrowed lawn, flat oblong card soldiers arch on hands and feet, and the Queen shouts in fury; cards show only suit pips and backs with no lettering."
+    },
+    {
+      "id": "j089",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes studies the torn slip while Lestrade points accusingly across the table beside the black bag and garments as Watson looks on, matching the moment well, but two white sheets of paper on the foreground table display clear rows of unreadable cursive pseudo-script."
+    },
+    {
+      "id": "j090",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although Alice's mushroom-sized scale and the hookah scene match the text cleanly, the blue Caterpillar is drawn with an overtly human old-man face plus a bowler hat and waistcoat not in the text, breaking the animal-face depiction rule."
+    },
+    {
+      "id": "j091",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest casts dark feathers onto the smoking ash heap beside the burning horned bronze altar in the Tabernacle courtyard with onlookers at the sides, showing clean anatomy, no gore, no lettering, and no figure for God."
+    },
+    {
+      "id": "j092",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Townspeople and elders fill an open stone storehouse with sacks of grain, jars, and baskets of woven goods near the city gate, illustrating filled treasuries without personifying Wisdom and with no lettering."
+    },
+    {
+      "id": "j093",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Watson closely resembles screen actor Jude Law (violating the no-screen-adaptation-likeness rule), and neat rows of unreadable pseudo-script appear on the letters held by Holmes and Watson as well as on sheets piled on the foreground left table."
+    },
+    {
+      "id": "j094",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Paul holds up a tarnished bronze mirror while teaching Corinthian listeners with Acrocorinth behind them, matching the passage well, but the unrolled scroll on the foreground bottom-right table displays multiple clear lines of unreadable wavy pseudo-script."
+    },
+    {
+      "id": "j095",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest casts feathers onto the smoking ash heap beside the bronze horned altar in the Tabernacle courtyard with clean anatomy and no lettering or deity figure; white unpainted paper shows along the lower-right and lower-left edges, which this item accepts."
+    },
+    {
+      "id": "j096",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Yellow-dressed Alice laughs with her twisting pink flamingo as a hedgehog crawls across the ridged lawn, flat oblong card soldiers form arches on hands and feet with suit pips only, and the Queen shouts in fury; anatomy and rules hold with no lettering."
+    },
+    {
+      "id": "j097",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Paul teaches seated Corinthian believers beside a glowing oil lamp and a dim bronze mirror overlooking Acrocorinth, with clean anatomy and fitting mood, but the unrolled scroll resting across Paul's lap shows visible horizontal rows of unreadable wavy pseudo-script."
+    },
+    {
+      "id": "j098",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Yellow-dressed Alice helps herself to tea and bread-and-butter at the outdoor table across from the sleepy Dormouse, smug Hatter, and earnest March Hare; all animals have animal faces, anatomy is clean, and no lettering appears on the hat or jars."
+    }
+  ]
+}

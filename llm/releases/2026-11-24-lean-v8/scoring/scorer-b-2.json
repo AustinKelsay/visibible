@@ -1,0 +1,589 @@
+{
+  "scorer": "scorer-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j036",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice drinks from the tagged bottle beside the three-legged glass table in the hall of doors with the low curtain and tiny door visible on the left. The paper label is blank, her yellow dress avoids film-adaptation costuming, and anatomy is clean."
+    },
+    {
+      "id": "j037",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul falls to the ground on the road near walled Damascus as a bright beam of light shines down from the sky while his companions shield their eyes. Composition, anatomy, and edges are clean with no lettering."
+    },
+    {
+      "id": "j038",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Pharaoh's chariots, horses, and horsemen charge along the seabed between towering walls of parted water, matching Exodus 14:23. No deity figure, lettering, or major anatomical defects appear."
+    },
+    {
+      "id": "j039",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes holds the blue carbuncle up to the window light while Watson prepares to leave with his hat and medical bag, fitting the text. However, unreadable squiggled writing appears on the pinned note along the far-left wall and on papers stacked on the lower-left table."
+    },
+    {
+      "id": "j040",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Roman soldiers cast lots on a flat stone while dividing Jesus's garments in the foreground below the cross, faithfully illustrating Matthew 27:35. No lettering, lingering gore, or anatomical errors appear."
+    },
+    {
+      "id": "j041",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes offers his magnifying lens and the battered felt hat to Watson in Baker Street, matching the scene cleanly in pose and anatomy. However, pinned notices on the right wall and bookcase display visible pseudo-lettering and squiggled writing."
+    },
+    {
+      "id": "j042",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses strikes the rock with his rod while Aaron stands behind him and water gushes out abundantly for the Israelites and their livestock, matching Numbers 20:11. Anatomy, composition, and edges are clean."
+    },
+    {
+      "id": "j043",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Alice holds her flamingo and sees the smiling Queen behind her while the Cheshire Cat's head floats in the air. However, the background soldiers break the depiction rule: instead of flat oblong cards arched on hands and feet, they are miniature humanoid figures in tabards leaning on wire hoops."
+    },
+    {
+      "id": "j044",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although the burning whitewashed building and three fire-engines appear in the background, Holmes, Watson, Hatherley, and the station-master are shown striding away from the fire at night with their backs turned to it rather than hastening toward the building in front of them."
+    },
+    {
+      "id": "j045",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Inside his stone house, the man somberly takes up a knife beside his shrouded concubine on a wooden table, conveying Judges 19:29 while avoiding gore as required. Anatomy, composition, and framing are clean."
+    },
+    {
+      "id": "j046",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus stands in the boat with outstretched hand rebuking the storm while dark clouds recede on the left into calm sky and sea on the right as the disciples watch in awe. Anatomy, composition, and edges are clean."
+    },
+    {
+      "id": "j047",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A dense cloud rests over the tabernacle in the middle of the Israelite camp while families remain encamped going about daily life around their tents, directly illustrating Numbers 9:22. Anatomy, framing, and details are clean."
+    },
+    {
+      "id": "j048",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice stands in the woods looking timidly up at the grinning Cheshire Cat with prominent teeth and claws on a mossy branch. Her yellow dress avoids film-adaptation costuming and there are no anatomical or edge defects."
+    },
+    {
+      "id": "j049",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "An enlarged Alice protests before the King and Queen of Hearts while the spectacled White Rabbit holds the blank scroll of verses and the animal jury watches. Flat card soldiers, animal jurors, court-card dress, and Alice's yellow dress all follow the rules with no lettering."
+    },
+    {
+      "id": "j050",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Six-winged seraphim hover above a radiant, smoke-filled empty throne while Isaiah kneels in the temple, properly leaving God unembodied. However, glyph-like frieze inscriptions run along the upper side walls and pseudo-lettering appears on the stone lintel directly above Isaiah's staff."
+    },
+    {
+      "id": "j051",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul hurls his spear across the stone hall while David drops his lyre and dodges aside before the wall, directly depicting 1 Samuel 18:11 without visualizing the evil spirit. Composition, anatomy, and edges are clean."
+    },
+    {
+      "id": "j052",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Older Obed reaches warmly toward swaddled infant David held by Jesse outside a stone Bethlehem home overlooking terraced hills, providing a grounded illustration of Ruth 4:22. Anatomy and framing are clean with no lettering."
+    },
+    {
+      "id": "j053",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes explains the case to Watson in the railway carriage with a giant crumpled paper ball on the overhead rack, and the white vignette edges are accepted. However, the scattered sheets on the right seat and carriage floor contain visible squiggled writing and pseudo-text."
+    },
+    {
+      "id": "j054",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Bald Elisha walks up the stony path toward walled Bethel while youths along the roadside point, gesture, and shout at him, accurately depicting 2 Kings 2:23. Anatomy, composition, and framing are clean."
+    },
+    {
+      "id": "j055",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes sits by lamplight in Baker Street studying a photograph of Irene Adler while Watson observes him from across the hearth, aptly visualizing Watson's opening reflection. Anatomy, composition, and edges are clean with no lettering."
+    },
+    {
+      "id": "j056",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Three Roman soldiers cast lots beside Jesus's divided garments on the rocky hill below the cross with Jerusalem in the left background, cleanly illustrating Matthew 27:35. No lettering, gore, or anatomical faults appear."
+    },
+    {
+      "id": "j057",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel watches as a central wheeled throne erupts in flames between flanking thrones while white-robed multitudes stand before it, properly keeping the Ancient of Days unembodied. Anatomy, framing, and details are clean with no lettering."
+    },
+    {
+      "id": "j058",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aged, white-bearded Adam lies on his deathbed under a rustic shelter surrounded by mourning descendants, fitting Genesis 5:5 with dignity. Anatomy, composition, and edges are clean with no lettering."
+    },
+    {
+      "id": "j059",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest in white linen casts a bird's crop and feathers onto the ash heap beside the horned altar with the tabernacle behind, directly matching Leviticus 1:16. Slight unpainted white paper at the upper-left and corner margins is accepted."
+    },
+    {
+      "id": "j060",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sets down her flamingo and talks to the Cheshire Cat's floating head on the croquet ground while flat playing-card soldiers arch on hands and feet nearby. Slight unpainted paper at the corners is accepted, and all depiction rules hold cleanly."
+    },
+    {
+      "id": "j061",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses stands on a rocky rise stretching his hand and staff over the dividing sea as waves part to expose a dry path before the waiting Israelites, fitting Exodus 14:21 without drawing God. Anatomy and framing are clean."
+    },
+    {
+      "id": "j062",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The beloved disciple alerts Peter while the other disciples haul the fish-filled net and Peter wraps his coat around himself to leap into the sea toward Jesus on the distant shore by a fire, matching John 21:7. Anatomy and composition are clean."
+    },
+    {
+      "id": "j063",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "An aged, white-bearded Adam lies deceased on furs outside a rustic shelter as his grieving descendants gather around him at dusk, matching Genesis 5:5. Anatomy, composition, and edges are clean with no lettering."
+    },
+    {
+      "id": "j064",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "At a writing table overlooking ancient Corinth, Paul examines a dim reflection in a bronze hand mirror while a companion sits face to face across from him, grounding 1 Corinthians 13:12. Anatomy and framing are clean with no lettering."
+    },
+    {
+      "id": "j065",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice laughs as her flamingo twists its head toward her and the hedgehog unrolls on the grass while flat playing-card soldiers form arches and the furious Queen shouts nearby. Costumes, depiction rules, and anatomy are clean with no lettering."
+    },
+    {
+      "id": "j066",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul hurls his spear into the stone wall just above David as David ducks aside and his lyre tumbles to the floor, accurately illustrating 1 Samuel 18:11 without depicting the evil spirit. Anatomy, composition, and edges are clean."
+    },
+    {
+      "id": "j067",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "In Belshazzar's Babylonian banquet hall, Daniel gestures in refusal of the crimson robe and gold chains presented by an attendant before the seated king, matching Daniel 5:17. Anatomy, composition, and edges are clean with no lettering."
+    },
+    {
+      "id": "j068",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Four Roman soldiers cast lots and divide Jesus's clothing below the three crosses on Golgotha with clean anatomy and framing. However, the small wooden sign nailed above Jesus's head on the central cross shows tiny unreadable pseudo-lettering."
+    },
+    {
+      "id": "j069",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Peter raises the lame beggar outside the temple gate while John looks on, though both apostles oddly wear fishing nets in Jerusalem and Peter grips the beggar's left hand instead of his right. Crucially, a blue-robed bystander visible beneath Peter's outstretched right arm vanishes completely above his sleeve into blank stairs."
+    },
+    {
+      "id": "j070",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although Eyford Station, the station-master, and the smoke plume behind the trees match the passage, the layout is spatially incoherent: a railway carriage sits flush against the brick station cottage with no track on the left as the detectives lean out, while a second train steams away on the right tracks at the same time."
+    }
+  ]
+}

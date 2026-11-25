@@ -60,7 +60,7 @@ Projections, not authorization; each command takes its own `--budget`. Before a 
 | Reading pass (whole Bible) | prior runs | about $0.50 |
 | Canon drafting | prior runs | about $1 |
 | Reference sheets and style references | about $0.045 per attempt, recurring cast | about $45 |
-| Release evaluation | the suite's 206 shown images at about $0.043 on Nano Banana 2.1 | about $9 (`npm run evals:lean -- plan --run <name> --from <snapshot run> --model <id>` prints the estimate and cap) |
+| Release evaluation | the suite's 206 shown images on Nano Banana 2.1: about $0.027/image via `--provider gemini-batch` (50% off), or about $0.043/image live on OpenRouter | about $5.50 on Gemini Batch (`--provider gemini-batch`), or about $9 on OpenRouter (`npm run evals:lean -- plan ...` prints the estimate and cap) |
 | Owner production check | a few dozen images | under $2 |
 
 ## Release evidence template

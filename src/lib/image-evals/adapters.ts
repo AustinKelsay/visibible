@@ -5,6 +5,7 @@
  */
 import { extractOpenRouterUsageUsd, findResponseImageUrl } from "../image-response";
 import { supportsResolution } from "../image-models";
+import { geminiUsageUsd, type ModelPricing } from "./suite-run";
 
 export interface EvalImageProvider {
   readonly id: string;
@@ -56,6 +57,65 @@ export function createOpenRouterEvalImageProvider(options: { apiKey: string; fet
       const match = url.match(/^data:(image\/[a-z]+);base64,([A-Za-z0-9+/=]+)$/);
       if (!match) throw new Error("OpenRouter returned no image");
       return { bytes: Uint8Array.from(Buffer.from(match[2], "base64")), mimeType: match[1], costUsd: extractOpenRouterUsageUsd(payload), elapsedMs: Date.now() - started, providerRequestId: typeof payload.id === "string" ? payload.id : null };
+    },
+  };
+}
+
+/** Strip OpenRouter's `google/` namespace to get the native Gemini API model identifier. */
+export const geminiModelId = (model: string) => model.replace(/^google\//, "");
+
+/** Native Gemini API endpoint for an image generation model. */
+export const geminiGenerateUrl = (model: string) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(geminiModelId(model))}:generateContent`;
+
+/**
+ * Direct Gemini Developer API image provider for evaluations (same underlying model and reference attachments as
+ * OpenRouter, funded by Google AI Studio / Ultra credits).
+ */
+export function createGeminiEvalImageProvider(options: { apiKey: string; pricing?: ModelPricing; fetch?: FetchLike; timeoutMs?: number }): EvalImageProvider {
+  const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
+  return {
+    id: "gemini-image",
+    async generate(request) {
+      const started = Date.now();
+      const parts: Array<Record<string, unknown>> = [{ text: request.prompt }];
+      for (const r of request.references ?? []) {
+        parts.push({ inlineData: { mimeType: r.mimeType, data: Buffer.from(r.bytes).toString("base64") } });
+      }
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 120_000);
+      let response: Response;
+      let payload: Record<string, unknown>;
+      try {
+        response = await fetchImpl(geminiGenerateUrl(request.model), {
+          method: "POST",
+          headers: { "x-goog-api-key": options.apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts }],
+            generationConfig: {
+              responseModalities: ["IMAGE", "TEXT"],
+              imageConfig: { aspectRatio: request.aspectRatio, ...(supportsResolution(request.model) ? { imageSize: request.resolution } : {}) },
+            },
+          }),
+          signal: controller.signal,
+        });
+        payload = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+      } finally {
+        clearTimeout(timer);
+      }
+      if (!response.ok) throw new EvalProviderError(response.status, `Gemini ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
+      const candidates = Array.isArray(payload.candidates) ? payload.candidates as Array<{ content?: { parts?: Array<{ inlineData?: { mimeType?: string; data?: string } }> } }> : [];
+      const imagePart = candidates.flatMap((c) => c.content?.parts ?? []).find((p) => p?.inlineData?.data);
+      if (!imagePart?.inlineData?.data) throw new Error("Gemini returned no image");
+      const mimeType = typeof imagePart.inlineData.mimeType === "string" ? imagePart.inlineData.mimeType : "image/jpeg";
+      const costUsd = options.pricing ? geminiUsageUsd(payload, options.pricing) : null;
+      return {
+        bytes: Uint8Array.from(Buffer.from(imagePart.inlineData.data, "base64")),
+        mimeType,
+        costUsd,
+        elapsedMs: Date.now() - started,
+        providerRequestId: typeof payload.responseId === "string" ? payload.responseId : null,
+      };
     },
   };
 }

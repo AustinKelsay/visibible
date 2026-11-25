@@ -1,0 +1,591 @@
+{
+  "scorer": "scorer-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j001",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Cleanly shows three generations—elderly Obed seated by the house, Jesse, and young shepherd David with sheep in the hills—matching Ruth 4:22. The watercolor washes vignette into unpainted white paper along the left, right, and upper corners, which is accepted."
+    },
+    {
+      "id": "j002",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Moses leading the Israelites and their flocks through the parted sea with towering walls of water on right and left, with no figure of God drawn and full-bleed painting to all edges."
+    },
+    {
+      "id": "j003",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Clearly captures the courtyard moment with bound Jesus on the left turning to look across at a stricken Peter in the right foreground and a rooster perched on the upper stone wall. Anatomy, perspective, and edges are clean."
+    },
+    {
+      "id": "j004",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "A prominent bearded narrator figure holding a staff stands in the lower-left foreground on the sea of glass even though Revelation 4:6 does not call for a narrator figure. The throne of fire and light, crystal sea, and four eyed winged creatures otherwise fit the verse and leave God unseen."
+    },
+    {
+      "id": "j005",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Job kneeling on an ash heap outside the walled city looking up at the dark whirlwind without drawing any figure for God. The upper-left sky and lower-right ground fade into unpainted white paper, which is accepted."
+    },
+    {
+      "id": "j006",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Matches the opening of The Red-Headed League accurately, with Holmes pulling Watson inside and reaching to close the door on the left while the stout, florid, red-haired Mr. Wilson half rises from his chair by the fire. No lettering is visible on the papers or clock face."
+    },
+    {
+      "id": "j007",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Accurately depicts Watson seated holding the battered old felt hat while Holmes holds out his magnifying lens beside the fire. Anatomy, costumes, and full-bleed framing have no faults."
+    },
+    {
+      "id": "j008",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Unreadable lines of tiny squiggled pseudo-script are visible on the foreground white letters on the desk at lower right and faintly on the printed slip Watson holds to the window. The scene, poses, and anatomy otherwise fit the moment cleanly."
+    },
+    {
+      "id": "j009",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although Alice is drinking from the bottle with a paper tag around its neck beside the three-legged glass table and golden key, a second unexplained blank paper tag on a string is looped around her left wrist. Her dress is yellow rather than the film blue, and no text appears on either tag."
+    },
+    {
+      "id": "j010",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Only a single railway track runs along the platform into the distance, leaving the steaming train on the right sitting off the rails on the grass/embankment with no track ahead of the locomotive. The five platform figures (Bradstreet, station-master, Holmes, Watson, and bandaged Hatherley) and the distant smoke plume match the passage."
+    },
+    {
+      "id": "j011",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The rope hauling mechanics are contradictory: two men on the left pull tautly leftward on a horizontal rope that stops behind Daniel's cloak without looping around him (while a far-left man grips a disconnected vertical strand), even as Daniel floats/steps rightward out of the pit above the lions."
+    },
+    {
+      "id": "j012",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Clearly shows David on the left with pouch and slackened sling while armored Goliath collapses forward from the forehead strike on the right between the opposing hillside armies. Blood is minimal and respectful, and anatomy and full-bleed framing are clean."
+    },
+    {
+      "id": "j013",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Dramatically and coherently shows Jesus standing on the stormy moonlit water gesturing to Peter as Peter steps over the gunwale of the boat toward him while the other disciples look on."
+    },
+    {
+      "id": "j014",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Jesus asleep on cushions in the stern on the lower left while terrified disciples shake him awake amid crashing waves and pouring rain. Hands, faces, boat structure, and full-bleed framing are all solid."
+    },
+    {
+      "id": "j015",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Rephaiah in a richly bordered ochre tunic working alongside masons and helpers lifting stone blocks with ropes to repair Jerusalem's wall below the hilltop temple fortress. Anatomy and construction details are coherent."
+    },
+    {
+      "id": "j016",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Clearly shows sulfur and fire raining from storm clouds onto two burning walled cities on the right while Lot and his family walk away along the hillside path on the left. No anatomical, text, or edge faults."
+    },
+    {
+      "id": "j017",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Daniel watching as thrones are placed and the central throne blazes with fiery flames and burning wheels without depicting any human figure for the Ancient of Days. White unpainted paper shows along the upper-center edge above the flames, which is accepted."
+    },
+    {
+      "id": "j018",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows a massive cloud resting directly over the Tabernacle while the Israelites remain encamped in tents around fires and livestock across the wilderness. The sky fades into unpainted white paper along the upper-left and upper-right edges, which is accepted."
+    },
+    {
+      "id": "j019",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the violent storm with waves pouring into the filled boat as disciples bail water and fight the rigging while Jesus sleeps in the stern on the right. Coherent, well-drawn, and full-bleed."
+    },
+    {
+      "id": "j020",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Moses leading the multitude of Israelites and livestock down the parted seabed between curling walls of water on either side, with no figure of God drawn and no anatomy or edge issues."
+    },
+    {
+      "id": "j021",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Moses gesturing toward cloven-hoofed pigs on the left while instructing Aaron and Israelites outside the desert camp and smoking tabernacle, with no figure of God drawn. The upper-left and top-center sky is unpainted white paper, which is accepted."
+    },
+    {
+      "id": "j022",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the tearful calf-headed Mock Turtle singing and waving a flipper on the left and the Gryphon waving its forepaws on the right around Alice in a yellow dress on the pebbled shore. Anatomy, animal features, and framing are clean."
+    },
+    {
+      "id": "j023",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Alice on the right clearly has three arms and three hands: one gesturing toward the Dormouse, a second reaching down onto the bread loaf, and a third resting on the front edge of the table."
+    },
+    {
+      "id": "j024",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows King Hezekiah with hand on heart in the Temple courtyard before the bronze sea and pillars, conferring with a priest holding a blank scroll while workers prepare temple vessels and timber. Clean anatomy and no lettering."
+    },
+    {
+      "id": "j025",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts a sunlit stone storehouse being filled with grain, vessels, and chests overflowing with gold and silver coins while townsfolk marvel, with no allegorical figure of Wisdom drawn. No anatomy, lettering, or framing defects."
+    },
+    {
+      "id": "j026",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Two royal soldiers holding halberds on the right (in front of the King's dais and at bottom right) are drawn as human redcoat guards instead of flat oblong playing cards, breaking the card-soldier depiction rule. Unreadable red heart pips appear on the single background playing-card soldier and tiny scribble lines appear on papers scattered on the floor."
+    },
+    {
+      "id": "j027",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Breaks the playing-card depiction rule: the halberdier on the far left is a human figure, and the three croquet-arch soldiers on the right are human men in card-printed capes bending over white metal wickets rather than flat oblong cards on hands and feet. Playing-card heart pips and corner markings are visible on the large cards at left and behind the Queen, though none form readable text."
+    },
+    {
+      "id": "j028",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Clearly shows Jesus standing on the waves gesturing to Peter as Peter steps down from the boat onto the water while the disciples watch in awe. Anatomy, poses, and full-bleed framing are clean."
+    },
+    {
+      "id": "j029",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "A sharp vertical splice seam runs from the bottom edge straight up to the tip of Job's staff, slicing the foreground ash heap and broken pottery into misaligned/duplicated patches. Job and the whirlwind otherwise fit the scene without drawing a figure for God."
+    },
+    {
+      "id": "j030",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Accurately captures Saul hurling his spear across the hall toward the stone doorway as David drops his lyre and darts out, with shocked attendants behind and no evil-spirit figure drawn."
+    },
+    {
+      "id": "j031",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Prominent red heart suit pips are marked on the three playing-card soldiers on the right (non-readable card pips, with the White Rabbit's paper and jurors' slates blank). The courtroom scene with the spectacled White Rabbit, Knave, King, Queen, Alice, and animal jurors is otherwise clean and well-drawn."
+    },
+    {
+      "id": "j032",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Depicts the later Isaiah 6:6–7 episode of a seraph flying down with iron tongs and a burning coal to kneeling Isaiah rather than Isaiah 6:2, and the seraph has only four wings with bare uncovered feet instead of six wings with two covering its feet. The throne itself is appropriately empty of any figure for God."
+    },
+    {
+      "id": "j033",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The massive circular stone slab appears to hover above an open dark gap over the pit's mouth rather than resting sealed on the stone rim, leaving the clay seal split into a blob on the overhanging slab and a disconnected puddle on the rim beneath the king's foot."
+    },
+    {
+      "id": "j034",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts a cloven-hoofed wild pig in the left foreground as Moses instructs Aaron and the Israelites outside the camp and smoking tabernacle, with no figure of God drawn and clean full-bleed anatomy."
+    },
+    {
+      "id": "j035",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Jesus standing near the stern cushion rebuking the receding storm clouds as the sea calms around the awed disciples in the boat. Unpainted white paper shows along the upper-right sky edge and bottom-right corner, which is accepted."
+    }
+  ]
+}
