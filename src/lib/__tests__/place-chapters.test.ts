@@ -60,6 +60,11 @@ describe("nearby places", () => {
     expect(nearbyPlaces(35.216, 31.904, ["Bethel"], [{ lon: 35.241, lat: 31.923 }]).map((place) => place.name)).not.toContain("Luz");
   });
 
+  it("keeps a place whose name a more named place elsewhere shares", () => {
+    // From Aphekah's favoured site, the southern Jezreel (at Yatta) is about 9 km; the northern one is better known.
+    expect(nearbyPlaces(34.998, 31.456, ["Aphekah"])).toContainEqual({ name: "Jezreel", km: 9 });
+  });
+
   it("is empty far from any place", () => {
     expect(nearbyPlaces(60, 10, [])).toEqual([]);
   });

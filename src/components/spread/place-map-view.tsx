@@ -53,10 +53,11 @@ const HERE_SPAN = 0.5;
 const BIBLE_WORLD = { west: 8, east: 56, south: 14, north: 44 };
 
 /**
- * Each zoom step's frame, and whether it shows anything the step beside it does not: Here closes in on the sites,
+ * Each zoom step's frame, and whether it shows anything the land does not in this box: Here closes in on the sites,
  * the land is the opening frame, and the Bible world is that region joined with the land, so the setting stays in it.
+ * Frames are compared as the box fits them, so a frame narrower only where the box's other side limits it counts as the same.
  */
-export function zoomFrames(setting: VerseSetting): { frames: Record<ZoomStep, MapFrame>; usable: Record<ZoomStep, boolean> } {
+export function zoomFrames(setting: VerseSetting, box: MapBox): { frames: Record<ZoomStep, MapFrame>; usable: Record<ZoomStep, boolean> } {
   const land = frameSetting(setting);
   const here = frameSetting(setting, HERE_SPAN);
   const [wx, wy] = project(BIBLE_WORLD.west, BIBLE_WORLD.north);
@@ -64,12 +65,20 @@ export function zoomFrames(setting: VerseSetting): { frames: Record<ZoomStep, Ma
   const x = Math.min(wx, land.x);
   const y = Math.min(wy, land.y);
   const world = { x, y, width: Math.max(wr, land.x + land.width) - x, height: Math.max(wb, land.y + land.height) - y };
-  const same = (a: MapFrame, b: MapFrame) => Math.abs(a.width - b.width) < b.width * 0.02 && Math.abs(a.height - b.height) < b.height * 0.02;
-  return { frames: { here, land, world }, usable: { here: !same(here, land), land: true, world: !same(world, land) } };
+  const landView = fitView(land, box);
+  const near = (a: number, b: number) => Math.abs(a - b) < landView.width * 0.02;
+  const same = (frame: MapFrame) => {
+    const view = fitView(frame, box);
+    return Math.abs(view.unit - landView.unit) < landView.unit * 0.02 && near(view.x, landView.x) && near(view.y, landView.y);
+  };
+  return { frames: { here, land, world }, usable: { here: !same(here), land: true, world: !same(world) } };
 }
 
-/** The reader's zoom step and opened card (by its site), kept while turning pages for the visit, as the map itself is. */
-const remembered: { step: ZoomStep; opened: string | null } = { step: "land", opened: null };
+/**
+ * The reader's zoom step, opened card (by its site) and, where places share its marker, the place whose chapters it
+ * shows, kept while turning pages for the visit, as the map itself is.
+ */
+const remembered: { step: ZoomStep; opened: string | null; place: string | null } = { step: "land", opened: null, place: null };
 
 function remember(change: Partial<typeof remembered>) {
   Object.assign(remembered, change);
@@ -79,6 +88,7 @@ function remember(change: Partial<typeof remembered>) {
 export function resetPlaceMap() {
   remembered.step = "land";
   remembered.opened = null;
+  remembered.place = null;
 }
 
 /** "Pi-hahiroth, Migdol and Baal-zephon", or in a sentence "the Red Sea". */
@@ -273,23 +283,29 @@ export function fitView(frame: MapFrame, box: MapBox) {
 const CARD_WIDTH = 264;
 
 /**
- * Where a marker's card goes, in screen pixels: beside the marker (right, else left), or where the box is too narrow
- * for that (a phone), above or below it, whichever has room, so it never covers the marker it describes. It stays
- * below the box's `top` (the zoom steps, tag and close button), and the tallest card starts there and scrolls.
+ * Where a marker's card goes, in screen pixels, and how tall it may grow before it scrolls: beside the marker (right,
+ * else left), or where the box is too narrow for that (a phone), above or below it, whichever has room, and no taller
+ * than that side, so it never covers the marker it describes. It stays below the box's `top` (the zoom steps, tag and
+ * close button).
  */
 export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number }, height: number) {
   const edge = 12;
   const ceiling = Math.max(edge, box.top ?? 0);
+  const tallest = box.height - ceiling - edge;
   const fitsRight = at.left + gap + CARD_WIDTH <= box.width - edge;
   const fitsLeft = at.left - gap - CARD_WIDTH >= edge;
   if (fitsRight || fitsLeft) {
-    return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, box.height - height - edge) };
+    const shown = Math.min(height, tallest);
+    return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, box.height - shown - edge), maxHeight: tallest };
   }
   const left = clamp(at.left - CARD_WIDTH / 2, edge, box.width - CARD_WIDTH - edge);
   const roomBelow = box.height - edge - (at.top + gap);
   const roomAbove = at.top - gap - ceiling;
   const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
-  return { left, top: clamp(below ? at.top + gap : at.top - gap - height, ceiling, box.height - height - edge) };
+  // No shorter than a few lines, for a marker at the very edge.
+  const maxHeight = Math.max(Math.min(below ? roomBelow : roomAbove, tallest), Math.min(120, tallest));
+  const shown = Math.min(height, maxHeight);
+  return { left, top: clamp(below ? at.top + gap : at.top - gap - shown, ceiling, box.height - shown - edge), maxHeight };
 }
 
 /** What a reader did on the map, for analytics. */
@@ -368,7 +384,9 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     if (opened !== null && !openedHere) setOpened(null);
   }
 
-  const { frames, usable } = zoomFrames(setting);
+  // Before the box is measured (and in tests), a nominal box.
+  const size = measured ?? { width: 800, height: 600, top: 0, bottom: 0 };
+  const { frames, usable } = zoomFrames(setting, size);
   // A step this setting cannot show (Here for a setting of only regions) falls back to the land.
   const step = usable[chosenStep] ? chosenStep : "land";
   const zoomTo = (next: ZoomStep) => {
@@ -381,8 +399,6 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const closer = ZOOM_STEPS.slice(0, stepIndex).reverse().find((candidate) => usable[candidate]) ?? null;
   const wider = ZOOM_STEPS.slice(stepIndex + 1).find((candidate) => usable[candidate]) ?? null;
 
-  // Before the box is measured (and in tests), a nominal box.
-  const size = measured ?? { width: 800, height: 600, top: 0, bottom: 0 };
   const view = fitView(frames[step], size);
   const px = (pixels: number) => pixels * view.unit;
   /** Where a map point sits in the box, in screen pixels. */
@@ -447,7 +463,13 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   const hover = (key: string) => {
     if (!openedHere) setPreview(key);
   };
+  const focusCardContents = () => (cardRef.current?.querySelector<HTMLElement>("a") ?? cardRef.current?.querySelector<HTMLElement>("button"))?.focus();
   const open = (key: string, fromKeyboard = false) => {
+    // Already open (the reader went back to its marker with Shift+Tab): nothing re-renders, so focus the card now.
+    if (fromKeyboard && key === opened && openedHere) {
+      focusCardContents();
+      return;
+    }
     focusCard.current = fromKeyboard;
     setOpened(key);
   };
@@ -455,7 +477,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   useEffect(() => {
     if (!usableCard || !focusCard.current) return;
     focusCard.current = false;
-    (cardRef.current?.querySelector<HTMLElement>("a") ?? cardRef.current?.querySelector<HTMLElement>("button"))?.focus();
+    focusCardContents();
   });
   const closeCard = (toMarker: boolean) => {
     const key = opened;
@@ -754,18 +776,17 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   const site = (entry: MarkerEntry) => entry.place.sites[entry.index].name;
   // Places sharing one site name it once, a line each, so a card for four places still fits a phone's map.
   const shared = entries.length > 1 && entries.every((entry) => site(entry) === site(entries[0]));
-  // Whose chapters the card shows, where places share the marker.
-  const [chosen, setChosen] = useState(0);
+  // Whose chapters the card shows, where places share the marker: the reader's last choice while it is here, so
+  // following a chapter keeps to the place they chose.
+  const [chosen, setChosen] = useState(() => remembered.place);
   const [all, setAll] = useState(false);
-  const place = entries[Math.min(chosen, entries.length - 1)].place;
+  const place = entries.find((entry) => entry.place.id === chosen)?.place ?? entries[0].place;
   // Placed by its drawn height, measured before it paints; a guess until then (and where nothing is laid out).
   const [drawn, setDrawn] = useState(0);
   const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
-  useLayoutEffect(() => setDrawn(cardRef.current?.offsetHeight ?? 0), [cardRef, id, box.width, chosen, all, opened]);
-  // As tall as the box allows below the controls; a longer card scrolls.
-  const tallest = box.height - Math.max(12, box.top ?? 0) - 12;
-  const height = Math.min(drawn || 24 + entries.length * (shared ? 22 : 56) + 110, tallest);
-  const { left, top } = cardPosition(at, gap, box, height);
+  useLayoutEffect(() => setDrawn(cardRef.current?.offsetHeight ?? 0), [cardRef, id, box.width, place.id, all, opened]);
+  // As tall as its side of the marker allows; a longer card scrolls.
+  const { left, top, maxHeight } = cardPosition(at, gap, box, drawn || 24 + entries.length * (shared ? 22 : 56) + 110);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (
@@ -784,7 +805,7 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
         onEscape();
       }}
       className={`absolute z-10 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
-      style={{ left, top, width: CARD_WIDTH, maxHeight: tallest }}
+      style={{ left, top, width: CARD_WIDTH, maxHeight }}
     >
       {opened ? (
         <button
@@ -827,13 +848,14 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
         {entries.length > 1 ? (
           // Where places share the marker, which one's chapters to show.
           <div className="mb-1.5 flex flex-wrap gap-1">
-            {entries.map((entry, row) => (
+            {entries.map((entry) => (
               <button
                 key={`${entry.place.id}:${entry.index}`}
                 type="button"
-                aria-pressed={row === Math.min(chosen, entries.length - 1)}
+                aria-pressed={entry.place.id === place.id}
                 onClick={() => {
-                  setChosen(row);
+                  remember({ place: entry.place.id });
+                  setChosen(entry.place.id);
                   setAll(false);
                 }}
                 className="rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
@@ -877,7 +899,6 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
 }) {
   const { chapters, current, before, after } = chaptersAround(place.id, here.slug, here.chapter);
   const verses = chapters.reduce((sum, named) => sum + named.verses, 0);
-  const shownCount = Number(Boolean(before)) + Number(Boolean(after)) + Number(Boolean(current));
   return (
     <>
       <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
@@ -894,7 +915,8 @@ function PlaceChapters({ place, here, reference, all, onAll, onChapter }: {
         {after ? <NeighbourRow glyph="›" side="After" named={after} onFollow={() => onChapter("after")} /> : null}
       </ol>
       {chapters.length === 0 || (chapters.length === 1 && current) ? <p className="mt-0.5 text-[11px] text-white/55">Named in no other chapter of the Bible.</p> : null}
-      {chapters.length > shownCount ? (
+      {/* Even where the rows above show them all, the list sets them in their parts of the Bible. */}
+      {chapters.length > 1 ? (
         <button
           type="button"
           aria-expanded={all}

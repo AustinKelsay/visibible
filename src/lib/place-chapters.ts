@@ -102,6 +102,22 @@ export function divisionOf(bookId: string): string {
   return DIVISIONS.filter(([first]) => (bookOrder.get(first) ?? 0) <= at).at(-1)?.[1] ?? DIVISIONS[0][1];
 }
 
+let eligible: ContextPlace[] | null = null;
+/** Every place that can stand as a well-known point (see `contextPlaces`), namesakes and all. */
+function eligiblePlaces(): ContextPlace[] {
+  if (eligible) return eligible;
+  eligible = [];
+  for (const [id, place] of Object.entries(data.places)) {
+    if (place.region || place.the || place.sites.length === 0) continue;
+    const [top, next] = place.sites;
+    if (next && top[2] < next[2] * 2) continue;
+    const verses = placeChapters(id).reduce((sum, named) => sum + named.verses, 0);
+    if (verses < 5) continue;
+    eligible.push({ id, name: place.name, lon: top[0], lat: top[1], verses });
+  }
+  return eligible;
+}
+
 let context: ContextPlace[] | null = null;
 /**
  * Named places with a clearly favoured site (one site, or a top score at least twice the next) and at least five
@@ -111,14 +127,9 @@ let context: ContextPlace[] | null = null;
 export function contextPlaces(): ContextPlace[] {
   if (context) return context;
   const best = new Map<string, ContextPlace>();
-  for (const [id, place] of Object.entries(data.places)) {
-    if (place.region || place.the || place.sites.length === 0) continue;
-    const [top, next] = place.sites;
-    if (next && top[2] < next[2] * 2) continue;
-    const verses = placeChapters(id).reduce((sum, named) => sum + named.verses, 0);
-    if (verses < 5) continue;
+  for (const place of eligiblePlaces()) {
     const kept = best.get(place.name);
-    if (!kept || verses > kept.verses) best.set(place.name, { id, name: place.name, lon: top[0], lat: top[1], verses });
+    if (!kept || place.verses > kept.verses) best.set(place.name, place);
   }
   context = [...best.values()].sort((a, b) => b.verses - a.verses);
   return context;
@@ -136,11 +147,14 @@ function distance(lon1: number, lat1: number, lon2: number, lat2: number): numbe
  * (Luz at Bethel), as is anything closer than a kilometre, so neither is listed.
  */
 export function nearbyPlaces(lon: number, lat: number, skip: string[], sites: { lon: number; lat: number }[] = []): { name: string; km: number }[] {
-  return contextPlaces()
+  const seen = new Set<string>();
+  return eligiblePlaces()
     .filter((place) => !skip.includes(place.name) && sites.every((site) => distance(site.lon, site.lat, place.lon, place.lat) >= 1))
     .map((place) => ({ name: place.name, km: distance(lon, lat, place.lon, place.lat) }))
     .filter((place) => place.km >= 1 && place.km <= 15)
     .sort((a, b) => a.km - b.km)
+    // A name once, at its nearest: namesakes (two Jezreels) are one name to a reader.
+    .filter((place) => !seen.has(place.name) && Boolean(seen.add(place.name)))
     .slice(0, 3)
     .map((place) => ({ name: place.name, km: Math.round(place.km) }));
 }

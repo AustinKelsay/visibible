@@ -347,12 +347,22 @@ describe("the map's zoom", () => {
   const height = () => Number(map()!.getAttribute("viewBox")!.split(" ")[3]);
 
   it("closes in on the setting at Here, opens on the land and pulls back to the Bible world", () => {
-    const { frames, usable } = zoomFrames(setting("GEN", 28, 19));
+    const box = { width: 800, height: 600, top: 0, bottom: 0 };
+    const { frames, usable } = zoomFrames(setting("GEN", 28, 19), box);
     expect(frames.here.height).toBeLessThan(frames.land.height);
     expect(frames.land.height).toBeLessThan(frames.world.height);
     expect(usable).toEqual({ here: true, land: true, world: true });
     // A setting of only regions has nothing closer to show.
-    expect(zoomFrames(setting("EXO", 14, 20)).usable.here).toBe(false);
+    expect(zoomFrames(setting("EXO", 14, 20), box).usable.here).toBe(false);
+  });
+
+  it("counts a step as the land's when the box would show it the same", () => {
+    // Numbers 33:21's Here frame is narrower than the land's but as tall: a wide box is limited by that height either
+    // way, so Here would change nothing; only a tall, narrow box shows it closer.
+    const numbers = setting("NUM", 33, 21);
+    expect(zoomFrames(numbers, { width: 800, height: 600, top: 0, bottom: 0 }).usable.here).toBe(false);
+    expect(zoomFrames(numbers, { width: 390, height: 390, top: 90, bottom: 80 }).usable.here).toBe(false);
+    expect(zoomFrames(numbers, { width: 390, height: 900, top: 0, bottom: 0 }).usable.here).toBe(true);
   });
 
   it("moves between named steps with the steps and with − and +, and keeps the step while turning pages", async () => {
@@ -457,6 +467,15 @@ describe("the place card", () => {
     expect(document.activeElement).toBe(pin());
   });
 
+  it("takes focus into an already open card when Enter is pressed on its marker again", async () => {
+    await openMap();
+    await act(async () => pin().dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    await act(async () => pin().focus());
+    expect(card()?.hasAttribute("data-opened")).toBe(true);
+    await act(async () => pin().dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true })));
+    expect(document.activeElement).toBe(link("Before: Genesis 13:3"));
+  });
+
   it("holds an opened card while the pointer crosses another marker", async () => {
     await openMap();
     await act(async () => pin().dispatchEvent(new MouseEvent("click", { bubbles: true })));
@@ -481,6 +500,31 @@ describe("the place card", () => {
     expect(card()!.textContent).toContain("Jerusalem · 955 verses");
     await act(async () => button("Zion")!.click());
     expect(card()!.textContent).toContain("Zion · 148 verses");
+  });
+
+  it("keeps to the chosen place when a chapter link leads on from a shared marker", async () => {
+    const eyebrow = () => card()!.querySelector("[data-chapters] p")?.textContent;
+    const sodomMarker = () => Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => marker.getAttribute("aria-label")?.includes("Sodom: proposed at south"))!;
+    await renderReader(setting("GEN", 10, 19), false, { book: "Genesis", slug: "genesis", chapter: 10, verse: 19 });
+    await act(async () => button("See where this happened")!.click());
+    await act(async () => sodomMarker().dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    await act(async () => button("Sodom")!.click());
+    expect(eyebrow()).toMatch(/^Sodom · /);
+    // Following the link turns the page: the same view, and after a fresh mount.
+    await renderReader(setting("GEN", 13, 10), false, { book: "Genesis", slug: "genesis", chapter: 13, verse: 10 });
+    expect(eyebrow()).toMatch(/^Sodom · /);
+    act(() => root.unmount());
+    root = createRoot(container);
+    await renderReader(setting("GEN", 13, 10), false, { book: "Genesis", slug: "genesis", chapter: 13, verse: 10 });
+    expect(eyebrow()).toMatch(/^Sodom · /);
+  });
+
+  it("offers the full list for a place named in only two chapters", async () => {
+    await renderReader(setting("GEN", 10, 10), false, { book: "Genesis", slug: "genesis", chapter: 10, verse: 10 });
+    await act(async () => button("See where this happened")!.click());
+    const erech = Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => marker.getAttribute("aria-label")?.startsWith("Erech"))!;
+    await act(async () => erech.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(button("All 2 chapters naming Erech")).toBeDefined();
   });
 });
 
@@ -520,10 +564,16 @@ describe("the map's layout", () => {
     const low = { left: 195, top: 250 };
     const above = cardPosition(low, 20, { width: 390, height: 390 }, 130);
     expect(above.top + 130).toBeLessThanOrEqual(low.top);
-    // It never rises over the controls at the top of the box; a card too tall for the room starts below them.
-    expect(cardPosition({ left: 195, top: 120 }, 20, { width: 390, height: 390, top: 60 }, 330).top).toBe(60);
+    // It never rises over the controls at the top of the box: a card too tall for the room above goes below.
+    expect(cardPosition({ left: 195, top: 120 }, 20, { width: 390, height: 390, top: 60 }, 330).top).toBe(140);
+    expect(cardPosition({ left: 195, top: 300 }, 20, { width: 390, height: 390, top: 60 }, 330).top).toBe(60);
     // A computer's box has room beside it.
     expect(cardPosition(at, 20, { width: 900, height: 700 }, 74).left).toBe(215);
+    // A card taller than either side (the full list) scrolls within the side it takes, clear of the marker.
+    const middle = { left: 195, top: 202 };
+    const tall = cardPosition(middle, 20, { width: 390, height: 390, top: 60 }, 286);
+    const shown = Math.min(286, tall.maxHeight);
+    expect(middle.top >= tall.top && middle.top <= tall.top + shown).toBe(false);
   });
 });
 
