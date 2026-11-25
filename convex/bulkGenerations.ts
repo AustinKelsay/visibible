@@ -330,7 +330,7 @@ export const updateVerseStatus = mutation({
     expectedCurrentStatus: v.optional(bulkGenerationVerseStatusValidator),
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
-    /** With a requeue: the item's request id was spent (the provider could not take it), so its next one is new. */
+    /** With a requeue: the item's request id may be spent. If its request ended failed, the next one is new. */
     spentRequest: v.optional(v.boolean()),
     /** The claim number this write belongs to, as the claim returned it. A write from a replaced claim is refused. */
     claim: v.optional(v.number()),
@@ -410,7 +410,11 @@ export const updateVerseStatus = mutation({
 
     if (Object.keys(patch).length === 0) return { updated: false };
     await ctx.db.patch(verse._id, patch);
-    return isClaim ? { updated: true, claim: patch.claim } : { updated: true };
+    if (isClaim) return { updated: true, claim: patch.claim };
+    // A requeue that marks its request spent says which attempt the verse now has, so the tab holding it sends it
+    // next under that id rather than replaying the recorded failure.
+    if (args.spentRequest) return { updated: true, attempt: patch.attempt ?? verse.attempt ?? 0 };
+    return { updated: true };
   },
 });
 

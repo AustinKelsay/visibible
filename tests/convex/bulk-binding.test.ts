@@ -108,13 +108,14 @@ describe("bulk engine and style binding", () => {
     // The provider could not take order 0's request, which ended failed: the coordinator requeues it with its id spent.
     await claim("genesis-1-1");
     await requestFor(0, "failed");
-    expect(await requeueSpent("genesis-1-1")).toMatchObject({ updated: true });
+    // The answer carries the item's attempt, so a coordinator holding the verse sends it next under its new id.
+    expect(await requeueSpent("genesis-1-1")).toEqual({ updated: true, attempt: 1 });
     expect(await attempt("genesis-1-1")).toBe(1);
     // Order 2's failure was never recorded, so its request is still accepted: it is requeued under the same id, which
     // replays it, and the counts keep seeing the accepted attempt.
     await claim("genesis-1-3");
     await requestFor(2, "generating");
-    expect(await requeueSpent("genesis-1-3")).toMatchObject({ updated: true });
+    expect(await requeueSpent("genesis-1-3")).toEqual({ updated: true, attempt: 0 });
     expect((await attempt("genesis-1-3")) ?? 0).toBe(0);
     expect(bulkItemRequestId(bulkId, 0)).toBe(`bulk-${bulkId}-0`);
     expect(bulkItemRequestId(bulkId, 0, 1)).toBe(`bulk-${bulkId}-0-a1`);
