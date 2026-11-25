@@ -1149,6 +1149,37 @@ describe("Image Generation API Credit Flow", () => {
         expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
       });
 
+      it("does not send the call early when the provider asks for a longer wait than the request can spend", async () => {
+        await prepareWork();
+        providerAnswers(refusal(429, {}, "30"));
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(503);
+        expect(await response.json()).toMatchObject({ error: "Images are temporarily unavailable" });
+        expect(imageCalls()).toHaveLength(1);
+        expect(sleeps).toEqual([]);
+      });
+
+      it("reads a Retry-After date, and logs only plain limit metadata", async () => {
+        const warnings = vi.spyOn(console, "warn").mockImplementation(() => {});
+        try {
+          await prepareWork();
+          const soon = new Date(Date.now() + 5_000).toUTCString();
+          providerAnswers(refusal(429, { limit_source: "sk-or-v1-0123456789abcdef", provider_code: { key: "AIzaSyA0123456789abcdefghijklmnopqrstu" } }, soon), image);
+          const { POST } = await import("../../generate-image/route");
+          expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+          expect(sleeps).toHaveLength(1);
+          expect(sleeps[0]).toBeGreaterThan(3_000);
+          expect(sleeps[0]).toBeLessThanOrEqual(5_000);
+          const logged = warnings.mock.calls.map((call) => String(call[0])).join("\n");
+          expect(logged).toContain("generic.provider_refused");
+          expect(logged).not.toContain("sk-or-v1");
+          expect(logged).not.toContain("AIza");
+        } finally {
+          warnings.mockRestore();
+        }
+      });
+
       it("does not retry a used-up key cap and says images are unavailable", async () => {
         await prepareWork();
         providerAnswers(refusal(402, { limit_source: "openrouter_key_limit" }));

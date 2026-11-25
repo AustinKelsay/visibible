@@ -489,6 +489,12 @@ it("leaves the next chapter alone when a stopped and dismissed run finally drain
     await act(async () => oldImage.resolve(success()));
     expect(sent.map(({ requestId }) => requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-2-0"]);
     expect(reconcileNextJob).not.toHaveBeenCalled();
+    // The old run's late result neither shows in the new chapter nor stops it.
+    expect(bulk.state).toMatchObject({ bulkId: "bulk-2", status: "active", completedCount: 0 });
+    // The mock's verse list names the new job's first verse so.
+    expect(bulk.state.currentVerseReference).toBe("Genesis 1:1");
+    await act(async () => newImage.resolve(success()));
+    await wait(() => expect(sent.map(({ requestId }) => requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-2-0", "bulk-bulk-2-1"]));
   } finally {
     await act(async () => { oldImage.resolve(success()); newImage.resolve(success()); });
     await act(async () => root.unmount());

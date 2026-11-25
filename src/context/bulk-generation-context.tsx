@@ -559,6 +559,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         const inFlight = new Map<number, string>();
         // An outcome that pauses the job starts no new verses; those already sent finish and record their outcomes.
         // The first such outcome owns the pause: its reason and message stand.
+        // Once the reader dismisses this job, a later run owns the shared state: this one's late results stay out of it.
+        const current = () => runGenerationRef.current === generation;
+        const setRunState: typeof setState = (update) => { if (current()) setState(update); };
         let halted = false;
         let workerFailed = false;
         const halt = () => {
@@ -572,7 +575,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         const stillWanted = () => !halted && !workerFailed && !isCancelledRef.current && !isPausedRef.current && !lostLockRef.current && ownsRunLock(bulkId);
         const showInFlight = () => {
           const earliest = [...inFlight.entries()].sort(([a], [b]) => a - b)[0];
-          setState((prev) => ({ ...prev, currentVerseReference: earliest?.[1] ?? null }));
+          setRunState((prev) => ({ ...prev, currentVerseReference: earliest?.[1] ?? null }));
         };
         // A reader's pause holds every worker after its current verse; resume releases them together.
         let resumed: Promise<void> | null = null;
@@ -631,7 +634,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               });
               if (first) {
                 await pauseBulk({ id: bulkId, sid });
-                setState((prev) => ({
+                setRunState((prev) => ({
                   ...prev,
                   status: "blocked",
                   errorMessage,
@@ -654,6 +657,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             // being sent once the job is stopped, paused or handed to another tab.
             const putBack = async () => {
               // After losing the run lock the new owner reconciles this verse: writing it back could undo that owner's claim.
+              if (!current()) return false;
               if (lostLockRef.current || !ownsRunLock(bulkId)) {
                 lostLockRef.current = true;
                 return false;
@@ -714,7 +718,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
               if (first) {
                 await pauseBulk({ id: bulkId, sid, reason: "in_flight" });
-                setState((prev) => ({ ...prev, status: "blocked", errorMessage: "An earlier attempt for this verse is still running. Resume in a moment to pick up its result." }));
+                setRunState((prev) => ({ ...prev, status: "blocked", errorMessage: "An earlier attempt for this verse is still running. Resume in a moment to pick up its result." }));
               }
               return false;
             } else if (response.status === 402) {
@@ -732,7 +736,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               }
               if (halt()) {
                 await pauseBulk({ id: bulkId, sid, reason: "credits" });
-                setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
+                setRunState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
               }
               return false;
             } else if (response.status === 429) {
@@ -747,7 +751,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               });
               if (first) {
                 await pauseBulk({ id: bulkId, sid, reason: daily ? "daily_limit" : "rate_limited" });
-                setState((prev) => ({
+                setRunState((prev) => ({
                   ...prev,
                   status: "blocked",
                   errorMessage: daily
@@ -770,7 +774,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 if (first) {
                   // A job stopped meanwhile stays stopped: only a job this pause reached shows as blocked.
                   const paused = await pauseBulk({ id: bulkId, sid, reason: "images_unavailable" });
-                  if (paused?.updated) setState((prev) => ({ ...prev, status: "blocked", errorMessage: IMAGES_UNAVAILABLE_PAUSE }));
+                  if (paused?.updated) setRunState((prev) => ({ ...prev, status: "blocked", errorMessage: IMAGES_UNAVAILABLE_PAUSE }));
                 }
                 return false;
               }
@@ -782,7 +786,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
                 if (first) {
                   await pauseBulk({ id: bulkId, sid, reason: bindingChanged ? "engine_unavailable" : errData?.error === "Art style unavailable" ? "style_unavailable" : "preparing" });
-                  setState((prev) => ({ ...prev, status: "blocked", errorMessage: `${errData?.message || errorMsg} The job is paused; resume when it is available again.` }));
+                  setRunState((prev) => ({ ...prev, status: "blocked", errorMessage: `${errData?.message || errorMsg} The job is paused; resume when it is available again.` }));
                 }
                 return false;
               }
@@ -817,7 +821,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             totalCreditsUsed: creditsUsed,
           });
 
-          setState((prev) => ({
+          setRunState((prev) => ({
             ...prev,
             completedCount: completed,
             failedCount: failed,
@@ -830,6 +834,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
         const worker = async (limit = Infinity) => {
           for (let taken = 0; !halted && !workerFailed && taken < limit; taken++) {
+            // A dismissed run's lease is gone because another job may hold the lock now, not because this one lost it.
+            if (!current()) return;
             if (lostLockRef.current || !ownsRunLock(bulkId)) {
               lostLockRef.current = true;
               return;
@@ -875,6 +881,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         }
 
         if (
+          current() &&
           !lostLockRef.current &&
           !isCancelledRef.current &&
           !isPausedRef.current &&

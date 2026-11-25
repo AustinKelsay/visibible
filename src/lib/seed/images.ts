@@ -31,7 +31,8 @@ export const CEILING_USD_PER_IMAGE = 0.1;
 export const GENERATE_REQUESTS_PER_MINUTE = 20;
 /** A second longer than the site's minute, so a request held back for the window does not arrive just before it turns. */
 const PACE_WINDOW_MS = 61_000;
-const REQUEST_TIMEOUT_MS = 120_000;
+// Above the route's worst case: three provider calls of up to 45 s each, with up to 10 s between them.
+const REQUEST_TIMEOUT_MS = 180_000;
 /** How often one request waits out a rate limit before it is given up. */
 const MAX_RATE_LIMIT_WAITS = 5;
 /** How often a request with no definite answer is sent again under the same id, and the pause before each. */

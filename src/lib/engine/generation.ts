@@ -72,6 +72,15 @@ const PROVIDER_REASON_LIMIT = 300;
  */
 const CREDENTIAL_PATTERN = /\b(sk-[\w-]{8,}|AIza[\w-]{30,}|AQ\.[\w.-]{20,}|bearer\s+\S+|\w{32,})/gi;
 
+/** A `Retry-After` header as a wait in ms: delay seconds or an HTTP date (RFC 9110), or null when absent or unreadable. */
+function retryAfterMs(header: string | null, now = Date.now()): number | null {
+  if (!header) return null;
+  const seconds = Number(header.trim());
+  if (header.trim() !== "" && Number.isFinite(seconds)) return seconds >= 0 ? seconds * 1000 : null;
+  const date = Date.parse(header);
+  return Number.isFinite(date) ? Math.max(0, date - now) : null;
+}
+
 /** A provider answer other than success: the reason it gave and which limit refused it (OpenRouter's `error.metadata.limit_source`). */
 class ProviderError extends Error {
   constructor(
@@ -112,14 +121,16 @@ async function readProviderError(response: Response): Promise<ProviderError> {
   const provider = text(fields.metadata?.provider_name);
   const joined = [text(fields.message), raw && (provider ? `${provider}: ${raw}` : raw)].filter(Boolean).join(" | ");
   const reason = joined ? joined.replace(CREDENTIAL_PATTERN, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+  // Only short, plain values reach the log: these fields come from the provider and are not otherwise masked.
   const limitSource = fields.metadata?.limit_source;
-  const retryAfter = Number.parseFloat(response.headers?.get("retry-after") ?? "");
+  const providerCode = fields.metadata?.provider_code;
+  const plain = (value: unknown) => typeof value === "string" && /^[\w.-]{1,64}$/.test(value) && value.replace(CREDENTIAL_PATTERN, "") === value;
   return new ProviderError(
     response.status,
     reason,
-    typeof limitSource === "string" ? limitSource : null,
-    fields.metadata?.provider_code ?? null,
-    Number.isFinite(retryAfter) && retryAfter >= 0 ? Math.min(retryAfter * 1000, PROVIDER_RETRY_AFTER_CAP_MS) : null,
+    plain(limitSource) ? limitSource as string : null,
+    typeof providerCode === "number" || plain(providerCode) ? providerCode : null,
+    retryAfterMs(response.headers?.get("retry-after") ?? null),
   );
 }
 
@@ -456,7 +467,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             break;
           } catch (error) {
             if (!(error instanceof ProviderError)) throw error;
-            const retrying = error.temporary && attempt < PROVIDER_RETRIES;
+            // A provider that asks for a longer wait than the request can spend is not sent the call early.
+            const retrying = error.temporary && attempt < PROVIDER_RETRIES && (error.retryAfterMs ?? 0) <= PROVIDER_RETRY_AFTER_CAP_MS;
             logWarn("generic.provider_refused", { requestId, generationId, status: error.status, limitSource: error.limitSource, providerCode: error.providerCode, attempt: attempt + 1, retrying });
             if (!retrying) throw error;
             await sleep(error.retryAfterMs ?? PROVIDER_RETRY_DELAYS_MS[attempt]);
