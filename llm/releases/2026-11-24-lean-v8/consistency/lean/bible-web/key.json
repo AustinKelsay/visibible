@@ -1,0 +1,2471 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-11-24-lean-v8/consistency/lean/results.ndjson",
+      "sha256": "f7fd3a1e18849e1a54b83a1b35706c6f74119b2fe0238097845f6f43dd4a423e"
+    },
+    {
+      "file": "llm/releases/2026-11-24-lean-v8/consistency/lean/snapshot.json",
+      "sha256": "3f0bb27951b27f7700d3f5cea93e3dadcb00a264a2c589b2e07460888476ef1c"
+    }
+  ],
+  "notRun": {
+    "character": [],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "mark-4-39",
+        "john-11-43",
+        "john-21-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "mark-4-39",
+        "john-11-43",
+        "john-21-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "mark-4-39",
+        "john-11-43",
+        "john-21-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "numbers-20-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "numbers-20-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "numbers-20-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "acts-3-7"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "acts-3-7"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "acts-3-7"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "classical",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "classical",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__watercolor__a1.jpg",
+        "sha256": "5d22b704256dca63c863a8e3b36318c0b2537085d6864b1d2a2f2632b8a5b065",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__watercolor__a1.jpg",
+        "sha256": "43503dc8fb646208894e0f2af1f3310891abb04e7a1b55dd442e642eb359e65c",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__watercolor__a1.jpg",
+        "sha256": "c3a45e94f5c177ddc0c304f6ccfb11aadfefe0e07d5a09ac2b78a4e6f98e02ce",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__classical__a1.jpg",
+        "sha256": "3ca4aa5ffd07028b99aa272b1c2431cc696cfd0d1b18e1790c9496f8fa7bc770",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__classical__a1.jpg",
+        "sha256": "c2b8fda0fbd452e8e1ad2adc3f0a67c2ed9d637fdc7d098d15e7a7decd7ca7f1",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__classical__a1.jpg",
+        "sha256": "c2b8fda0fbd452e8e1ad2adc3f0a67c2ed9d637fdc7d098d15e7a7decd7ca7f1",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "2abcb1c1ee11f5a4b4af05f16e36de43ad38cfc114e01a18d4f134a64809f224",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__watercolor__a1.jpg",
+        "sha256": "43503dc8fb646208894e0f2af1f3310891abb04e7a1b55dd442e642eb359e65c",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__watercolor__a1.jpg",
+        "sha256": "a7bba3cd914c15215c05467afc7318e340c1888d976cac08278677f6f7b1e9bd",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__watercolor__a1.jpg",
+        "sha256": "50c04df02b9959d85801e6dd2279c5d50f9b79b20ab384ab6d87d6f1cad1d986",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "d0c049bc560fafc5be02473fb133421dbd0e22c610bb106da7744eca4b46e796",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__watercolor__a1.jpg",
+        "sha256": "a7bba3cd914c15215c05467afc7318e340c1888d976cac08278677f6f7b1e9bd",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__watercolor__a1.jpg",
+        "sha256": "5d22b704256dca63c863a8e3b36318c0b2537085d6864b1d2a2f2632b8a5b065",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "297a97809058a1de96aaa459adff9f682c4e4f0eb0608225e0f2477fbb0dbd52",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__fresco__a1.jpg",
+        "sha256": "cde5200dfbbb7387ba1a7eac58f6d1819080bdd2cb9057f6ff646c36d9ea2ad1",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "69b1aee97a130df2e46244fa7f067ae75df204ed10ea5815b2a52af030faef7f",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "a23e687aa98c8c57c1d1d981e34434309c4dddca30bc7ca0d7e3d6c82bc81b20",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__fresco__a1.jpg",
+        "sha256": "cde5200dfbbb7387ba1a7eac58f6d1819080bdd2cb9057f6ff646c36d9ea2ad1",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__fresco__a1.jpg",
+        "sha256": "cb4f50a2201654942bd6bbf60e73c5964d217898e1381a0ca10e3b558ba403bb",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__fresco__a1.jpg",
+        "sha256": "1232309316ed9b8d750696eb297e56058ed544a499c3d9e0db4a5f1c0502f7e1",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__fresco__a1.jpg",
+        "sha256": "9e77b6eeab7115ecd1275640fe7323378c24cdb58e63e756c440f506a291119d",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__fresco__a1.jpg",
+        "sha256": "9e77b6eeab7115ecd1275640fe7323378c24cdb58e63e756c440f506a291119d",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__fresco__a1.jpg",
+        "sha256": "845e6b6244f722e309fbca325b093512453965d3fea7b1b3c938ec9fa0f440e5",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__fresco__a1.jpg",
+        "sha256": "a45d43d577b68e1a971e1cb7d318a037e91d4b56e4ddec06fa452ed18791f879",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__fresco__a1.jpg",
+        "sha256": "42323eeca865e89b7cdcebe9dab6152efbc7899fb72d800f30dcc2b8f7aeba45",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "69b1aee97a130df2e46244fa7f067ae75df204ed10ea5815b2a52af030faef7f",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__fresco__a1.jpg",
+        "sha256": "f42e6ea3f72f30f43ae3b548a8a3de93c7efe4a1d59f64846c1906d9981bb698",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__fresco__a1.jpg",
+        "sha256": "7c36ced5ea25bee226b16c32289469147406f6bea17f3137f7e123246a8c8b49",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "04799a7e76612942ee847a9b5513cb7f26b30d0347f17100e955120290018625",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "980ff82cb760095c4e1c65a89d76bc98c2f027971578ae76fb7007d9d2152903",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "980ff82cb760095c4e1c65a89d76bc98c2f027971578ae76fb7007d9d2152903",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__fresco__a1.jpg",
+        "sha256": "6abeb1a032a343bf1c97ffc39e5696645c98fe48dd81693ddfaac451d28e569c",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "2abcb1c1ee11f5a4b4af05f16e36de43ad38cfc114e01a18d4f134a64809f224",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__classical__a1.jpg",
+        "sha256": "3ca4aa5ffd07028b99aa272b1c2431cc696cfd0d1b18e1790c9496f8fa7bc770",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__fresco__a1.jpg",
+        "sha256": "b9d97984ad88663e3626bf6333976ea24a5c3219c15bad85ee7b745741959ace",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "04799a7e76612942ee847a9b5513cb7f26b30d0347f17100e955120290018625",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__fresco__a1.jpg",
+        "sha256": "e15286abf2cd15cf0373187d195f583624010df3525ed06846a2b50b6dde1cd0",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__fresco__a1.jpg",
+        "sha256": "f42e6ea3f72f30f43ae3b548a8a3de93c7efe4a1d59f64846c1906d9981bb698",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__classical__a1.jpg",
+        "sha256": "0cdfc24653f6fb0c42f19032ffaaaffc48bd610fba7a1730d4f46e495ec33b11",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__fresco__a1.jpg",
+        "sha256": "f42e6ea3f72f30f43ae3b548a8a3de93c7efe4a1d59f64846c1906d9981bb698",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__fresco__a1.jpg",
+        "sha256": "ceab7f58dd3263a2cbe37bd21b85e6281828cbb3eda68409f5f2dccca68a22ae",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "297a97809058a1de96aaa459adff9f682c4e4f0eb0608225e0f2477fbb0dbd52",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__fresco__a1.jpg",
+        "sha256": "9f89ff954a30b4323df5d9b5b3e8847e35cfa6d42fc1f65b25278ec7addb3778",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__classical__a1.jpg",
+        "sha256": "3093b521016baa72fcbdfb79dac11673832836fab86cb68669d267c880b6607c",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__classical__a1.jpg",
+        "sha256": "75e487f1f958732207998183b24e06abced622e063294c84aae6c608a4b51bd8",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "d0c049bc560fafc5be02473fb133421dbd0e22c610bb106da7744eca4b46e796",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "3f4320647cecc5d6d35e0c11c0fc3ac652cb843be9b1d9a3f692e83522b1f4cb",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "3f4320647cecc5d6d35e0c11c0fc3ac652cb843be9b1d9a3f692e83522b1f4cb",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__watercolor__a1.jpg",
+        "sha256": "50c04df02b9959d85801e6dd2279c5d50f9b79b20ab384ab6d87d6f1cad1d986",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__classical__a1.jpg",
+        "sha256": "187eae4c061bbe000bfaf181c6df1a7987e0cc135f464c35ed28efbacb85af88",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__classical__a1.jpg",
+        "sha256": "c8d81efd9bdb52692ba98d71fa9b772591f42817bc74dcd75eed6d1dd3cb2cb4",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__classical__a1.jpg",
+        "sha256": "75e487f1f958732207998183b24e06abced622e063294c84aae6c608a4b51bd8",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__classical__a1.jpg",
+        "sha256": "c2c278f0afc91bb3aa4a2beee2697ebee661ee0df603fe5ff018c832f0a51f78",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__watercolor__a1.jpg",
+        "sha256": "c3a45e94f5c177ddc0c304f6ccfb11aadfefe0e07d5a09ac2b78a4e6f98e02ce",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__watercolor__a1.jpg",
+        "sha256": "8d70c9f09620749482541434233fb28cbaff04d779d151a5e7249b62592e52af",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__classical__a1.jpg",
+        "sha256": "c8d81efd9bdb52692ba98d71fa9b772591f42817bc74dcd75eed6d1dd3cb2cb4",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__classical__a1.jpg",
+        "sha256": "c5cff7339b036a426efdab09831982f1931d1ea2b3fca0c6550e89a9915f9717",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__watercolor__a1.jpg",
+        "sha256": "d88c7e6857df73eccac3aec619d20c9241aea7bd672a12dc112b8635270c6df3",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__watercolor__a1.jpg",
+        "sha256": "bbbdcee155632b5973fa981d7443a7625e4bd729ba5162ed233e7460caa9b308",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-5-17__classical__a1.jpg",
+        "sha256": "c5cff7339b036a426efdab09831982f1931d1ea2b3fca0c6550e89a9915f9717",
+        "scene": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__classical__a1.jpg",
+        "sha256": "187eae4c061bbe000bfaf181c6df1a7987e0cc135f464c35ed28efbacb85af88",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__classical__a1.jpg",
+        "sha256": "c2c278f0afc91bb3aa4a2beee2697ebee661ee0df603fe5ff018c832f0a51f78",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__classical__a1.jpg",
+        "sha256": "c051c637bb1c8d0cd85cfcb6a7487c173b7faece2fa55aa36ee1ccda726628e9",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__fresco__a1.jpg",
+        "sha256": "9137460faa7c57ae5741eeb59b067f6a281d8ffb3604b2c9e3391f0e442a2902",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "980ff82cb760095c4e1c65a89d76bc98c2f027971578ae76fb7007d9d2152903",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__classical__a1.jpg",
+        "sha256": "36fddcd711758b5e4d634b38459128aa791e5aadd15bc79a611b9aace448a098",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair036",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__fresco__a1.jpg",
+        "sha256": "9f89ff954a30b4323df5d9b5b3e8847e35cfa6d42fc1f65b25278ec7addb3778",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair037",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__fresco__a1.jpg",
+        "sha256": "27180501452b23ccddb561ae64ce1c62824c471627f057add71a47fe94c8e30c",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      }
+    },
+    {
+      "id": "pair038",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__classical__a1.jpg",
+        "sha256": "c2b3605a736086cd684c6e333874dc2a2700a944a93dc38c5e0522957a444441",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__classical__a1.jpg",
+        "sha256": "b3f78c074071363ba9a6a597d65f526e8b5f93f000e41ca5af170e688a1a4987",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      }
+    },
+    {
+      "id": "pair039",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "9fc067431fdefe359b9300fc02830ae4a0a6915afdb0596b3da84c30f3d8911a",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__classical__a1.jpg",
+        "sha256": "36fddcd711758b5e4d634b38459128aa791e5aadd15bc79a611b9aace448a098",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      }
+    },
+    {
+      "id": "pair040",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__classical__a1.jpg",
+        "sha256": "fc23175113ee391288b0bf53ec6502f94fc4027bbc96f3ba214ecfd0c6c5c0f7",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__classical__a1.jpg",
+        "sha256": "0cdfc24653f6fb0c42f19032ffaaaffc48bd610fba7a1730d4f46e495ec33b11",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair041",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__fresco__a1.jpg",
+        "sha256": "7c36ced5ea25bee226b16c32289469147406f6bea17f3137f7e123246a8c8b49",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__fresco__a1.jpg",
+        "sha256": "e15286abf2cd15cf0373187d195f583624010df3525ed06846a2b50b6dde1cd0",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      }
+    },
+    {
+      "id": "pair042",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__fresco__a1.jpg",
+        "sha256": "9f89ff954a30b4323df5d9b5b3e8847e35cfa6d42fc1f65b25278ec7addb3778",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__fresco__a1.jpg",
+        "sha256": "27180501452b23ccddb561ae64ce1c62824c471627f057add71a47fe94c8e30c",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      }
+    },
+    {
+      "id": "pair043",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__fresco__a1.jpg",
+        "sha256": "6abeb1a032a343bf1c97ffc39e5696645c98fe48dd81693ddfaac451d28e569c",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "04799a7e76612942ee847a9b5513cb7f26b30d0347f17100e955120290018625",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair044",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__fresco__a1.jpg",
+        "sha256": "27180501452b23ccddb561ae64ce1c62824c471627f057add71a47fe94c8e30c",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "297a97809058a1de96aaa459adff9f682c4e4f0eb0608225e0f2477fbb0dbd52",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair045",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "0dbfa62119919e3750598b820dba543c9ccc83db53fa4ff81e34ab2edeb6005c",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__classical__a1.jpg",
+        "sha256": "c45fb5073685fbb9c2364716156a121fbc776ef8da55929f80b46a69a29231bd",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair046",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "9fc067431fdefe359b9300fc02830ae4a0a6915afdb0596b3da84c30f3d8911a",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair047",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "297a97809058a1de96aaa459adff9f682c4e4f0eb0608225e0f2477fbb0dbd52",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair048",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "4de763b0d077185513406d726736102e3f9a10d2fa67ba1671adfa36877682de",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__classical__a1.jpg",
+        "sha256": "c2b3605a736086cd684c6e333874dc2a2700a944a93dc38c5e0522957a444441",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      }
+    },
+    {
+      "id": "pair049",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__classical__a1.jpg",
+        "sha256": "fc23175113ee391288b0bf53ec6502f94fc4027bbc96f3ba214ecfd0c6c5c0f7",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair050",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__fresco__a1.jpg",
+        "sha256": "845e6b6244f722e309fbca325b093512453965d3fea7b1b3c938ec9fa0f440e5",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__fresco__a1.jpg",
+        "sha256": "1232309316ed9b8d750696eb297e56058ed544a499c3d9e0db4a5f1c0502f7e1",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair051",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "2abcb1c1ee11f5a4b4af05f16e36de43ad38cfc114e01a18d4f134a64809f224",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair052",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-23__classical__a1.jpg",
+        "sha256": "c45fb5073685fbb9c2364716156a121fbc776ef8da55929f80b46a69a29231bd",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "4de763b0d077185513406d726736102e3f9a10d2fa67ba1671adfa36877682de",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair053",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "4de763b0d077185513406d726736102e3f9a10d2fa67ba1671adfa36877682de",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "0dbfa62119919e3750598b820dba543c9ccc83db53fa4ff81e34ab2edeb6005c",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair054",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__classical__a1.jpg",
+        "sha256": "187eae4c061bbe000bfaf181c6df1a7987e0cc135f464c35ed28efbacb85af88",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__classical__a1.jpg",
+        "sha256": "c8d81efd9bdb52692ba98d71fa9b772591f42817bc74dcd75eed6d1dd3cb2cb4",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair055",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "980ff82cb760095c4e1c65a89d76bc98c2f027971578ae76fb7007d9d2152903",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__fresco__a1.jpg",
+        "sha256": "b9d97984ad88663e3626bf6333976ea24a5c3219c15bad85ee7b745741959ace",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      }
+    },
+    {
+      "id": "pair056",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__fresco__a1.jpg",
+        "sha256": "42323eeca865e89b7cdcebe9dab6152efbc7899fb72d800f30dcc2b8f7aeba45",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      }
+    },
+    {
+      "id": "pair057",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-20-prodigal__watercolor__a1.jpg",
+        "sha256": "df7f5be47004a0dcb803880f319662d0bf3b54bec2705a89725cc542b2ab81a7",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-22__watercolor__a1.jpg",
+        "sha256": "b919a1890098a38de9c41d1d6dea128060e9c59f2e2bacb88140cad5fb42f20d",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      }
+    },
+    {
+      "id": "pair058",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__watercolor__a1.jpg",
+        "sha256": "aea46e2de2d87bb050b1c92de36e51b77e827e26456f8dcae68d37174316e201",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "448e3a87842b9a8bd55bdfa843ba5ff700fbebc1bb50e22af47e2835b85b7245",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair059",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__fresco__a1.jpg",
+        "sha256": "a45d43d577b68e1a971e1cb7d318a037e91d4b56e4ddec06fa452ed18791f879",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair060",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "9fc067431fdefe359b9300fc02830ae4a0a6915afdb0596b3da84c30f3d8911a",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__classical__a1.jpg",
+        "sha256": "d6849901d57501e352d496a8173a52543d913f487e6f37b964258eb82ca6be8a",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      }
+    },
+    {
+      "id": "pair061",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__watercolor__a1.jpg",
+        "sha256": "a5f700721b4bceb925f6ebbc2465c5aa3324315110b4fe72d26af0d260922b7f",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "d0c049bc560fafc5be02473fb133421dbd0e22c610bb106da7744eca4b46e796",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair062",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-20-prodigal__fresco__a1.jpg",
+        "sha256": "dd90e34964582a8240b3bb0a14ad95af80ce62c9c7c1573100aed0f41e75ce37",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-22__fresco__a1.jpg",
+        "sha256": "14d96aedb61cb14b95cf101b453584cd6d6fe29babfbe63919db2b182fe12605",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      }
+    },
+    {
+      "id": "pair063",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__fresco__a1.jpg",
+        "sha256": "a45d43d577b68e1a971e1cb7d318a037e91d4b56e4ddec06fa452ed18791f879",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "d08202525de472aace8b3914149bdb55d0d3b8e7bef171d96f940152598e02f3",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair064",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__classical__a1.jpg",
+        "sha256": "c2c278f0afc91bb3aa4a2beee2697ebee661ee0df603fe5ff018c832f0a51f78",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__classical__a1.jpg",
+        "sha256": "3093b521016baa72fcbdfb79dac11673832836fab86cb68669d267c880b6607c",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      }
+    },
+    {
+      "id": "pair065",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "980ff82cb760095c4e1c65a89d76bc98c2f027971578ae76fb7007d9d2152903",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "04799a7e76612942ee847a9b5513cb7f26b30d0347f17100e955120290018625",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair066",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__watercolor__a1.jpg",
+        "sha256": "c0ac487f65cb1a6c1565de4b1f07f9553e3631b549e3da9f1dad269deb535263",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__watercolor__a1.jpg",
+        "sha256": "daed683090f9eaea66c43bf3650287b86bbf262f4359a94a404ce8f5b5696bd3",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      }
+    },
+    {
+      "id": "pair067",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "classical",
+      "left": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-22__classical__a1.jpg",
+        "sha256": "742337609b8bd946d5d19eabe0af2b203033dd7db4ab23c86f27ab41271c963d",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      },
+      "right": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-15-20-prodigal__classical__a1.jpg",
+        "sha256": "a33608e5333d1bc7e4a9de5210281e83a2bfed8599a4238417587bca83995e3b",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      }
+    },
+    {
+      "id": "pair068",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "3f4320647cecc5d6d35e0c11c0fc3ac652cb843be9b1d9a3f692e83522b1f4cb",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "d0c049bc560fafc5be02473fb133421dbd0e22c610bb106da7744eca4b46e796",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair069",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__fresco__a1.jpg",
+        "sha256": "ceab7f58dd3263a2cbe37bd21b85e6281828cbb3eda68409f5f2dccca68a22ae",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__fresco__a1.jpg",
+        "sha256": "e15286abf2cd15cf0373187d195f583624010df3525ed06846a2b50b6dde1cd0",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      }
+    },
+    {
+      "id": "pair070",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__classical__a1.jpg",
+        "sha256": "0cdfc24653f6fb0c42f19032ffaaaffc48bd610fba7a1730d4f46e495ec33b11",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "2abcb1c1ee11f5a4b4af05f16e36de43ad38cfc114e01a18d4f134a64809f224",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair071",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__watercolor__a1.jpg",
+        "sha256": "3ec1d2db63cfd21d8e945f5fb34dd0f2c793f5c6ccc8986ae6b8104ec2f9bbcf",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "448e3a87842b9a8bd55bdfa843ba5ff700fbebc1bb50e22af47e2835b85b7245",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair072",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__watercolor__a1.jpg",
+        "sha256": "daed683090f9eaea66c43bf3650287b86bbf262f4359a94a404ce8f5b5696bd3",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__watercolor__a1.jpg",
+        "sha256": "bbbdcee155632b5973fa981d7443a7625e4bd729ba5162ed233e7460caa9b308",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      }
+    },
+    {
+      "id": "pair073",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__classical__a1.jpg",
+        "sha256": "c051c637bb1c8d0cd85cfcb6a7487c173b7faece2fa55aa36ee1ccda726628e9",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__classical__a1.jpg",
+        "sha256": "3093b521016baa72fcbdfb79dac11673832836fab86cb68669d267c880b6607c",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      }
+    },
+    {
+      "id": "pair074",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "0dbfa62119919e3750598b820dba543c9ccc83db53fa4ff81e34ab2edeb6005c",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__classical__a1.jpg",
+        "sha256": "b3f78c074071363ba9a6a597d65f526e8b5f93f000e41ca5af170e688a1a4987",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      }
+    },
+    {
+      "id": "pair075",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__classical__a1.jpg",
+        "sha256": "c2b3605a736086cd684c6e333874dc2a2700a944a93dc38c5e0522957a444441",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "0dbfa62119919e3750598b820dba543c9ccc83db53fa4ff81e34ab2edeb6005c",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair076",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "448e3a87842b9a8bd55bdfa843ba5ff700fbebc1bb50e22af47e2835b85b7245",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      }
+    },
+    {
+      "id": "pair077",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__watercolor__a1.jpg",
+        "sha256": "aea46e2de2d87bb050b1c92de36e51b77e827e26456f8dcae68d37174316e201",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      }
+    },
+    {
+      "id": "pair078",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "448e3a87842b9a8bd55bdfa843ba5ff700fbebc1bb50e22af47e2835b85b7245",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__watercolor__a1.jpg",
+        "sha256": "6cff607d8cb2ed4c5839ceeb4d1df65d822aacbf7e90c1a6b89441ff22cea8bc",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair079",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-37__watercolor__a1.jpg",
+        "sha256": "6cff607d8cb2ed4c5839ceeb4d1df65d822aacbf7e90c1a6b89441ff22cea8bc",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__watercolor__a1.jpg",
+        "sha256": "3ec1d2db63cfd21d8e945f5fb34dd0f2c793f5c6ccc8986ae6b8104ec2f9bbcf",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair080",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "2abcb1c1ee11f5a4b4af05f16e36de43ad38cfc114e01a18d4f134a64809f224",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__classical__a1.jpg",
+        "sha256": "fc23175113ee391288b0bf53ec6502f94fc4027bbc96f3ba214ecfd0c6c5c0f7",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      }
+    },
+    {
+      "id": "pair081",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "448e3a87842b9a8bd55bdfa843ba5ff700fbebc1bb50e22af47e2835b85b7245",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "69b1aee97a130df2e46244fa7f067ae75df204ed10ea5815b2a52af030faef7f",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair082",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "9fc067431fdefe359b9300fc02830ae4a0a6915afdb0596b3da84c30f3d8911a",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__classical__a1.jpg",
+        "sha256": "0cdfc24653f6fb0c42f19032ffaaaffc48bd610fba7a1730d4f46e495ec33b11",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair083",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "a23e687aa98c8c57c1d1d981e34434309c4dddca30bc7ca0d7e3d6c82bc81b20",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair084",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__watercolor__a1.jpg",
+        "sha256": "b7b7b9638b86fb2b0a5c8532a8aa09cfd1d314035a5f39033e392f9d8f1556dd",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__watercolor__a1.jpg",
+        "sha256": "8d70c9f09620749482541434233fb28cbaff04d779d151a5e7249b62592e52af",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      }
+    },
+    {
+      "id": "pair085",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__watercolor__a1.jpg",
+        "sha256": "c3a45e94f5c177ddc0c304f6ccfb11aadfefe0e07d5a09ac2b78a4e6f98e02ce",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "a23e687aa98c8c57c1d1d981e34434309c4dddca30bc7ca0d7e3d6c82bc81b20",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair086",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__watercolor__a1.jpg",
+        "sha256": "8d70c9f09620749482541434233fb28cbaff04d779d151a5e7249b62592e52af",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "a23e687aa98c8c57c1d1d981e34434309c4dddca30bc7ca0d7e3d6c82bc81b20",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair087",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__classical__a1.jpg",
+        "sha256": "ea21d0e6a19c7786c8f8a9447f19726d143cf166f8cc880ddb7b156eadd4d26c",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__classical__a1.jpg",
+        "sha256": "d6849901d57501e352d496a8173a52543d913f487e6f37b964258eb82ca6be8a",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      }
+    },
+    {
+      "id": "pair088",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__fresco__a1.jpg",
+        "sha256": "b9d97984ad88663e3626bf6333976ea24a5c3219c15bad85ee7b745741959ace",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__fresco__a1.jpg",
+        "sha256": "9137460faa7c57ae5741eeb59b067f6a281d8ffb3604b2c9e3391f0e442a2902",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      }
+    },
+    {
+      "id": "pair089",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__watercolor__a1.jpg",
+        "sha256": "5d22b704256dca63c863a8e3b36318c0b2537085d6864b1d2a2f2632b8a5b065",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__watercolor__a1.jpg",
+        "sha256": "43503dc8fb646208894e0f2af1f3310891abb04e7a1b55dd442e642eb359e65c",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair090",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/matthew-14-29-peter-water__fresco__a1.jpg",
+        "sha256": "9a229ce176993ca0fa09a875f94866423eb3a309a3b1caefdd0324a7ce49e9bc",
+        "scene": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "d08202525de472aace8b3914149bdb55d0d3b8e7bef171d96f940152598e02f3",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair091",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "69b1aee97a130df2e46244fa7f067ae75df204ed10ea5815b2a52af030faef7f",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-11-43-lazarus__watercolor__a1.jpg",
+        "sha256": "aea46e2de2d87bb050b1c92de36e51b77e827e26456f8dcae68d37174316e201",
+        "scene": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+      }
+    },
+    {
+      "id": "pair092",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__watercolor__a1.jpg",
+        "sha256": "beda3d0cacd5d40e0ae0e6fef3828d8809a7d25f4ed83c66b03f9c1d173a8237",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "3f4320647cecc5d6d35e0c11c0fc3ac652cb843be9b1d9a3f692e83522b1f4cb",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair093",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-9__fresco__a1.jpg",
+        "sha256": "9f89ff954a30b4323df5d9b5b3e8847e35cfa6d42fc1f65b25278ec7addb3778",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "d08202525de472aace8b3914149bdb55d0d3b8e7bef171d96f940152598e02f3",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair094",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-22-lions__fresco__a1.jpg",
+        "sha256": "845e6b6244f722e309fbca325b093512453965d3fea7b1b3c938ec9fa0f440e5",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/daniel-6-23__fresco__a1.jpg",
+        "sha256": "1232309316ed9b8d750696eb297e56058ed544a499c3d9e0db4a5f1c0502f7e1",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair095",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__watercolor__a1.jpg",
+        "sha256": "a5f700721b4bceb925f6ebbc2465c5aa3324315110b4fe72d26af0d260922b7f",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__watercolor__a1.jpg",
+        "sha256": "beda3d0cacd5d40e0ae0e6fef3828d8809a7d25f4ed83c66b03f9c1d173a8237",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      }
+    },
+    {
+      "id": "pair096",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "d0c049bc560fafc5be02473fb133421dbd0e22c610bb106da7744eca4b46e796",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__watercolor__a1.jpg",
+        "sha256": "beda3d0cacd5d40e0ae0e6fef3828d8809a7d25f4ed83c66b03f9c1d173a8237",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      }
+    },
+    {
+      "id": "pair097",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__classical__a1.jpg",
+        "sha256": "36fddcd711758b5e4d634b38459128aa791e5aadd15bc79a611b9aace448a098",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/luke-22-61__classical__a1.jpg",
+        "sha256": "d6849901d57501e352d496a8173a52543d913f487e6f37b964258eb82ca6be8a",
+        "scene": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+      }
+    },
+    {
+      "id": "pair098",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "0dbfa62119919e3750598b820dba543c9ccc83db53fa4ff81e34ab2edeb6005c",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "4de763b0d077185513406d726736102e3f9a10d2fa67ba1671adfa36877682de",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair099",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__classical__a1.jpg",
+        "sha256": "b3f78c074071363ba9a6a597d65f526e8b5f93f000e41ca5af170e688a1a4987",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "4de763b0d077185513406d726736102e3f9a10d2fa67ba1671adfa36877682de",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair100",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/acts-3-7__fresco__a1.jpg",
+        "sha256": "42323eeca865e89b7cdcebe9dab6152efbc7899fb72d800f30dcc2b8f7aeba45",
+        "scene": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "d08202525de472aace8b3914149bdb55d0d3b8e7bef171d96f940152598e02f3",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair101",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-40__watercolor__a1.jpg",
+        "sha256": "bbbdcee155632b5973fa981d7443a7625e4bd729ba5162ed233e7460caa9b308",
+        "scene": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__watercolor__a1.jpg",
+        "sha256": "c0ac487f65cb1a6c1565de4b1f07f9553e3631b549e3da9f1dad269deb535263",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      }
+    },
+    {
+      "id": "pair102",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__watercolor__a1.jpg",
+        "sha256": "d88c7e6857df73eccac3aec619d20c9241aea7bd672a12dc112b8635270c6df3",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__watercolor__a1.jpg",
+        "sha256": "daed683090f9eaea66c43bf3650287b86bbf262f4359a94a404ce8f5b5696bd3",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      }
+    },
+    {
+      "id": "pair103",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-38__fresco__a1.jpg",
+        "sha256": "cb4f50a2201654942bd6bbf60e73c5964d217898e1381a0ca10e3b558ba403bb",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "297a97809058a1de96aaa459adff9f682c4e4f0eb0608225e0f2477fbb0dbd52",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair104",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__classical__a1.jpg",
+        "sha256": "c051c637bb1c8d0cd85cfcb6a7487c173b7faece2fa55aa36ee1ccda726628e9",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__classical__a1.jpg",
+        "sha256": "75e487f1f958732207998183b24e06abced622e063294c84aae6c608a4b51bd8",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      }
+    },
+    {
+      "id": "pair105",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "04799a7e76612942ee847a9b5513cb7f26b30d0347f17100e955120290018625",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/numbers-20-11__fresco__a1.jpg",
+        "sha256": "9137460faa7c57ae5741eeb59b067f6a281d8ffb3604b2c9e3391f0e442a2902",
+        "scene": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+      }
+    },
+    {
+      "id": "pair106",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "3f4320647cecc5d6d35e0c11c0fc3ac652cb843be9b1d9a3f692e83522b1f4cb",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/exodus-17-12__watercolor__a1.jpg",
+        "sha256": "a5f700721b4bceb925f6ebbc2465c5aa3324315110b4fe72d26af0d260922b7f",
+        "scene": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+      }
+    },
+    {
+      "id": "pair107",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__fresco__a1.jpg",
+        "sha256": "ceab7f58dd3263a2cbe37bd21b85e6281828cbb3eda68409f5f2dccca68a22ae",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-18-11__fresco__a1.jpg",
+        "sha256": "7c36ced5ea25bee226b16c32289469147406f6bea17f3137f7e123246a8c8b49",
+        "scene": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+      }
+    },
+    {
+      "id": "pair108",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-16-13__watercolor__a1.jpg",
+        "sha256": "c0ac487f65cb1a6c1565de4b1f07f9553e3631b549e3da9f1dad269deb535263",
+        "scene": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-11-24-lean-v8/images/1-samuel-17-49-sling__watercolor__a1.jpg",
+        "sha256": "d88c7e6857df73eccac3aec619d20c9241aea7bd672a12dc112b8635270c6df3",
+        "scene": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+      }
+    }
+  ]
+}

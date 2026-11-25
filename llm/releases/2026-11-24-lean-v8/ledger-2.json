@@ -1,0 +1,19 @@
+{
+  "capUsd": 2.352435,
+  "calls": [
+    {
+      "phase": "alice-refuses-to-leave/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0544275
+    }
+  ],
+  "measuredUsd": 0.0544275,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 1,
+    "check": 0
+  },
+  "blocked": null
+}

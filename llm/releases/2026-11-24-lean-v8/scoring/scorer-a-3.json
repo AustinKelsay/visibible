@@ -1,0 +1,594 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j071",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands before the enthroned Babylonian king and court gesturing away the trays of gifts offered by kneeling servants, with no writing on the blank plaster wall or elsewhere. Anatomy, framing, and composition are clean and faithful to the moment."
+    },
+    {
+      "id": "j072",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Small gold pseudo-lettering is visible inside the rectangular nameplate panels on the sides of both red horse-drawn fire engines in the mid-left background, though the marks are small and unreadable. Otherwise the burning whitewashed house, rose bushes, bandaged Hatherley pointing, Holmes, and Watson match the text well."
+    },
+    {
+      "id": "j073",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Bald Elisha walks along the hillside road away from the walled city of Bethel while a group of youths mocks and points at him. The top-left sky and bottom-right corner fade into white unpainted paper, which is accepted by this style."
+    },
+    {
+      "id": "j074",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter steps out of the fishing boat onto the choppy water toward Jesus, who stands on the sea beckoning while the other disciples watch from the boat. Edges are fully painted and anatomy is sound throughout."
+    },
+    {
+      "id": "j075",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a yellow dress with white pinafore, blue sash, and striped stockings speaks up to a grinning tabby Cheshire Cat with prominent teeth and long claws perched on a mossy bough. No film-adaptation costume is used and all proportions and edges are clean."
+    },
+    {
+      "id": "j076",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Bright golden rays from the parted clouds shine down onto Saul fallen to his knees on the road approaching Damascus while his companions and donkey react. Composition, anatomy, and edges are clean with no lettering."
+    },
+    {
+      "id": "j077",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "While Hur holds up Moses's right arm on the left, Moses's left arm terminates and vanishes behind the vertical staff and Aaron's lower hand with no left hand visible. Meanwhile Aaron grips the staff with both hands rather than holding up Moses's hand, creating both an anatomy defect and a contradictory pose."
+    },
+    {
+      "id": "j078",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Young David stands at the rocky brook placing smooth stones into his shepherd's pouch while holding his staff and sling in his left hand, with Goliath and his shield-bearer visible in the valley ahead. Anatomy, setting, and details accurately follow the text."
+    },
+    {
+      "id": "j079",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Golden-white light breaks through dark clouds over turbulent primordial waters with no human figure or face for God. Full-bleed ink-and-watercolor rendering with no lettering or visual defects."
+    },
+    {
+      "id": "j080",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "A prominent bearded narrator figure holding a staff and rolled scroll (John) stands on the far left of the sea of glass even though Revelation 4:6 does not call for him in the scene. The throne itself properly shows light rather than a figure of God."
+    },
+    {
+      "id": "j081",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "King Hezekiah oversees temple repairs and scribes working at a table in the Jerusalem temple courtyard beside the bronze sea and builders on scaffolding. The scrolls show no readable lettering or glyphs and all figures are anatomically coherent."
+    },
+    {
+      "id": "j082",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Bald Elisha walks up the rocky road toward walled Bethel with his staff while youths behind and ahead of him point and jeer. Anatomy, poses, and framing are clean with no lettering."
+    },
+    {
+      "id": "j083",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits thinking at the outdoor tea table with the suited March Hare, sleeping Dormouse, and top-hatted Hatter, with no lettering on the hat or elsewhere and no film-adaptation costume. The top-left corner shows unpainted white paper behind the leaves, which is accepted by this style."
+    },
+    {
+      "id": "j084",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes springs onto the bed holding a flaring match and lashing with his cane at the bell-pull and speckled snake descending from the ventilator while Watson watches from the armchair. Full-bleed dark room with clean anatomy and no screen-adaptation likenesses."
+    },
+    {
+      "id": "j085",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus cries out with outstretched arm toward the rock-cut tomb as linen-wrapped Lazarus steps forth while the surrounding crowd watches in astonishment. Anatomy, expressions, and edges are clean."
+    },
+    {
+      "id": "j086",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Simon Peter wraps his coat around himself and leaps from the fishing boat into the sea toward Jesus standing by a shore fire while the young disciple points and others haul the net. Anatomy and dynamic composition are clean and faithful to the text."
+    },
+    {
+      "id": "j087",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Waves crash into the fishing boat in a fierce storm as disciples pull ropes and bail water with clay jars while Jesus sleeps on a cushion in the stern. All limbs, hands, and actions are coherent with no lettering or edge defects."
+    },
+    {
+      "id": "j088",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Job kneels with his staff on an ash heap scattered with pottery sherds gazing up at a towering whirlwind descending from storm clouds. No human figure or face appears in the whirlwind for God, and anatomy and framing are clean."
+    },
+    {
+      "id": "j089",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A vast column of Israelites led by Moses walks along the dry seabed with families and livestock between towering walls of parted water on left and right. No figure of God is drawn, and foreground figures and animals are anatomically sound."
+    },
+    {
+      "id": "j090",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Bill the Lizard in a dark tailcoat is inconsistently duplicated—both stuck head-down inside the jury-box on the right and standing upright on the floor gripping the lower rim directly beneath it—while the jury-box itself is still mid-tipping at a steep angle. Otherwise giant Alice's scale, yellow dress, and the royal court match the text."
+    },
+    {
+      "id": "j091",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Samuel pours oil from a dark horn onto the head of kneeling young David in the middle of his brothers and father outside Bethlehem. Anatomy, hands, and composition are clean with no lettering."
+    },
+    {
+      "id": "j092",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands unharmed inside the stone lions' den beside a radiant winged angel while five calm lions rest nearby with closed mouths and the king looks down from the upper opening. Anatomy of Daniel, the angel, and all five lions is clean."
+    },
+    {
+      "id": "j093",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus calls out toward the opened rock-cut tomb with rolled-back stone as linen-wrapped Lazarus emerges and the gathered crowd reacts on the right. The upper-left edge above the rock shows white unpainted paper, which is accepted by this style."
+    },
+    {
+      "id": "j094",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "A multi-era collage merges Abraham's nighttime tent camp, King David outside Jerusalem, and Mary and Joseph with infant Jesus onto one crowded hillside, with a jarring scale contradiction where King David sits on a rock at roughly twice the scale of the normal-sized walkers directly beside his feet."
+    },
+    {
+      "id": "j095",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Elderly white-bearded Adam lies peacefully in death on a fur-draped bed inside a tent surrounded by mourning descendants. All four corners and edges vignette into white unpainted paper, which is accepted by this style."
+    },
+    {
+      "id": "j096",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Streaks of fire and sulfur rain from dark storm clouds onto the burning walled cities of Sodom and Gomorrah across the plain while Lot and his daughters depart along the hillside path. Edges, framing, and depiction are clean and faithful."
+    },
+    {
+      "id": "j097",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel stands on the left extending his hand to prophesy over a barren valley strewn with dry skulls, ribcages, and bones beneath rays of light breaking through clouds. God is not drawn as a figure and anatomy and edges are clean."
+    },
+    {
+      "id": "j098",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The towering masked Count Von Kramm stands in the Baker Street doorway in his astrakhan-trimmed coat, flame-lined deep blue cloak with brooch, fur-trimmed boots, and broad-brimmed hat in hand while Holmes stands and Watson sits in the armchair. No lettering, screen-adaptation likenesses, or anatomical flaws are present."
+    },
+    {
+      "id": "j099",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A sweeping landscape traces the lineage named in Matthew 1:1 with consistent perspective and scale from Abraham beside his tents under stars on the left, past a walled city on the ridge, along a winding valley road to Mary, Joseph, and infant Jesus at dawn on the right. Anatomy, lighting, and edges are clean."
+    },
+    {
+      "id": "j100",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a yellow dress, white apron, and striped stockings speaks to the floating grinning tabby head of the Cheshire Cat while her flamingo rests at her feet, a hedgehog sits nearby, and flat card soldiers arch on hands and feet across the croquet lawn. The card backs use purely ornamental patterns with no letters or numerals."
+    },
+    {
+      "id": "j101",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "In the Tabernacle courtyard before the smoking bronze horned altar, a white-robed priest casts a bird's feathers onto the ash heap beside the altar while holding the bird without gore. God is not drawn as a figure and all anatomy and edges are clean."
+    },
+    {
+      "id": "j102",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples step out of their grounded fishing boat onto the shore where Jesus sits beside a smoking fire of coals with fish and flatbread laid on it. Anatomy, lighting, and setting accurately depict the verse."
+    },
+    {
+      "id": "j103",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Two men sit face to face in a stone room overlooking a hilltop citadel while the man on the left gazes into a dim tarnished bronze hand mirror. The scroll on the right table is blank with no lettering, and anatomy is clean."
+    },
+    {
+      "id": "j104",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Samuel pours oil from a horn onto kneeling young David beneath dramatic rays of light in the middle of his watching brothers and father outside Bethlehem. Anatomy, poses, and edges are clean with no lettering."
+    },
+    {
+      "id": "j105",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "While servants place a robe on the prodigal son and set sandals near his feet, a servant in green on the far right inexplicably puts a ring onto a female servant's hand, and a bending servant on the far left holds another ring-like object to a different servant's hands instead of to the son. These contradictory side actions make the scene incoherent."
+    }
+  ]
+}

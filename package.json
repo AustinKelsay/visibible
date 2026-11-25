@@ -25,6 +25,7 @@
     "test:coverage": "vitest --coverage",
     "works:import": "tsx scripts/works/import.mts",
     "places:build": "tsx scripts/places/build.mts",
+    "places:today": "tsx scripts/places/build-today.mts",
     "works:check": "tsx scripts/works/import.mts --check",
     "works:read": "tsx scripts/works/read.mts",
     "works:canon": "tsx scripts/works/canon.mts",

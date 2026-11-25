@@ -1,0 +1,592 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "j106",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Holmes on the bed striking a match and lashing with his cane toward the bell-pull and snake while Watson watches from the chair in the dark bedroom. No lettering, anatomy defects, or depiction-rule violations are visible."
+    },
+    {
+      "id": "j107",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Faithfully shows David by the brook with his staff and sling in his left hand, placing a smooth stone into his shepherd's pouch, with the Philistine and shield-bearer across the valley. Anatomy, composition, and edges are clean."
+    },
+    {
+      "id": "j108",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Paul encouraging a gathered early-church community in a sunlit room, fitting the epistle passage's address to believers. Hands, faces, and lighting are coherent with no visible lettering."
+    },
+    {
+      "id": "j109",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Queen's card soldiers at lower left and center-left are drawn as human figures with human heads and hats wearing card-front tunics rather than flat, oblong cards with hands and feet at the corners, breaking the depiction rule. Those card fronts also bear black spade and red heart playing-card pips (no readable text)."
+    },
+    {
+      "id": "j110",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Alice, the March Hare, the sleeping Dormouse, and the Hatter seated silently at the outdoor tea table while Alice ponders. Animal heads, costumes (yellow dress, not blue), and hands are consistent with no lettering."
+    },
+    {
+      "id": "j111",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "While Goliath falling before sling-holding David matches the moment, the weapons on the left are incoherent: a tall upright spear crosses a second shaft passing behind Goliath's right wrist that bears full metal spearheads on both ends. No other faults appear."
+    },
+    {
+      "id": "j112",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "Breaks the card-soldier depiction rule because the three guards in the background left and center are drawn as human men with heads and hoods wearing heart-patterned tabards rather than flat, oblong cards with hands and feet at the corners. The card tabards display red heart playing-card pips (unreadable marks, with the Hatter's hat tag left blank)."
+    },
+    {
+      "id": "j113",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows King Hezekiah overseeing priests and scribes with scrolls and vessels in the temple courtyard by the bronze sea. All unrolled scrolls are blank and anatomy and architecture are coherent."
+    },
+    {
+      "id": "j114",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "The rope rigging on the upper rim is contradictory: the two leftmost men strain horizontally on a rope that hangs straight down empty to the pit floor near the lions, unconnected to Daniel, who climbs two separate ropes held by the men on the right. Faces, hands, and lions are otherwise well-rendered."
+    },
+    {
+      "id": "j115",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "no"
+      },
+      "overall": "flawed",
+      "notes": "The small paper slip Holmes holds at center displays visible rows of small unreadable pseudo-script/squiggles mimicking a hotel bill, and the mantel clock at upper right shows faint dial marks. The scene, figures (Lestrade, Holmes, Watson), and anatomy otherwise match the passage cleanly."
+    },
+    {
+      "id": "j116",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses holds two separate staffs simultaneously—a tall shepherd's crook resting on the rock in his right hand and a second straight wooden rod held outstretched in his left hand. No unseen subject is drawn in the sky and other details are clean."
+    },
+    {
+      "id": "j117",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Moses striking the rock with his rod beside Aaron as water gushes forth for the Israelite congregation and their livestock. Hands, animals, and setting are coherent with no lettering."
+    },
+    {
+      "id": "j118",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the weeping Mock Turtle and the Gryphon dancing on the shingle shore around Alice while waving their forelimbs. Animal heads, Alice's yellow dress, and anatomy are well-formed and faithful to the text."
+    },
+    {
+      "id": "j119",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Breaks the depiction rule that visionary creatures follow the text: while the central seraph has six wings, both flanking seraphim have only two wings with uncovered faces and feet instead of six wings covering face and feet, and both symmetrically hold coal-tongs from a later verse. The throne itself appropriately shows only light and smoke with no human figure of God."
+    },
+    {
+      "id": "j120",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Daniel being helped up the stone steps out of the lions' den unharmed as the delighted king welcomes him and peaceful lions remain below. Anatomy, guards, and full-bleed pen-and-wash framing are clean."
+    },
+    {
+      "id": "j121",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Jesus asleep on a cushion in the stern of the storm-tossed boat as anxious disciples wake him while others cling to the mast and bail water. Hands, faces, and boat geometry are coherent."
+    },
+    {
+      "id": "j122",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Illustrates weary travelers along a rocky hillside below a walled city—one fallen being lifted up and others pressing on beneath rays of sunlight—matching the verse's promise of strength to the weak. No anatomy or coherence issues appear."
+    },
+    {
+      "id": "j123",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Holmes thumping the pavement with his walking stick outside the corner pawnbroker's shop with three gilt balls in Saxe-Coburg Square while Watson watches. Both brown shop boards are cleanly left blank with no lettering, and anatomy is sound."
+    },
+    {
+      "id": "j124",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Faithfully shows Moses at night holding his staff in one hand and stretching out his empty hand over the dividing sea as wind blows across the waiting Israelites. No figure of God appears in the stormy sky and all details are coherent."
+    },
+    {
+      "id": "j125",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the father warmly embracing his ragged, barefoot returning son on the road far off from the homestead. All visible arms, hands, and feet connect anatomically and no lettering or edge flaws appear."
+    },
+    {
+      "id": "j126",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Daniel speaking up from the den to the king and attendants above, with the angel beside four calm, closed-mouthed lions. Daniel's halo is plain without lettering and all figures and animals are cleanly drawn."
+    },
+    {
+      "id": "j127",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Treats the grim passage seriously and without gore by showing the Levite handing cloth-wrapped parcels to somber messengers with a clean knife on the table and shocked Israelites at the doorway. Anatomy and composition are solid."
+    },
+    {
+      "id": "j128",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Holmes kneeling in the brick-vaulted bank cellar with lantern and magnifying lens to examine the floor cracks while Merryweather sits solemnly on a crate and Watson and Jones look on. No lettering appears on the crates and all figures are anatomically sound."
+    },
+    {
+      "id": "j129",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the Israelites breaking camp beneath Mount Horeb and setting out across the plains while Moses gestures onward from a rock outcrop. God is represented only by sunbeams through clouds with no human figure, and people and livestock are clean."
+    },
+    {
+      "id": "j130",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts ordinary household people filling a vaulted storehouse with grain sacks, vessels, and chests of silver without personifying Wisdom as a supernatural figure. Anatomy, architecture, and edges are clean."
+    },
+    {
+      "id": "j131",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows King Darius pressing his signet into clay atop the rope-bound stone laid over the mouth of the den at night, flanked by his lords, torch-bearing guards, and workmen. No lettering or anatomy errors appear."
+    },
+    {
+      "id": "j132",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Faithfully illustrates the father directing servants who bring out a fine embroidered blue robe, a ring, and a pair of sandals for the barefoot returning son. All hands, feet, and sandals are anatomically consistent."
+    },
+    {
+      "id": "j133",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Holmes crouching behind a crate to close the slide of his dark lantern while Watson rests his revolver atop the foreground crate and Merryweather and Jones take cover behind crates. No lettering or defects are visible."
+    },
+    {
+      "id": "j134",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Moses lifting his rod to strike the rock beside Aaron as water pours abundantly for kneeling Israelites and nearby flocks. All hands, faces, and animals are clearly and coherently drawn."
+    },
+    {
+      "id": "j135",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows the father embracing and kissing his ragged, barefoot son on the hillside road below the family estate. All arms, hands, and feet in the embrace align cleanly with no faults."
+    },
+    {
+      "id": "j136",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows Samuel pouring oil from a horn onto kneeling young David in the midst of Jesse and his brothers with swirling leaves evoking the Spirit. Unpainted white paper shows at the upper-left and upper-center sky edge, which is accepted for this style."
+    },
+    {
+      "id": "j137",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Depicts Paul teaching and encouraging an attentive community of believers in a sunlit Mediterranean courtyard, matching the epistle context. Anatomy, poses, and rolled scrolls are clean with no lettering."
+    },
+    {
+      "id": "j138",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Clearly shows bound Jesus turning to look across the courtyard fire at a stricken Peter while a rooster crows atop the rear wall at night. All figures, hands, and courtyard details are coherent."
+    },
+    {
+      "id": "j139",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "na",
+        "rule_violation": "no",
+        "effects_figure": "no",
+        "readable_text": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Shows brilliant rays of light breaking through dark clouds over primordial waters, faithfully depicting Genesis 1:3 with no human figure of God and no figures present to check for anatomy."
+    },
+    {
+      "id": "j140",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na",
+        "readable_text": "na"
+      },
+      "overall": "flawed",
+      "notes": "Although Peter rightly grasps the lame beggar's right hand to raise him at the temple gate, both Peter and John carry large fishing nets draped over their shoulders inside the landlocked Jerusalem temple courtyard, contradicting the setting and moment."
+    }
+  ]
+}

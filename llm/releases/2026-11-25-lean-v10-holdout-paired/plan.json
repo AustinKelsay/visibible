@@ -1,0 +1,339 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-10-lean-snapshot",
+  "promptVersion": "2026-11-25-lean-v10",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "unitId": "leviticus-1-16",
+      "reference": "Leviticus 1:16",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "unitId": "daniel-6-17",
+      "reference": "Daniel 6:17",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "unitId": "proverbs-8-21",
+      "reference": "Proverbs 8:21",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "unitId": "1-corinthians-13-12",
+      "reference": "1 Corinthians 13:12",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "unitId": "isaiah-40-29",
+      "reference": "Isaiah 40:29",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "unitId": "deuteronomy-1-7",
+      "reference": "Deuteronomy 1:7",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "unitId": "nehemiah-3-9",
+      "reference": "Nehemiah 3:9",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "unitId": "2-chronicles-31-21",
+      "reference": "2 Chronicles 31:21",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "unitId": "numbers-9-22",
+      "reference": "Numbers 9:22",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-165",
+      "reference": "The Adventure of the Engineer’s Thumb ¶165",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-176",
+      "reference": "The Adventure of the Noble Bachelor ¶176",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-73",
+      "reference": "The Adventure of the Blue Carbuncle ¶73",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "unitId": "a-case-of-identity-94",
+      "reference": "A Case of Identity ¶94",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-1",
+      "reference": "Advice from a Caterpillar ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-1",
+      "reference": "A Mad Tea-Party ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-41",
+      "reference": "The Queen’s Croquet-Ground ¶41",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "the-lobster-quadrille-19",
+      "work": "alice-in-wonderland",
+      "unitId": "the-lobster-quadrille-19",
+      "reference": "The Lobster Quadrille ¶19",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-38",
+      "reference": "Alice’s Evidence ¶38",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "a-mad-tea-party-76",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-76",
+      "reference": "A Mad Tea-Party ¶76",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-2",
+      "reference": "Alice’s Evidence ¶2",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 1.1825,
+    "capUsd": 2.25,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 65,
+      "check": 0
+    }
+  },
+  "run": "2026-11-25-lean-v10-holdout-paired"
+}

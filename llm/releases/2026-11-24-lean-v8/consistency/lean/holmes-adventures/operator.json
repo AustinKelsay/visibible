@@ -1,0 +1,16 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair012",
+      "verdict": "different",
+      "notes": "The left station view shows bright sunny daytime with lush leafy green trees around the smoke plume, whereas the right close-up of the burning house shows dark dusk lighting and bare leafless winter trees."
+    },
+    {
+      "id": "pair004",
+      "verdict": "unclear",
+      "notes": "The right image is set on Eyford railway station platform with the burning house and its grounds completely hidden behind a distant clump of trees, showing too little of the house itself to judge (matching the unanimous unclear ruling on the companion pair)."
+    }
+  ]
+}
