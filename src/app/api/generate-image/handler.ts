@@ -1,4 +1,3 @@
-import { ART_STYLE_UNAVAILABLE, ENGINE_BINDING_CHANGED, RATE_LIMIT_EXCEEDED } from "@/lib/image-errors";
 import type { FunctionReturnType } from "convex/server";
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
@@ -20,6 +19,7 @@ import {
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
+import { ART_STYLE_UNAVAILABLE, ENGINE_BINDING_CHANGED, RATE_LIMIT_EXCEEDED } from "@/lib/image-errors";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
 import { loadWorkInputs } from "@/lib/engine/work-inputs";

@@ -632,7 +632,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             return false;
           };
 
-
           try {
             const payload: Record<string, unknown> = {
               reference: item.reference,

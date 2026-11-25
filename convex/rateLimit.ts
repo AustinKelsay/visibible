@@ -11,7 +11,8 @@ export const RATE_LIMITS = {
   chat: { windowMs: 60_000, maxRequests: 20 }, // 20 requests per minute
   // Four bulk verses at once, about 15 s each, come to about 16 a minute (#530). Replays of a request do not count.
   "generate-image": { windowMs: 60_000, maxRequests: 20 },
-  // The owner paints eight verses at once (#552). Counted in the same record as "generate-image".
+  // Not an endpoint: the allowance checkRateLimit applies to an owner's "generate-image" requests, counted in that
+  // endpoint's record. The owner paints eight verses at once (#552).
   "generate-image-owner": { windowMs: 60_000, maxRequests: 40 },
   // Quotes are read when a verse or the composer opens; they call no model and reserve nothing.
   "image-quote": { windowMs: 60_000, maxRequests: 30 },
@@ -69,7 +70,8 @@ export const checkRateLimit = mutation({
     const now = Date.now();
     const sid = args.endpoint === "generate-image" ? args.sid : undefined;
     const session = sid ? await ctx.db.query("sessions").withIndex("by_sid", (q) => q.eq("sid", sid)).unique() : null;
-    const owner = session?.tier === "admin" && session.revokedAt === undefined;
+    // The admin tier lapses at adminUntil; a cron demotes the session later (convex/sessions.ts).
+    const owner = session?.tier === "admin" && session.revokedAt === undefined && (session.adminUntil === undefined || session.adminUntil > now);
     const { windowMs, maxRequests } = owner ? RATE_LIMITS["generate-image-owner"] : config;
 
     // Find existing rate limit record

@@ -12,10 +12,10 @@ const SECRET = "server-only";
 beforeEach(() => vi.stubEnv("CONVEX_SERVER_SECRET", SECRET));
 afterEach(() => vi.unstubAllEnvs());
 
-async function allowedOf(tier: "paid" | "admin", options: { revoked?: boolean; passSid?: boolean } = {}) {
+async function allowedOf(tier: "paid" | "admin", options: { revoked?: boolean; passSid?: boolean; adminUntil?: number } = {}) {
   const t = convexTest(schema, modules);
   await t.run(async (ctx) => {
-    await ctx.db.insert("sessions", { sid: "s1", tier, credits: 100, createdAt: Date.now(), lastSeenAt: Date.now(), ...(options.revoked ? { revokedAt: Date.now() } : {}) });
+    await ctx.db.insert("sessions", { sid: "s1", tier, credits: 100, createdAt: Date.now(), lastSeenAt: Date.now(), ...(options.revoked ? { revokedAt: Date.now() } : {}), ...(options.adminUntil !== undefined ? { adminUntil: options.adminUntil } : {}) });
   });
   let allowed = 0;
   for (let i = 0; i < 50; i++) {
@@ -37,5 +37,10 @@ describe("image allowance by tier", () => {
   it("gives a revoked owner session, or a call without the session, a guest's allowance", async () => {
     expect(await allowedOf("admin", { revoked: true })).toBe(20);
     expect(await allowedOf("admin", { passSid: false })).toBe(20);
+  });
+
+  it("gives an owner whose admin window has lapsed, before the cron demotes it, a guest's allowance", async () => {
+    expect(await allowedOf("admin", { adminUntil: Date.now() - 1000 })).toBe(20);
+    expect(await allowedOf("admin", { adminUntil: Date.now() + 60_000 })).toBe(40);
   });
 });
