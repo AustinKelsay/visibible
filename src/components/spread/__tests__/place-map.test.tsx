@@ -556,6 +556,28 @@ describe("today's map", () => {
     expect(parseFloat(card()!.style.top)).toBeGreaterThanOrEqual(132);
   });
 
+  it("tells a screen reader which of today's countries and cities the map names", async () => {
+    await openMap();
+    expect(map()!.hasAttribute("aria-describedby")).toBe(false);
+    await act(async () => views()[1].click());
+    const description = document.getElementById(map()!.getAttribute("aria-describedby")!)?.textContent ?? "";
+    expect(description).toMatch(/^Today's map names /);
+    expect(description).toContain("Tel Aviv");
+    expect(description).toContain("Jordan");
+  });
+
+  it("keeps a long note from taking the controls' room: it scrolls past three tenths of the map", async () => {
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(360);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(360);
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+    });
+    await openMap();
+    const note = container.querySelector("a[href*='openbible']")!.closest("p")!;
+    expect(note.style.maxHeight).toBe("108px");
+    expect(note.className).toContain("overflow-y-auto");
+  });
+
   it("dashes disputed borders the same on screen at every step", async () => {
     await openMap();
     await act(async () => views()[1].click());

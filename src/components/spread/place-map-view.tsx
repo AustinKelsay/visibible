@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import outline from "@/data/bible-map-outline.json";
@@ -85,9 +85,11 @@ export { resetPlaceMap } from "./place-map-memory";
 
 /** "Pi-hahiroth, Migdol and Baal-zephon", or in a sentence "the Red Sea". */
 function listNames(places: SettingPlace[], prose = false): string {
-  const names = places.map((place) => (prose ? place.proseName : place.name));
-  return names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
+  return andList(places.map((place) => (prose ? place.proseName : place.name)));
 }
+
+/** "A", "A and B", "A, B and C". */
+const andList = (names: string[]) => (names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`);
 
 /** The map's one line about its setting, in words a reader can trust. */
 export function settingNote(setting: VerseSetting): string {
@@ -585,6 +587,13 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
   }
 
   const label = `Map of ${listNames(setting.places)}, where ${reference} happened`;
+  // Today's names are drawn for the eye only; a screen reader hears them here.
+  const todayId = useId();
+  const todayNames = [
+    countryLabels.length ? andList(countryLabels.map((country) => country.name)) : "",
+    cityNames.length ? `the cities ${andList(cityNames.map((city) => city.text))}` : "",
+  ].filter(Boolean);
+  const todayDescription = mapView === "today" && todayNames.length ? `Today's map names ${todayNames.join(", and ")}.` : null;
   // An opened card holds; a preview shows only while none is open.
   const shownKey = openedHere ? opened : preview;
   const lit = markers.find((marker) => marker.key === shownKey) ?? null;
@@ -627,6 +636,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         ref={map}
         role="group"
         aria-label={label}
+        aria-describedby={todayDescription ? todayId : undefined}
         tabIndex={-1}
         viewBox={`${view.x} ${view.y} ${view.width} ${view.height}`}
         preserveAspectRatio="xMidYMid meet"
@@ -892,7 +902,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       {/* Above the dock on a computer, which floats over the bottom of the picture area. */}
       <div ref={footer} className="absolute inset-x-3 bottom-3 flex items-end gap-3 md:inset-x-6 md:bottom-28">
         {picture}
-        <p className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/75 px-3 py-2 text-[11px] leading-snug text-white/85 backdrop-blur-md md:max-w-xl md:text-xs">
+        {/* A long note (many places, beside the picture) scrolls rather than take the controls' room. */}
+        <p
+          style={{ maxHeight: Math.round(size.height * 0.3) }}
+          className="min-w-0 flex-1 overflow-y-auto rounded-xl border border-white/10 bg-black/75 px-3 py-2 text-[11px] leading-snug text-white/85 backdrop-blur-md md:max-w-xl md:text-xs"
+        >
           {/* A phone with Ask open leaves the map a thin strip: the note keeps only its credit there. */}
           <span className="max-md:[main:has([data-ask-page])_&]:hidden">{settingNote(setting)} </span>
           <a href="https://www.openbible.info/geo/" target="_blank" rel="noreferrer" className="whitespace-nowrap text-white/55 underline decoration-white/25 underline-offset-2 hover:text-white/80">
@@ -908,6 +922,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           </span>
         </p>
       </div>
+      {todayDescription ? (
+        <p id={todayId} className="sr-only">
+          {todayDescription}
+        </p>
+      ) : null}
       {/* Where the view sits in the Bible world, on a computer. */}
       {locatorBox ? <Locator at={locatorBox} world={frames.world} view={view} colours={colours} /> : null}
 
