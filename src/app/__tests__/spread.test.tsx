@@ -10,6 +10,7 @@ import VersePage from "../[book]/[chapter]/[verse]/page";
 import { TRANSLATIONS, clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackVerseNavigation, trackWholePictureOpened } from "@/lib/analytics";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
+import { resetMapMode } from "@/components/spread/place-map";
 import { answerPictureRead, type SavedPicture } from "./fake-picture-reads";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -595,6 +596,58 @@ describe("an unpainted verse", () => {
     await openVerse("john", "1", "7");
     await settle();
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:7", automatic: true })]);
+  });
+
+  it("waits while the map covers the picture, and paints the verse in view once the map closes", async () => {
+    resetMapMode();
+    // The map measures itself as it opens.
+    vi.stubGlobal("ResizeObserver", class { observe() {} unobserve() {} disconnect() {} });
+    autoGenerate = true;
+    session = { ...session, tier: "paid", credits: 10 };
+    // Genesis 28:19 (Bethel) is painted; Genesis 31:13, Bethel again, is not.
+    savedPictures = [{ id: "genesis-28-19:a", imageUrl: "https://img.test/bethel.png", artStyle: "classical", createdAt: 1 }];
+    const mapLink = (name: string) => [...container.querySelectorAll("button")].find((button) => button.textContent === name);
+    try {
+      await openVerse("genesis", "28", "19");
+      await settle();
+      await act(async () => mapLink("See where this happened")!.click());
+      await openVerse("genesis", "31", "13");
+      await settle();
+      expect(mapLink("Back to the picture")).toBeDefined();
+      expect(paintRequests).toHaveLength(0);
+
+      await act(async () => mapLink("Back to the picture")!.click());
+      await settle();
+      expect(paintRequests).toEqual([expect.objectContaining({ reference: "Genesis 31:13", automatic: true })]);
+    } finally {
+      resetMapMode();
+    }
+  });
+
+  it("does not paint a verse shown in another style while the map covers it", async () => {
+    resetMapMode();
+    vi.stubGlobal("ResizeObserver", class { observe() {} unobserve() {} disconnect() {} });
+    autoGenerate = true;
+    session = { ...session, tier: "paid", credits: 10 };
+    savedPictures = [
+      { id: "genesis-28-19:a", imageUrl: "https://img.test/bethel.png", artStyle: "classical", createdAt: 1 },
+      { id: "genesis-31-13:w", imageUrl: "https://img.test/bethel-watercolor.png", artStyle: "watercolor", createdAt: 1 },
+    ];
+    const mapLink = (name: string) => [...container.querySelectorAll("button")].find((button) => button.textContent === name);
+    try {
+      await openVerse("genesis", "28", "19");
+      await settle();
+      await act(async () => mapLink("See where this happened")!.click());
+      await openVerse("genesis", "31", "13");
+      await settle();
+      expect(paintRequests).toHaveLength(0);
+
+      await act(async () => mapLink("Back to the picture")!.click());
+      await settle();
+      expect(paintRequests).toEqual([expect.objectContaining({ reference: "Genesis 31:13", style: "classical", automatic: true })]);
+    } finally {
+      resetMapMode();
+    }
   });
 });
 
