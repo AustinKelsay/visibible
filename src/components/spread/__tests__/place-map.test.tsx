@@ -523,8 +523,32 @@ describe("today's map", () => {
         half: Number(rect.getAttribute("width")) / 2,
       }));
       expect(rings.length).toBeGreaterThan(0);
+      expect(dots.length).toBeGreaterThan(0);
       for (const dot of dots) for (const ring of rings) expect(Math.hypot(dot.x - ring.x, dot.y - ring.y)).toBeGreaterThan(ring.r + dot.half);
     }
+  });
+
+  it("puts the steps away on a window too short for them, and keeps the card and locator below the controls", async () => {
+    // A 720×320 map: both control rows at 88–124, the note from 158.
+    vi.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(720);
+    vi.spyOn(Element.prototype, "clientHeight", "get").mockReturnValue(320);
+    const row = (element: HTMLElement) => element.className.includes("md:top-[5.5rem]");
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function (this: HTMLElement) {
+      return this.className.includes("bottom-3") ? 158 : row(this) ? 88 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockImplementation(function (this: HTMLElement) {
+      return row(this) ? 36 : 0;
+    });
+    onTestFinished(() => {
+      vi.restoreAllMocks();
+    });
+    await openMap();
+    const steps = container.querySelector('[aria-label="Zoom"]')!.parentElement!;
+    expect(steps.className).toContain("invisible");
+    expect(steps.hasAttribute("inert")).toBe(true);
+    expect(container.querySelector("[data-locator]")).toBeNull();
+    await act(async () => container.querySelector('[data-rings="Bethel · Luz"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(parseFloat(card()!.style.top)).toBeGreaterThanOrEqual(132);
   });
 
   it("dashes disputed borders the same on screen at every step", async () => {
@@ -533,7 +557,10 @@ describe("today's map", () => {
     const dashes: (string | null | undefined)[] = [];
     for (const step of [0, 2]) {
       await act(async () => steps()[step].click());
-      dashes.push(container.querySelector("[data-today] path[stroke-dasharray]")?.getAttribute("stroke-dasharray"));
+      const disputed = container.querySelector("[data-today] path[stroke-dasharray]");
+      // Screen pixels: the dash pattern is drawn in the same space as the stroke.
+      expect(disputed?.getAttribute("vector-effect")).toBe("non-scaling-stroke");
+      dashes.push(disputed?.getAttribute("stroke-dasharray"));
     }
     expect(dashes).toEqual(["3 3", "3 3"]);
   });
@@ -548,6 +575,14 @@ describe("today's map", () => {
     await act(async () => views()[0].click());
     expect(map()!.getAttribute("data-view")).toBe("then");
     expect(card()?.hasAttribute("data-opened")).toBe(true);
+  });
+});
+
+describe("locatorSpot on a short map", () => {
+  it("gives way where it would reach up beside the controls", () => {
+    // 1200×320: the note starts at 158 and the controls end at 132, so the locator would cover the close button.
+    expect(locatorSpot({ width: 720, height: 320, top: 78, bottom: 170, clear: 132 }, [])).toBeNull();
+    expect(locatorSpot({ width: 720, height: 900, top: 132, bottom: 170, clear: 132 }, [])).not.toBeNull();
   });
 });
 

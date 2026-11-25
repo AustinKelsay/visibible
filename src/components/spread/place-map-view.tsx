@@ -281,6 +281,8 @@ export function nameBox(name: PlacedName): Box {
 export function locatorSpot(box: MapBox, avoid: Box[]): Box | null {
   if (box.width < LOCATOR_ROOM) return null;
   const spot = { left: box.width - 24 - LOCATOR.width, top: box.height - box.bottom - LOCATOR.height, right: box.width - 24, bottom: box.height - box.bottom };
+  // No room between the controls and the note (a short window): it would cover the close button.
+  if (spot.top - 6 < (box.clear ?? box.top)) return null;
   const margin = { left: spot.left - 6, top: spot.top - 6, right: spot.right + 6, bottom: spot.bottom + 6 };
   return avoid.some((other) => overlaps(margin, other)) ? null : spot;
 }
@@ -305,8 +307,10 @@ interface MapBox {
   height: number;
   top: number;
   bottom: number;
-  /** Where the controls end, when a short map's `top` reaches above it: faint names stay below it. */
+  /** Where the controls end, when a short map's `top` reaches above it: faint names, the card and the locator stay below it. */
   clear?: number;
+  /** Whether the zoom steps and Then · Today are put away, on a map too short for them and its places. */
+  squeezed?: boolean;
 }
 
 /**
@@ -409,13 +413,16 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
     const measure = () => {
       // Below the lower of the two control groups: the steps and Then · Today on the left (wrapped to two rows where the
       // map is too narrow for one), the tag and close button on the right.
+      // A put-away group is invisible, not removed, so it is still measured here and comes back when there is room.
       const bottomOf = (node: HTMLElement | null) => (node && node.offsetHeight > 0 ? node.offsetTop + node.offsetHeight : 0);
-      const { top, bottom, clear } = freeBand({
-        height: node.clientHeight,
-        controlsBottom: Math.max(bottomOf(controls.current), bottomOf(leftControls.current)),
-        footerTop: footer.current ? footer.current.offsetTop : null,
-      });
-      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear } : null);
+      const right = bottomOf(controls.current);
+      const left = bottomOf(leftControls.current);
+      const footerTop = footer.current ? footer.current.offsetTop : null;
+      const both = Math.max(left, right);
+      // Too short for the steps and the places (a short window): the steps go, as beside Ask on a phone.
+      const squeezed = left > 0 && freeBand({ height: node.clientHeight, controlsBottom: both, footerTop }).top < both + 8;
+      const { top, bottom, clear } = freeBand({ height: node.clientHeight, controlsBottom: squeezed ? right : both, footerTop });
+      setMeasured(node.clientWidth > 0 && node.clientHeight > 0 ? { width: node.clientWidth, height: node.clientHeight, top, bottom, clear, squeezed } : null);
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -806,7 +813,11 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
         button sit level with the name instead, so the steps and Then · Today keep one row. A phone with Ask open leaves
         the map a thin strip, so they go.
       */}
-      <div ref={leftControls} className="absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-16rem)] max-md:[main:has([data-ask-page])_&]:hidden">
+      <div
+        ref={leftControls}
+        inert={size.squeezed || undefined}
+        className={`absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-16rem)] max-md:[main:has([data-ask-page])_&]:hidden ${size.squeezed ? "invisible" : ""}`}
+      >
       <div role="group" aria-label="Zoom" className="flex items-center gap-2">
         <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
           {ZOOM_STEPS.map((candidate) => (
@@ -859,7 +870,8 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </div>
 
       <div ref={controls} className="absolute right-3 top-6 flex items-center gap-2 md:right-6 md:top-[5.5rem]">
-        <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
+        {/* Under 360 px the account chip and its balance reach it, level with the name. */}
+        <span className="liquid-glass flex h-9 items-center rounded-full px-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/70 max-[360px]:hidden">
           Experimental
         </span>
         <button
@@ -967,7 +979,7 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   entries: MarkerEntry[];
   at: { left: number; top: number };
   gap: number;
-  box: { width: number; height: number; top?: number; bottom?: number };
+  box: { width: number; height: number; top?: number; bottom?: number; clear?: number };
   opened: boolean;
   here: MapHere;
   reference: string;
@@ -991,7 +1003,8 @@ function MarkerCard({ cardRef, entries, at, gap, box, opened, here, reference, o
   const id = entries.map(({ place: each, index }) => `${each.id}:${index}`).join(" ");
   useLayoutEffect(() => setDrawn(cardRef.current?.scrollHeight ?? 0), [cardRef, id, box.width, box.height, place.id, all, opened]);
   // As tall as its side of the marker allows; a longer card scrolls.
-  const { left, top, maxHeight } = cardPosition(at, gap, box, drawn || 24 + entries.length * (shared ? 22 : 56) + 110);
+  // Below the controls even where a short map's places reach up beside them.
+  const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, drawn || 24 + entries.length * (shared ? 22 : 56) + 110);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
   return (

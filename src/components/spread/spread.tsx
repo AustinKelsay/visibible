@@ -220,7 +220,8 @@ function SpreadScreen({
       {feedbackPrompts ? (
         <FeedbackPrompt
           visitKey={verseId}
-          suppressed={openLayer !== null}
+          // It sits under the corner name, where the map's controls go.
+          suppressed={openLayer !== null || mapShows}
           onOpen={() => openLayerById("feedback")}
           className="absolute left-3 top-[4.25rem] md:left-5 md:top-[4.75rem]"
         />
