@@ -9,7 +9,7 @@ import type { MapExploration } from "@/lib/analytics";
 import { clamp } from "@/lib/clamp";
 import { contextPlaces } from "@/lib/place-chapters";
 import type { SettingPlace, VerseSetting } from "@/lib/verse-setting";
-import { andList, listNames, MarkerCard, rank, type MapHere, type MarkerEntry } from "./place-card";
+import { andList, atSite, listNames, MarkerCard, rank, type MapHere, type MarkerEntry } from "./place-card";
 import { remember, remembered } from "./place-map-memory";
 
 /** The map's box in map units: x, y (top-left), width and height. */
@@ -922,6 +922,6 @@ function Locator({ at, world, view, colours }: { at: Box; world: MapFrame; view:
 /** What a marker is, said once for a screen reader and shown in its card. */
 function markerLabel(place: SettingPlace, index: number): string {
   const site = place.sites[index];
-  if (!place.debated) return site.name === place.name ? place.name : `${place.name}, at ${site.name}`;
-  return `${place.name}: proposed at ${site.name}, ${rank(place, index)}`;
+  if (!place.debated) return site.name === place.name ? place.name : `${place.name}, ${atSite(site.name)}`;
+  return `${place.name}: proposed ${atSite(site.name)}, ${rank(place, index)}`;
 }
