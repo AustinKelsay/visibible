@@ -124,6 +124,45 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("starts one sign-in when a return fires both visibility and focus (#574)", async () => {
+    vi.spyOn(document, "visibilityState", "get").mockImplementation(() => "visible");
+    fetchMock.mockRejectedValueOnce(new Error("offline")).mockReturnValue(new Promise<Response>(() => {}));
+    await mountUnderConvex();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    // A browser fires them as separate tasks, so each renders on its own.
+    await act(async () => { document.dispatchEvent(new Event("visibilitychange")); });
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+  it("does not retry after a superseded attempt fails once a newer one has signed in (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      let failOld!: (error: Error) => void;
+      fetchMock.mockReturnValueOnce(new Promise<Response>((_, reject) => { failOld = reject; }))
+        .mockResolvedValue(Response.json({ token: "fresh" }));
+      await mountUnderConvex();
+      await act(async () => { window.dispatchEvent(new Event("online")); });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      await act(async () => { failOld(new Error("offline")); await vi.advanceTimersByTimeAsync(120_000); });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("drops a failed sign-in's retry when the session changes (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockRejectedValueOnce(new Error("offline"));
+      const { result, rerender } = renderHook(useGuestAuth);
+      await act(async () => { await result.current.fetchAccessToken(); });
+      act(() => { sid = "other"; rerender(); });
+      const forOther = result.current.fetchAccessToken;
+      await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
+      expect(result.current.fetchAccessToken).toBe(forOther);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
   it("retries a failed sign-in when the page becomes visible, and not while it is hidden (#574)", async () => {
     let visibility: DocumentVisibilityState = "hidden";
     vi.spyOn(document, "visibilityState", "get").mockImplementation(() => visibility);
