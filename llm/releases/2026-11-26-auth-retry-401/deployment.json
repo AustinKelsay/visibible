@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner asked for #577's one listed follow-up (\"Okay, let's do this follow-up.\"), in the same end-to-end full-send style as #577. At the merge gate, with one Sol finding (V1) still disputed, they chose \"Merge and deploy\"."
+  ],
+  "release": {
+    "pullRequests": [581],
+    "issues": [580],
+    "commit": "2343bdb9 (main)",
+    "summary": "A 401 from /api/convex-token means the session has expired or is gone, so useGuestAuth no longer retries it on the 5 s to 60 s timer, and a reconnect leaves it alone. A return to the tab retries it once, after its session refresh, with no focus hold. A 401 whose request was on its way while the latest return's refresh settled is retried at once, since it may have carried the cookie that refresh renewed. Network, timeout, 403, 429 and 5xx failures keep the #574 behaviour. Client only.",
+    "cause": "#577 retried every failed sign-in on a backoff timer, so a tab whose session had ended sent one refused token request a minute for as long as it stayed open.",
+    "leftOut": "Nothing else was waiting: production was bb26d864 (#577); main since then held only the record PRs #578 and #579 (docs) and #581."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-26T19:53:28Z",
+        "convex": "Not pushed: no convex/ change."
+      },
+      {
+        "commit": "2343bdb9",
+        "vercel": "dpl_J5Uesn3NmcBVW1BLcv19mfVDoNsf",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com in headless Chromium. (1) The first two /api/convex-token requests were answered 401 \"Session expired\": the chip read \"Balance unavailable\" and no further token request went out for 64 s. Before the release, the timer would have sent them at about 5, 15 and 35 s. A window focus at 65.3 s sent the next request at 65.5 s, and the chip read \"0 credits\" at 65.9 s. (2) The first two requests were aborted as a network failure: the timer's request went at 7.0 s and the chip read \"0 credits\" at 7.5 s, as before. (3) A control with no failures made the usual two requests and read \"0 credits\" at 1.3 s. Each run made one fresh guest session; nothing was painted or bought.",
+    "beforeRelease": "npx vitest run: 158 files, 1744 tests (one unrelated Convex thumbnail test flaked once under load and passed 3/3 alone); tsc clean; eslint clean on the changed files; CI quality-gates green on ad3a331a. Each of the 5 new tests failed without its fix. code-review (standards and spec): no hard violations, spec met; one suggested test extension made. GPT-6.2 Sol (xhigh) ran 5 rounds: S1, S3, R1, R3, T1 (the earlier-declined S2/R2) and U1 fixed; the last verdict was CHANGES on V1 only (a forced 403 just after a plain 401 at the CSRF cookie's expiry falls back to main's backoff), declined and taken to the owner. CodeRabbit's finding was fixed; its remaining ordering, U1's rest and U2 are listed as follow-ups in #581."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX (bb26d864, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "Three guest sessions from the browser checks; nothing painted or charged."
+  ],
+  "spend": "None."
+}

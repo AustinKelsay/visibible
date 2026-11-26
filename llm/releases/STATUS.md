@@ -1,5 +1,9 @@
 # Generic engine release status
 
+**An ended session stops retrying sign-in (26 November 2026, 19:53 UTC).** `main` at `2343bdb9` (#581, issue #580), the follow-up to #577, went out as Vercel `dpl_J5Uesn3NmcBVW1BLcv19mfVDoNsf`, frontend only. The owner chose to merge with one Sol finding (V1) still disputed.
+- When the token route answers 401 because the session has expired or is gone, an open tab no longer sends a refused request every minute. A return to the tab still tries once. Every other failure keeps the 5 s to 60 s retry.
+- Smoke: with the first two token requests answered 401 on visibible.com, nothing more went out for 64 s, and a return signed in within 0.6 s. Network failures still recovered through the 5 s timer. Nothing painted, no spend ([deployment](2026-11-26-auth-retry-401/deployment.json)).
+
 **The balance recovers after a failed sign-in (26 November 2026, 18:58 UTC).** On the owner's "full send", `main` at `bb26d864` (#577, issue #574) went out as Vercel `dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX`, frontend only.
 - One failed Convex sign-in no longer leaves the page at "Balance unavailable", with the credits dialog reopening, until a reload. Returning to the tab signs in again once the session refresh renews the CSRF cookie, and a timer retries from 5 s, doubling to 60 s.
 - Smoke: with the first two token requests aborted on visibible.com, the balance came back 0.5 s after a return, or about 5 s later without one. Before the release it stayed unavailable. Nothing painted, no spend ([deployment](2026-11-26-convex-auth-retry/deployment.json)).
