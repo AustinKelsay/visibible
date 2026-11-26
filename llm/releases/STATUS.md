@@ -1,5 +1,10 @@
 # Generic engine release status
 
+**Map card: the chosen place's site in view (26 November 2026, 17:09 UTC).** On the owner's "do this systematically end to end", `main` at `e5fa72ca` (#571, issue #570) went out as Vercel `dpl_BFSex23TvJ8sb76mQNmo8sec1soq`, frontend only.
+- In the compact phone card, the chosen place's site follows its chip, and the row scrolls to show both.
+- Sites described rather than named read "proposed between Aleppo and Carchemish" and "At the mouth of Wadi Mujib", not "proposed at between…".
+- Smoke: Nehemiah 12:39 (Fish Gate) and Matthew 21:1 at phone sizes keep the chip and its site in view, and the new wording shows on cards and marker labels. Nothing painted, no spend ([deployment](2026-11-26-map-chip-site/deployment.json)).
+
 **Chapter painting coordinator tidy-up (26 November 2026, 16:45 UTC).** On the owner's "yes!", `main` at `3139b55b` (#566, issue #563) went out as Vercel `dpl_4VnTyRvdFNnQ4be1kBHsxP9qZkG6`, frontend only, with no change in behaviour.
 - The waits a verse sits out and what the image route's answer means live in `src/lib/bulk-answer.ts`; the coordinator's recovery flags are one `BulkRecovery` object in `src/lib/bulk-recovery.ts`.
 - Smoke: a fresh guest sees 20 image requests a minute, and a zero-credit request gets 402. Nothing painted, no spend ([deployment](2026-11-26-bulk-coordinator/deployment.json)).
