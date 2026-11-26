@@ -164,17 +164,52 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
-  it("does not retry after a superseded attempt fails once a newer one has signed in (#574)", async () => {
+  it("does not retry after a superseded attempt fails while a reconnect is still being applied (#574)", async () => {
     vi.useFakeTimers();
     try {
       let failOld!: (error: Error) => void;
-      fetchMock.mockReturnValueOnce(new Promise<Response>((_, reject) => { failOld = reject; }))
-        .mockResolvedValue(Response.json({ token: "fresh" }));
+      let signIn!: (response: Response) => void;
+      fetchMock.mockRejectedValueOnce(new Error("offline"))
+        .mockReturnValueOnce(new Promise<Response>((_, reject) => { failOld = reject; }))
+        .mockReturnValueOnce(new Promise<Response>((done) => { signIn = done; }));
       const convex = await mountUnderConvex();
-      await act(async () => { window.dispatchEvent(new Event("online")); });
-      expect(convex.sent).toEqual(["fresh"]);
-      await act(async () => { failOld(new Error("offline")); await vi.advanceTimersByTimeAsync(120_000); });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      // The old attempt's forced fetch fails after the reconnect is queued, before React applies it.
+      window.dispatchEvent(new Event("online"));
+      failOld(new Error("offline"));
+      // The reconnect's sign-in is still on its way when a retry for the old failure would be due.
+      for (let step = 0; step < 6; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
       expect(convex.signIns()).toBe(2);
+      await act(async () => { signIn(Response.json({ token: "fresh" })); });
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("holds a waiting retry back while the return's session refresh renews the CSRF cookie (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      // Convex's plain fetch fails at once; its forced fetch is refused only after a while, as over a slow network.
+      let calls = 0;
+      fetchMock.mockImplementation(async (_url: string, init: RequestInit) => {
+        calls++;
+        if ((init.headers as Record<string, string>)["x-csrf-token"] === "renewed") return Response.json({ token: "fresh" });
+        if (calls % 2 === 0) await new Promise((done) => setTimeout(done, 400));
+        return new Response(null, { status: 403 });
+      });
+      const convex = await mountUnderConvex();
+      await act(async () => { await vi.advanceTimersByTimeAsync(400); });
+      expect(convex.sent).toEqual([]);
+      // The first retry is due at 5.4 s. The reader returns at 5.3 s, and the session refresh takes 300 ms.
+      await act(async () => { await vi.advanceTimersByTimeAsync(4_900); });
+      refetch.mockImplementationOnce(async () => {
+        await new Promise((done) => setTimeout(done, 300));
+        document.cookie = "visibible_csrf=renewed";
+      });
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      // Step through the next second as the browser would, rendering between steps.
+      for (let step = 0; step < 10; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.sent).toEqual(["fresh"]);
     } finally {
       vi.useRealTimers();
     }

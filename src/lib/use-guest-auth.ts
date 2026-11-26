@@ -41,35 +41,45 @@ export function useGuestAuth() {
     waiting: false,
     timer: null as ReturnType<typeof setTimeout> | null,
   });
+  /** The attempt a reply must belong to for its outcome to count; -1 while a new attempt is being applied. */
+  const latestEpoch = useRef(connectionEpoch);
+  useLayoutEffect(() => { latestEpoch.current = connectionEpoch; }, [connectionEpoch]);
   const clearRetryTimer = useCallback(() => {
     if (failure.current.timer !== null) clearTimeout(failure.current.timer);
     failure.current.timer = null;
   }, []);
-  /** Starts one new sign-in after a failed one, unless one has started since. */
-  const retryFailedSignIn = useCallback(() => {
-    if (!failure.current.waiting) return;
+  /** A new attempt: it takes the place of any retry waiting, and the old attempt's replies stop counting at once. */
+  const startNewSignIn = useCallback(() => {
     failure.current.waiting = false;
     clearRetryTimer();
+    latestEpoch.current = -1;
     setConnectionEpoch((epoch) => epoch + 1);
   }, [clearRetryTimer]);
+  /** Starts one new sign-in after a failed one, unless one has started since. */
+  const retryFailedSignIn = useCallback(() => {
+    if (failure.current.waiting) startNewSignIn();
+  }, [startNewSignIn]);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
-    // since after a long absence the token request needs the renewed CSRF cookie.
-    const onFocus = () => { void refetch().finally(retryFailedSignIn); };
-    // A network reconnect only retries bearer acquisition; it does not renew
-    // the underlying cookie's idle deadline. It takes the place of any retry waiting.
-    const onOnline = () => {
-      failure.current.waiting = false;
-      clearRetryTimer();
-      setConnectionEpoch((epoch) => epoch + 1);
+    // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile
+    // (to the cap, should the refresh stall), and the backoff starts over now the reader is back.
+    const onFocus = () => {
+      if (failure.current.waiting) {
+        clearRetryTimer();
+        failure.current.timer = setTimeout(retryFailedSignIn, RETRY_MAX_MS);
+      }
+      failure.current.count = 0;
+      void refetch().finally(retryFailedSignIn);
     };
+    // A network reconnect only retries bearer acquisition; it does not renew
+    // the underlying cookie's idle deadline.
     window.addEventListener("focus", onFocus);
-    window.addEventListener("online", onOnline);
+    window.addEventListener("online", startNewSignIn);
     return () => {
       window.removeEventListener("focus", onFocus);
-      window.removeEventListener("online", onOnline);
+      window.removeEventListener("online", startNewSignIn);
     };
-  }, [refetch, clearRetryTimer, retryFailedSignIn]);
+  }, [refetch, clearRetryTimer, startNewSignIn, retryFailedSignIn]);
   const latestSid = useRef(sid);
   useLayoutEffect(() => {
     latestSid.current = sid;
@@ -82,8 +92,6 @@ export function useGuestAuth() {
       state.waiting = false;
     };
   }, [sid, clearRetryTimer]);
-  const latestEpoch = useRef(connectionEpoch);
-  useLayoutEffect(() => { latestEpoch.current = connectionEpoch; }, [connectionEpoch]);
   const pending = useRef<{ sid: string; epoch: number; promise: Promise<string | null> } | null>(null);
   const fetchAccessToken = useCallback(async ({ forceRefreshToken }: { forceRefreshToken?: boolean } = {}) => {
     if (!sid) return null;
