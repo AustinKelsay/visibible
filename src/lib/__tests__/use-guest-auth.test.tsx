@@ -192,6 +192,25 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("retries a 401 at once when a return's session refresh settled while it was on its way (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      // The forced fetch left with the old cookie; the return renewed the session before its 401 came back.
+      let refuse!: (response: Response) => void;
+      fetchMock.mockResolvedValueOnce(Response.json({ error: "Session expired" }, { status: 401 }))
+        .mockReturnValueOnce(new Promise<Response>((done) => { refuse = done; }))
+        .mockResolvedValue(Response.json({ token: "fresh" }));
+      const convex = await mountUnderConvex();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await act(async () => { refuse(Response.json({ error: "Session expired" }, { status: 401 })); });
+      for (let step = 0; step < 3; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.sent).toEqual(["fresh"]);
+      expect(convex.signIns()).toBe(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
   it("does not retry an ended session on reconnect, even during the return's retry (#580)", async () => {
     let refuse!: (response: Response) => void;
     fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));

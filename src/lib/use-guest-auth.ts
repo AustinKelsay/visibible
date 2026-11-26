@@ -74,6 +74,8 @@ export function useGuestAuth() {
   }, [startNewSignIn]);
   /** Counts returns: only the latest return's session refresh releases a held retry. */
   const returns = useRef(0);
+  /** Counts settled session refreshes, so a 401 can tell a return renewed the session while it was on its way (#580). */
+  const refreshes = useRef(0);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
     // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile,
@@ -86,7 +88,10 @@ export function useGuestAuth() {
       }
       failure.current.count = 0;
       const thisReturn = ++returns.current;
-      void refetch().finally(() => { if (returns.current === thisReturn) retryFailedSignIn(); });
+      void refetch().finally(() => {
+        refreshes.current++;
+        if (returns.current === thisReturn) retryFailedSignIn();
+      });
     };
     // A network reconnect only retries bearer acquisition; it does not renew
     // the underlying cookie's idle deadline, so it leaves an ended session alone.
@@ -119,6 +124,7 @@ export function useGuestAuth() {
     if (!sid) return null;
     if (pending.current?.sid === sid && pending.current.epoch === connectionEpoch) return pending.current.promise;
     const promise = (async () => {
+      const refreshesBefore = refreshes.current;
       const { token, sessionEnded } = await requestGuestToken();
       // A reply for a session no longer shown is discarded, and is no failure of the current one.
       if (latestSid.current !== sid) return null;
@@ -132,10 +138,13 @@ export function useGuestAuth() {
         failure.current.waiting = true;
         failure.current.ended = sessionEnded;
         // An ended session gets no timer, only the retry when the reader returns, whose session refresh reports the
-        // expiry or brings a new session (#580).
+        // expiry or brings a new session. A return whose refresh settled while this request was on its way has missed
+        // it, since the request may have left with the cookie that refresh renewed: its retry runs now (#580).
         if (!sessionEnded) {
           const delay = Math.min(RETRY_FIRST_MS * 2 ** (failure.current.count - 1), RETRY_MAX_MS);
           failure.current.timer = setTimeout(retryFailedSignIn, delay);
+        } else if (refreshes.current !== refreshesBefore) {
+          failure.current.timer = setTimeout(retryFailedSignIn, 0);
         }
       } else {
         failure.current.count = 0;
