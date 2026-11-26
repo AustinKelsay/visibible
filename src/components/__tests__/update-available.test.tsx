@@ -89,14 +89,14 @@ it("stays quiet when the check fails or the answer has no version", async () => 
   fetchMock.mockRejectedValueOnce(new TypeError("offline"));
   await returnToTab();
   await settle();
-  vi.advanceTimersByTime(UPDATE_CHECK_EVERY_MS);
+  // Each answer is set before the check that receives it.
   fetchMock.mockResolvedValueOnce(new Response("busy", { status: 503 }));
-  await settle();
   vi.advanceTimersByTime(UPDATE_CHECK_EVERY_MS);
-  answer(null);
   await settle();
-  expect(fetchMock).toHaveBeenCalledTimes(3);
-  expect(button()).toBeNull();
+  answer(null);
+  vi.advanceTimersByTime(UPDATE_CHECK_EVERY_MS);
+  await settle();
+  expect(fetchMock).toHaveBeenCalledTimes(3);  expect(button()).toBeNull();
 });
 
 it("never asks when the page has no deployment ID, as in local development", async () => {
