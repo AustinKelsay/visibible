@@ -214,6 +214,24 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("keeps one short hold on a waiting retry when the session refresh stalls across returns (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockRejectedValueOnce(new Error("offline")).mockRejectedValueOnce(new Error("offline"))
+        .mockResolvedValue(Response.json({ token: "fresh" }));
+      refetch.mockImplementation(() => new Promise<void>(() => {}));
+      const convex = await mountUnderConvex();
+      for (let second = 1; second <= 12; second++) {
+        await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+        if (second === 1 || second === 6 || second === 9) await act(async () => { window.dispatchEvent(new Event("focus")); });
+      }
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      refetch.mockReset();
+      refetch.mockImplementation(async () => {});
+      vi.useRealTimers();
+    }
+  });
   it("drops a failed sign-in's retry when the session changes (#574)", async () => {
     vi.useFakeTimers();
     try {

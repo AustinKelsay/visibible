@@ -7,6 +7,8 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "./csrf-constants";
 /** A failed sign-in is tried again after this long, doubling each time it fails again, up to the cap (#574). */
 const RETRY_FIRST_MS = 5_000;
 const RETRY_MAX_MS = 60_000;
+/** How long a return holds a waiting retry back for its session refresh, at most (#574). */
+const FOCUS_HOLD_MS = 10_000;
 
 /** Exchanges the session cookie for a Convex bearer token; null when none comes back. */
 async function requestGuestToken(): Promise<string | null> {
@@ -39,6 +41,8 @@ export function useGuestAuth() {
     count: 0,
     /** The last sign-in failed and no retry has started since. */
     waiting: false,
+    /** A return already holds the waiting retry back; later returns keep its deadline. */
+    held: false,
     timer: null as ReturnType<typeof setTimeout> | null,
   });
   /** The attempt a reply must belong to for its outcome to count; -1 while a new attempt is being applied. */
@@ -51,6 +55,7 @@ export function useGuestAuth() {
   /** A new attempt: it takes the place of any retry waiting, and the old attempt's replies stop counting at once. */
   const startNewSignIn = useCallback(() => {
     failure.current.waiting = false;
+    failure.current.held = false;
     clearRetryTimer();
     latestEpoch.current = -1;
     setConnectionEpoch((epoch) => epoch + 1);
@@ -61,12 +66,13 @@ export function useGuestAuth() {
   }, [startNewSignIn]);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
-    // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile
-    // (to the cap, should the refresh stall), and the backoff starts over now the reader is back.
+    // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile,
+    // once and briefly should the refresh stall, and the backoff starts over now the reader is back.
     const onFocus = () => {
-      if (failure.current.waiting) {
+      if (failure.current.waiting && !failure.current.held) {
+        failure.current.held = true;
         clearRetryTimer();
-        failure.current.timer = setTimeout(retryFailedSignIn, RETRY_MAX_MS);
+        failure.current.timer = setTimeout(retryFailedSignIn, FOCUS_HOLD_MS);
       }
       failure.current.count = 0;
       void refetch().finally(retryFailedSignIn);
@@ -90,6 +96,7 @@ export function useGuestAuth() {
       clearRetryTimer();
       state.count = 0;
       state.waiting = false;
+      state.held = false;
     };
   }, [sid, clearRetryTimer]);
   const pending = useRef<{ sid: string; epoch: number; promise: Promise<string | null> } | null>(null);
