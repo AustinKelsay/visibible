@@ -74,7 +74,10 @@ export function useGuestAuth() {
   }, [startNewSignIn]);
   /** Counts returns: only the latest return's session refresh releases a held retry. */
   const returns = useRef(0);
-  /** Counts settled session refreshes, so a 401 can tell a return renewed the session while it was on its way (#580). */
+  /**
+   * Counts the latest return's settled session refreshes, so a 401 can tell a return renewed the session while it was
+   * on its way (#580).
+   */
   const refreshes = useRef(0);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
@@ -89,8 +92,9 @@ export function useGuestAuth() {
       failure.current.count = 0;
       const thisReturn = ++returns.current;
       void refetch().finally(() => {
+        if (returns.current !== thisReturn) return;
         refreshes.current++;
-        if (returns.current === thisReturn) retryFailedSignIn();
+        retryFailedSignIn();
       });
     };
     // A network reconnect only retries bearer acquisition; it does not renew
