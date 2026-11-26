@@ -3,6 +3,8 @@ import { act, createElement, startTransition, Suspense } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConvexProviderWithAuth } from "convex/react";
+// @ts-expect-error -- the Convex client's sign-in logic is internal and ships its types elsewhere
+import { AuthenticationManager } from "../../../node_modules/convex/dist/esm/browser/sync/authentication_manager.js";
 import { useGuestAuth } from "../use-guest-auth";
 let sid: string | null = "owner";
 const refetch = vi.fn(async () => {});
@@ -20,23 +22,29 @@ function renderHook(hook: typeof useGuestAuth) {
   return { result, rerender };
 }
 /**
- * Mounts the hook under the real ConvexProviderWithAuth with a client that behaves like Convex's: a fetch with no token
- * signs the page out, and it never retries by itself. Only a new setAuth (a new fetchAccessToken) starts another
- * sign-in. Returns each sign-in's token, null for a failed one.
+ * Mounts the hook under the real ConvexProviderWithAuth and the Convex client's own sign-in logic (#574). A token it
+ * gets is sent to the server (`sent`). A fetch with no token is followed by one forced fetch, and if that fails too the
+ * page is signed out, with no retry until a new fetchAccessToken reaches setAuth (`signIns` counts them).
  */
 async function mountUnderConvex() {
-  const signIns: Array<string | null> = [];
+  const sent: string[] = [];
+  let signIns = 0;
+  const noop = () => {};
+  const manager = new AuthenticationManager(
+    { hasAuth: () => false, isNewAuth: () => true },
+    { authenticate: (token: string) => { sent.push(token); }, stopSocket: async () => {}, tryRestartSocket: noop,
+      pauseSocket: noop, resumeSocket: noop, clearAuth: noop },
+    { logger: { logVerbose: noop, warn: noop, error: noop }, refreshTokenLeewaySeconds: 2, initialAuthTokenReuse: false },
+  );
   const client = {
-    setAuth: (fetchToken: () => Promise<string | null>, onChange: (ok: boolean) => void) => {
-      void fetchToken().then((token) => { signIns.push(token); onChange(token !== null); });
-    },
-    clearAuth: () => {},
+    setAuth: (...config: unknown[]) => { signIns++; void manager.setConfig(...config); },
+    clearAuth: () => manager.stop(),
   };
   root = createRoot(document.createElement("div"));
   await act(async () => {
     root.render(createElement(ConvexProviderWithAuth, { client: client as never, useAuth: useGuestAuth }, null));
   });
-  return signIns;
+  return { sent, signIns: () => signIns };
 }
 const fetchMock = vi.fn();
 beforeEach(() => { sid = "owner"; suspend = false; vi.stubGlobal("fetch", fetchMock); vi.stubGlobal("localStorage", { setItem: vi.fn() }); vi.stubGlobal("sessionStorage", { setItem: vi.fn() }); fetchMock.mockReset(); refetch.mockClear(); document.cookie = "visibible_csrf=csrf"; });
@@ -90,24 +98,39 @@ describe("in-memory guest refresh", () => {
     act(() => window.dispatchEvent(new Event("focus")));
     expect(refetch).toHaveBeenCalledTimes(1);
   });
-  it("signs Convex in again when the reader returns after a failed token fetch (#574)", async () => {
-    fetchMock.mockRejectedValueOnce(new Error("offline")).mockResolvedValueOnce(Response.json({ token: "fresh" }));
-    const signIns = await mountUnderConvex();
-    expect(signIns).toEqual([null]);
+  it("signs Convex in again when the reader returns after a failed sign-in (#574)", async () => {
+    fetchMock.mockRejectedValueOnce(new Error("offline")).mockRejectedValueOnce(new Error("offline"))
+      .mockResolvedValueOnce(Response.json({ token: "fresh" }));
+    const convex = await mountUnderConvex();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(convex.sent).toEqual([]);
     await act(async () => { window.dispatchEvent(new Event("focus")); });
-    expect(signIns).toEqual([null, "fresh"]);
+    expect(convex.sent).toEqual(["fresh"]);
     // Healthy now: returning again starts no sign-in.
     await act(async () => { window.dispatchEvent(new Event("focus")); });
-    expect(signIns).toEqual([null, "fresh"]);
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+  it("signs in on return only after the session refresh has renewed the CSRF cookie (#574)", async () => {
+    fetchMock.mockImplementation(async (_url: string, init: RequestInit) =>
+      (init.headers as Record<string, string>)["x-csrf-token"] === "renewed"
+        ? Response.json({ token: "fresh" }) : new Response(null, { status: 403 }));
+    const convex = await mountUnderConvex();
+    expect(convex.sent).toEqual([]);
+    // The session refresh is a network round trip: the cookie comes back with its reply.
+    refetch.mockImplementationOnce(async () => {
+      await new Promise((done) => setTimeout(done, 20));
+      document.cookie = "visibible_csrf=renewed";
+    });
+    await act(async () => { window.dispatchEvent(new Event("focus")); await new Promise((done) => setTimeout(done, 60)); });
+    expect(convex.sent).toEqual(["fresh"]);
   });
   it("retries a failed sign-in on its own after 5 s, doubling to at most a minute, until one succeeds (#574)", async () => {
     vi.useFakeTimers();
     try {
       fetchMock.mockRejectedValue(new Error("offline"));
-      const signIns = await mountUnderConvex();
-      const after = async (ms: number) => { await act(async () => { await vi.advanceTimersByTimeAsync(ms); }); return signIns.length; };
-      expect(signIns.length).toBe(1);
+      const convex = await mountUnderConvex();
+      const after = async (ms: number) => { await act(async () => { await vi.advanceTimersByTimeAsync(ms); }); return convex.signIns(); };
+      expect(convex.signIns()).toBe(1);
       expect(await after(4_999)).toBe(1);
       expect(await after(1)).toBe(2);
       expect(await after(10_000)).toBe(3);
@@ -117,22 +140,29 @@ describe("in-memory guest refresh", () => {
       fetchMock.mockResolvedValue(Response.json({ token: "fresh" }));
       expect(await after(59_999)).toBe(6);
       expect(await after(1)).toBe(7);
-      expect(signIns.at(-1)).toBe("fresh");
+      expect(convex.sent).toEqual(["fresh"]);
       // Signed in: no more retries.
       expect(await after(300_000)).toBe(7);
     } finally {
       vi.useRealTimers();
     }
   });
-  it("starts one sign-in when a return fires both visibility and focus (#574)", async () => {
-    vi.spyOn(document, "visibilityState", "get").mockImplementation(() => "visible");
-    fetchMock.mockRejectedValueOnce(new Error("offline")).mockReturnValue(new Promise<Response>(() => {}));
-    await mountUnderConvex();
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    // A browser fires them as separate tasks, so each renders on its own.
-    await act(async () => { document.dispatchEvent(new Event("visibilitychange")); });
-    await act(async () => { window.dispatchEvent(new Event("focus")); });
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+  it("lets a reconnect take the place of a waiting retry (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      let signIn!: (response: Response) => void;
+      fetchMock.mockRejectedValueOnce(new Error("offline")).mockRejectedValueOnce(new Error("offline"))
+        .mockReturnValueOnce(new Promise<Response>((done) => { signIn = done; }));
+      const convex = await mountUnderConvex();
+      await act(async () => { await vi.advanceTimersByTimeAsync(4_000); window.dispatchEvent(new Event("online")); });
+      expect(convex.signIns()).toBe(2);
+      await act(async () => { await vi.advanceTimersByTimeAsync(10_000); });
+      expect(convex.signIns()).toBe(2);
+      await act(async () => { signIn(Response.json({ token: "fresh" })); });
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      vi.useRealTimers();
+    }
   });
   it("does not retry after a superseded attempt fails once a newer one has signed in (#574)", async () => {
     vi.useFakeTimers();
@@ -140,11 +170,11 @@ describe("in-memory guest refresh", () => {
       let failOld!: (error: Error) => void;
       fetchMock.mockReturnValueOnce(new Promise<Response>((_, reject) => { failOld = reject; }))
         .mockResolvedValue(Response.json({ token: "fresh" }));
-      await mountUnderConvex();
+      const convex = await mountUnderConvex();
       await act(async () => { window.dispatchEvent(new Event("online")); });
-      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(convex.sent).toEqual(["fresh"]);
       await act(async () => { failOld(new Error("offline")); await vi.advanceTimersByTimeAsync(120_000); });
-      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(convex.signIns()).toBe(2);
     } finally {
       vi.useRealTimers();
     }
@@ -154,7 +184,7 @@ describe("in-memory guest refresh", () => {
     try {
       fetchMock.mockRejectedValueOnce(new Error("offline"));
       const { result, rerender } = renderHook(useGuestAuth);
-      await act(async () => { await result.current.fetchAccessToken(); });
+      await act(async () => { await result.current.fetchAccessToken({ forceRefreshToken: true }); });
       act(() => { sid = "other"; rerender(); });
       const forOther = result.current.fetchAccessToken;
       await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
@@ -162,19 +192,6 @@ describe("in-memory guest refresh", () => {
     } finally {
       vi.useRealTimers();
     }
-  });
-  it("retries a failed sign-in when the page becomes visible, and not while it is hidden (#574)", async () => {
-    let visibility: DocumentVisibilityState = "hidden";
-    vi.spyOn(document, "visibilityState", "get").mockImplementation(() => visibility);
-    fetchMock.mockRejectedValueOnce(new Error("offline"));
-    const { result } = renderHook(useGuestAuth);
-    const failedOnce = result.current.fetchAccessToken;
-    await act(async () => { await failedOnce(); });
-    act(() => document.dispatchEvent(new Event("visibilitychange")));
-    expect(result.current.fetchAccessToken).toBe(failedOnce);
-    visibility = "visible";
-    act(() => document.dispatchEvent(new Event("visibilitychange")));
-    expect(result.current.fetchAccessToken).not.toBe(failedOnce);
   });
   it("returns no bearer on expiry or network failure and permits a later retry", async () => {
     const { result } = renderHook(useGuestAuth);

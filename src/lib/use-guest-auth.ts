@@ -30,9 +30,10 @@ async function requestGuestToken(): Promise<string | null> {
 export function useGuestAuth() {
   const { sid, isLoading, refetch } = useGuestSession();
   const [connectionEpoch, setConnectionEpoch] = useState(0);
-  // Convex signs the page out after a fetch with no token and never retries by itself: only a new fetchAccessToken
-  // starts another sign-in. So a failed sign-in of the current session is tried again when the reader returns, and on
-  // a timer that backs off while it keeps failing (#574). A healthy sign-in sends nothing extra.
+  // Convex follows a fetch with no token with one forced fetch, and when that fails too it signs the page out and
+  // never retries by itself: only a new fetchAccessToken starts another sign-in. So a failed sign-in of the current
+  // session is tried again when the reader returns, and on a timer that backs off while it keeps failing (#574).
+  // A healthy sign-in sends nothing extra.
   const failure = useRef({
     /** Failed sign-ins in a row, which set the timer's delay. */
     count: 0,
@@ -44,7 +45,7 @@ export function useGuestAuth() {
     if (failure.current.timer !== null) clearTimeout(failure.current.timer);
     failure.current.timer = null;
   }, []);
-  /** Starts one new sign-in after a failed one. A return fires both focus and visibility: only the first retries. */
+  /** Starts one new sign-in after a failed one, unless one has started since. */
   const retryFailedSignIn = useCallback(() => {
     if (!failure.current.waiting) return;
     failure.current.waiting = false;
@@ -52,21 +53,23 @@ export function useGuestAuth() {
     setConnectionEpoch((epoch) => epoch + 1);
   }, [clearRetryTimer]);
   useEffect(() => {
-    // Focus is user activity: renew the HTTP session/CSRF cookie normally.
-    const onFocus = () => { void refetch(); retryFailedSignIn(); };
+    // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
+    // since after a long absence the token request needs the renewed CSRF cookie.
+    const onFocus = () => { void refetch().finally(retryFailedSignIn); };
     // A network reconnect only retries bearer acquisition; it does not renew
-    // the underlying cookie's idle deadline.
-    const onOnline = () => setConnectionEpoch((epoch) => epoch + 1);
-    const onVisibilityChange = () => { if (document.visibilityState === "visible") retryFailedSignIn(); };
+    // the underlying cookie's idle deadline. It takes the place of any retry waiting.
+    const onOnline = () => {
+      failure.current.waiting = false;
+      clearRetryTimer();
+      setConnectionEpoch((epoch) => epoch + 1);
+    };
     window.addEventListener("focus", onFocus);
     window.addEventListener("online", onOnline);
-    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
       window.removeEventListener("focus", onFocus);
       window.removeEventListener("online", onOnline);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [refetch, retryFailedSignIn]);
+  }, [refetch, clearRetryTimer, retryFailedSignIn]);
   const latestSid = useRef(sid);
   useLayoutEffect(() => {
     latestSid.current = sid;
@@ -82,7 +85,7 @@ export function useGuestAuth() {
   const latestEpoch = useRef(connectionEpoch);
   useLayoutEffect(() => { latestEpoch.current = connectionEpoch; }, [connectionEpoch]);
   const pending = useRef<{ sid: string; epoch: number; promise: Promise<string | null> } | null>(null);
-  const fetchAccessToken = useCallback(async () => {
+  const fetchAccessToken = useCallback(async ({ forceRefreshToken }: { forceRefreshToken?: boolean } = {}) => {
     if (!sid) return null;
     if (pending.current?.sid === sid && pending.current.epoch === connectionEpoch) return pending.current.promise;
     const promise = (async () => {
@@ -91,6 +94,8 @@ export function useGuestAuth() {
       if (latestSid.current !== sid) return null;
       // A superseded attempt's reply is ignored by Convex, so it says nothing about the current sign-in.
       if (latestEpoch.current !== connectionEpoch) return token;
+      // Convex asks again, forced, before it gives up: only that fetch's failure is a failed sign-in.
+      if (token === null && !forceRefreshToken) return null;
       clearRetryTimer();
       if (token === null) {
         failure.current.count++;
