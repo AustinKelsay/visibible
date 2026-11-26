@@ -174,6 +174,27 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("tries an ended session once per return, even when the session refresh is slow (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+      const convex = await mountUnderConvex();
+      refetch.mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 15_000); }));
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      for (let step = 0; step < 30; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+      expect(convex.signIns()).toBe(2);
+      expect(fetchMock).toHaveBeenCalledTimes(4);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("does not retry an ended session on reconnect (#580)", async () => {
+    fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+    const convex = await mountUnderConvex();
+    await act(async () => { window.dispatchEvent(new Event("online")); });
+    expect(convex.signIns()).toBe(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
   it("lets a reconnect take the place of a waiting retry (#574)", async () => {
     vi.useFakeTimers();
     try {

@@ -44,6 +44,8 @@ export function useGuestAuth() {
     count: 0,
     /** The last sign-in failed and no retry has started since. */
     waiting: false,
+    /** That failure was a 401: the session has ended, so only a return retries it, once its refresh settles (#580). */
+    ended: false,
     /** A return already holds the waiting retry back; later returns keep its deadline. */
     held: false,
     timer: null as ReturnType<typeof setTimeout> | null,
@@ -74,7 +76,7 @@ export function useGuestAuth() {
     // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile,
     // once and briefly should the refresh stall, and the backoff starts over now the reader is back.
     const onFocus = () => {
-      if (failure.current.waiting && !failure.current.held) {
+      if (failure.current.waiting && !failure.current.held && !failure.current.ended) {
         failure.current.held = true;
         clearRetryTimer();
         failure.current.timer = setTimeout(retryFailedSignIn, FOCUS_HOLD_MS);
@@ -84,12 +86,15 @@ export function useGuestAuth() {
       void refetch().finally(() => { if (returns.current === thisReturn) retryFailedSignIn(); });
     };
     // A network reconnect only retries bearer acquisition; it does not renew
-    // the underlying cookie's idle deadline.
+    // the underlying cookie's idle deadline, so it leaves an ended session alone.
+    const onOnline = () => {
+      if (!(failure.current.waiting && failure.current.ended)) startNewSignIn();
+    };
     window.addEventListener("focus", onFocus);
-    window.addEventListener("online", startNewSignIn);
+    window.addEventListener("online", onOnline);
     return () => {
       window.removeEventListener("focus", onFocus);
-      window.removeEventListener("online", startNewSignIn);
+      window.removeEventListener("online", onOnline);
     };
   }, [refetch, clearRetryTimer, startNewSignIn, retryFailedSignIn]);
   const latestSid = useRef(sid);
@@ -102,6 +107,7 @@ export function useGuestAuth() {
       clearRetryTimer();
       state.count = 0;
       state.waiting = false;
+      state.ended = false;
       state.held = false;
     };
   }, [sid, clearRetryTimer]);
@@ -121,6 +127,7 @@ export function useGuestAuth() {
       if (token === null) {
         failure.current.count++;
         failure.current.waiting = true;
+        failure.current.ended = sessionEnded;
         // An ended session gets no timer, only the retry when the reader returns, whose session refresh reports the
         // expiry or brings a new session (#580).
         if (!sessionEnded) {
