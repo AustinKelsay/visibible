@@ -1,9 +1,13 @@
 # Generic engine release status
 
+**The balance recovers after a failed sign-in (26 November 2026, 18:58 UTC).** On the owner's "full send", `main` at `bb26d864` (#577, issue #574) went out as Vercel `dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX`, frontend only.
+- One failed Convex sign-in no longer leaves the page at "Balance unavailable", with the credits dialog reopening, until a reload. Returning to the tab signs in again once the session refresh renews the CSRF cookie, and a timer retries from 5 s, doubling to 60 s.
+- Smoke: with the first two token requests aborted on visibible.com, the balance came back 0.5 s after a return, or about 5 s later without one. Before the release it stayed unavailable. Nothing painted, no spend ([deployment](2026-11-26-convex-auth-retry/deployment.json)).
+
 **Update icon (26 November 2026, 18:57 UTC).** On the owner's "Release and verify", `main` at `4edef6fb` (#575, #576, issue #573) went out as Vercel `dpl_34oyY3JzvX8FMRp51sDFPoJ7Vvu4`, frontend only.
 - An open page asks `/api/version` on tab focus and every 10 minutes. When a newer deployment is live, a refresh icon shows beside the Visibible name in the reader and beside "Back to reading" elsewhere. Tapping it reloads.
 - Smoke: `/api/version` answers the new ID with `no-store`, the client code carries the same ID, and a live reader tab asks once and shows no icon. This first release cannot announce itself, so the first real notice comes with the next release ([deployment](2026-11-26-update-icon/deployment.json)).
-- Three minutes later (18:59 UTC) another session released `bb26d864` (#577) as `dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX`. That commit contains this one, so the icon stays live.
+- Superseded at 18:59 UTC by the entry above: `bb26d864` contains this commit, so the icon stays live.
 
 **Map card: the chosen place's site in view (26 November 2026, 17:09 UTC).** On the owner's "do this systematically end to end", `main` at `e5fa72ca` (#571, issue #570) went out as Vercel `dpl_BFSex23TvJ8sb76mQNmo8sec1soq`, frontend only.
 - In the compact phone card, the chosen place's site follows its chip, and the row scrolls to show both.

@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "After the Acts 14 run the owner reported that the credits dialog reopened after a purchase until a reload, asked for the industry-standard minimal fix, and answered \"Okay, your call. Let's get this in place systematically, end to end full send.\""
+  ],
+  "release": {
+    "pullRequests": [577],
+    "issues": [574],
+    "commit": "bb26d864 (main)",
+    "summary": "The page recovers a failed Convex sign-in without a reload. The Convex client signs the page out when its plain token fetch and the forced fetch after it both return no token, and never retries; ConvexProviderWithAuth starts another sign-in only when it gets a new fetchAccessToken. useGuestAuth now remembers a failed sign-in of the current session and attempt and starts a new one on window focus, once the focus session refresh has renewed the CSRF cookie (holding a waiting retry back once, for at most 10 s), and on a timer from 5 s doubling to 60 s. A reconnect takes the place of a waiting retry; replies from a superseded attempt or session never count. A healthy sign-in sends nothing extra. Client only.",
+    "cause": "The owner's page made no /api/convex-token request from 17:10 until the 18:02:11 reload while its focus refreshes of /api/session arrived (17:59:34, 18:01:22). The purchase of 300 credits was credited at 18:01:57; before it the balance was 131 against an estimate of 168, so the first dialog was right and the second was the bug. The CSRF cookie lasts an hour, so after a long absence a token request is refused until the focus refresh renews it.",
+    "leftOut": "Nothing else was waiting: production was main 4edef6fb (#575, #576), released by another session at 18:57 UTC; main since then held only #577."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-26T18:58:59Z",
+        "convex": "Not pushed: no convex/ change."
+      },
+      {
+        "commit": "bb26d864",
+        "vercel": "dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com in headless Chromium with the page's first two /api/convex-token requests aborted (Convex's plain fetch and its forced retry). Before the release the account chip stayed \"Balance unavailable\" for 45 s with no further token requests, including after a window focus. After it: with a focus at 3.5 s the next token request went at 3.6 s and the chip read \"0 credits\" at 4.0 s; with no focus the timer's request went at 5.9 s and the chip read \"0 credits\" at 6.4 s. A control run with no failures made the same two token requests at load as before. Each run made one fresh guest session; nothing was painted or bought.",
+    "beforeRelease": "npx vitest run 158 files, 1739 tests; tsc clean; eslint clean on the changed files; CI quality-gates green on af230042. Tests drive Convex's real AuthenticationManager under ConvexProviderWithAuth, and each failed without its fix. code-review (standards and spec) found 3 changes, all made. GPT-6.2 Sol (xhigh) ran 5 rounds: S1–S7 fixed, each with a test, and its 8 reproductions pass; approved at dbf2432d (tree 00da6750), rebased as af230042 with the reviewed files unchanged. CodeRabbit hit its review limit; the paid on-demand review was not run."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_34oyY3JzvX8FMRp51sDFPoJ7Vvu4 (4edef6fb, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "Seven guest sessions from the browser checks (four before, three after); nothing painted or charged."
+  ],
+  "spend": "None."
+}
