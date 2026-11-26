@@ -10,8 +10,8 @@ const MIN_CHECK_GAP_MS = 60_000;
 
 /**
  * The deployment this page's code came from: Next.js builds the deployment ID into the client code when one is
- * configured (every Vercel deployment). Not `<html data-dpl-id>`: React drops that attribute when it hydrates
- * `<html>`. Null in local development, where nothing is checked.
+ * configured (every Vercel deployment). Not `<html data-dpl-id>`: Next.js reads and removes that attribute as the
+ * page loads (next/dist/shared/lib/deployment-id.js). Null in local development, where nothing is checked.
  */
 function pageVersion(): string | null {
   return process.env.NEXT_DEPLOYMENT_ID || null;
