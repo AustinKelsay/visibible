@@ -64,10 +64,11 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
           <span data-fades>Visibible</span>
           {whole ? null : <AccountChip descriptionId={describedBy} />}
         </button>
-        {/* Hidden, not unmounted, over the whole picture, so a found update is still shown when it closes. */}
+        {/* Hidden, not unmounted, over the whole picture, so a found update is still shown when it closes. While it is
+            faded it takes no taps: a first tap meant for the picture must not reload the page and lose an Ask draft. */}
         <UpdateAvailable
           data-fades
-          className={`liquid-glass spread-dock relative ${whole ? "hidden" : "flex"} h-7 w-7 items-center justify-center rounded-full text-ink/90 transition-colors duration-[var(--motion-fast)] before:absolute before:-inset-1.5 before:content-[''] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
+          className={`liquid-glass spread-dock relative ${whole ? "hidden" : "flex"} h-7 w-7 items-center justify-center rounded-full text-ink/90 transition-colors duration-[var(--motion-fast)] before:absolute before:-inset-1.5 before:content-[''] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:in-data-[idle=true]:pointer-events-none`}
         />
       </div>
 
