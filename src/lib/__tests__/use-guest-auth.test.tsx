@@ -232,6 +232,28 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("lets only the latest return's session refresh release the waiting retry (#574)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockImplementation(async (_url: string, init: RequestInit) =>
+        (init.headers as Record<string, string>)["x-csrf-token"] === "renewed"
+          ? Response.json({ token: "fresh" }) : new Response(null, { status: 403 }));
+      const convex = await mountUnderConvex();
+      // Two returns: the first refresh settles without renewing the cookie, the second renews it later.
+      refetch.mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 100); }))
+        .mockImplementationOnce(async () => {
+          await new Promise((done) => setTimeout(done, 300));
+          document.cookie = "visibible_csrf=renewed";
+        });
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      for (let step = 0; step < 5; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.sent).toEqual(["fresh"]);
+      expect(convex.signIns()).toBe(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
   it("drops a failed sign-in's retry when the session changes (#574)", async () => {
     vi.useFakeTimers();
     try {

@@ -64,6 +64,8 @@ export function useGuestAuth() {
   const retryFailedSignIn = useCallback(() => {
     if (failure.current.waiting) startNewSignIn();
   }, [startNewSignIn]);
+  /** Counts returns: only the latest return's session refresh releases a held retry. */
+  const returns = useRef(0);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
     // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile,
@@ -75,7 +77,8 @@ export function useGuestAuth() {
         failure.current.timer = setTimeout(retryFailedSignIn, FOCUS_HOLD_MS);
       }
       failure.current.count = 0;
-      void refetch().finally(retryFailedSignIn);
+      const thisReturn = ++returns.current;
+      void refetch().finally(() => { if (returns.current === thisReturn) retryFailedSignIn(); });
     };
     // A network reconnect only retries bearer acquisition; it does not renew
     // the underlying cookie's idle deadline.
