@@ -153,13 +153,22 @@ describe("in-memory guest refresh", () => {
       fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
       const convex = await mountUnderConvex();
       expect(fetchMock).toHaveBeenCalledTimes(2);
-      for (let step = 0; step < 24; step++) await act(async () => { await vi.advanceTimersByTimeAsync(5_000); });
+      // Two minutes, twice the longest backoff, in steps so each retry would render.
+      const quietTwoMinutes = async () => {
+        for (let step = 0; step < 24; step++) await act(async () => { await vi.advanceTimersByTimeAsync(5_000); });
+      };
+      await quietTwoMinutes();
       expect(fetchMock).toHaveBeenCalledTimes(2);
       expect(convex.signIns()).toBe(1);
+      // A return still tries once; refused again, it starts no loop.
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await quietTwoMinutes();
+      expect(convex.signIns()).toBe(2);
+      expect(fetchMock).toHaveBeenCalledTimes(4);
       fetchMock.mockImplementation(async () => Response.json({ token: "fresh" }));
       await act(async () => { window.dispatchEvent(new Event("focus")); });
       for (let step = 0; step < 3; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
-      expect(convex.signIns()).toBe(2);
+      expect(convex.signIns()).toBe(3);
       expect(convex.sent).toEqual(["fresh"]);
     } finally {
       vi.useRealTimers();
