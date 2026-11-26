@@ -1,0 +1,37 @@
+{
+  "authorization": [
+    "The owner asked \"ok do this systematically end to end\" about the remaining map follow-ups: the chip row's site, usage numbers and housekeeping."
+  ],
+  "release": {
+    "pullRequests": [571],
+    "issues": [570],
+    "commit": "e5fa72ca (main)",
+    "summary": "In the compact place card, the chosen place's site follows its chip in the sideways-scrolling row instead of sitting after every chip, and the row scrolls to show the chip and its site together. Sites the data describes rather than names (34, such as \"between Aleppo and Carchemish\" and \"mouth of Wadi Mujib\") no longer read \"proposed at between\" or \"At mouth of\": one atSite helper words them for the full card, the compact card and the marker labels.",
+    "leftOut": "Nothing else was waiting: production was main 3139b55b (#566), released by another session at 16:45 UTC; main since then held only its release record (#569)."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-26T17:09:28Z",
+        "convex": "Not pushed: no convex/ change since production 3139b55b."
+      },
+      {
+        "commit": "e5fa72ca",
+        "vercel": "dpl_BFSex23TvJ8sb76mQNmo8sec1soq",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/map-link"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com in headless Chrome. Nehemiah 12:39 with Fish Gate chosen, at 320×568 and 390×844: compact card (100 px), the chip and \"at Jerusalem\" both inside the row, Before and After inside the card. Matthew 21:1 with the Mount of Olives chosen: the chip and \"settled\" in view. Numbers 22:5: \"proposed between Aleppo and Carchemish\" on the chip row, the marker label and the desktop card. Genesis 50:11, 10:19 and 28:19 at 1440×900: \"near the mouth of the Jordan River\", \"south of the Lisan\", \"At Beitin\". No paint requests were sent; nothing was painted.",
+    "beforeRelease": "npm test 1721/1721, tsc, lint (0 errors, 14 warnings as before), CI quality-gates on 1567f248. Sol (gpt-6.2-sol, xhigh) ran 2 review rounds; round 1 raised 2 findings, both fixed, and round 2 returned APPROVE. A two-axis code review ran; CodeRabbit had no actionable comments."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_4VnTyRvdFNnQ4be1kBHsxP9qZkG6 (3139b55b, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}
