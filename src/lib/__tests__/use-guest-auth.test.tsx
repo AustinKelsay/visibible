@@ -147,6 +147,109 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("sends no timed retry once the session has ended, but tries again when the reader returns (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+      const convex = await mountUnderConvex();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      // Two minutes, twice the longest backoff, in steps so each retry would render.
+      const quietTwoMinutes = async () => {
+        for (let step = 0; step < 24; step++) await act(async () => { await vi.advanceTimersByTimeAsync(5_000); });
+      };
+      await quietTwoMinutes();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(convex.signIns()).toBe(1);
+      // A return still tries once; refused again, it starts no loop.
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await quietTwoMinutes();
+      expect(convex.signIns()).toBe(2);
+      expect(fetchMock).toHaveBeenCalledTimes(4);
+      fetchMock.mockImplementation(async () => Response.json({ token: "fresh" }));
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      for (let step = 0; step < 3; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.signIns()).toBe(3);
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("tries an ended session once per return, even when the session refresh is slow (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+      const convex = await mountUnderConvex();
+      refetch.mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 15_000); }));
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      // Nothing before the refresh settles at 15 s, then one sign-in.
+      for (let step = 0; step < 14; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+      expect(convex.signIns()).toBe(1);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      for (let step = 0; step < 16; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+      expect(convex.signIns()).toBe(2);
+      expect(fetchMock).toHaveBeenCalledTimes(4);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("retries a 401 at once when a return's session refresh settled while it was on its way (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      // The forced fetch left with the old cookie; the return renewed the session before its 401 came back.
+      let refuse!: (response: Response) => void;
+      fetchMock.mockResolvedValueOnce(Response.json({ error: "Session expired" }, { status: 401 }))
+        .mockReturnValueOnce(new Promise<Response>((done) => { refuse = done; }))
+        .mockResolvedValue(Response.json({ token: "fresh" }));
+      const convex = await mountUnderConvex();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await act(async () => { refuse(Response.json({ error: "Session expired" }, { status: 401 })); });
+      for (let step = 0; step < 3; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.sent).toEqual(["fresh"]);
+      expect(convex.signIns()).toBe(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("lets only the latest return's settled refresh release a late 401's retry (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      let refuse!: (response: Response) => void;
+      fetchMock.mockResolvedValueOnce(Response.json({ error: "Session expired" }, { status: 401 }))
+        .mockReturnValueOnce(new Promise<Response>((done) => { refuse = done; }))
+        .mockResolvedValue(Response.json({ token: "fresh" }));
+      const convex = await mountUnderConvex();
+      // Two returns: the first one's refresh settles at 100 ms, the latest one's at 1 s.
+      refetch.mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 100); }))
+        .mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 1_000); }));
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(200); });
+      await act(async () => { refuse(Response.json({ error: "Session expired" }, { status: 401 })); });
+      for (let step = 0; step < 5; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.signIns()).toBe(1);
+      for (let step = 0; step < 5; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.signIns()).toBe(2);
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("does not retry an ended session on reconnect, even during the return's retry (#580)", async () => {
+    let refuse!: (response: Response) => void;
+    fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+    const convex = await mountUnderConvex();
+    await act(async () => { window.dispatchEvent(new Event("online")); });
+    expect(convex.signIns()).toBe(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    fetchMock.mockReturnValueOnce(new Promise<Response>((done) => { refuse = done; }));
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    expect(convex.signIns()).toBe(2);
+    await act(async () => { window.dispatchEvent(new Event("online")); });
+    expect(convex.signIns()).toBe(2);
+    await act(async () => { refuse(Response.json({ error: "Session expired" }, { status: 401 })); });
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+  });
   it("lets a reconnect take the place of a waiting retry (#574)", async () => {
     vi.useFakeTimers();
     try {

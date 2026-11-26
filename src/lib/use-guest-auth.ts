@@ -10,8 +10,11 @@ const RETRY_MAX_MS = 60_000;
 /** How long a return holds a waiting retry back for its session refresh, at most (#574). */
 const FOCUS_HOLD_MS = 10_000;
 
-/** Exchanges the session cookie for a Convex bearer token; null when none comes back. */
-async function requestGuestToken(): Promise<string | null> {
+/**
+ * Exchanges the session cookie for a Convex bearer token; null when none comes back. `sessionEnded` marks a 401: the
+ * session has expired or is gone, which no retry can change (#580).
+ */
+async function requestGuestToken(): Promise<{ token: string | null; sessionEnded: boolean }> {
   try {
     const csrf = document.cookie.split("; ").find((part) =>
       part.startsWith(`${CSRF_COOKIE_NAME}=`))?.slice(CSRF_COOKIE_NAME.length + 1);
@@ -20,11 +23,11 @@ async function requestGuestToken(): Promise<string | null> {
       method: "POST", credentials: "same-origin", cache: "no-store",
       headers: { [CSRF_HEADER_NAME]: csrf ?? "" },
     });
-    if (!response.ok) return null;
+    if (!response.ok) return { token: null, sessionEnded: response.status === 401 };
     const result = await response.json();
-    return typeof result.token === "string" ? result.token : null;
+    return { token: typeof result.token === "string" ? result.token : null, sessionEnded: false };
   } catch {
-    return null;
+    return { token: null, sessionEnded: false };
   }
 }
 
@@ -41,6 +44,11 @@ export function useGuestAuth() {
     count: 0,
     /** The last sign-in failed and no retry has started since. */
     waiting: false,
+    /**
+     * The last failed sign-in was a 401: the session has ended, so only a return retries it, once its refresh settles.
+     * It holds through that retry until a success, another kind of failure, or a session change (#580).
+     */
+    ended: false,
     /** A return already holds the waiting retry back; later returns keep its deadline. */
     held: false,
     timer: null as ReturnType<typeof setTimeout> | null,
@@ -66,27 +74,39 @@ export function useGuestAuth() {
   }, [startNewSignIn]);
   /** Counts returns: only the latest return's session refresh releases a held retry. */
   const returns = useRef(0);
+  /**
+   * Counts the latest return's settled session refreshes, so a 401 can tell a return renewed the session while it was
+   * on its way (#580).
+   */
+  const refreshes = useRef(0);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally. A failed sign-in is retried after that,
     // since after a long absence the token request needs the renewed CSRF cookie: its timer is held back meanwhile,
     // once and briefly should the refresh stall, and the backoff starts over now the reader is back.
     const onFocus = () => {
-      if (failure.current.waiting && !failure.current.held) {
+      if (failure.current.waiting && !failure.current.held && !failure.current.ended) {
         failure.current.held = true;
         clearRetryTimer();
         failure.current.timer = setTimeout(retryFailedSignIn, FOCUS_HOLD_MS);
       }
       failure.current.count = 0;
       const thisReturn = ++returns.current;
-      void refetch().finally(() => { if (returns.current === thisReturn) retryFailedSignIn(); });
+      void refetch().finally(() => {
+        if (returns.current !== thisReturn) return;
+        refreshes.current++;
+        retryFailedSignIn();
+      });
     };
     // A network reconnect only retries bearer acquisition; it does not renew
-    // the underlying cookie's idle deadline.
+    // the underlying cookie's idle deadline, so it leaves an ended session alone.
+    const onOnline = () => {
+      if (!failure.current.ended) startNewSignIn();
+    };
     window.addEventListener("focus", onFocus);
-    window.addEventListener("online", startNewSignIn);
+    window.addEventListener("online", onOnline);
     return () => {
       window.removeEventListener("focus", onFocus);
-      window.removeEventListener("online", startNewSignIn);
+      window.removeEventListener("online", onOnline);
     };
   }, [refetch, clearRetryTimer, startNewSignIn, retryFailedSignIn]);
   const latestSid = useRef(sid);
@@ -99,6 +119,7 @@ export function useGuestAuth() {
       clearRetryTimer();
       state.count = 0;
       state.waiting = false;
+      state.ended = false;
       state.held = false;
     };
   }, [sid, clearRetryTimer]);
@@ -107,7 +128,8 @@ export function useGuestAuth() {
     if (!sid) return null;
     if (pending.current?.sid === sid && pending.current.epoch === connectionEpoch) return pending.current.promise;
     const promise = (async () => {
-      const token = await requestGuestToken();
+      const refreshesBefore = refreshes.current;
+      const { token, sessionEnded } = await requestGuestToken();
       // A reply for a session no longer shown is discarded, and is no failure of the current one.
       if (latestSid.current !== sid) return null;
       // A superseded attempt's reply is ignored by Convex, so it says nothing about the current sign-in.
@@ -118,11 +140,20 @@ export function useGuestAuth() {
       if (token === null) {
         failure.current.count++;
         failure.current.waiting = true;
-        const delay = Math.min(RETRY_FIRST_MS * 2 ** (failure.current.count - 1), RETRY_MAX_MS);
-        failure.current.timer = setTimeout(retryFailedSignIn, delay);
+        failure.current.ended = sessionEnded;
+        // An ended session gets no timer, only the retry when the reader returns, whose session refresh reports the
+        // expiry or brings a new session. A return whose refresh settled while this request was on its way has missed
+        // it, since the request may have left with the cookie that refresh renewed: its retry runs now (#580).
+        if (!sessionEnded) {
+          const delay = Math.min(RETRY_FIRST_MS * 2 ** (failure.current.count - 1), RETRY_MAX_MS);
+          failure.current.timer = setTimeout(retryFailedSignIn, delay);
+        } else if (refreshes.current !== refreshesBefore) {
+          failure.current.timer = setTimeout(retryFailedSignIn, 0);
+        }
       } else {
         failure.current.count = 0;
         failure.current.waiting = false;
+        failure.current.ended = false;
       }
       return token;
     })();
