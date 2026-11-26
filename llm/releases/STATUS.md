@@ -3,6 +3,7 @@
 **Update icon (26 November 2026, 18:57 UTC).** On the owner's "Release and verify", `main` at `4edef6fb` (#575, #576, issue #573) went out as Vercel `dpl_34oyY3JzvX8FMRp51sDFPoJ7Vvu4`, frontend only.
 - An open page asks `/api/version` on tab focus and every 10 minutes. When a newer deployment is live, a refresh icon shows beside the Visibible name in the reader and beside "Back to reading" elsewhere. Tapping it reloads.
 - Smoke: `/api/version` answers the new ID with `no-store`, the client code carries the same ID, and a live reader tab asks once and shows no icon. This first release cannot announce itself, so the first real notice comes with the next release ([deployment](2026-11-26-update-icon/deployment.json)).
+- Three minutes later (18:59 UTC) another session released `bb26d864` (#577) as `dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX`. That commit contains this one, so the icon stays live.
 
 **Map card: the chosen place's site in view (26 November 2026, 17:09 UTC).** On the owner's "do this systematically end to end", `main` at `e5fa72ca` (#571, issue #570) went out as Vercel `dpl_BFSex23TvJ8sb76mQNmo8sec1soq`, frontend only.
 - In the compact phone card, the chosen place's site follows its chip, and the row scrolls to show both.

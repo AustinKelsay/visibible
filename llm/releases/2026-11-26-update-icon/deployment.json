@@ -27,11 +27,12 @@
     "beforeRelease": "npm test 1730/1730, tsc, lint (0 errors, 14 warnings as before), CI quality-gates on both PRs. Two production builds (dpl_versionA, dpl_versionB) behind a switching local proxy showed the icon after the switch and reloaded into B. Sol (gpt-6.2-sol, xhigh) ran 3 rounds; its findings were fixed (the last after its budget). A two-axis code review and CodeRabbit ran; their findings were fixed."
   },
   "rollback": {
-    "vercel": "Promote dpl_BFSex23TvJ8sb76mQNmo8sec1soq (e5fa72ca, the previous production).",
+    "vercel": "Promote dpl_BFSex23TvJ8sb76mQNmo8sec1soq (e5fa72ca, the production before this release). That also removes #577, which shipped after it in dpl_GfyLdgrD…; to remove only the icon, revert #575 and #576 and release again.",
     "convex": "Nothing to roll back."
   },
   "productionWrites": [
     "One Vercel production deployment."
   ],
-  "spend": "None."
+  "spend": "None.",
+  "supersededBy": "At 18:58:59 UTC another session released main bb26d864 (#577, Convex auth retry) as dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX. That commit contains 4edef6fb, so the update icon stays live; /api/version answered dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX afterwards. Tabs opened on dpl_34oyY3Jz… in those three minutes run the icon's code against a newer deployment, so they are the first that can show it."
 }
