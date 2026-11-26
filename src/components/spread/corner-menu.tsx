@@ -48,8 +48,9 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
 
   return (
     <>
-      {/* The name, and after a release the refresh icon beside it (src/components/update-available.tsx). */}
-      <div className="absolute left-3 top-6 z-30 flex items-center gap-1.5 md:left-5 md:top-8">
+      {/* The name, and after a release the refresh icon beside it (src/components/update-available.tsx). Taps between and
+          around them reach the picture. */}
+      <div className="pointer-events-none absolute left-3 top-6 z-30 flex items-center gap-1.5 md:left-5 md:top-8">
         <button
           ref={name}
           type="button"
@@ -58,7 +59,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
           aria-haspopup="dialog"
           aria-expanded={menu.isOpen}
           onClick={(event) => menu.toggle(event.currentTarget)}
-          className={`flex items-center gap-2 rounded-full ${whole ? "px-3 py-1.5" : "py-1 pr-1 pl-3"} text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
+          className={`pointer-events-auto flex items-center gap-2 rounded-full ${whole ? "px-3 py-1.5" : "py-1 pr-1 pl-3"} text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
         >
           {/* The name and the chip fade each on their own: glass inside a fading parent loses its blur in Chromium. */}
           <span data-fades>Visibible</span>
@@ -68,7 +69,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
             faded it takes no taps: a first tap meant for the picture must not reload the page and lose an Ask draft. */}
         <UpdateAvailable
           data-fades
-          className={`liquid-glass spread-dock relative ${whole ? "hidden" : "flex"} h-7 w-7 items-center justify-center rounded-full text-ink/90 transition-colors duration-[var(--motion-fast)] before:absolute before:-inset-1.5 before:content-[''] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:in-data-[idle=true]:pointer-events-none`}
+          className={`liquid-glass spread-dock relative ${whole ? "hidden" : "flex"} h-7 w-7 items-center justify-center rounded-full text-ink/90 transition-colors duration-[var(--motion-fast)] before:absolute before:-inset-1.5 before:content-[''] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white pointer-events-auto md:in-data-[idle=true]:pointer-events-none`}
         />
       </div>
 
