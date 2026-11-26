@@ -1,0 +1,37 @@
+{
+  "authorization": [
+    "The owner asked for a refresh icon when an update is live (\"full send\"), then for the worthwhile follow-ups, then chose \"Release and verify\" when asked whether to release #575 and #576."
+  ],
+  "release": {
+    "pullRequests": [575, 576],
+    "issues": [573],
+    "commit": "4edef6fb (main)",
+    "summary": "An open page now learns when a newer deployment is live. GET /api/version answers the server's deployment ID (no-store). The page compares it with the ID Next.js builds into its client code (process.env.NEXT_DEPLOYMENT_ID), on tab focus or visibility and every 10 minutes, at most once a minute. When they differ, a small refresh icon with a dot shows beside the Visibible name in the reader and beside \"Back to reading\" on the other pages, with a polite status for screen readers. Tapping it reloads; nothing reloads on its own. #576 only corrects a comment: Next.js, not React, removes <html data-dpl-id>.",
+    "leftOut": "Nothing else was waiting: production was main e5fa72ca (#571); main since then held only its release record (#572)."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-26T18:57:07Z",
+        "convex": "Not pushed: no convex/ change since production e5fa72ca."
+      },
+      {
+        "commit": "4edef6fb",
+        "vercel": "dpl_34oyY3JzvX8FMRp51sDFPoJ7Vvu4",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/update-notice"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "GET https://visibible.com/api/version → 200, Cache-Control no-store, {\"version\":\"dpl_34oyY3JzvX8FMRp51sDFPoJ7Vvu4\"}, the same ID as the served pages' data-dpl-id. Four of John 3:16's client chunks contain that ID as a string literal, so the page's own version is built in. In the browser on visibible.com/john/3/16 a focus event made one /api/version request (200), no icon showed (same version), the status region was mounted empty, and the reader loaded normally. /about 200. The first release with the icon cannot announce itself: tabs opened before it run code without the icon, so the first live notice comes with the next release.",
+    "beforeRelease": "npm test 1730/1730, tsc, lint (0 errors, 14 warnings as before), CI quality-gates on both PRs. Two production builds (dpl_versionA, dpl_versionB) behind a switching local proxy showed the icon after the switch and reloaded into B. Sol (gpt-6.2-sol, xhigh) ran 3 rounds; its findings were fixed (the last after its budget). A two-axis code review and CodeRabbit ran; their findings were fixed."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_BFSex23TvJ8sb76mQNmo8sec1soq (e5fa72ca, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}
