@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { Fragment, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { bookAbbreviation } from "@/data/book-abbreviations";
@@ -133,14 +133,18 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
   const { left, top, maxHeight } = cardPosition(at, gap, { ...box, top: box.clear ?? box.top }, measured || 24 + entries.length * (shared ? 22 : 56) + 110);
   // Set while rendering, so the full view never paints where it does not fit.
   if (!compact && !all && measured > maxHeight) setCompactFor(fit);
-  // A compact card's row of chips scrolls sideways to the chosen place's chip.
+  // A compact card's row of chips scrolls sideways to the chosen place's chip and the site after it (the chip first,
+  // where the two are wider than the row).
   const chips = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const row = chips.current;
     const pressed = row?.querySelector<HTMLElement>('[aria-pressed="true"]');
     if (!compact || !row || !pressed) return;
     const left = pressed.offsetLeft - row.offsetLeft;
-    if (left < row.scrollLeft || left + pressed.offsetWidth > row.scrollLeft + row.clientWidth) row.scrollLeft = Math.max(0, left - 4);
+    const where = pressed.nextElementSibling instanceof HTMLElement ? pressed.nextElementSibling : pressed;
+    const right = Math.min(where.offsetLeft - row.offsetLeft + where.offsetWidth, left + row.clientWidth - 8);
+    if (left < row.scrollLeft) row.scrollLeft = Math.max(0, left - 4);
+    else if (right > row.scrollLeft + row.clientWidth) row.scrollLeft = right - row.clientWidth + 4;
   }, [compact, place.id]);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
@@ -185,7 +189,7 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
       ) : shared ? (
         <>
           {/* A described site ("south of the Lisan") reads as its own heading. */}
-          <p className="pr-6 text-xs leading-snug text-white/70">{/^[a-z]/.test(site(entries[0])) ? site(entries[0]).replace(/^./, (c) => c.toUpperCase()) : `At ${site(entries[0])}`}</p>
+          <p className="pr-6 text-xs leading-snug text-white/70">{capitalised(atSite(site(entries[0])))}</p>
           {/* One line for each place there. */}
           {entries.map(({ place: each, index }) => (
             <p key={`${each.id}:${index}`} className="mt-1 text-[11px] leading-snug text-white/55">
@@ -200,11 +204,11 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
             <p className="font-serif text-base leading-tight text-white">{each.name}</p>
             {each.debated ? (
               <>
-                <p className="mt-1 text-xs leading-snug">Proposed at {each.sites[index].name}</p>
+                <p className="mt-1 text-xs leading-snug">Proposed {atSite(each.sites[index].name)}</p>
                 <p className="mt-0.5 text-[11px] leading-snug text-white/55">{rank(each, index).replace(/^./, (c) => c.toUpperCase())}</p>
               </>
             ) : (
-              <p className="mt-0.5 text-xs leading-snug">{each.sites[index].name === each.name ? "Its site is settled" : `At ${each.sites[index].name}`}</p>
+              <p className="mt-0.5 text-xs leading-snug">{each.sites[index].name === each.name ? "Its site is settled" : capitalised(atSite(each.sites[index].name))}</p>
             )}
           </div>
         ))
@@ -215,22 +219,24 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
           // Compact, the chips keep to one row that scrolls sideways, so many places never push the chapters down.
           <div ref={chips} data-place-chips data-scrolls-sideways={compact ? "" : undefined} className={`flex items-center gap-1 ${compact ? "mb-1 mr-7 overflow-x-auto whitespace-nowrap [scrollbar-width:none]" : "mb-1.5 flex-wrap"}`}>
             {choices.map((entry) => (
-              <button
-                key={`${entry.place.id}:${entry.index}`}
-                type="button"
-                aria-pressed={entry.place.id === place.id}
-                onClick={() => {
-                  remember({ place: entry.place.id });
-                  setChosen(entry.place.id);
-                  setAll(false);
-                }}
-                className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
-              >
-                {entry.place.name}
-              </button>
+              <Fragment key={`${entry.place.id}:${entry.index}`}>
+                <button
+                  type="button"
+                  aria-pressed={entry.place.id === place.id}
+                  onClick={() => {
+                    remember({ place: entry.place.id });
+                    setChosen(entry.place.id);
+                    setAll(false);
+                  }}
+                  className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 font-serif text-[13px] text-white/75 aria-pressed:border-[#f3e6c8] aria-pressed:bg-[#f3e6c8] aria-pressed:text-[#1b1a18] focus-visible:outline-2 focus-visible:outline-white"
+                >
+                  {entry.place.name}
+                </button>
+                {/* The chosen place's site, after its chip (places at one marker can stand at different sites), so it
+                    scrolls into view with the chip however many places share the row. */}
+                {compact && entry.place.id === place.id ? <span className="shrink-0 pr-1 text-[11px] text-white/55">{whereShort(entries.find((each) => each.place.id === place.id) ?? entry)}</span> : null}
+              </Fragment>
             ))}
-            {/* The chosen place's site: places at one marker can stand at different sites. */}
-            {compact ? <span className="shrink-0 text-[11px] text-white/55">{whereShort(entries.find((entry) => entry.place.id === place.id) ?? entries[0])}</span> : null}
           </div>
         ) : null}
         <PlaceChapters key={place.id} place={place} here={here} reference={reference} compact={compact} all={all} onAll={() => {
@@ -255,9 +261,30 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
 /** Where a place is, in a few words for the compact card: "at Beitin", "proposed at Beitin", "settled". */
 function whereShort({ place, index }: MarkerEntry): string {
   const site = place.sites[index].name;
-  if (place.debated) return `proposed at ${site}`;
-  return site === place.name ? "settled" : `at ${site}`;
+  if (place.debated) return `proposed ${atSite(site)}`;
+  return site === place.name ? "settled" : atSite(site);
 }
+
+/**
+ * A site's name as a place to be: "at Beitin". Some sites are described rather than named ("between Aleppo and
+ * Carchemish", "mouth of Wadi Mujib"), and take their own words: "between Aleppo and Carchemish", "at the mouth of
+ * Wadi Mujib", "in the hills of Ephraim".
+ */
+export function atSite(site: string): string {
+  if (!/^[a-z]/.test(site)) return `at ${site}`;
+  const words = DESCRIBED_SITES.find(([start]) => start.test(site))?.[1] ?? "at the ";
+  return `${words}${site}`;
+}
+
+/** How a described site's opening words read after "proposed" (any other takes "at the"). */
+const DESCRIBED_SITES: [RegExp, string][] = [
+  [/^(between|near|(east|north|south|west) of) /, ""],
+  [/^(hills|southern|upper) /, "in the "],
+  [/^southwestern /, "in "],
+  [/^(plain|road|western cliff) /, "on the "],
+];
+
+const capitalised = (text: string) => text.replace(/^./, (c) => c.toUpperCase());
 
 /** "Genesis 28:19". */
 const chapterReference = (named: PlaceChapter) => `${named.book} ${named.chapter}:${named.verse}`;

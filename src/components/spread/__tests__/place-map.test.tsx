@@ -750,7 +750,7 @@ describe("the place card", () => {
     expect(card()!.hasAttribute("data-compact")).toBe(true);
     // The place chips name the places there, with their site; no ranks, no count, no nearby places.
     expect(cardInfo()).toBe("");
-    expect(card()!.textContent).toMatch(/^BethelLuzproposed at Beitin/);
+    expect(card()!.textContent).toMatch(/^Bethelproposed at BeitinLuz/);
     expect(card()!.textContent).not.toContain("favoured");
     expect(card()!.textContent).not.toContain("verses in");
     expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
@@ -768,6 +768,19 @@ describe("the place card", () => {
     expect(card()!.hasAttribute("data-compact")).toBe(true);
   });
 
+  it("words a site that is described, not named, as a place (\"proposed between Aleppo and Carchemish\")", async () => {
+    // Numbers 22:5: Pethor is proposed "between Aleppo and Carchemish" and at Til Barsip.
+    await renderReader(setting("NUM", 22, 5), false, { book: "Numbers", slug: "numbers", chapter: 22, verse: 5 });
+    await act(async () => button("See where this happened")!.click());
+    const labels = [...container.querySelectorAll("[data-rings], [data-pin]")].map((marker) => marker.getAttribute("aria-label") ?? "");
+    expect(labels.join(" ")).toContain("proposed between Aleppo and Carchemish");
+    expect(labels.join(" ")).not.toMatch(/at between/);
+    const described = container.querySelector('[data-rings][aria-label*="between Aleppo"]')!;
+    await act(async () => described.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.textContent).toContain("Proposed between Aleppo and Carchemish");
+    expect(card()!.textContent).not.toMatch(/at between/i);
+  });
+
   it("names the chosen place's site in a compact card whose places stand at different sites", async () => {
     phoneMap(390);
     // Matthew 21:1: Bethphage, proposed at Et Tur, shares a marker with the Mount of Olives.
@@ -779,10 +792,11 @@ describe("the place card", () => {
     }
     expect(card()!.hasAttribute("data-compact")).toBe(true);
     expect(button("Bethphage")!.getAttribute("aria-pressed")).toBe("true");
-    expect(card()!.textContent).toContain("proposed at Et Tur");
+    // The site follows the chosen chip, not the end of the row, so it scrolls into view with that chip.
+    expect(button("Bethphage")!.nextElementSibling!.textContent).toBe("proposed at Et Tur");
     await act(async () => button("Mount of Olives")!.click());
     expect(card()!.textContent).not.toContain("Et Tur");
-    expect(card()!.textContent).toContain("settled");
+    expect(button("Mount of Olives")!.nextElementSibling!.textContent).toBe("settled");
   });
 
   it("keeps keyboard focus on a chapter link as the card turns compact", async () => {
@@ -927,7 +941,7 @@ describe("the place card", () => {
 
   it("keeps to the chosen place when a chapter link leads on from a shared marker", async () => {
     const eyebrow = () => card()!.querySelector("[data-chapters] p")?.textContent;
-    const sodomMarker = () => Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => marker.getAttribute("aria-label")?.includes("Sodom: proposed at south"))!;
+    const sodomMarker = () => Array.from(container.querySelectorAll<SVGGElement>("[data-marker-key]")).find((marker) => marker.getAttribute("aria-label")?.includes("Sodom: proposed south"))!;
     await renderReader(setting("GEN", 10, 19), false, { book: "Genesis", slug: "genesis", chapter: 10, verse: 19 });
     await act(async () => button("See where this happened")!.click());
     await act(async () => sodomMarker().dispatchEvent(new MouseEvent("click", { bubbles: true })));
