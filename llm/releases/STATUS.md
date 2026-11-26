@@ -1,5 +1,9 @@
 # Generic engine release status
 
+**Chapter painting coordinator tidy-up (26 November 2026, 16:45 UTC).** On the owner's "yes!", `main` at `3139b55b` (#566, issue #563) went out as Vercel `dpl_4VnTyRvdFNnQ4be1kBHsxP9qZkG6`, frontend only, with no change in behaviour.
+- The waits a verse sits out and what the image route's answer means live in `src/lib/bulk-answer.ts`; the coordinator's recovery flags are one `BulkRecovery` object in `src/lib/bulk-recovery.ts`.
+- Smoke: a fresh guest sees 20 image requests a minute, and a zero-credit request gets 402. Nothing painted, no spend ([deployment](2026-11-26-bulk-coordinator/deployment.json)).
+
 **Verse map follow-ups (25 November 2026, 20:07 UTC).** On the owner's "full send these followups and then ship it all!", `main` at `6297a059` (#567, spec #561) went out as Vercel `dpl_AtZwjVZKbexyeYFrCmmmEz7JpXMN`, frontend only.
 - Automatic painting waits while the map covers the picture, and closing the map paints the verse then in view once.
 - On a short phone map the place card opens compact, so its chapters before and after show without a scroll. It steps aside while Ask is open on a phone, and a swipe across its chips does not turn the page.
