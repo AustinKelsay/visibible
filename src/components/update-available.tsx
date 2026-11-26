@@ -6,7 +6,7 @@ import { RefreshCw } from "lucide-react";
 /** How often an open, visible page asks whether a newer version is live. */
 export const UPDATE_CHECK_EVERY_MS = 10 * 60_000;
 /** Returning to the tab asks too, but never more than once in this long. */
-const MIN_GAP_MS = 60_000;
+const MIN_CHECK_GAP_MS = 60_000;
 
 /**
  * The deployment this page's code came from: Next.js builds the deployment ID into the client code when one is
@@ -32,7 +32,7 @@ function useUpdateAvailable(): boolean {
     let lastAsked = 0;
     let stopped = false;
     const check = async () => {
-      if (document.visibilityState === "hidden" || Date.now() - lastAsked < MIN_GAP_MS) return;
+      if (document.visibilityState === "hidden" || Date.now() - lastAsked < MIN_CHECK_GAP_MS) return;
       lastAsked = Date.now();
       try {
         const response = await fetch("/api/version", { cache: "no-store" });
