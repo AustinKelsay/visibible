@@ -1,5 +1,9 @@
 # Generic engine release status
 
+**The balance recovers after a failed sign-in (26 November 2026, 18:58 UTC).** On the owner's "full send", `main` at `bb26d864` (#577, issue #574) went out as Vercel `dpl_GfyLdgrDnwdHZWx8569Lw2oUP5GX`, frontend only.
+- One failed Convex sign-in no longer leaves the page at "Balance unavailable", with the credits dialog reopening, until a reload. Returning to the tab signs in again once the session refresh renews the CSRF cookie, and a timer retries from 5 s, doubling to 60 s.
+- Smoke: with the first two token requests aborted on visibible.com, the balance came back 0.5 s after a return, or about 5 s later without one. Before the release it stayed unavailable. Nothing painted, no spend ([deployment](2026-11-26-convex-auth-retry/deployment.json)).
+
 **Map card: the chosen place's site in view (26 November 2026, 17:09 UTC).** On the owner's "do this systematically end to end", `main` at `e5fa72ca` (#571, issue #570) went out as Vercel `dpl_BFSex23TvJ8sb76mQNmo8sec1soq`, frontend only.
 - In the compact phone card, the chosen place's site follows its chip, and the row scrolls to show both.
 - Sites described rather than named read "proposed between Aleppo and Carchemish" and "At the mouth of Wadi Mujib", not "proposed at between…".
