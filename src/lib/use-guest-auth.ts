@@ -44,7 +44,10 @@ export function useGuestAuth() {
     count: 0,
     /** The last sign-in failed and no retry has started since. */
     waiting: false,
-    /** That failure was a 401: the session has ended, so only a return retries it, once its refresh settles (#580). */
+    /**
+     * The last failed sign-in was a 401: the session has ended, so only a return retries it, once its refresh settles.
+     * It holds through that retry until a success, another kind of failure, or a session change (#580).
+     */
     ended: false,
     /** A return already holds the waiting retry back; later returns keep its deadline. */
     held: false,
@@ -88,7 +91,7 @@ export function useGuestAuth() {
     // A network reconnect only retries bearer acquisition; it does not renew
     // the underlying cookie's idle deadline, so it leaves an ended session alone.
     const onOnline = () => {
-      if (!(failure.current.waiting && failure.current.ended)) startNewSignIn();
+      if (!failure.current.ended) startNewSignIn();
     };
     window.addEventListener("focus", onFocus);
     window.addEventListener("online", onOnline);
@@ -137,6 +140,7 @@ export function useGuestAuth() {
       } else {
         failure.current.count = 0;
         failure.current.waiting = false;
+        failure.current.ended = false;
       }
       return token;
     })();

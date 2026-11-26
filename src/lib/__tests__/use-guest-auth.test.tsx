@@ -181,19 +181,31 @@ describe("in-memory guest refresh", () => {
       const convex = await mountUnderConvex();
       refetch.mockImplementationOnce(() => new Promise<void>((done) => { setTimeout(done, 15_000); }));
       await act(async () => { window.dispatchEvent(new Event("focus")); });
-      for (let step = 0; step < 30; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+      // Nothing before the refresh settles at 15 s, then one sign-in.
+      for (let step = 0; step < 14; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+      expect(convex.signIns()).toBe(1);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      for (let step = 0; step < 16; step++) await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
       expect(convex.signIns()).toBe(2);
       expect(fetchMock).toHaveBeenCalledTimes(4);
     } finally {
       vi.useRealTimers();
     }
   });
-  it("does not retry an ended session on reconnect (#580)", async () => {
+  it("does not retry an ended session on reconnect, even during the return's retry (#580)", async () => {
+    let refuse!: (response: Response) => void;
     fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
     const convex = await mountUnderConvex();
     await act(async () => { window.dispatchEvent(new Event("online")); });
     expect(convex.signIns()).toBe(1);
     expect(fetchMock).toHaveBeenCalledTimes(2);
+    fetchMock.mockReturnValueOnce(new Promise<Response>((done) => { refuse = done; }));
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    expect(convex.signIns()).toBe(2);
+    await act(async () => { window.dispatchEvent(new Event("online")); });
+    expect(convex.signIns()).toBe(2);
+    await act(async () => { refuse(Response.json({ error: "Session expired" }, { status: 401 })); });
+    expect(fetchMock).toHaveBeenCalledTimes(4);
   });
   it("lets a reconnect take the place of a waiting retry (#574)", async () => {
     vi.useFakeTimers();
