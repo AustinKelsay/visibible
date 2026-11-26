@@ -751,6 +751,7 @@ describe("the place card", () => {
     // The place chips name the places there, with their site; no ranks, no count, no nearby places.
     expect(cardInfo()).toBe("");
     expect(card()!.textContent).toMatch(/^Bethelproposed at BeitinLuz/);
+    expect(button("Bethel")!.nextElementSibling!.textContent).toBe("proposed at Beitin");
     expect(card()!.textContent).not.toContain("favoured");
     expect(card()!.textContent).not.toContain("verses in");
     expect(card()!.querySelector("[data-nearby-places]")).toBeNull();
@@ -778,6 +779,16 @@ describe("the place card", () => {
     const described = container.querySelector('[data-rings][aria-label*="between Aleppo"]')!;
     await act(async () => described.dispatchEvent(new MouseEvent("click", { bubbles: true })));
     expect(card()!.textContent).toContain("Proposed between Aleppo and Carchemish");
+    expect(card()!.textContent).not.toMatch(/at between/i);
+  });
+
+  it("words a settled place's described site the same way (\"Hadashah, between Lachish and Gath\")", async () => {
+    await renderReader(setting("JOS", 15, 37), false, { book: "Joshua", slug: "joshua", chapter: 15, verse: 37 });
+    await act(async () => button("See where this happened")!.click());
+    const marker = container.querySelector<SVGGElement>('[data-marker-key][aria-label*="Hadashah"]')!;
+    expect(marker.getAttribute("aria-label")).toContain("Hadashah, between Lachish and Gath");
+    await act(async () => marker.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()!.textContent).toContain("Between Lachish and Gath");
     expect(card()!.textContent).not.toMatch(/at between/i);
   });
 

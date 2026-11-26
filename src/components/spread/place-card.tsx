@@ -140,11 +140,13 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
     const row = chips.current;
     const pressed = row?.querySelector<HTMLElement>('[aria-pressed="true"]');
     if (!compact || !row || !pressed) return;
-    const left = pressed.offsetLeft - row.offsetLeft;
     const where = pressed.nextElementSibling instanceof HTMLElement ? pressed.nextElementSibling : pressed;
-    const right = Math.min(where.offsetLeft - row.offsetLeft + where.offsetWidth, left + row.clientWidth - 8);
-    if (left < row.scrollLeft) row.scrollLeft = Math.max(0, left - 4);
-    else if (right > row.scrollLeft + row.clientWidth) row.scrollLeft = right - row.clientWidth + 4;
+    const left = pressed.offsetLeft - row.offsetLeft;
+    const right = where.offsetLeft - row.offsetLeft + where.offsetWidth;
+    // A little space either side where the two leave room for it.
+    const room = Math.max(0, Math.min(4, (row.clientWidth - (right - left)) / 2));
+    if (right - left > row.clientWidth || left < row.scrollLeft) row.scrollLeft = Math.max(0, left - room);
+    else if (right > row.scrollLeft + row.clientWidth) row.scrollLeft = right - row.clientWidth + room;
   }, [compact, place.id]);
   const spot = entries[0].place.sites[entries[0].index];
   const nearby = nearbyPlaces(spot.lon, spot.lat, entries.map((entry) => entry.place.name), entries.flatMap((entry) => entry.place.sites));
@@ -205,7 +207,7 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
             {each.debated ? (
               <>
                 <p className="mt-1 text-xs leading-snug">Proposed {atSite(each.sites[index].name)}</p>
-                <p className="mt-0.5 text-[11px] leading-snug text-white/55">{rank(each, index).replace(/^./, (c) => c.toUpperCase())}</p>
+                <p className="mt-0.5 text-[11px] leading-snug text-white/55">{capitalised(rank(each, index))}</p>
               </>
             ) : (
               <p className="mt-0.5 text-xs leading-snug">{each.sites[index].name === each.name ? "Its site is settled" : capitalised(atSite(each.sites[index].name))}</p>
@@ -234,7 +236,7 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
                 </button>
                 {/* The chosen place's site, after its chip (places at one marker can stand at different sites), so it
                     scrolls into view with the chip however many places share the row. */}
-                {compact && entry.place.id === place.id ? <span className="shrink-0 pr-1 text-[11px] text-white/55">{whereShort(entries.find((each) => each.place.id === place.id) ?? entry)}</span> : null}
+                {compact && entry.place.id === place.id ? <span className="shrink-0 text-[11px] text-white/55">{whereShort(entry)}</span> : null}
               </Fragment>
             ))}
           </div>
@@ -276,7 +278,7 @@ export function atSite(site: string): string {
   return `${words}${site}`;
 }
 
-/** How a described site's opening words read after "proposed" (any other takes "at the"). */
+/** The words before a described site, by how it opens (any other takes "at the"). */
 const DESCRIBED_SITES: [RegExp, string][] = [
   [/^(between|near|(east|north|south|west) of) /, ""],
   [/^(hills|southern|upper) /, "in the "],
