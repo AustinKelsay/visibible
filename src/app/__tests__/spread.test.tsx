@@ -999,6 +999,29 @@ describe("the corner menu", () => {
     expect(cornerName().hasAttribute("aria-describedby")).toBe(false);
   });
 
+  it("offers a refresh beside the name after a release, and keeps it through the whole-picture view", async () => {
+    vi.stubEnv("NEXT_DEPLOYMENT_ID", "dpl_old");
+    const service = fetch;
+    vi.stubGlobal("fetch", vi.fn((url: string, init?: RequestInit) => (url === "/api/version" ? json({ version: "dpl_new" }) : service(url, init))));
+    savedPictures = [{ id: "john-1-5:a", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 }];
+    try {
+      await openVerse("john", "1", "5");
+      const refresh = () => container.querySelector<HTMLButtonElement>('button[aria-label="Update available. Refresh to update"]');
+      expect(refresh()).toBeNull();
+      await act(async () => { document.dispatchEvent(new Event("visibilitychange")); });
+      expect(refresh()?.parentElement).toBe(cornerName().parentElement);
+      expect(refresh()?.classList.contains("hidden")).toBe(false);
+
+      const picture = () => container.querySelector<HTMLButtonElement>("button:has(img)")!;
+      act(() => { picture().click(); });
+      expect(refresh()?.classList.contains("hidden")).toBe(true);
+      act(() => { picture().click(); });
+      expect(refresh()?.classList.contains("hidden")).toBe(false);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
   it("shows the new balance after a purchase without a reload", async () => {
     session.credits = 0;
     await openVerse("john", "1", "5");
