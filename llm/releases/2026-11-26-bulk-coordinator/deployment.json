@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "Asked \"Should I merge and deploy it then?\" about #566, the owner answered \"yes! Then do any followups needed end to end\"."
+  ],
+  "release": {
+    "pullRequests": [566],
+    "issues": [563],
+    "commit": "3139b55b (main)",
+    "summary": "Chapter painting coordinator refactor, no change in behaviour. The waits a verse sits out and what the route's final answer means moved out of paintItem into src/lib/bulk-answer.ts (sendWaitingOutRefusals, readVerseAnswer and its VerseAnswer outcome); paintItem switches on the outcome. The seven recovery refs (Pause and Stop on their way, the reported job, Done count, settlement in flight, failed saves in a row, the save-retry timer) became one BulkRecovery object in src/lib/bulk-recovery.ts, whose holds() and countFailedSave() hold the two decisions that read them together.",
+    "leftOut": "Nothing else was waiting: production was main 6297a059 (#567); main since then held only the #568 release record."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-26T16:45:44Z",
+        "convex": "Not pushed: no convex/ change since production."
+      },
+      {
+        "commit": "3139b55b",
+        "vercel": "dpl_4VnTyRvdFNnQ4be1kBHsxP9qZkG6",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release",
+        "note": "A first deploy attempt was killed locally before it uploaded; Vercel listed no deployment from it."
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com serves dpl_4VnTyRvd… (vercel inspect). /john/1/1 answers 200. For a fresh guest, /api/rate-limit-status reports generate-image 20 of 20. An automatic zero-credit request for John 1:1 got 402 (required 6, available 0, nothing charged), leaving 19. No chapter was painted: a real bulk run needs credits and the owner's budget, and the owner will run one.",
+    "beforeRelease": "npm test 1709/1709 with no test file changed, tsc clean, eslint 0 errors, CI quality-gates green on 45b363cc; on merged main, tsc clean and the coordinator tests 75/75. An independent agent review compared old and new line by line and found one difference, unreachable: the unmount cleanup now also clears the timer handle. CodeRabbit hit its review limit; the paid on-demand review was not run."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_AtZwjVZKbexyeYFrCmmmEz7JpXMN (6297a059, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "One guest session and one refused image request (nothing charged)."
+  ],
+  "spend": "None."
+}
