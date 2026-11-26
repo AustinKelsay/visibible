@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UpdateAvailable } from "@/components/update-available";
 
 /**
  * The plain header of the pages around the reader (About, API documentation, recovery, not-found and an
@@ -15,12 +16,16 @@ export function SiteHeader() {
         <Link href="/" className="text-base font-semibold tracking-tight text-[var(--foreground)] sm:text-lg">
           Visibible
         </Link>
-        <Link
-          href="/"
-          className="inline-flex min-h-11 items-center text-sm text-[var(--muted)] transition-colors duration-[var(--motion-fast)] hover:text-[var(--foreground)]"
-        >
-          Back to reading
-        </Link>
+        <div className="flex items-center gap-2">
+          {/* After a release, a refresh icon (src/components/update-available.tsx). */}
+          <UpdateAvailable className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)]" />
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center text-sm text-[var(--muted)] transition-colors duration-[var(--motion-fast)] hover:text-[var(--foreground)]"
+          >
+            Back to reading
+          </Link>
+        </div>
       </div>
     </header>
   );

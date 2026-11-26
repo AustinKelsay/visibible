@@ -10,6 +10,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { Feedback, imageContextOf } from "@/components/feedback";
 import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { SocialLinks } from "@/components/site-links";
+import { UpdateAvailable } from "@/components/update-available";
 import { Advanced } from "@/components/spread/advanced";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
@@ -47,20 +48,30 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
 
   return (
     <>
-      <button
-        ref={name}
-        type="button"
-        aria-label="Visibible menu"
-        aria-describedby={whole ? undefined : describedBy}
-        aria-haspopup="dialog"
-        aria-expanded={menu.isOpen}
-        onClick={(event) => menu.toggle(event.currentTarget)}
-        className={`absolute left-3 top-6 z-30 flex items-center gap-2 rounded-full ${whole ? "px-3 py-1.5" : "py-1 pr-1 pl-3"} text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-5 md:top-8`}
-      >
-        {/* The name and the chip fade each on their own: glass inside a fading parent loses its blur in Chromium. */}
-        <span data-fades>Visibible</span>
-        {whole ? null : <AccountChip descriptionId={describedBy} />}
-      </button>
+      {/* The name, and after a release the refresh icon beside it (src/components/update-available.tsx). Taps between and
+          around them reach the picture. */}
+      <div className="pointer-events-none absolute left-3 top-6 z-30 flex items-center gap-1.5 md:left-5 md:top-8">
+        <button
+          ref={name}
+          type="button"
+          aria-label="Visibible menu"
+          aria-describedby={whole ? undefined : describedBy}
+          aria-haspopup="dialog"
+          aria-expanded={menu.isOpen}
+          onClick={(event) => menu.toggle(event.currentTarget)}
+          className={`pointer-events-auto flex items-center gap-2 rounded-full ${whole ? "px-3 py-1.5" : "py-1 pr-1 pl-3"} text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
+        >
+          {/* The name and the chip fade each on their own: glass inside a fading parent loses its blur in Chromium. */}
+          <span data-fades>Visibible</span>
+          {whole ? null : <AccountChip descriptionId={describedBy} />}
+        </button>
+        {/* Hidden, not unmounted, over the whole picture, so a found update is still shown when it closes. While it is
+            faded it takes no taps: a first tap meant for the picture must not reload the page and lose an Ask draft. */}
+        <UpdateAvailable
+          data-fades
+          className={`liquid-glass spread-dock relative ${whole ? "hidden" : "flex"} h-7 w-7 items-center justify-center rounded-full text-ink/90 transition-colors duration-[var(--motion-fast)] before:absolute before:-inset-1.5 before:content-[''] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white pointer-events-auto md:in-data-[idle=true]:pointer-events-none`}
+        />
+      </div>
 
       {menu.isOpen || feedback.isOpen || report.isOpen ? (
         <div aria-hidden="true" className="fixed inset-0 z-30" onClick={() => (menu.isOpen ? menu.close() : feedback.isOpen ? feedback.close() : report.close())} />
