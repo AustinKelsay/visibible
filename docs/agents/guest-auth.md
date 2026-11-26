@@ -34,6 +34,8 @@ T07 verification uses real cookie verification, CSRF and origin validation, real
 
 Convex schedules bearer refresh before expiry. Each issued JWT has a distinct `jti`, including issuances in the same second, so the installed SDK can recognize fresh credentials. Concurrent requests for the same subject are coalesced; a subject change discards the old response. Token fetches time out after ten seconds. Reconnect retries token acquisition; window focus performs ordinary HTTP session activity, which also renews CSRF protection after a long absence.
 
+The Convex client signs the page out after a fetch that returns no token, and does not retry by itself: it starts another sign-in only when `ConvexProviderWithAuth` gets a new `fetchAccessToken`. So `useGuestAuth` remembers a failed fetch for the current session and makes a new one when the reader returns (window focus, or the page becoming visible), and on a timer from 5 s doubling to 60 s. A successful fetch clears both, and a healthy sign-in sends nothing extra (#574).
+
 ## Reactive wallet rollout
 
 `GuestSessionProvider` bootstraps cookie identity outside `ConvexProviderWithAuth`. `SessionProvider` runs inside it and reads `guestAuth.current`; HTTP session responses do not update displayed balances. Missing private access shows reconnect controls while Scripture remains readable. Loading and a verified zero balance are separate states.
