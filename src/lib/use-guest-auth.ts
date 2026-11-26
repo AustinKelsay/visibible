@@ -10,8 +10,11 @@ const RETRY_MAX_MS = 60_000;
 /** How long a return holds a waiting retry back for its session refresh, at most (#574). */
 const FOCUS_HOLD_MS = 10_000;
 
-/** Exchanges the session cookie for a Convex bearer token; null when none comes back. */
-async function requestGuestToken(): Promise<string | null> {
+/**
+ * Exchanges the session cookie for a Convex bearer token; null when none comes back. `sessionEnded` marks a 401: the
+ * session has expired or is gone, which no retry can change (#580).
+ */
+async function requestGuestToken(): Promise<{ token: string | null; sessionEnded: boolean }> {
   try {
     const csrf = document.cookie.split("; ").find((part) =>
       part.startsWith(`${CSRF_COOKIE_NAME}=`))?.slice(CSRF_COOKIE_NAME.length + 1);
@@ -20,11 +23,11 @@ async function requestGuestToken(): Promise<string | null> {
       method: "POST", credentials: "same-origin", cache: "no-store",
       headers: { [CSRF_HEADER_NAME]: csrf ?? "" },
     });
-    if (!response.ok) return null;
+    if (!response.ok) return { token: null, sessionEnded: response.status === 401 };
     const result = await response.json();
-    return typeof result.token === "string" ? result.token : null;
+    return { token: typeof result.token === "string" ? result.token : null, sessionEnded: false };
   } catch {
-    return null;
+    return { token: null, sessionEnded: false };
   }
 }
 
@@ -107,7 +110,7 @@ export function useGuestAuth() {
     if (!sid) return null;
     if (pending.current?.sid === sid && pending.current.epoch === connectionEpoch) return pending.current.promise;
     const promise = (async () => {
-      const token = await requestGuestToken();
+      const { token, sessionEnded } = await requestGuestToken();
       // A reply for a session no longer shown is discarded, and is no failure of the current one.
       if (latestSid.current !== sid) return null;
       // A superseded attempt's reply is ignored by Convex, so it says nothing about the current sign-in.
@@ -118,8 +121,12 @@ export function useGuestAuth() {
       if (token === null) {
         failure.current.count++;
         failure.current.waiting = true;
-        const delay = Math.min(RETRY_FIRST_MS * 2 ** (failure.current.count - 1), RETRY_MAX_MS);
-        failure.current.timer = setTimeout(retryFailedSignIn, delay);
+        // An ended session gets no timer, only the retry when the reader returns, whose session refresh reports the
+        // expiry or brings a new session (#580).
+        if (!sessionEnded) {
+          const delay = Math.min(RETRY_FIRST_MS * 2 ** (failure.current.count - 1), RETRY_MAX_MS);
+          failure.current.timer = setTimeout(retryFailedSignIn, delay);
+        }
       } else {
         failure.current.count = 0;
         failure.current.waiting = false;

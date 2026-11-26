@@ -147,6 +147,24 @@ describe("in-memory guest refresh", () => {
       vi.useRealTimers();
     }
   });
+  it("sends no timed retry once the session has ended, but tries again when the reader returns (#580)", async () => {
+    vi.useFakeTimers();
+    try {
+      fetchMock.mockImplementation(async () => Response.json({ error: "Session expired" }, { status: 401 }));
+      const convex = await mountUnderConvex();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      for (let step = 0; step < 24; step++) await act(async () => { await vi.advanceTimersByTimeAsync(5_000); });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(convex.signIns()).toBe(1);
+      fetchMock.mockImplementation(async () => Response.json({ token: "fresh" }));
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      for (let step = 0; step < 3; step++) await act(async () => { await vi.advanceTimersByTimeAsync(100); });
+      expect(convex.signIns()).toBe(2);
+      expect(convex.sent).toEqual(["fresh"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
   it("lets a reconnect take the place of a waiting retry (#574)", async () => {
     vi.useFakeTimers();
     try {
