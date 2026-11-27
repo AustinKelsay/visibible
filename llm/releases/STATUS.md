@@ -1,5 +1,10 @@
 # Generic engine release status
 
+**Mobile, sideways and tablet reader layout polish (27 November 2026, 17:00 UTC).** `main` at `15ba70cb` (#583), after five council rounds reaching unanimous 10/10 approval, went out as Vercel `dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc`, frontend only.
+- Sideways phones and low laptop windows collapse Ask to one button and keep the verse in view; small sideways phones sit the picture beside the words page while keeping map controls, narrowed marker cards, dense chapter marks (Psalm 119), and unpainted controls visible.
+- Upright tablets keep a 352px minimum words column, cap Look inside the picture column, and lift the picture chip, menus, report panel and play controls clear of the dock; whole-picture mode keeps phone page turns in view and keeps short-window captions tap-through unless a verse overflows.
+- Smoke: `/api/version` returns `dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc`, and headless Chromium on visibible.com verified 768×1024, 844×390, 667×375 (Psalm 119 and map + Ask on Genesis 28:19), and 1440×900. Nothing painted, no spend ([deployment](2026-11-27-mobile-layout-polish/deployment.json)).
+
 **An ended session stops retrying sign-in (26 November 2026, 19:53 UTC).** `main` at `2343bdb9` (#581, issue #580), the follow-up to #577, went out as Vercel `dpl_J5Uesn3NmcBVW1BLcv19mfVDoNsf`, frontend only. The owner chose to merge with one Sol finding (V1) still disputed.
 - When the token route answers 401 because the session has expired or is gone, an open tab no longer sends a refused request every minute. A return to the tab still tries once. Every other failure keeps the 5 s to 60 s retry.
 - Smoke: with the first two token requests answered 401 on visibible.com, nothing more went out for 64 s, and a return signed in within 0.6 s. Network failures still recovered through the 5 s timer. Nothing painted, no spend ([deployment](2026-11-26-auth-retry-401/deployment.json)).
