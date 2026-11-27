@@ -1,0 +1,38 @@
+{
+  "authorization": [
+    "The owner asked for mobile layout polish across chat, questions and map mode, then five council rounds (\"Amazing, now do a few rounds of the council to improve this.\"), and after unanimous 10/10 council approval asked to ship (\"Amazing, let's get this shipped!\")."
+  ],
+  "release": {
+    "pullRequests": [583],
+    "commit": "15ba70cb (main)",
+    "summary": "The reader spread adapts to screen height as well as width through three new Tailwind variants (short, phone-short, phone-land). Sideways phones and low laptop windows collapse Ask to one button and tighten spacing so the verse shows; small sideways phones lay the picture beside the words page while keeping map controls, marker cards (narrowed to fit), verse marks (scaled gaps for dense chapters like Psalm 119), and unpainted controls visible; upright tablets keep at least a 352px words column with Look capped to the picture column and the picture chip/menus/play controls lifted clear of the dock; whole-picture mode keeps phone page turns in view, scrolls only overflowing short-window verses without blocking tap-through, and keeps prose captions clamped; Ask restores focus if its opener hides across a resize. Client only.",
+    "cause": "Short phones, sideways phones, low laptop windows and upright tablets hid verses behind the Ask foot, clipped Look and map cards, hid dense chapter marks, or overlapped the picture chip with the page-turn dock.",
+    "leftOut": "Nothing else was waiting: production was 2343bdb9 (#581); main since then held only the record PR #582 (docs) and #583."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-27T17:00:42Z",
+        "convex": "Not pushed: no convex/ change."
+      },
+      {
+        "commit": "15ba70cb",
+        "vercel": "dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com in headless Chromium (/api/version returned dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc). (1) 768x1024 on /john/1/1: words page 352px wide, Look opened at x 12..404 (392px), dock Previous reachable. (2) 844x390 on /john/1/1: verse visible, compact Ask button visible. (3) 667x375 on /psalms/119/1: side-by-side 293px figure + words column, all 176 verse marks 1.48px wide with no overflow. (4) /genesis/28/19 map mode: Zoom controls visible at 844x390 and kept visible at 667x375 with Ask open. (5) 1440x900 on /john/1/1: words page 576px, full Ask foot unchanged. One guest session; nothing painted, no chat sent, no spend.",
+    "beforeRelease": "npm run typecheck clean; npm run lint 0 errors (14 pre-existing warnings in untouched files); npx vitest run 158 files, 1746 tests passed; GitHub quality-gates green on 5b643593. Five-seat council ran 5 rounds with unanimous 10/10 APPROVE from all four blocking seats (Claude Fable 5.2, Claude Opus 5.5, GPT-6.2 Astra, GPT-6.2 Sol; Grok 4.7 non-blocking). CodeRabbit's Round 0 reduced-motion finding was addressed in 5b643593."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_J5Uesn3NmcBVW1BLcv19mfVDoNsf (2343bdb9, the previous production).",
+    "convex": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "One guest session from the browser smoke check; nothing painted or charged."
+  ],
+  "spend": "None."
+}
