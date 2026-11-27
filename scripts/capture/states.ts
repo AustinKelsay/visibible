@@ -23,6 +23,8 @@ export const READER_STATES: CaptureState[] = [
   // The words page's foot with another question topic chosen (#529).
   { name: "ask-topics", path: "/john/1/6", steps: ["waitfor:region:Picture", "click:button:People & places", "hover:css:article p:nth-of-type(2)"], sizes: ["desktop"] },
   { name: "contents", path: "/john/1/5", steps: ["click:button:Contents", "waitfor:dialog:Contents", "wait:1200"] },
+  // The book list, with a dot on each book that has pictures (the chapter row's dots show in `contents`).
+  { name: "contents-books", path: "/john/1/5", steps: ["click:button:Contents", "waitfor:dialog:Contents", "click:button:John, choose a book", "wait:1200"] },
   // Priced by the `priced` stub. The run's guest has no credits, so the balance note shows; a running job needs a
   // guest with credits and stubbed paintings, which this command cannot give (llm/workflow/READER_CAPTURE.md).
   { name: "paint-chapter", path: "/john/1/5", stubs: ["priced"], steps: ["click:button:Contents", "waitfor:dialog:Contents", "waitfor:button:Paint the", "wait:600"] },

@@ -109,6 +109,16 @@ const picture = (verseId: string, name: string, createdAt: number, style = "clas
 function fakeQuery(query: FunctionReference<"query">, args: unknown) {
   if (args === "skip") return undefined;
   if (getFunctionName(query) === "verseImages:getNearestEarlierPicture") return null;
+  // Which chapters and books have a picture in the reader's styles (the dots on the chapter row and book list).
+  if (getFunctionName(query) === "verseImages:getPaintedChapters") {
+    const read = args as { book: string; styles: string[] };
+    const chapters = savedPictures.filter((p) => read.styles.includes(p.artStyle) && p.id.startsWith(`${read.book}-`)).map((p) => Number(p.id.split("-").at(-2)));
+    return [...new Set(chapters)].sort((x, y) => x - y);
+  }
+  if (getFunctionName(query) === "verseImages:getPaintedBooks") {
+    const read = args as { styles: string[] };
+    return [...new Set(savedPictures.filter((p) => read.styles.includes(p.artStyle)).map((p) => p.id.split(":")[0].replace(/-\d+-\d+$/, "")))];
+  }
   if (getFunctionName(query) === "bulkGenerations:getVerseStatuses") {
     const read = args as { verseIds: string[]; bulkGenerationId: string };
     return read.bulkGenerationId === bulk.state.bulkId ? jobVerses.filter((v) => read.verseIds.includes(v.verseId)) : [];
@@ -313,6 +323,22 @@ describe("Contents", () => {
     expect(contentsReads.at(-1)?.verseIds[0]).toBe("genesis-3-1");
     expect(dialog()).not.toBeNull();
     expect(push).not.toHaveBeenCalled();
+  });
+
+  it("puts a dot on the chapters and books that have pictures, and names them for screen readers", async () => {
+    savedPictures = [picture("john-1-2", "a", 1), picture("john-3-16", "b", 2), picture("acts-2-1", "c", 3)];
+    await openVerse("john", "1", "5");
+    await openContents();
+
+    const chapterRow = () => [...dialog()!.querySelectorAll<HTMLButtonElement>('[aria-label="Chapter"] button')];
+    const dotted = (buttons: HTMLButtonElement[]) => buttons.filter((b) => b.querySelector("span[aria-hidden]")).map((b) => b.getAttribute("aria-label"));
+    expect(dotted(chapterRow())).toEqual(["Chapter 1, has pictures", "Chapter 3, has pictures"]);
+    expect(chapterRow()[1].getAttribute("aria-label")).toBe("Chapter 2");
+
+    click(button("John, choose a book"));
+    const books = [...dialog()!.querySelectorAll<HTMLButtonElement>('[aria-label="Books"] button')];
+    expect(dotted(books)).toEqual(["John, has pictures", "Acts, has pictures"]);
+    expect(books.find((b) => b.textContent === "Romans")?.hasAttribute("aria-label")).toBe(false);
   });
 
   it("closes on Escape and from its close button, returning focus to the passage name", async () => {

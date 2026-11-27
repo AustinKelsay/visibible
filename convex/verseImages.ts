@@ -18,6 +18,7 @@ import { summarizeGenerationSettlement } from "./sessions";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
 import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
+import { BOOK_BY_SLUG } from "../src/data/bible-structure";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -463,6 +464,55 @@ export const getChaptersWithImages = internalQuery({
     }
 
     return Array.from(chaptersWithImages).sort((a, b) => a - b);
+  },
+});
+
+/**
+ * Whether any verse id in [prefix, prefix~) has a picture the caller may see in one of `styles` (already narrowed by
+ * `readerStyles`): one indexed read per style form, stopping at the first visible picture.
+ */
+async function hasPictureInRange(ctx: QueryCtx, prefix: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
+  for (const style of styles) {
+    const stored: Array<string | undefined> = style === DEFAULT_ART_STYLE_ID ? [DEFAULT_ART_STYLE_ID, undefined] : [style];
+    for (const value of stored) {
+      // Rows are read lazily, so a Bible range stops at its first row; only hidden rows (an unopened work's) are skipped.
+      for await (const image of ctx.db.query("verseImages")
+        .withIndex("by_artStyle_verse", (q) => q.eq("artStyleId", value).gte("verseId", prefix).lt("verseId", `${prefix}~`))) {
+        if (await visible(image)) return true;
+      }
+    }
+  }
+  return false;
+}
+
+/**
+ * The Bible books with at least one picture in the reader's styles (the picture rule's styles, as Contents passes
+ * them), for the dots on Contents' book list.
+ */
+export const getPaintedBooks = query({
+  args: { styles: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    const styles = await readerStyles(ctx, args.styles);
+    const visible = await visibleImageFilter(ctx);
+    const painted = await Promise.all(ALL_BOOK_SLUGS.map((slug) => hasPictureInRange(ctx, `${slug}-`, styles, visible)));
+    return ALL_BOOK_SLUGS.filter((_, index) => painted[index]);
+  },
+});
+
+/**
+ * The chapters of a Bible book with at least one picture in the reader's styles, so Contents' chapter row can mark
+ * them: a chapter is marked exactly when its wall would show a picture.
+ */
+export const getPaintedChapters = query({
+  args: { book: v.string(), styles: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    const book = Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, args.book) ? BOOK_BY_SLUG[args.book] : undefined;
+    if (!book) throw new Error("Unknown book");
+    const styles = await readerStyles(ctx, args.styles);
+    const visible = await visibleImageFilter(ctx);
+    const chapters = book.chapters.map((_, index) => index + 1);
+    const painted = await Promise.all(chapters.map((chapter) => hasPictureInRange(ctx, `${args.book}-${chapter}-`, styles, visible)));
+    return chapters.filter((_, index) => painted[index]);
   },
 });
 
