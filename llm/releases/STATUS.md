@@ -1,5 +1,9 @@
 # Generic engine release status
 
+**Contents dots only where the wall shows a picture (27 November 2026, 19:10 UTC).** On the owner's "end to end", `main` at `b7b46a15` (#587) went out Convex only; the frontend stays `dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3`.
+- A dot needs a verse Contents shows (not past the chapter's last verse) whose tile picture, by the wall's own picture rule, is visible and still has its file. These were #585's two declined follow-ups.
+- Smoke: production Convex and visibible.com at 390×664 still mark Genesis 1–2 and Acts 13–14. Nothing painted, no spend ([deployment](2026-11-27-dots-match-wall/deployment.json)).
+
 **Contents marks where the pictures are (27 November 2026, 18:36 UTC).** On the owner's "full send", `main` at `f62c377e` (#585) went out Convex first, then Vercel `dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3`.
 - A small gold dot marks each chapter number and book name in Contents that has a picture by the picture rule, so readers can find the few painted places while most of the Bible has none. Their names end ", has pictures".
 - New public reads `verseImages:getPaintedChapters` and `verseImages:getPaintedBooks`: one indexed existence check per chapter (or book) and style form.
