@@ -82,7 +82,7 @@ export function LookLayer({ verseId }: { verseId: string }) {
     <LayerPanel
       id="look"
       label="Look"
-      className="fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-y-auto rounded-t-[22px] border border-ink/10 bg-reader-glass px-5 pt-4 pb-[max(1.25rem,var(--safe-area-inset-bottom))] text-ink shadow-[0_-20px_80px_rgba(0,0,0,0.55)] outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-28 md:left-[calc((100%-var(--words-page-width))/2)] md:max-h-[calc(100svh-9rem)] short:bottom-[4.75rem] short:max-h-[calc(100svh-6rem)] md:w-[34rem] md:-translate-x-1/2 md:rounded-[22px] md:px-6 md:pt-5 md:pb-4 md:shadow-[0_30px_100px_rgba(0,0,0,0.6)]"
+      className="fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-y-auto rounded-t-[22px] border border-ink/10 bg-reader-glass px-5 pt-4 pb-[max(1.25rem,var(--safe-area-inset-bottom))] text-ink shadow-[0_-20px_80px_rgba(0,0,0,0.55)] outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-28 md:left-[calc((100%-var(--words-page-width))/2)] md:max-h-[calc(100svh-9rem)] short:bottom-[4.75rem] short:max-h-[calc(100svh-6rem)] md:w-[min(34rem,calc(100%-var(--words-page-width)-1.5rem))] md:-translate-x-1/2 md:rounded-[22px] md:px-6 md:pt-5 md:pb-4 md:shadow-[0_30px_100px_rgba(0,0,0,0.6)]"
     >
       <div aria-hidden="true" className="mx-auto mb-3 h-1 w-10 rounded-full bg-ink/20 md:hidden" />
       <div className="flex items-center justify-between">

@@ -49,6 +49,12 @@ export function rank(place: SettingPlace, index: number, short = false): string 
 }
 
 const CARD_WIDTH = 264;
+const CARD_EDGE = 12;
+
+/** The card's rendered width: up to CARD_WIDTH, narrowed when the map column is too narrow for side gutters. */
+export function cardWidth(boxWidth: number): number {
+  return Math.min(CARD_WIDTH, Math.max(0, boxWidth - CARD_EDGE * 2));
+}
 
 /**
  * Where a marker's card goes, in screen pixels, and how tall it may grow before it scrolls: beside the marker (right,
@@ -58,17 +64,18 @@ const CARD_WIDTH = 264;
  * a card too short to read: then it may reach over the footer, down to the box's edge or, on a computer, the dock.
  */
 export function cardPosition(at: { left: number; top: number }, gap: number, box: { width: number; height: number; top?: number; bottom?: number; dock?: number }, height: number) {
-  const edge = 12;
+  const edge = CARD_EDGE;
+  const width = cardWidth(box.width);
   const ceiling = Math.max(edge, box.top ?? 0);
   const place = (floor: number) => {
     const tallest = floor - ceiling;
-    const fitsRight = at.left + gap + CARD_WIDTH <= box.width - edge;
-    const fitsLeft = at.left - gap - CARD_WIDTH >= edge;
+    const fitsRight = at.left + gap + width <= box.width - edge;
+    const fitsLeft = at.left - gap - width >= edge;
     if (fitsRight || fitsLeft) {
       const shown = Math.min(height, tallest);
-      return { left: fitsRight ? at.left + gap : at.left - gap - CARD_WIDTH, top: clamp(at.top - 28, ceiling, floor - shown), maxHeight: tallest };
+      return { left: fitsRight ? at.left + gap : at.left - gap - width, top: clamp(at.top - 28, ceiling, floor - shown), maxHeight: tallest };
     }
-    const left = clamp(at.left - CARD_WIDTH / 2, edge, box.width - CARD_WIDTH - edge);
+    const left = clamp(at.left - width / 2, edge, box.width - width - edge);
     const roomBelow = floor - (at.top + gap);
     const roomAbove = at.top - gap - ceiling;
     const below = height <= roomBelow || (height > roomAbove && roomBelow >= roomAbove);
@@ -166,10 +173,10 @@ export function MarkerCard({ cardRef, entries, at, gap, box, opened, here, refer
         event.preventDefault();
         onEscape();
       }}
-      // A phone with Ask open leaves the map a thin strip, so the card steps aside with the steps and comes back as Ask
-      // closes.
-      className={`absolute z-10 overflow-y-auto overscroll-contain max-md:[main:has([data-ask-page])_&]:hidden rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
-      style={{ left, top, width: CARD_WIDTH, maxHeight }}
+      // A stacked phone with Ask open leaves the map a thin strip, so the card steps aside with the steps and comes back
+      // as Ask closes; a sideways small phone keeps the map's full height beside Ask.
+      className={`absolute z-10 overflow-y-auto overscroll-contain max-md:[main:has([data-ask-page])_&]:hidden phone-land:[main:has([data-ask-page])_&]:block rounded-xl border border-white/10 bg-black/80 px-3 py-2 text-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md ${opened ? "" : "pointer-events-none"}`}
+      style={{ left, top, width: cardWidth(box.width), maxHeight }}
     >
       {opened ? (
         <button

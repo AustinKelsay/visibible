@@ -778,7 +778,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       <div
         ref={leftControls}
         inert={size.squeezed || undefined}
-        className={`absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-6rem)] max-md:[main:has([data-ask-page])_&]:hidden ${size.squeezed ? "invisible" : ""}`}
+        className={`absolute left-3 top-[4.75rem] flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2 md:left-6 md:top-[5.5rem] md:max-w-[calc(100%-6rem)] max-md:[main:has([data-ask-page])_&]:hidden phone-land:[main:has([data-ask-page])_&]:flex ${size.squeezed ? "invisible" : ""}`}
       >
       <div role="group" aria-label="Zoom" className="flex items-center gap-2">
         <div className="liquid-glass flex h-9 items-center overflow-hidden rounded-full p-0.5">
@@ -843,7 +843,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
       </div>
 
       {/* Above the dock on a computer, which floats over the bottom of the picture area. */}
-      <div ref={footer} className="absolute inset-x-3 bottom-3 flex items-end gap-3 md:inset-x-6 md:bottom-28">
+      <div ref={footer} className="absolute inset-x-3 bottom-3 flex items-end gap-3 md:inset-x-6 md:bottom-28 short:bottom-[4.75rem]">
         {picture}
         {/* A long note (many places, beside the picture) scrolls rather than take the controls' room. */}
         <p
@@ -851,7 +851,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
           className="min-w-0 flex-1 overflow-y-auto rounded-xl border border-white/10 bg-black/75 px-3 py-2 text-[11px] leading-snug text-white/85 backdrop-blur-md md:max-w-xl md:text-xs"
         >
           {/* A phone with Ask open leaves the map a thin strip: the note keeps only its credit there. */}
-          <span className="max-md:[main:has([data-ask-page])_&]:hidden">{settingNote(setting)} </span>
+          <span className="max-md:[main:has([data-ask-page])_&]:hidden phone-land:[main:has([data-ask-page])_&]:inline">{settingNote(setting)} </span>
           <a href="https://www.openbible.info/geo/" target="_blank" rel="noreferrer" className="whitespace-nowrap text-white/55 underline decoration-white/25 underline-offset-2 hover:text-white/80">
             Places: OpenBible.info, CC BY 4.0
           </a>
@@ -859,7 +859,7 @@ export default function PlaceMapView({ setting, reference, here, onClose, onExpl
             Both views are drawn from Natural Earth, so the note reads the same on each and switching never changes its
             height. It is public domain, so a phone's strip beside Ask keeps only the credit OpenBible's licence asks for.
           */}
-          <span className="text-white/55 max-md:[main:has([data-ask-page])_&]:hidden">
+          <span className="text-white/55 max-md:[main:has([data-ask-page])_&]:hidden phone-land:[main:has([data-ask-page])_&]:inline">
             {" · "}
             <span className="whitespace-nowrap">Map: Natural Earth</span>
           </span>

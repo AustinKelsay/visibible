@@ -96,9 +96,26 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     translation,
   });
   const layer = useLayer("ask");
+  const { openLayer } = useLayers();
   const [input, setInput] = useState("");
   const footField = useRef<HTMLInputElement>(null);
+  const compactButton = useRef<HTMLButtonElement>(null);
+  const dockButton = useRef<HTMLButtonElement>(null);
   const analytics = { tier: chat.tier, hasCredits: chat.credits > 0 };
+
+  // When the window resizes across the short/md breakpoints while Ask is open, the control that opened Ask may now be
+  // hidden (display: none), leaving focus on body after close; move focus to whichever Ask control is visible.
+  const wasOpen = useRef(layer.isOpen);
+  useEffect(() => {
+    const closed = wasOpen.current && !layer.isOpen;
+    wasOpen.current = layer.isOpen;
+    if (!closed || openLayer !== null) return;
+    if (document.activeElement !== null && document.activeElement !== document.body) return;
+    const fallback = [footField.current, compactButton.current, dockButton.current].find(
+      (element): element is HTMLInputElement | HTMLButtonElement => Boolean(element && element.getClientRects().length > 0),
+    );
+    fallback?.focus();
+  }, [layer.isOpen, openLayer]);
 
   /** Turn the words page over. Focus returns to `opener` when it turns back. */
   const openAsk = (source: AskOpenSource, opener: HTMLElement | null) => {
@@ -187,7 +204,7 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   const topics = questionsByTopic(bookName, chapter, verseNumber);
   const suggestions = topics.find((item) => item.id === topic)?.questions ?? [];
 
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topics, topic, setTopic, suggestions, buyCredits, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, compactButton, dockButton, topics, topic, setTopic, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -233,7 +250,7 @@ function QuestionTopics({ className }: { className?: string }) {
       ref={group}
       role="group"
       aria-label="Question topics"
-      className={`flex gap-1.5 max-md:-mx-4 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:scroll-smooth max-md:px-4 max-md:py-1 motion-reduce:scroll-auto max-md:[scrollbar-width:none] max-md:[mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1rem),transparent)] md:flex-wrap max-md:[&::-webkit-scrollbar]:hidden short:-mx-4 short:flex-nowrap short:overflow-x-auto short:overscroll-x-contain short:scroll-smooth short:px-4 short:py-1 short:[scrollbar-width:none] short:[mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1rem),transparent)] short:[&::-webkit-scrollbar]:hidden ${className ?? ""}`}
+      className={`flex gap-1.5 max-md:-mx-4 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:motion-safe:scroll-smooth max-md:px-4 max-md:py-1 max-md:[scrollbar-width:none] max-md:[mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1rem),transparent)] md:flex-wrap max-md:[&::-webkit-scrollbar]:hidden short:-mx-4 short:flex-nowrap short:overflow-x-auto short:overscroll-x-contain short:motion-safe:scroll-smooth short:px-4 short:py-1 short:[scrollbar-width:none] short:[mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1rem),transparent)] short:[&::-webkit-scrollbar]:hidden ${className ?? ""}`}
     >
       {topics.map(({ id, label }) => (
         <button
@@ -254,15 +271,16 @@ function QuestionTopics({ className }: { className?: string }) {
  * The foot of the words page on a computer: the question topics, the chosen topic's suggested questions and a field.
  * Every topic's questions share one grid cell and only the chosen topic's show, so the foot is as tall as its tallest
  * topic at this width and changing topic does not move the verse. Sending turns the page over. A window too low for
- * all that (a phone held sideways) shows one "Ask a question…" button instead, which turns the page over to the same
- * topics, questions and field, so the verse keeps the room.
+ * all that (a phone held sideways) shows one "Ask about this verse…" button instead, which turns the page over to the
+ * same topics, questions and field, so the verse keeps the room.
  */
 export function AskFoot() {
-  const { reference, topics, topic, ask, footField, openAsk } = useAsk();
+  const { reference, topics, topic, ask, footField, compactButton, openAsk } = useAsk();
   return (
     <>
       <div className="hidden shrink-0 border-t border-ink/10 pt-3 md:mx-9 lg:mx-14 short:block">
         <button
+          ref={compactButton}
           type="button"
           onClick={(event) => openAsk("words_page", event.currentTarget)}
           className="flex min-h-11 w-full items-center gap-2 rounded-full bg-ink/[0.07] px-5 text-[15px] text-ink/80 ring-1 ring-ink/10 transition-colors hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink/70"
@@ -306,9 +324,10 @@ export function AskFoot() {
 
 /** The phone dock's way into Ask: it turns the words page over to the suggestions and the field. */
 export function AskDockButton() {
-  const { openAsk } = useAsk();
+  const { openAsk, dockButton } = useAsk();
   return (
     <button
+      ref={dockButton}
       type="button"
       onClick={(event) => openAsk("dock", event.currentTarget)}
       className="flex min-h-11 flex-1 items-center gap-2 rounded-full bg-ink/10 px-4 text-sm font-medium text-ink/90 transition-colors hover:bg-ink/15 focus-visible:outline-2 focus-visible:outline-ink/70"
@@ -373,7 +392,7 @@ export function AskPage() {
         {/* An answer scrolled up under the quote fades out rather than stopping at a hard edge. */}
         <div
           ref={conversation}
-          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:px-9 md:py-6 lg:px-14 short:py-3"
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:px-9 md:py-6 lg:px-14 short:py-4"
           style={{ maskImage: FADE_FROM_QUOTE, WebkitMaskImage: FADE_FROM_QUOTE }}
         >
           {messages.length === 0 && !isLoading ? (

@@ -85,7 +85,7 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
           if (!layer.isOpen) trackPictureMenuOpened({ pictureCount: pictures.length, tier, hasCredits: credits > 0 });
           layer.toggle(event.currentTarget);
         }}
-        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 min-w-0 ${besidePlay ? "max-md:max-w-[calc(100%-9.5rem)]" : ""} items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
+        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 min-w-0 ${besidePlay ? "max-md:max-w-[calc(100%-9.5rem)]" : ""} items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-24 md:left-5 md:min-h-11 md:px-4 md:text-sm xl:bottom-8 short:bottom-[4.75rem] xl:short:bottom-3`}
       >
         {painting || makingVideo ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />
@@ -163,7 +163,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
       <LayerPanel
         id="picture"
         label="Picture menu"
-        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-ink/10 bg-reader-glass p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
+        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-ink/10 bg-reader-glass p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[9.25rem] md:left-5 md:max-h-[calc(100svh-11rem)] md:w-[22rem] md:rounded-2xl xl:bottom-[5.5rem] xl:max-h-[calc(100svh-9rem)] short:bottom-[8.25rem] short:max-h-[calc(100svh-9rem)] xl:short:bottom-[4.75rem] xl:short:max-h-[calc(100svh-6rem)]"
       >
         <div className="flex items-center justify-between gap-2">
           <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-ink/(--quiet-55) uppercase">Pictures of {readableReference(reference)}</h2>
