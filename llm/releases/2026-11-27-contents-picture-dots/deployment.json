@@ -1,0 +1,40 @@
+{
+  "authorization": [
+    "The owner asked for a visual indicator of which chapters have pictures (\"especially on mobile when I'm scrolling through all the various books and chapters, there's no indication to me which one I click on will have existing images\"), chose \"gold dot\" from five mockups, then asked to review and ship it (\"Amazing, let's get this reviewed and then shipped systematically end to end full send\")."
+  ],
+  "release": {
+    "pullRequests": [585],
+    "commit": "f62c377e (main)",
+    "summary": "Contents puts a small gold dot on each chapter number and book name that has a picture by the picture rule (the reader's ordered styles, narrowed by readerStyles; an unopened work's pictures hidden from non-admins). Their names end \", has pictures\". Two new public Convex queries, verseImages:getPaintedChapters({ book, styles }) and verseImages:getPaintedBooks({ styles }), make one indexed existence check per chapter (or book) and style form on by_artStyle_verse; the server takes a book's chapters from bible-structure. New --reader-painted tokens for dark and light, and a contents-books capture state.",
+    "cause": "Most of the Bible has no pictures yet, and nothing in the chapter row or book list showed where the painted chapters were.",
+    "leftOut": "Nothing else was waiting: production was 15ba70cb (#583); main since then held only the record PR #584 (docs) and #585."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-27T18:31Z",
+        "convex": "Pushed to production unique-impala-244 from f62c377e (dry run first; no index deleted). Adds getPaintedChapters and getPaintedBooks."
+      },
+      {
+        "at": "2026-11-27T18:36Z",
+        "commit": "f62c377e",
+        "vercel": "dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3",
+        "from": "a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "Production Convex via ConvexHttpClient on api.visibible.com with the four public styles: getPaintedBooks returned genesis, acts (0.9 s); getPaintedChapters returned Genesis 1, 2 and Acts 13, 14; Psalms returned none in 0.5 s (the largest book). visibible.com in headless Chromium at 390x664 (/api/version returned dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3): Contents on Genesis 1:1 marked Chapter 1 and Chapter 2 \", has pictures\" with gold dots; the book list marked Genesis and Acts; Acts' row marked chapters 13 and 14. Spending POSTs were blocked; nothing painted, no chat sent, no spend.",
+    "beforeRelease": "npm run typecheck clean; npm run lint 0 errors (14 pre-existing warnings in untouched files); npm test 159 files, 1752 tests passed; npx convex dev --once --typecheck enable against an isolated local backend passed; GitHub quality-gates and CodeRabbit green on fdef9cfe (no actionable comments). Two-axis code review (standards and spec) and one sol-loop round with GPT-6.2 Sol on xhigh (APPROVE at fdef9cfe; two rare-case nits declined as follow-ups in #585)."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc (15ba70cb, the previous production).",
+    "convex": "Not needed for a frontend rollback: the two new queries are additive and unused by the previous frontend."
+  },
+  "productionWrites": [
+    "One Convex production push.",
+    "One Vercel production deployment.",
+    "One guest session from the browser smoke check; nothing painted or charged."
+  ],
+  "spend": "None."
+}

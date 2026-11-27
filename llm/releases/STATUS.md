@@ -1,5 +1,10 @@
 # Generic engine release status
 
+**Contents marks where the pictures are (27 November 2026, 18:36 UTC).** On the owner's "full send", `main` at `f62c377e` (#585) went out Convex first, then Vercel `dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3`.
+- A small gold dot marks each chapter number and book name in Contents that has a picture by the picture rule, so readers can find the few painted places while most of the Bible has none. Their names end ", has pictures".
+- New public reads `verseImages:getPaintedChapters` and `verseImages:getPaintedBooks`: one indexed existence check per chapter (or book) and style form.
+- Smoke: production Convex returned Genesis 1–2 and Acts 13–14, and visibible.com at 390×664 showed their dots and the Genesis and Acts book dots. Nothing painted, no spend ([deployment](2026-11-27-contents-picture-dots/deployment.json)).
+
 **Mobile, sideways and tablet reader layout polish (27 November 2026, 17:00 UTC).** `main` at `15ba70cb` (#583), after five council rounds reaching unanimous 10/10 approval, went out as Vercel `dpl_9V6dcc6gWqTx9KwB3Ndd5ZXC42Rc`, frontend only.
 - Sideways phones and low laptop windows collapse Ask to one button and keep the verse in view; small sideways phones sit the picture beside the words page while keeping map controls, narrowed marker cards, dense chapter marks (Psalm 119), and unpainted controls visible.
 - Upright tablets keep a 352px minimum words column, cap Look inside the picture column, and lift the picture chip, menus, report panel and play controls clear of the dock; whole-picture mode keeps phone page turns in view and keeps short-window captions tap-through unless a verse overflows.
