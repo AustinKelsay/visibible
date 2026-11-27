@@ -469,10 +469,11 @@ export const getChaptersWithImages = internalQuery({
 
 /** Whether `verseId` is a verse of `book` that Contents shows a tile for (its chapter and verse within the book). */
 function isContentsVerse(book: BibleBook, verseId: string) {
-  const match = verseId.slice(book.slug.length).match(/^-(\d+)-(\d+)$/);
-  if (!verseId.startsWith(`${book.slug}-`) || !match) return false;
+  const match = verseId.startsWith(`${book.slug}-`) ? verseId.slice(book.slug.length).match(/^-(\d+)-(\d+)$/) : null;
+  if (!match) return false;
   const [chapter, verse] = [Number(match[1]), Number(match[2])];
-  return chapter >= 1 && verse >= 1 && verse <= (book.chapters[chapter - 1] ?? 0);
+  // Only the id Contents itself asks for ("romans-14-1", not "romans-014-001").
+  return verseId === `${book.slug}-${chapter}-${verse}` && verse >= 1 && verse <= (book.chapters[chapter - 1] ?? 0);
 }
 
 /**
@@ -482,14 +483,14 @@ function isContentsVerse(book: BibleBook, verseId: string) {
  * normally stops at its first row.
  */
 async function hasPictureInRange(ctx: QueryCtx, book: BibleBook, prefix: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
-  const checked = new Set<string>();
+  const seenVerses = new Set<string>();
   for (const style of styles) {
     const stored: Array<string | undefined> = style === DEFAULT_ART_STYLE_ID ? [DEFAULT_ART_STYLE_ID, undefined] : [style];
     for (const value of stored) {
       for await (const image of ctx.db.query("verseImages")
         .withIndex("by_artStyle_verse", (q) => q.eq("artStyleId", value).gte("verseId", prefix).lt("verseId", `${prefix}~`))) {
-        if (checked.has(image.verseId)) continue;
-        checked.add(image.verseId);
+        if (seenVerses.has(image.verseId)) continue;
+        seenVerses.add(image.verseId);
         if (isContentsVerse(book, image.verseId) && (await spreadPictureOf(ctx, image.verseId, styles, visible))) return true;
       }
     }

@@ -70,6 +70,8 @@ describe("the painted chapters read", () => {
     const { t, save } = setup();
     // Romans 14 has 23 verses in Contents: a picture saved under a 24th has no tile.
     await save("romans-14-24", "legacy");
+    // An id Contents never asks for is no tile either.
+    await save("romans-014-001", "classical");
     // A picture whose file is gone shows as an unpainted tile, and so does a verse whose newest picture's file is gone.
     const gone = await save("romans-15-1", "classical");
     await save("romans-16-1", "classical");
