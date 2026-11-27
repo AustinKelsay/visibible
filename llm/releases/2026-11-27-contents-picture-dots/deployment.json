@@ -12,7 +12,7 @@
   "deploy": {
     "steps": [
       {
-        "at": "2026-11-27T18:31Z",
+        "at": "2026-11-27, minutes before the Vercel deploy",
         "convex": "Pushed to production unique-impala-244 from f62c377e (dry run first; no index deleted). Adds getPaintedChapters and getPaintedBooks."
       },
       {
