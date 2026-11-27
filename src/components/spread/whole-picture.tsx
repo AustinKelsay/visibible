@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { useLayer } from "@/components/spread/layers";
 import { withItalics } from "@/components/spread/prose-text";
 import { PageTurnLink, type TrackPageTurn } from "@/components/spread/page-turn";
@@ -18,24 +19,58 @@ interface WholePictureCaptionProps {
 
 /**
  * The whole-picture view's caption: the verse under its reference. On a computer it lies over the foot of
- * the picture, above the dock, and lets taps through to the picture; on a phone it sits below the picture,
+ * the picture, above the dock, and lets taps through to the picture (only a verse long enough to scroll in
+ * a short window takes pointer events on its own text box); on a phone it sits below the picture,
  * with previous and next beside the position line (the words page that holds them is put aside). A prose moment's
  * caption is its first paragraph, cut to a few lines.
  */
 export function WholePictureCaption({ reference, verseText, verseNumber, totalVerses, prevUrl, nextUrl, onTurn }: WholePictureCaptionProps) {
   const { isOpen } = useLayer("whole-picture");
   const word = useMomentWord();
+  const verse = useRef<HTMLParagraphElement>(null);
+
+  // Only capture pointer events on a verse box in a short window when the text actually overflows and needs scrolling.
+  // Prose captions stay clamped to four lines and never scroll.
+  useLayoutEffect(() => {
+    const node = verse.current;
+    if (!isOpen || !node) return;
+    if (word !== "verse") {
+      node.removeAttribute("data-scrolls");
+      return;
+    }
+    let active = true;
+    const sync = () => {
+      if (active) node.toggleAttribute("data-scrolls", node.scrollHeight > node.clientHeight + 1);
+    };
+    sync();
+    void document.fonts?.ready.then(sync);
+    if (typeof ResizeObserver === "undefined") {
+      return () => {
+        active = false;
+      };
+    }
+    const observer = new ResizeObserver(sync);
+    observer.observe(node);
+    return () => {
+      active = false;
+      observer.disconnect();
+    };
+  }, [isOpen, verseText, word]);
+
   if (!isOpen) return null;
   const text = word === "verse"
-    ? "text-[22px] leading-[1.35] md:max-w-[40ch] md:text-[34px] md:leading-[1.25]"
+    ? "text-[22px] leading-[1.35] md:max-w-[40ch] md:text-[34px] md:leading-[1.25] short:text-[24px] short:leading-[1.3] short:max-h-[calc(100svh-12rem)] short:overflow-y-auto short:overscroll-contain short:data-[scrolls]:pointer-events-auto"
     : "line-clamp-4 text-[19px] leading-[1.45] md:max-w-[48ch] md:text-[24px] md:leading-[1.4]";
   return (
     <>
       <figcaption
-        className="pointer-events-none shrink-0 px-6 pt-5 pb-4 text-center md:absolute md:inset-x-0 md:bottom-0 md:bg-gradient-to-t md:from-black/80 md:via-black/40 md:to-transparent md:px-12 md:pt-40 md:pb-32"
+        className="pointer-events-none shrink-0 px-6 pt-5 pb-4 text-center phone-short:pointer-events-auto phone-short:max-h-[45svh] phone-short:overflow-y-auto phone-land:py-2 md:absolute md:inset-x-0 md:bottom-0 md:bg-gradient-to-t md:from-black/80 md:via-black/40 md:to-transparent md:px-12 md:pt-40 md:pb-32 short:pt-6 short:pb-20"
       >
         <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/60 md:text-xs md:text-white/80 md:[text-shadow:0_1px_8px_rgba(0,0,0,0.8)]">{readableReference(reference)}</p>
-        <p className={`mx-auto mt-3 max-w-[34ch] font-serif text-pretty text-white/95 md:[text-shadow:0_1px_12px_rgba(0,0,0,0.6)] ${text}`}>
+        <p
+          ref={verse}
+          className={`mx-auto mt-3 max-w-[34ch] font-serif text-pretty text-white/95 phone-land:mt-1 phone-land:text-[18px] phone-land:leading-[1.3] md:[text-shadow:0_1px_12px_rgba(0,0,0,0.6)] ${text}`}
+        >
           {word === "verse" ? verseText : withItalics(verseText)}
         </p>
       </figcaption>

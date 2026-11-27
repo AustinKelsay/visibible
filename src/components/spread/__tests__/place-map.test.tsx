@@ -9,7 +9,7 @@ import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
 import PlaceMapView, { fitView, freeBand, frameSetting, locatorSpot, placeNames, resetPlaceMap, settingNote, zoomFrames } from "../place-map-view";
-import { cardPosition, rank } from "../place-card";
+import { cardPosition, cardWidth, rank } from "../place-card";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -1137,6 +1137,12 @@ describe("the map's layout", () => {
     const short = cardPosition(strip, gap, { width: 390, height: 253, top: 92 }, 286);
     const bottom = short.top + Math.min(286, short.maxHeight);
     expect(bottom <= strip.top - gap + 10 || short.top >= strip.top + gap - 10).toBe(true);
+    // In a narrow side-by-side map column (a small phone held sideways), the card narrows to keep both side gutters.
+    const narrowWidth = cardWidth(250);
+    expect(narrowWidth).toBe(226);
+    const narrow = cardPosition({ left: 125, top: 150 }, 20, { width: 250, height: 320, top: 76 }, 120);
+    expect(narrow.left).toBe(12);
+    expect(narrow.left + narrowWidth).toBeLessThanOrEqual(250 - 12);
   });
 });
 

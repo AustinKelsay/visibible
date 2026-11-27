@@ -269,6 +269,17 @@ describe("the whole-picture view", () => {
     expect(document.activeElement).toBe(pictureButton());
   });
 
+  it("keeps the caption tap-through on short windows unless the verse text itself overflows", async () => {
+    await openVerse("john", "1", "5");
+    act(() => { pictureButton()?.click(); });
+    const fig = caption()!;
+    const verseEl = fig.querySelectorAll("p")[1]!;
+    expect(fig.classList.contains("pointer-events-none")).toBe(true);
+    expect(fig.classList.contains("short:pointer-events-auto")).toBe(false);
+    expect(verseEl.classList.contains("short:data-[scrolls]:pointer-events-auto")).toBe(true);
+    expect(verseEl.hasAttribute("data-scrolls")).toBe(false);
+  });
+
   it("closes on Escape and returns focus to the picture", async () => {
     await openVerse("john", "1", "5");
     act(() => { pictureButton()?.focus(); pictureButton()?.click(); });

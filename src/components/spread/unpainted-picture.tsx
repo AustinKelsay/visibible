@@ -54,10 +54,10 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
   let body;
   if (paint.painting) {
     body = (
-      <div className="w-full max-w-[280px] space-y-3">
-        <p className="font-serif text-xl text-ink/90">Painting {readableReference(reference)}</p>
+      <div className="w-full max-w-[280px] space-y-3 max-md:[main:has([data-ask-page][data-ask-conversation])_&]:space-y-1.5 phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:space-y-3">
+        <p className="font-serif text-xl text-ink/90 max-md:[main:has([data-ask-page][data-ask-conversation])_&]:truncate max-md:[main:has([data-ask-page][data-ask-conversation])_&]:text-base max-md:[main:has([data-ask-page][data-ask-conversation])_&]:leading-tight phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:overflow-visible phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:whitespace-normal phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:text-xl">Painting {readableReference(reference)}</p>
         <PaintProgress paint={paint} reference={reference} />
-        <p className="text-xs text-ink/(--quiet-60)">
+        <p className="text-xs text-ink/(--quiet-60) max-md:[main:has([data-ask-page][data-ask-conversation])_&]:hidden phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:block">
           {generation.phase === "generating" ? "The picture is being painted." : "Getting the scene ready."} Keep reading; it appears here when it is done.
         </p>
       </div>
@@ -84,10 +84,10 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
   } else {
     body = (
       <>
-        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14 max-md:[main:has([data-ask-page])_&]:hidden phone-land:[main:has([data-ask-page])_&]:flex">
           <Brush aria-hidden="true" className="h-5 w-5 text-ink/85" />
         </span>
-        <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {readableReference(reference)} yet</p>
+        <p className="font-serif text-xl text-ink/90 md:text-2xl max-md:[main:has([data-ask-page][data-ask-conversation])_&]:max-w-full max-md:[main:has([data-ask-page][data-ask-conversation])_&]:truncate max-md:[main:has([data-ask-page][data-ask-conversation])_&]:text-base max-md:[main:has([data-ask-page][data-ask-conversation])_&]:leading-tight phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:overflow-visible phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:whitespace-normal phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:text-xl">No picture for {readableReference(reference)} yet</p>
         <PaintButton paint={paint} label={`Paint this ${word}`} />
       </>
     );
@@ -98,7 +98,7 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
       {/* A soft, darkened memory of the last painting, so the book never goes blank. Decorative. */}
       {glowSource ? <Glow src={glowSource} /> : null}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
-      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
+      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28 short:gap-3 short:pb-16 max-md:[main:has([data-ask-page])_&]:pt-14 max-md:[main:has([data-ask-page])_&]:pb-3 max-md:[main:has([data-ask-page][data-ask-conversation])_&]:gap-1.5 max-md:[main:has([data-ask-page][data-ask-conversation])_&]:pt-[3.25rem] max-md:[main:has([data-ask-page][data-ask-conversation])_&]:pb-2 phone-land:[main:has([data-ask-page])_&]:gap-3 phone-land:[main:has([data-ask-page])_&]:pt-8 phone-land:[main:has([data-ask-page])_&]:pb-6 phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:gap-3 phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:pt-8 phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:pb-6">
         {body}
         {/* In every state, painting included: a reader who turned it on can always turn it off. */}
         <button
@@ -110,7 +110,7 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
             setAutoGenerate(!autoGenerate, "spread_paint_switch");
           }}
           // Under 390px the label is set smaller and closer to the switch, so it fits on one line at 320px.
-          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring max-[389px]:gap-2 max-[389px]:px-1 max-[389px]:text-[13px]"
+          className="mt-1 inline-flex min-h-[44px] items-center gap-3 phone-short:[main:has([data-ask-page])_&]:hidden max-md:[main:has([data-ask-page][data-ask-conversation])_&]:hidden phone-land:[main:has([data-ask-page])_&]:inline-flex phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:inline-flex rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring max-[389px]:gap-2 max-[389px]:px-1 max-[389px]:text-[13px]"
         >
           <span
             aria-hidden="true"

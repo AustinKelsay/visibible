@@ -756,3 +756,21 @@ describe("the owner", () => {
     expect(chatRequests[0]).not.toHaveProperty("quoteId");
   });
 });
+
+describe("closing Ask after the opener hides on resize", () => {
+  it("moves focus to the visible Ask field instead of leaving it on body", async () => {
+    await openVerse();
+    const compact = button("Ask about this verse…", wordsPage());
+    const regular = field("Ask about John 1:5");
+    await click(compact);
+    expect(askPage()).not.toBeNull();
+    // Simulate resizing taller across the short breakpoint: the compact opener is now display:none (cannot take focus)
+    // while the regular Ask field is visible.
+    vi.spyOn(compact, "focus").mockImplementation(() => {});
+    vi.spyOn(compact, "getClientRects").mockReturnValue([] as unknown as DOMRectList);
+    vi.spyOn(regular, "getClientRects").mockReturnValue([new DOMRect(0, 0, 200, 36)] as unknown as DOMRectList);
+    await click(button("Back to the verse", askPage()!));
+    await flush();
+    expect(document.activeElement).toBe(regular);
+  });
+});

@@ -225,7 +225,7 @@ function SavedPaintingWindow({ verseId, reference, onBack }: { verseId: string; 
       type="button"
       onClick={onBack}
       aria-label={`Back to the picture of ${reference}`}
-      className="block h-12 w-20 overflow-hidden rounded-lg border-2 border-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.6)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:h-[5.5rem] md:w-36"
+      className="block h-12 w-20 overflow-hidden rounded-lg border-2 border-white/85 shadow-[0_10px_30px_rgba(0,0,0,0.6)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:h-[5.5rem] md:w-36 short:h-12 short:w-20"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- a remote thumbnail, as on the Contents wall */}
       <img src={src} alt="" className="h-full w-full object-cover" />

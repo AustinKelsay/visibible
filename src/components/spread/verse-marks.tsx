@@ -52,13 +52,15 @@ function MarksWithStatus(props: VerseMarksProps) {
 
 function MarksRow({ label, places, current, onTurn, painted }: VerseMarksProps & { painted: ReadonlySet<number> }) {
   const noun = useMomentWord() === "verse" ? "Verse" : "Passage";
+  // Dense chapters (such as Psalm 119's 176 verses) tighten the gap so fixed gaps never consume the row's width.
+  const gap = places.length > 90 ? "gap-0 lg:gap-px" : places.length > 60 ? "gap-px md:gap-[2px]" : "gap-[2px] md:gap-[3px]";
   return (
     <nav
       aria-label={label}
       data-fades
       className="spread-marks pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/45 to-transparent px-4 pt-[max(0.25rem,var(--safe-area-inset-top))] pb-3 md:right-[var(--words-page-width)] md:px-8 md:pt-3"
     >
-      <ol className="pointer-events-auto flex gap-[2px] md:gap-[3px]">
+      <ol className={`pointer-events-auto flex ${gap}`}>
         {places.map(({ href }, index) => {
           const number = index + 1;
           const isCurrent = number === current;

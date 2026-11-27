@@ -54,7 +54,7 @@ export function SpreadPicture(props: SpreadPictureProps) {
 // On the spread a picture fills its frame. In the whole-picture view it fills the window on a computer;
 // on a phone it keeps its own shape (in the page flow) above its caption.
 const FILL = "absolute inset-0 h-full w-full";
-const WHOLE_IN_FLOW = "block h-auto max-h-[58svh] w-full md:absolute md:inset-0 md:h-full md:max-h-none";
+const WHOLE_IN_FLOW = "block h-auto max-h-full w-full md:absolute md:inset-0 md:h-full md:max-h-none";
 
 /** Where a pressed video is: waiting for its first frame, moving, paused, or held on its last frame. */
 type Phase = "loading" | "playing" | "paused" | "ended";
@@ -253,8 +253,8 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         wholeIsOpen
           ? // On a phone, one row over the picture's bottom-right corner (as on the spread), taking no room in the view's
             // column, so pressing Play moves neither the picture nor the caption.
-            "max-md:relative max-md:inset-auto max-md:-mt-12 max-md:mr-3 max-md:mb-3 max-md:flex-row max-md:items-center max-md:self-end md:right-5 md:bottom-8"
-          : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8"
+            "max-md:relative max-md:inset-auto max-md:-mt-12 max-md:mr-3 max-md:mb-3 max-md:flex-row max-md:items-center max-md:self-end md:right-5 md:bottom-8 short:bottom-3"
+          : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8 short:bottom-[4.75rem] xl:short:bottom-3"
       }`}
     >
       {phase !== null ? (
@@ -331,7 +331,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
           onShowWhole?.(picture.id);
         }}
         className={`block cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white ${
-          wholeIsOpen ? "relative mt-auto w-full shrink-0 md:absolute md:inset-0 md:mt-0" : "absolute inset-0"
+          wholeIsOpen ? "relative mt-auto flex min-h-0 max-h-[58svh] w-full shrink items-center justify-center md:absolute md:inset-0 md:mt-0 md:block md:max-h-none" : "absolute inset-0"
         }`}
       >
         {showThumbnail ? (
