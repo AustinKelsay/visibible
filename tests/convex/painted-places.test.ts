@@ -26,6 +26,7 @@ function setup() {
       verseId, storageId, model: "m", generationId: `g${n}`,
       ...(style === "legacy" ? {} : { engine: "generic" as const, artStyleId: style, provenance: provenance(style, workId) }),
     });
+    return storageId;
   };
   return { t, save };
 }
@@ -63,6 +64,26 @@ describe("the painted chapters read", () => {
     } finally {
       vi.unstubAllEnvs();
     }
+  });
+
+  it("marks a chapter only when its wall would show a picture", async () => {
+    const { t, save } = setup();
+    // Romans 14 has 23 verses in Contents: a picture saved under a 24th has no tile.
+    await save("romans-14-24", "legacy");
+    // An id Contents never asks for is no tile either.
+    await save("romans-014-001", "classical");
+    // A picture whose file is gone shows as an unpainted tile, and so does a verse whose newest picture's file is gone.
+    const gone = await save("romans-15-1", "classical");
+    await save("romans-16-1", "classical");
+    const newestGone = await save("romans-16-1", "classical");
+    await t.run(async (ctx) => { await ctx.storage.delete(gone); await ctx.storage.delete(newestGone); });
+    const read = () => t.query(api.verseImages.getPaintedChapters, { book: "romans", styles: ["classical"] });
+    expect(await read()).toEqual([]);
+    expect(await t.query(api.verseImages.getPaintedBooks, { styles: ["classical"] })).toEqual([]);
+
+    // A real picture later in the same chapter still marks it.
+    await save("romans-15-2", "classical");
+    expect(await read()).toEqual([15]);
   });
 
   it("refuses an unknown book or no styles", async () => {
