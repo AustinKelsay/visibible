@@ -18,7 +18,7 @@ import { summarizeGenerationSettlement } from "./sessions";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
 import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
-import { BOOK_BY_SLUG } from "../src/data/bible-structure";
+import { BOOK_BY_SLUG, type BibleBook } from "../src/data/bible-structure";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -467,18 +467,30 @@ export const getChaptersWithImages = internalQuery({
   },
 });
 
+/** Whether `verseId` is a verse of `book` that Contents shows a tile for (its chapter and verse within the book). */
+function isContentsVerse(book: BibleBook, verseId: string) {
+  const match = verseId.slice(book.slug.length).match(/^-(\d+)-(\d+)$/);
+  if (!verseId.startsWith(`${book.slug}-`) || !match) return false;
+  const [chapter, verse] = [Number(match[1]), Number(match[2])];
+  return chapter >= 1 && verse >= 1 && verse <= (book.chapters[chapter - 1] ?? 0);
+}
+
 /**
- * Whether any verse id in [prefix, prefix~) has a picture the caller may see in one of `styles` (already narrowed by
- * `readerStyles`): one indexed read per style form, stopping at the first visible picture.
+ * Whether any verse of `book` in [prefix, prefix~) shows a picture on its Contents tile under `styles` (already
+ * narrowed by `readerStyles`): the same picture rule the wall uses, so a verse beyond the book's last verse, a hidden
+ * picture or one whose file is gone does not count. Rows are read lazily from the style-leading index, so a range
+ * normally stops at its first row.
  */
-async function hasPictureInRange(ctx: QueryCtx, prefix: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
+async function hasPictureInRange(ctx: QueryCtx, book: BibleBook, prefix: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
+  const checked = new Set<string>();
   for (const style of styles) {
     const stored: Array<string | undefined> = style === DEFAULT_ART_STYLE_ID ? [DEFAULT_ART_STYLE_ID, undefined] : [style];
     for (const value of stored) {
-      // Rows are read lazily, so a Bible range stops at its first row; only hidden rows (an unopened work's) are skipped.
       for await (const image of ctx.db.query("verseImages")
         .withIndex("by_artStyle_verse", (q) => q.eq("artStyleId", value).gte("verseId", prefix).lt("verseId", `${prefix}~`))) {
-        if (await visible(image)) return true;
+        if (checked.has(image.verseId)) continue;
+        checked.add(image.verseId);
+        if (isContentsVerse(book, image.verseId) && (await spreadPictureOf(ctx, image.verseId, styles, visible))) return true;
       }
     }
   }
@@ -494,7 +506,7 @@ export const getPaintedBooks = query({
   handler: async (ctx, args) => {
     const styles = await readerStyles(ctx, args.styles);
     const visible = await visibleImageFilter(ctx);
-    const painted = await Promise.all(ALL_BOOK_SLUGS.map((slug) => hasPictureInRange(ctx, `${slug}-`, styles, visible)));
+    const painted = await Promise.all(ALL_BOOK_SLUGS.map((slug) => hasPictureInRange(ctx, BOOK_BY_SLUG[slug], `${slug}-`, styles, visible)));
     return ALL_BOOK_SLUGS.filter((_, index) => painted[index]);
   },
 });
@@ -511,7 +523,7 @@ export const getPaintedChapters = query({
     const styles = await readerStyles(ctx, args.styles);
     const visible = await visibleImageFilter(ctx);
     const chapters = book.chapters.map((_, index) => index + 1);
-    const painted = await Promise.all(chapters.map((chapter) => hasPictureInRange(ctx, `${args.book}-${chapter}-`, styles, visible)));
+    const painted = await Promise.all(chapters.map((chapter) => hasPictureInRange(ctx, book, `${args.book}-${chapter}-`, styles, visible)));
     return chapters.filter((_, index) => painted[index]);
   },
 });
