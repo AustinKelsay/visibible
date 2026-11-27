@@ -127,7 +127,7 @@ function ContentsBody(place: ContentsPlace) {
       </div>
 
       {choosingBook ? (
-        <BookPicker
+        <BibleBookPicker
           currentSlug={shown.bookSlug}
           onChoose={(bookSlug) => {
             setShown({ bookSlug, chapter: 1 });
@@ -136,9 +136,8 @@ function ContentsBody(place: ContentsPlace) {
         />
       ) : (
         <>
-          <ChapterPicker
-            level="Chapter"
-            count={book.chapters.length}
+          <BibleChapterPicker
+            book={book}
             chosen={shown.chapter}
             onChoose={(chapter) => setShown({ bookSlug: shown.bookSlug, chapter })}
           />
@@ -226,7 +225,29 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
   );
 }
 
-function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: (slug: string) => void }) {
+const NO_PLACES: ReadonlySet<never> = new Set();
+
+/** A small dot (sized by `className`) on a chapter number or book name that has pictures, so the few painted places stand out. */
+function PaintedDot({ onInk = false, className = "" }: { onInk?: boolean; className?: string }) {
+  return <span aria-hidden="true" className={`block shrink-0 rounded-full ${onInk ? "bg-reader-painted-on-ink" : "bg-reader-painted"} ${className}`} />;
+}
+
+type BookPickerProps = { currentSlug: string; onChoose: (slug: string) => void };
+
+/** The book list, with a dot on each book that has a picture in the reader's styles. */
+function BibleBookPicker(props: BookPickerProps) {
+  const isConvexEnabled = useConvexEnabled();
+  return isConvexEnabled ? <PaintedBookPicker {...props} /> : <BookPicker {...props} painted={NO_PLACES} />;
+}
+
+function PaintedBookPicker(props: BookPickerProps) {
+  const { order } = usePictureStyles();
+  const books = useQuery(api.verseImages.getPaintedBooks, { styles: order });
+  const painted = useMemo(() => new Set<string>(books ?? []), [books]);
+  return <BookPicker {...props} painted={painted} />;
+}
+
+function BookPicker({ currentSlug, onChoose, painted }: BookPickerProps & { painted: ReadonlySet<string> }) {
   const [query, setQuery] = useState("");
   const field = useRef<HTMLInputElement>(null);
   useEffect(() => field.current?.focus(), []);
@@ -266,10 +287,12 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
                   <button
                     type="button"
                     aria-current={book.slug === currentSlug ? "true" : undefined}
+                    aria-label={painted.has(book.slug) ? `${book.name}, has pictures` : undefined}
                     onClick={() => onChoose(book.slug)}
-                    className={`w-full truncate rounded-lg px-2 py-2 text-left font-serif text-lg hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink ${book.slug === currentSlug ? "text-ink" : "text-ink/75"}`}
+                    className={`flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left font-serif text-lg hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink ${book.slug === currentSlug ? "text-ink" : "text-ink/75"}`}
                   >
-                    {book.name}
+                    <span className="truncate">{book.name}</span>
+                    {painted.has(book.slug) ? <PaintedDot className="h-1.5 w-1.5" /> : null}
                   </button>
                 </li>
               ))}
@@ -281,17 +304,35 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
   );
 }
 
+type BibleChapterPickerProps = { book: BibleBook; chosen: number; onChoose: (chapter: number) => void };
+
+/** A Bible book's chapter numbers, with a dot on each chapter that has a picture in the reader's styles. */
+function BibleChapterPicker(props: BibleChapterPickerProps) {
+  const isConvexEnabled = useConvexEnabled();
+  return isConvexEnabled
+    ? <PaintedChapterPicker {...props} />
+    : <ChapterPicker level="Chapter" count={props.book.chapters.length} chosen={props.chosen} onChoose={props.onChoose} />;
+}
+
+function PaintedChapterPicker({ book, chosen, onChoose }: BibleChapterPickerProps) {
+  const { order } = usePictureStyles();
+  const chapters = useQuery(api.verseImages.getPaintedChapters, { book: book.slug, chapterCount: book.chapters.length, styles: order });
+  const painted = useMemo(() => new Set<number>(chapters ?? []), [chapters]);
+  return <ChapterPicker level="Chapter" count={book.chapters.length} chosen={chosen} onChoose={onChoose} painted={painted} />;
+}
+
 /**
  * The chapter numbers of a Bible book, or a prose work's divisions by number (each named by its label, which shows as
- * the button's title).
+ * the button's title). A number in `painted` has pictures and carries a dot.
  */
-function ChapterPicker({ level, count, labels, chosen, onChoose }: {
+function ChapterPicker({ level, count, labels, chosen, onChoose, painted = NO_PLACES }: {
   /** The division's name in labels ("Chapter", "Story"). */
   level: string;
   count: number;
   labels?: readonly string[];
   chosen: number;
   onChoose: (chapter: number) => void;
+  painted?: ReadonlySet<number>;
 }) {
   const pressed = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -308,18 +349,20 @@ function ChapterPicker({ level, count, labels, chosen, onChoose }: {
           const number = index + 1;
           const isShown = number === chosen;
           const label = labels?.[index];
+          const hasPictures = painted.has(number);
           return (
             <button
               key={number}
               ref={isShown ? pressed : undefined}
               type="button"
-              aria-label={label ? `${level} ${number}, ${label}` : `${level} ${number}`}
+              aria-label={`${level} ${number}${label ? `, ${label}` : ""}${hasPictures ? ", has pictures" : ""}`}
               title={label}
               aria-pressed={isShown}
               onClick={() => onChoose(number)}
-              className={`inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full px-2 text-sm tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${isShown ? "bg-ink font-semibold text-paper" : "bg-ink/[0.07] text-ink/80 hover:bg-ink/15"}`}
+              className={`relative inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full px-2 text-sm tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${isShown ? "bg-ink font-semibold text-paper" : "bg-ink/[0.07] text-ink/80 hover:bg-ink/15"}`}
             >
               {number}
+              {hasPictures ? <PaintedDot onInk={isShown} className="absolute bottom-[5px] h-[5px] w-[5px] left-1/2 -translate-x-1/2" /> : null}
             </button>
           );
         })}
