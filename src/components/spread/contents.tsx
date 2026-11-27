@@ -225,7 +225,7 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
   );
 }
 
-const NO_PLACES: ReadonlySet<never> = new Set();
+const NO_PAINTED: ReadonlySet<never> = new Set();
 
 /** A small dot (sized by `className`) on a chapter number or book name that has pictures, so the few painted places stand out. */
 function PaintedDot({ onInk = false, className = "" }: { onInk?: boolean; className?: string }) {
@@ -237,7 +237,7 @@ type BookPickerProps = { currentSlug: string; onChoose: (slug: string) => void }
 /** The book list, with a dot on each book that has a picture in the reader's styles. */
 function BibleBookPicker(props: BookPickerProps) {
   const isConvexEnabled = useConvexEnabled();
-  return isConvexEnabled ? <PaintedBookPicker {...props} /> : <BookPicker {...props} painted={NO_PLACES} />;
+  return isConvexEnabled ? <PaintedBookPicker {...props} /> : <BookPicker {...props} painted={NO_PAINTED} />;
 }
 
 function PaintedBookPicker(props: BookPickerProps) {
@@ -316,7 +316,7 @@ function BibleChapterPicker(props: BibleChapterPickerProps) {
 
 function PaintedChapterPicker({ book, chosen, onChoose }: BibleChapterPickerProps) {
   const { order } = usePictureStyles();
-  const chapters = useQuery(api.verseImages.getPaintedChapters, { book: book.slug, chapterCount: book.chapters.length, styles: order });
+  const chapters = useQuery(api.verseImages.getPaintedChapters, { book: book.slug, styles: order });
   const painted = useMemo(() => new Set<number>(chapters ?? []), [chapters]);
   return <ChapterPicker level="Chapter" count={book.chapters.length} chosen={chosen} onChoose={onChoose} painted={painted} />;
 }
@@ -325,7 +325,7 @@ function PaintedChapterPicker({ book, chosen, onChoose }: BibleChapterPickerProp
  * The chapter numbers of a Bible book, or a prose work's divisions by number (each named by its label, which shows as
  * the button's title). A number in `painted` has pictures and carries a dot.
  */
-function ChapterPicker({ level, count, labels, chosen, onChoose, painted = NO_PLACES }: {
+function ChapterPicker({ level, count, labels, chosen, onChoose, painted = NO_PAINTED }: {
   /** The division's name in labels ("Chapter", "Story"). */
   level: string;
   count: number;

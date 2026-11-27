@@ -65,6 +65,8 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `sessions:getAdminDailySpend` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getChapterImageStatus` | internalQuery | Internal | Convex internal dispatch only; no client calls it |
 | `verseImages:getChapterContents` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; at most 200 verse ids, owner-only styles only for an admin |
+| `verseImages:getPaintedBooks` | query | Public | Shared library existence only (Bible book slugs with a picture); no private session records; owner-only styles and unopened works only for an admin |
+| `verseImages:getPaintedChapters` | query | Public | Shared library existence only (chapter numbers with a picture); a known Bible book slug only (its chapters from the server); owner-only styles and unopened works only for an admin |
 | `verseImages:getSpreadPicture` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |
 | `verseImages:getStyleExamples` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |
 | `verseImages:getNearestEarlierPicture` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |

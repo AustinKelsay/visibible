@@ -18,6 +18,7 @@ import { summarizeGenerationSettlement } from "./sessions";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
 import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
+import { BOOK_BY_SLUG } from "../src/data/bible-structure";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -466,9 +467,6 @@ export const getChaptersWithImages = internalQuery({
   },
 });
 
-/** The most chapters a Bible book has (Psalms). */
-const MAX_BOOK_CHAPTERS = 150;
-
 /**
  * Whether any verse id in [prefix, prefix~) has a picture the caller may see in one of `styles` (already narrowed by
  * `readerStyles`): one indexed read per style form, stopping at the first visible picture.
@@ -506,15 +504,13 @@ export const getPaintedBooks = query({
  * them: a chapter is marked exactly when its wall would show a picture.
  */
 export const getPaintedChapters = query({
-  args: { book: v.string(), chapterCount: v.number(), styles: v.array(v.string()) },
+  args: { book: v.string(), styles: v.array(v.string()) },
   handler: async (ctx, args) => {
-    if (!(ALL_BOOK_SLUGS as readonly string[]).includes(args.book)) throw new Error("Unknown book");
-    if (!Number.isInteger(args.chapterCount) || args.chapterCount < 1 || args.chapterCount > MAX_BOOK_CHAPTERS) {
-      throw new Error(`chapterCount must be an integer between 1 and ${MAX_BOOK_CHAPTERS}`);
-    }
+    const book = Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, args.book) ? BOOK_BY_SLUG[args.book] : undefined;
+    if (!book) throw new Error("Unknown book");
     const styles = await readerStyles(ctx, args.styles);
     const visible = await visibleImageFilter(ctx);
-    const chapters = Array.from({ length: args.chapterCount }, (_, index) => index + 1);
+    const chapters = book.chapters.map((_, index) => index + 1);
     const painted = await Promise.all(chapters.map((chapter) => hasPictureInRange(ctx, `${args.book}-${chapter}-`, styles, visible)));
     return chapters.filter((_, index) => painted[index]);
   },

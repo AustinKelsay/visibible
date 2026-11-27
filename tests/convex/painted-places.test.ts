@@ -41,7 +41,7 @@ describe("the painted chapters read", () => {
     await save("acts-2-1", "classical");
     await save("1-john-1-1", "classical");
 
-    const read = (styles: string[]) => t.query(api.verseImages.getPaintedChapters, { book: "john", chapterCount: 21, styles });
+    const read = (styles: string[]) => t.query(api.verseImages.getPaintedChapters, { book: "john", styles });
     expect(await read(["classical", "watercolor"])).toEqual([1, 3, 10]);
     expect(await read(["fresco"])).toEqual([11]);
   });
@@ -49,7 +49,7 @@ describe("the painted chapters read", () => {
   it("does not show chapters painted only in an owner-only style to a reader", async () => {
     const { t, save } = setup();
     await save("john-2-1", "icon");
-    expect(await t.query(api.verseImages.getPaintedChapters, { book: "john", chapterCount: 21, styles: ["classical", "icon"] })).toEqual([]);
+    expect(await t.query(api.verseImages.getPaintedChapters, { book: "john", styles: ["classical", "icon"] })).toEqual([]);
   });
 
   it("hides an unopened work's pictures from readers, but still finds a visible picture behind one", async () => {
@@ -59,17 +59,17 @@ describe("the painted chapters read", () => {
       await save("john-4-1", "classical", "holmes-adventures");
       await save("john-5-1", "classical", "holmes-adventures");
       await save("john-5-2", "classical");
-      expect(await t.query(api.verseImages.getPaintedChapters, { book: "john", chapterCount: 21, styles: ["classical"] })).toEqual([5]);
+      expect(await t.query(api.verseImages.getPaintedChapters, { book: "john", styles: ["classical"] })).toEqual([5]);
     } finally {
       vi.unstubAllEnvs();
     }
   });
 
-  it("refuses an unknown book or an impossible chapter count", async () => {
+  it("refuses an unknown book or no styles", async () => {
     const { t } = setup();
-    await expect(t.query(api.verseImages.getPaintedChapters, { book: "a-scandal-in-bohemia", chapterCount: 1, styles: ["classical"] })).rejects.toThrow(/Unknown book/);
-    await expect(t.query(api.verseImages.getPaintedChapters, { book: "psalms", chapterCount: 151, styles: ["classical"] })).rejects.toThrow(/chapterCount/);
-    await expect(t.query(api.verseImages.getPaintedChapters, { book: "john", chapterCount: 21, styles: [] })).rejects.toThrow(/style/);
+    await expect(t.query(api.verseImages.getPaintedChapters, { book: "a-scandal-in-bohemia", styles: ["classical"] })).rejects.toThrow(/Unknown book/);
+    await expect(t.query(api.verseImages.getPaintedChapters, { book: "constructor", styles: ["classical"] })).rejects.toThrow(/Unknown book/);
+    await expect(t.query(api.verseImages.getPaintedChapters, { book: "john", styles: [] })).rejects.toThrow(/style/);
   });
 });
 
