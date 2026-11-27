@@ -1,0 +1,35 @@
+{
+  "authorization": [
+    "After the Contents picture dots release (#585), the owner asked to fix its two declined follow-ups end to end (\"Okay, let's do one and two, end to end.\")."
+  ],
+  "release": {
+    "pullRequests": [587],
+    "commit": "b7b46a15 (main)",
+    "summary": "Contents' dots (verseImages:getPaintedChapters and getPaintedBooks) count a candidate verse only when it is a verse Contents shows (the canonical id, within bible-structure's verse counts) and the wall's picture rule (spreadPictureOf: newest picture in the first style that has one, visible, file still there) finds a picture. A stray picture past a chapter's last verse or one whose file is gone no longer lights a dot. Convex only; the frontend is unchanged.",
+    "cause": "Two follow-ups declined in #585: a legacy row past a chapter's end (e.g. Romans 14:24, where Contents stops at 23) and a row whose storage file was missing could mark a chapter and book whose wall showed nothing.",
+    "leftOut": "Nothing else was waiting: production Convex was f62c377e (#585); main since then held only the record PR #586 (docs) and #587."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-27T19:10:55Z",
+        "commit": "b7b46a15",
+        "convex": "Pushed to production unique-impala-244 from a clean detached checkout of origin/main with no .env.local, in .claude/worktrees/release (dry run first; no index deleted).",
+        "vercel": "Not deployed: no frontend change. Production stays dpl_42kXK9k4zomCk6MoFzfcJdL5Emr3."
+      }
+    ]
+  },
+  "smoke": {
+    "after": "Production Convex via ConvexHttpClient on api.visibible.com with the four public styles: getPaintedBooks returned genesis, acts (0.4 s); getPaintedChapters returned Genesis 1, 2 and Acts 13, 14; Psalms none (0.4 s). visibible.com in headless Chromium at 390x664 showed the same chapter and book dots. Spending POSTs were blocked; nothing painted, no spend.",
+    "beforeRelease": "New test (red before the fix with [14, 15, 16]) passes; npm test 159 files, 1753 tests; typecheck and eslint clean; npx convex dev --once --typecheck enable passed against an isolated local backend; GitHub quality-gates green on ed3a6073 (CodeRabbit hit its review limit). Two-axis code review and one sol-loop round with GPT-6.2 Sol on xhigh (APPROVE at ed3a6073; two nits declined as follow-ups in #587)."
+  },
+  "rollback": {
+    "convex": "Push Convex from f62c377e (or bcfa38b5) from a clean checkout; the frontend needs nothing.",
+    "vercel": "Nothing to roll back."
+  },
+  "productionWrites": [
+    "One Convex production push.",
+    "One guest session from the browser smoke check; nothing painted or charged."
+  ],
+  "spend": "None."
+}
