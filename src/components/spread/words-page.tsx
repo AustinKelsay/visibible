@@ -13,9 +13,9 @@ import { readableReference } from "@/lib/readable-reference";
 
 /** The verse's size on the words page for each of Look's text sizes, phone then computer. */
 const VERSE_SIZE: Record<TextSize, string> = {
-  small: "text-[22px] leading-[1.4] md:text-[28px] md:leading-[1.35]",
-  medium: "text-[26px] leading-[1.35] md:text-[34px] md:leading-[1.3]",
-  large: "text-[31px] leading-[1.3] md:text-[42px] md:leading-[1.25]",
+  small: "text-[22px] leading-[1.4] md:text-[28px] md:leading-[1.35] short:text-[24px]",
+  medium: "text-[26px] leading-[1.35] md:text-[34px] md:leading-[1.3] short:text-[28px]",
+  large: "text-[31px] leading-[1.3] md:text-[42px] md:leading-[1.25] short:text-[34px]",
 };
 
 /** A prose moment's paragraphs are longer than a verse, so each text size sets them smaller. */
@@ -82,20 +82,20 @@ export function WordsPage({
     <article
       inert={aside}
       data-text-size={textSize}
-      className={`spread-words relative flex min-h-0 flex-1 flex-col bg-reader-page md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-ink/10 md:bg-reader-page-glass md:backdrop-blur-2xl md:backdrop-saturate-150 ${aside ? "max-md:hidden" : ""}`}
+      className={`spread-words relative flex min-h-0 flex-1 flex-col bg-reader-page phone-land:min-w-0 phone-land:border-l phone-land:border-ink/10 md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-ink/10 md:bg-reader-page-glass md:backdrop-blur-2xl md:backdrop-saturate-150 ${aside ? "max-md:hidden" : ""}`}
     >
       {/* A long verse fades into the foot line rather than stopping at a hard edge; the bottom padding
           lets its last line scroll clear of the fade. */}
       <div
         data-turn-in="slide"
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pt-6 pb-8 md:px-12 md:pt-16 lg:px-14"
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pt-6 pb-8 phone-short:pt-5 md:px-9 md:pt-16 lg:px-14 short:pt-7"
         style={{ maskImage: FADE_INTO_FOOT, WebkitMaskImage: FADE_INTO_FOOT }}
       >
         {paragraphs ? (
           <>
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">{bookName}</p>
-            <h1 className="mt-3 font-serif text-4xl leading-tight text-balance text-ink/70 md:mt-8 md:text-5xl">{chapterLabel}</h1>
-            <div className={`mt-5 max-w-[36ch] space-y-[0.8em] font-serif text-ink/95 md:mt-8 ${PROSE_SIZE[textSize]}`}>
+            <h1 className="mt-3 font-serif text-4xl leading-tight text-balance text-ink/70 md:mt-8 md:text-5xl short:mt-3 short:text-4xl">{chapterLabel}</h1>
+            <div className={`mt-5 max-w-[36ch] space-y-[0.8em] font-serif text-ink/95 md:mt-8 short:mt-4 ${PROSE_SIZE[textSize]}`}>
               {paragraphs.map((paragraph, index) => (
                 <p key={index} className="text-pretty">{withItalics(paragraph)}</p>
               ))}
@@ -106,10 +106,10 @@ export function WordsPage({
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
               {bookName} · Chapter {chapter}
             </p>
-            <h1 className="mt-3 font-serif text-6xl leading-none lining-nums text-ink/(--quiet-60) md:mt-8 md:text-8xl">
+            <h1 className="mt-3 font-serif text-6xl leading-none lining-nums text-ink/(--quiet-60) phone-short:mt-2 phone-short:text-5xl md:mt-8 md:text-8xl short:mt-3 short:text-6xl">
               <span className="sr-only">{readableReference(`${bookName} ${chapter}`)}:</span>{verseNumber}
             </h1>
-            <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>
+            <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 phone-short:mt-3 md:mt-8 short:mt-4 ${VERSE_SIZE[textSize]}`}>
               {verseText}
             </p>
             {setting ? <MapLink setting={setting} bookName={bookName} chapter={chapter} verseNumber={verseNumber} /> : null}
@@ -124,7 +124,7 @@ export function WordsPage({
           <LookButton variant="phone" />
         </nav>
       </div>
-      <footer className="flex items-center gap-2 border-t border-ink/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-ink/(--quiet-50) md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
+      <footer className="flex items-center gap-2 border-t border-ink/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-ink/(--quiet-50) md:mx-9 md:gap-4 md:px-0 md:py-5 lg:mx-14 short:py-3">
         <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} className="md:hidden" />
         {/* On a phone the translation and the position sit together in the middle, between the arrows; on a computer
             they take the two ends of the line. With no translation (a prose moment), the position stands alone. */}

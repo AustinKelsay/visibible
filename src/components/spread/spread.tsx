@@ -129,7 +129,7 @@ function SpreadScreen({
 
   return (
     <main
-      className={`${whole ? "reader-dark" : "reader-appearance"} fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-ink md:block`}
+      className={`${whole ? "reader-dark" : "reader-appearance"} fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-ink phone-land:flex-row md:block`}
       style={{ "--words-page-width": WORDS_PAGE_WIDTH_CSS } as CSSProperties}
       data-idle={idle}
       data-arrival={arrival ?? undefined}
@@ -139,13 +139,15 @@ function SpreadScreen({
       <ReaderAppearance />
       {/* In the whole-picture view the frame takes the whole window; on a phone the picture and its caption
           sit centred above the page-turn row. On a phone the picture gives the turned-over words page (Ask)
-          more room. */}
+          more room, and more again once a conversation has begun. On a short phone the picture takes less of the
+          height so more of the verse shows; the map keeps its full height, as its controls and note need it. A small phone held sideways puts the
+          picture beside the words page instead. */}
       <figure
         data-turn-in="fade"
         className={`relative w-full overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none ${
           whole
             ? "flex min-h-0 flex-1 flex-col pt-8 md:block md:pt-0"
-            : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
+            : `md:block aspect-square max-h-[52svh] ${mapShows ? "" : "phone-short:max-h-[46svh]"} shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh] max-md:[main:has([data-ask-page][data-ask-conversation])_&]:max-h-[24svh] phone-land:aspect-auto phone-land:h-full phone-land:w-[44%] phone-land:max-h-none phone-land:[main:has([data-ask-page])_&]:max-h-none phone-land:[main:has([data-ask-page][data-ask-conversation])_&]:max-h-none`
         }`}
       >
         <div className={mapShows ? "hidden" : "contents"}>
@@ -201,7 +203,7 @@ function SpreadScreen({
         <WordsPage key={verseId} {...words} offersAsk={false} />
       )}
 
-      <div className={`pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:flex ${whole ? "md:right-0" : "md:right-[var(--words-page-width)]"}`}>
+      <div className={`pointer-events-none absolute inset-x-0 bottom-8 short:bottom-3 hidden justify-center md:flex ${whole ? "md:right-0" : "md:right-[var(--words-page-width)]"}`}>
         <nav
           aria-label="Turn the page"
           data-fades

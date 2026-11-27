@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Heights the reader's spread adapts to (src/components/spread). `short`: a computer layout too low for the words
+   page's full Ask foot, such as a phone held sideways or a low laptop window. `phone-short`: a phone layout with little
+   height, as most phones have once the browser's bars show. `phone-land`: a small phone held sideways, too narrow for
+   the computer layout and too low to stack the picture over the words, so they sit side by side. */
+@custom-variant short (@media (min-width: 48rem) and (max-height: 42rem));
+@custom-variant phone-short (@media (max-width: 47.99rem) and (max-height: 46rem));
+@custom-variant phone-land (@media (max-width: 47.99rem) and (max-height: 30rem) and (orientation: landscape));
+
 :root {
   /* Colors */
   --background: #ffffff;
@@ -451,6 +459,12 @@ html {
   }
   [data-whole-picture] .spread-marks {
     right: 0;
+  }
+}
+/* A small phone held sideways (the phone-land variant): the marks run over the picture, which takes the left 44%. */
+@media (max-width: 47.99rem) and (max-height: 30rem) and (orientation: landscape) {
+  main:not([data-whole-picture]) .spread-marks {
+    right: 56%;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -84,7 +84,7 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
   } else {
     body = (
       <>
-        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14 max-md:[main:has([data-ask-page])_&]:hidden">
           <Brush aria-hidden="true" className="h-5 w-5 text-ink/85" />
         </span>
         <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {readableReference(reference)} yet</p>
@@ -98,7 +98,7 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
       {/* A soft, darkened memory of the last painting, so the book never goes blank. Decorative. */}
       {glowSource ? <Glow src={glowSource} /> : null}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
-      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
+      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28 short:gap-3 short:pb-16 max-md:[main:has([data-ask-page])_&]:pt-14 max-md:[main:has([data-ask-page])_&]:pb-3">
         {body}
         {/* In every state, painting included: a reader who turned it on can always turn it off. */}
         <button
@@ -110,7 +110,7 @@ export function UnpaintedPicture({ verseId, reference, styles, behindMap = false
             setAutoGenerate(!autoGenerate, "spread_paint_switch");
           }}
           // Under 390px the label is set smaller and closer to the switch, so it fits on one line at 320px.
-          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring max-[389px]:gap-2 max-[389px]:px-1 max-[389px]:text-[13px]"
+          className="mt-1 inline-flex min-h-[44px] items-center gap-3 max-md:[main:has([data-ask-page])_&]:hidden rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring max-[389px]:gap-2 max-[389px]:px-1 max-[389px]:text-[13px]"
         >
           <span
             aria-hidden="true"
